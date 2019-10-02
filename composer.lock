@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab2dd2df631e46f2a3c15ff60a6dac45",
+    "content-hash": "55afe9db9a0beef3fa9e82022beef862",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -162,16 +162,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.24.0",
+            "version": "1.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266"
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
                 "shasum": ""
             },
             "require": {
@@ -236,20 +236,20 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05T09:00:11+00:00"
+            "time": "2019-09-06T13:49:17+00:00"
         },
         {
             "name": "pay-now/paynow-php-sdk",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pay-now/paynow-php-sdk.git",
-                "reference": "1aad6a129c8f49f2ff30bf07b7a9a2b91567b9ab"
+                "reference": "4601b93add6428f6a4369ffd5a7e701473f32ecc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pay-now/paynow-php-sdk/zipball/1aad6a129c8f49f2ff30bf07b7a9a2b91567b9ab",
-                "reference": "1aad6a129c8f49f2ff30bf07b7a9a2b91567b9ab",
+                "url": "https://api.github.com/repos/pay-now/paynow-php-sdk/zipball/4601b93add6428f6a4369ffd5a7e701473f32ecc",
+                "reference": "4601b93add6428f6a4369ffd5a7e701473f32ecc",
                 "shasum": ""
             },
             "require": {
@@ -290,7 +290,7 @@
                 "payment processing",
                 "paynow"
             ],
-            "time": "2019-09-05T08:13:26+00:00"
+            "time": "2019-09-30T06:57:32+00:00"
         },
         {
             "name": "psr/log",

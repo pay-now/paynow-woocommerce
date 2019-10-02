@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Paynow\Model\Payment\Status;
+
 class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 
 	public function __construct() {
@@ -55,16 +57,16 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 
 		if ( $this->is_correct_status( $this->map_order_status( $order ), $notification_status ) ) {
 			switch ( $notification_status ) {
-				case WC_Paynow_Payment_Status::STATUS_PENDING:
+				case Status::STATUS_PENDING:
 					break;
-				case WC_Paynow_Payment_Status::STATUS_REJECTED:
+				case Status::STATUS_REJECTED:
 					$order->update_status( 'failed', __( 'Payment has not been authorized by the buyer.', 'woocommerce-gateway-paynow' ) );
 					break;
-				case WC_Paynow_Payment_Status::STATUS_CONFIRMED:
+				case Status::STATUS_CONFIRMED:
 					$order->payment_complete( $notification_data['paymentId'] );
 					$order->add_order_note( __( 'Payment has been authorized by the buyer.', 'woocommerce-gateway-paynow' ) );
 					break;
-				case WC_Paynow_Payment_Status::STATUS_ERROR:
+				case Status::STATUS_ERROR:
 					$order->update_status( 'failed', __( 'Error occurred during the payment process and the payment could not be completed.', 'woocommerce-gateway-paynow' ) );
 					break;
 			}
@@ -78,14 +80,14 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 	 */
 	private function map_order_status( $order ) {
 		if ( $order->has_status( [ 'pending', 'processing', 'on-hold' ] ) ) {
-			return WC_Paynow_Payment_Status::STATUS_PENDING;
+			return Status::STATUS_PENDING;
 		} elseif ( $order->has_status( 'completed' ) ) {
-			return WC_Paynow_Payment_Status::STATUS_CONFIRMED;
+			return Status::STATUS_CONFIRMED;
 		} elseif ( $order->has_status( 'failed' ) ) {
-			return WC_Paynow_Payment_Status::STATUS_ERROR;
+			return Status::STATUS_ERROR;
 		}
 
-		return WC_Paynow_Payment_Status::STATUS_PENDING;
+		return Status::STATUS_PENDING;
 	}
 
 	/**
@@ -96,17 +98,17 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 	 */
 	private function is_correct_status( $previous_status, $next_status ) {
 		$payment_status_flow    = [
-			WC_Paynow_Payment_Status::STATUS_NEW       => [
-				WC_Paynow_Payment_Status::STATUS_PENDING,
-				WC_Paynow_Payment_Status::STATUS_ERROR
+			Status::STATUS_NEW       => [
+				Status::STATUS_PENDING,
+				Status::STATUS_ERROR
 			],
-			WC_Paynow_Payment_Status::STATUS_PENDING   => [
-				WC_Paynow_Payment_Status::STATUS_CONFIRMED,
-				WC_Paynow_Payment_Status::STATUS_REJECTED
+			Status::STATUS_PENDING   => [
+				Status::STATUS_CONFIRMED,
+				Status::STATUS_REJECTED
 			],
-			WC_Paynow_Payment_Status::STATUS_REJECTED  => [ WC_Paynow_Payment_Status::STATUS_CONFIRMED ],
-			WC_Paynow_Payment_Status::STATUS_CONFIRMED => [],
-			WC_Paynow_Payment_Status::STATUS_ERROR     => []
+			Status::STATUS_REJECTED  => [ Status::STATUS_CONFIRMED ],
+			Status::STATUS_CONFIRMED => [],
+			Status::STATUS_ERROR     => []
 		];
 		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
 		$is_change_possible     = in_array( $next_status, $payment_status_flow[ $previous_status ] );

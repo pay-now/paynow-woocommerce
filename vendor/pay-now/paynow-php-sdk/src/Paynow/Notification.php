@@ -65,7 +65,6 @@ class Notification
     private function verify($signatureKey, $data, array $headers)
     {
         $calculatedSignature = (string)new SignatureCalculator($signatureKey, $data);
-        var_dump($calculatedSignature);
         if ($calculatedSignature !== $this->getPayloadSignature($headers)) {
             throw new SignatureVerificationException("Signature mismatched for payload");
         }
