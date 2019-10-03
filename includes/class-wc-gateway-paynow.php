@@ -3,6 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Paynow\Environment;
+use Paynow\Exception\PaynowException;
+
 class WC_Gateway_Paynow extends WC_Payment_Gateway {
 
 	/**
@@ -28,8 +31,6 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 	 * @var \Paynow\Client
 	 */
 	private $api_client;
-
-	private $version = '1.0.0';
 
 	public function __construct() {
 		$this->id                 = 'paynow';
@@ -70,7 +71,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 		try {
 			$shop_configuration = new \Paynow\Service\ShopConfiguration( $this->api_client );
 			$shop_configuration->changeUrls( $this->get_return_url(), WC_Paynow_Helper::get_notification_url() );
-		} catch ( \Paynow\Exception\PaynowException $exception ) {
+		} catch ( PaynowException $exception ) {
 			wc_add_notice( $exception->getMessage(), 'notice' );
 		}
 	}
@@ -87,11 +88,11 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 	}
 
 	private function init_paynow_client() {
-		$user_agent       = 'Wordpress-' . get_bloginfo( 'version' ) . '/WooCommerce-' . WC()->version . '/Plugin-' . $this->version;
+		$user_agent       = 'Wordpress-' . get_bloginfo( 'version' ) . '/WooCommerce-' . WC()->version . '/Plugin-' . WC_PAYNOW_PLUGIN_VERSION;
 		$this->api_client = new \Paynow\Client(
 			$this->api_key,
 			$this->signature_key,
-			$this->sandbox ? \Paynow\Environment::SANDBOX : \Paynow\Environment::PRODUCTION,
+			$this->sandbox ? Environment::SANDBOX : Environment::PRODUCTION,
 			$user_agent
 		);
 	}
@@ -107,7 +108,8 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			'description' => __( 'Order No: ', 'woocommerce-gateway-paynow' ) . $order_id,
 			'buyer'       => [
 				'email' => $billing_data['email']
-			]
+			],
+			'continueUrl' => $this->get_return_url($order)
 		];
 		$payment      = new \Paynow\Service\Payment( $this->api_client );
 
@@ -145,7 +147,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 				'result'   => 'success',
 				'redirect' => $payment_data->redirectUrl
 			];
-		} catch ( \Paynow\Exception\PaynowException $exception ) {
+		} catch ( PaynowException $exception ) {
 			wc_add_notice( $exception->getMessage(), 'error' );
 			$order->add_order_note( $exception->getMessage() );
 
@@ -169,11 +171,11 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 	 *
 	 * @param $order
 	 *
-	 * @throws \Paynow\Exception\PaynowException
+	 * @throws PaynowException
 	 */
 	public function validate_minimum_payment_amount( $order ) {
 		if ( WC_Paynow_Helper::get_amount( $order->get_total() ) < WC_Paynow_Helper::get_minimum_amount() ) {
-			throw new \Paynow\Exception\PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'woocommerce-gateway-paynow' ), wc_price( WC_Paynow_Helper::get_minimum_amount() / 100 ) ) );
+			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'woocommerce-gateway-paynow' ), wc_price( WC_Paynow_Helper::get_minimum_amount() / 100 ) ) );
 		}
 	}
 }

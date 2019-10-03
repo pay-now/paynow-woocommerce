@@ -3,8 +3,8 @@
  * Plugin Name: Pay by Paynow
  * Plugin URI: https://github.com/pay-now/paynow-woocommerce
  * Description: Accepts payments by Paynow
- * Version: 1.0.0
- * Author: mBank S.A.
+ * Version: 1.0.1
+ * Author: mElements S.A.
  * Author URI: https://www.paynow.pl
  * License: MIT
  * Text Domain: woocommerce-gateway-paynow
@@ -26,10 +26,10 @@ function woocommerce_gateway_paynow_init() {
 
 	define( 'WC_PAYNOW_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 	define( 'WC_PAYNOW_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+	define( 'WC_PAYNOW_PLUGIN_VERSION', '1.0.1');
 
 	include_once dirname( __FILE__ ) . '/vendor/autoload.php';
 	require_once dirname( __FILE__ ) . '/includes/class-wc-paynow-helper.php';
-	require_once dirname( __FILE__ ) . '/includes/class-wc-paynow-payment-status.php';
 	include_once dirname( __FILE__ ) . '/includes/class-wc-gateway-paynow.php';
 	include_once dirname( __FILE__ ) . '/includes/class-wc-paynow-notification-handler.php';
 
