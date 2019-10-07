@@ -72,7 +72,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			$shop_configuration = new \Paynow\Service\ShopConfiguration( $this->api_client );
 			$shop_configuration->changeUrls( $this->get_return_url(), WC_Paynow_Helper::get_notification_url() );
 		} catch ( PaynowException $exception ) {
-			wc_add_notice( $exception->getMessage(), 'notice' );
+			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
 		}
 	}
 
@@ -109,7 +109,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			'buyer'       => [
 				'email' => $billing_data['email']
 			],
-			'continueUrl' => $this->get_return_url($order)
+			'continueUrl' => $this->get_return_url( $order )
 		];
 		$payment      = new \Paynow\Service\Payment( $this->api_client );
 
@@ -148,7 +148,8 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 				'redirect' => $payment_data->redirectUrl
 			];
 		} catch ( PaynowException $exception ) {
-			wc_add_notice( $exception->getMessage(), 'error' );
+			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() . ' - ' . json_encode($exception->getErrors()) );
+			wc_add_notice( __( 'Error occurred during the payment process and the payment could not be completed.', 'woocommerce-gateway-paynow' ), 'error' );
 			$order->add_order_note( $exception->getMessage() );
 
 			return false;
