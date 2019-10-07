@@ -30,7 +30,8 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 		$order = $this->get_order_by_payment_id( $notification_data['paymentId'] );
 
 		if ( ! $order ) {
-			wc_add_notice( 'Order was not found for ' . $notification_data['paymentId'], 'notice' );
+			$error_message = 'Order was not found for ' . $notification_data['paymentId'];
+			WC_Paynow_Logger::log( 'Error: ' . $error_message );
 			status_header( 400 );
 			exit;
 		}
@@ -39,7 +40,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 			new \Paynow\Notification( $this->signature_key, $payload, $headers );
 			$this->process_notification( $order, $notification_data );
 		} catch ( \Exception $exception ) {
-			wc_add_notice( $exception->getMessage(), 'notice' );
+			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
 			status_header( 400 );
 			exit;
 		}
