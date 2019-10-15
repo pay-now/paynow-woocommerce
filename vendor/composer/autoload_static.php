@@ -7,40 +7,41 @@ namespace Composer\Autoload;
 class ComposerStaticInit0f62dc91167af47992c144b7b52a8df5
 {
     public static $files = array (
-        'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
+        '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'R' => 
-        array (
-            'React\\Promise\\' => 14,
-        ),
         'P' => 
         array (
-            'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
             'Paynow\\Tests\\' => 13,
             'Paynow\\' => 7,
         ),
-        'M' => 
+        'H' => 
         array (
-            'Monolog\\' => 8,
+            'Http\\Promise\\' => 13,
+            'Http\\Message\\' => 13,
+            'Http\\Discovery\\' => 15,
+            'Http\\Client\\Curl\\' => 17,
+            'Http\\Client\\' => 12,
         ),
         'G' => 
         array (
-            'GuzzleHttp\\Stream\\' => 18,
-            'GuzzleHttp\\Ring\\' => 16,
-            'GuzzleHttp\\' => 11,
+            'GuzzleHttp\\Psr7\\' => 16,
+        ),
+        'C' => 
+        array (
+            'Clue\\StreamFilter\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'React\\Promise\\' => 
+        'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/react/promise/src',
-        ),
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Paynow\\Tests\\' => 
         array (
@@ -50,21 +51,34 @@ class ComposerStaticInit0f62dc91167af47992c144b7b52a8df5
         array (
             0 => __DIR__ . '/..' . '/pay-now/paynow-php-sdk/src/Paynow',
         ),
-        'Monolog\\' => 
+        'Http\\Promise\\' => 
         array (
-            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+            0 => __DIR__ . '/..' . '/php-http/promise/src',
         ),
-        'GuzzleHttp\\Stream\\' => 
+        'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/streams/src',
+            0 => __DIR__ . '/..' . '/php-http/message/src',
+            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
         ),
-        'GuzzleHttp\\Ring\\' => 
+        'Http\\Discovery\\' => 
         array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/ringphp/src',
+            0 => __DIR__ . '/..' . '/php-http/discovery/src',
         ),
-        'GuzzleHttp\\' => 
+        'Http\\Client\\Curl\\' => 
         array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+            0 => __DIR__ . '/..' . '/php-http/curl-client/src',
+        ),
+        'Http\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/httplug/src',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'Clue\\StreamFilter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/clue/stream-filter/src',
         ),
     );
 
