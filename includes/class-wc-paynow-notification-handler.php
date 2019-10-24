@@ -27,17 +27,17 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 		$headers           = WC_Paynow_Helper::get_request_headers();
 		$notification_data = json_decode( $payload, true );
 
-		$order = $this->get_order_by_payment_id( $notification_data['paymentId'] );
-
-		if ( ! $order ) {
-			$error_message = 'Order was not found for ' . $notification_data['paymentId'];
-			WC_Paynow_Logger::log( 'Error: ' . $error_message );
-			status_header( 400 );
-			exit;
-		}
-
 		try {
 			new \Paynow\Notification( $this->signature_key, $payload, $headers );
+			$order = wc_get_order( $notification_data['externalId'] );
+
+			if ( ! $order ) {
+				$error_message = 'Order was not found for ' . $notification_data['externalId'];
+				WC_Paynow_Logger::log( 'Error: ' . $error_message );
+				status_header( 400 );
+				exit;
+			}
+
 			$this->process_notification( $order, $notification_data );
 		} catch ( \Exception $exception ) {
 			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
@@ -80,7 +80,9 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 	 * @return string
 	 */
 	private function map_order_status( $order ) {
-		if ( $order->has_status( [ 'pending', 'processing', 'on-hold' ] ) ) {
+		if ( $order->has_status( 'on-hold' ) ) {
+			return Status::STATUS_NEW;
+		} elseif ( $order->has_status( [ 'pending', 'processing' ] ) ) {
 			return Status::STATUS_PENDING;
 		} elseif ( $order->has_status( 'completed' ) ) {
 			return Status::STATUS_CONFIRMED;
@@ -115,29 +117,6 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 		$is_change_possible     = in_array( $next_status, $payment_status_flow[ $previous_status ] );
 
 		return $previous_status_exists && $is_change_possible;
-	}
-
-	/**
-	 * Get order by paymentId
-	 *
-	 * @param $payment_id
-	 *
-	 * @return bool|WC_Order|WC_Order_Refund
-	 */
-	private function get_order_by_payment_id( $payment_id ) {
-		global $wpdb;
-
-		if ( empty( $payment_id ) ) {
-			return false;
-		}
-
-		$order_id = $wpdb->get_var( $wpdb->prepare( "SELECT DISTINCT ID FROM $wpdb->posts as posts LEFT JOIN $wpdb->postmeta as meta ON posts.ID = meta.post_id WHERE meta.meta_value = %s AND meta.meta_key = %s", $payment_id, '_transaction_id' ) );
-
-		if ( ! empty( $order_id ) ) {
-			return wc_get_order( $order_id );
-		}
-
-		return false;
 	}
 }
 
