@@ -9,7 +9,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 
 	public function __construct() {
 		parent::__construct();
-		add_action( 'woo_api_wc_gateway_paynow', array( $this, 'handle_notification' ) );
+		add_action( 'woocommerce_api_wc_gateway_paynow', array( $this, 'handle_notification' ) );
 	}
 
 	/**
