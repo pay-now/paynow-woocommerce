@@ -22,6 +22,11 @@ class WC_Paynow_Logger {
 				}
 			}
 
+			$settings = get_option( 'woocommerce_paynow_settings' );
+			if ( empty( $settings ) || isset( $settings['debug_logs'] ) && 'yes' !== $settings['debug_logs'] ) {
+				return;
+			}
+
 			if ( WC_Paynow_Helper::is_old_wc_version() ) {
 				self::$logger->add( self::WC_LOG_FILENAME, $message );
 			} else {
