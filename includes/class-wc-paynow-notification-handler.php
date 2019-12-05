@@ -27,7 +27,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 		$headers           = WC_Paynow_Helper::get_request_headers();
 		$notification_data = json_decode( $payload, true );
 
-		WC_Paynow_Logger::log( 'Info: Received payment notification ' . $notification_data['status'] . ' for order ' . $notification_data['externalId'] );
+		WC_Paynow_Logger::log( 'Info: Received payment status notification ' . $notification_data['status'] . ' for order ' . $notification_data['externalId'] );
 
 		try {
 			new \Paynow\Notification( $this->signature_key, $payload, $headers );
