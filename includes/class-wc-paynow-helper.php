@@ -32,7 +32,7 @@ class WC_Paynow_Helper {
 	 * @return string
 	 */
 	public static function get_notification_url() {
-		return get_home_url() . wc_get_endpoint_url( 'wc-api/WC_Gateway_Paynow/', '', '' );
+		return add_query_arg( 'wc-api', 'WC_Gateway_Paynow', home_url( '/' ));
 	}
 
 	/**

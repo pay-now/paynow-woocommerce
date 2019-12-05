@@ -61,12 +61,12 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 
 		// Hooks
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, [ $this, 'process_admin_options' ] );
-		add_action( 'woocommerce_api_wc_gateway_' . $this->id, [ $this, 'notification_webhook' ] );
+		add_action( 'woocommerce_api_wc_gateway_' . $this->id, [ $this, 'handle_notification' ] );
 	}
 
 	public function process_admin_options() {
 		parent::process_admin_options();
-
+		$this->init_paynow_client();
 		// update shop configuration
 		try {
 			$shop_configuration = new \Paynow\Service\ShopConfiguration( $this->api_client );
@@ -98,10 +98,10 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 	}
 
 	public function send_payment_request( $order ) {
-		$currency     = $order->get_currency();
-		$order_id     = $order->get_id();
-		$billing_data = $order->get_address();
-		$payment_data = [
+		$currency        = $order->get_currency();
+		$order_id        = $order->get_id();
+		$billing_data    = $order->get_address();
+		$payment_data    = [
 			'amount'      => WC_Paynow_Helper::get_amount( $order->get_total() ),
 			'currency'    => $currency,
 			'externalId'  => $order_id,
@@ -111,9 +111,10 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			],
 			'continueUrl' => $this->get_return_url( $order )
 		];
-		$payment      = new \Paynow\Service\Payment( $this->api_client );
+		$idempotency_key = uniqid( $order_id, true );
+		$payment         = new \Paynow\Service\Payment( $this->api_client );
 
-		return $payment->authorize( $payment_data );
+		return $payment->authorize( $payment_data, $idempotency_key );
 	}
 
 	function process_payment( $order_id ) {
@@ -148,7 +149,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 				'redirect' => $payment_data->redirectUrl
 			];
 		} catch ( PaynowException $exception ) {
-			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() . ' - ' . json_encode($exception->getErrors()) );
+			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() . ' - ' . json_encode( $exception->getErrors() ) );
 			wc_add_notice( __( 'Error occurred during the payment process and the payment could not be completed.', 'woocommerce-gateway-paynow' ), 'error' );
 			$order->add_order_note( $exception->getMessage() );
 

@@ -25,7 +25,7 @@ class WC_Paynow_Logger {
 			if ( WC_Paynow_Helper::is_old_wc_version() ) {
 				self::$logger->add( self::WC_LOG_FILENAME, $message );
 			} else {
-				self::$logger->debug( $message, array( 'source' => self::WC_LOG_FILENAME ) );
+				self::$logger->debug( $message, [ 'source' => self::WC_LOG_FILENAME ] );
 			}
 		}
 	}
