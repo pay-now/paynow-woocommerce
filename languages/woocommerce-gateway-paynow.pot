@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-09 13:17+0000\n"
+"POT-Creation-Date: 2019-12-05 14:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -15,48 +15,53 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.0; wp-5.2.3"
 
-#: includes/class-wc-gateway-paynow.php:37
+#: includes/class-wc-gateway-paynow.php:38
 msgid "Paynow"
 msgstr ""
 
-#: includes/class-wc-gateway-paynow.php:38
+#: includes/class-wc-gateway-paynow.php:39
 msgid "Accepts payments by Paynow"
 msgstr ""
 
-#: includes/class-wc-gateway-paynow.php:51
+#: includes/class-wc-gateway-paynow.php:52
 msgid "Pay by Paynow"
 msgstr ""
 
-#: includes/class-wc-gateway-paynow.php:52
+#: includes/class-wc-gateway-paynow.php:53
 msgid "Secure BLIK payments and fast online transfers"
 msgstr ""
 
-#: includes/class-wc-gateway-paynow.php:107
+#: includes/class-wc-gateway-paynow.php:108
 msgid "Order No: "
 msgstr ""
 
-#: includes/class-wc-gateway-paynow.php:134
+#: includes/class-wc-gateway-paynow.php:137
 msgid "Awaiting Paynow payment"
 msgstr ""
 
-#: includes/class-wc-gateway-paynow.php:176
+#: includes/class-wc-gateway-paynow.php:153
+#: includes/class-wc-paynow-notification-handler.php:73
+msgid ""
+"Error occurred during the payment process and the payment could not be "
+"completed."
+msgstr ""
+
+#: includes/class-wc-gateway-paynow.php:180
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
 msgstr ""
 
-#: includes/class-wc-paynow-notification-handler.php:61
+#: includes/class-wc-paynow-notification-handler.php:63
+msgid "Awaiting payment confirmation from Paynow"
+msgstr ""
+
+#: includes/class-wc-paynow-notification-handler.php:66
 msgid "Payment has not been authorized by the buyer."
 msgstr ""
 
-#: includes/class-wc-paynow-notification-handler.php:65
+#: includes/class-wc-paynow-notification-handler.php:70
 msgid "Payment has been authorized by the buyer."
-msgstr ""
-
-#: includes/class-wc-paynow-notification-handler.php:68
-msgid ""
-"Error occurred during the payment process and the payment could not be "
-"completed."
 msgstr ""
 
 #: includes/admin/paynow-settings.php:10
