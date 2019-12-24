@@ -21,6 +21,9 @@ Aby uzyskać dostęp do Paynow API skontaktuj się z nami: kontakt@paynow.pl.
 4. Klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow
 5. Wpisz `Klucz API` i `Klucz podpisu`
 
+## Sandbox
+W celu przetestowania działania bramki Paynow zapraszamy do skorzystania z naszego środowiska testowego. W tym celu zarejestruj się na stronie: [panel.sandbox.paynow.pl][ext2]. 
+
 ## Wsparcie
 Jeśli masz jakiekolwiek pytania lub problemy, skontaktuj się z naszym wsparciem technicznym: support@paynow.pl.
 
@@ -32,3 +35,4 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 
 [ext0]: README.EN.md
 [ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest
+[ext2]: https://panel.sandbox.paynow.pl/
