@@ -16,7 +16,7 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ![Instalacja krok 6][ext4]
 
-5. Wybierz opcję `Wyślij wtyczkę na serwer` i wskaż archiwum zawierające wtyczkę (pobrane w kroku 1)
+5. Wybierz opcję `Wyślij wtyczkę na serwer` i wskaż archiwum zawierające wtyczkę (pobrane w kroku 1gi)
 
 ![Instalacja krok 7][ext5]
 
@@ -49,6 +49,8 @@ Adres powrotu ustawi się automatycznie dla każdego zamówienia. Nie ma potrzeb
 W panelu sprzedawcy Paynow  przejdź do zakładki `Ustawienia > Sklepy i punkty płatności`, w polu `Adres powiadomień` ustaw adres:
 `https://twoja-domena.pl/?wc-api=WC_Gateway_Paynow`.
 
+![Konfiguracja adresu powiadomień][ext10]
+
 ## Sandbox
 W celu przetestowania działania bramki Paynow zapraszamy do skorzystania z naszego środowiska testowego. W tym celu zarejestruj się na stronie: [panel.sandbox.paynow.pl][ext2]. 
 
@@ -71,3 +73,4 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 [ext7]: instruction/step5.png
 [ext8]: instruction/step6.png
 [ext9]: instruction/step7.png
+[ext9]: instruction/step8.png
