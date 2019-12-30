@@ -1,9 +1,9 @@
 [**English version**][ext0]
 # Wtyczka Paynow dla WooCommerce
 
-Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
+Wtyczka Paynow dodaje szybkie płatności i płatności BLIK do sklepu WooCommerce.
 
-Aby uzyskać dostęp do Paynow API skontaktuj się z nami: kontakt@paynow.pl.
+Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ## Instalacja
 1. Pobierz  wtyczkę z [rezpozytorium Github][ext1] i zapisz na dysku swojego komputera jako plik zip
@@ -21,6 +21,16 @@ Aby uzyskać dostęp do Paynow API skontaktuj się z nami: kontakt@paynow.pl.
 4. Klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow
 5. Wpisz `Klucz API` i `Klucz podpisu`
 
+## FAQ
+**Jak skonfigurować adres powrotu?**
+
+Adres powrotu ustawi się automatycznie dla każdego zamówienia. Nie ma potrzeby ręcznej konfiguracji tego adresu.
+
+**Jak skonfigurować adres powiadomień?**
+
+W panelu sprzedawcy Paynow  przejdź do zakładki `Ustawienia > Sklepy i punkty płatności`, w polu `Adres powiadomień` ustaw adres:
+`https://twoja-domena.pl/?wc-api=WC_Gateway_Paynow`.
+
 ## Sandbox
 W celu przetestowania działania bramki Paynow zapraszamy do skorzystania z naszego środowiska testowego. W tym celu zarejestruj się na stronie: [panel.sandbox.paynow.pl][ext2]. 
 
@@ -35,4 +45,4 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 
 [ext0]: README.EN.md
 [ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest
-[ext2]: https://panel.sandbox.paynow.pl/
+[ext2]: https://panel.sandbox.paynow.pl/auth/register

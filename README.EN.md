@@ -1,9 +1,9 @@
 [**Wersja polska**][ext0]
 # Paynow WooCommerce Plugin
 
-This plugin supports WooCommerce 2.2 and higher.
+Paynow plugin adds quick bank transfers and BLIK payment to a WooCommerce shop.
 
-To access Paynow API, please contact us at kontakt@paynow.pl.
+This plugin supports WooCommerce 2.2 and higher.
 
 ## Installation
 1. Download plugin from the [Github repository][ext1] to the local directory as zip
@@ -21,6 +21,15 @@ To access Paynow API, please contact us at kontakt@paynow.pl.
 4. Credential Keys can be found in `Settings > Shops and poses > Authentication data` in Paynow merchant panel
 5. Type `Api-Key` and `Signature-Key` in proper fields
 
+## FAQ
+**How to configure return address?**
+
+Return address will be set automatically for each order. There is no need to manually configure this address.
+
+**How to configure a notification address?**
+
+In the Paynow merchant panel go to the tab `Settings > Shops and poses`, in the field `Notification address` set the address: `https://your-domain.pl/?wc-api=WC_Gateway_Paynow`.
+
 ## Sandbox
 To be able to test our Paynow Sandbox environment register [here][ext2]
 
@@ -35,4 +44,4 @@ MIT license. For more information, see the LICENSE file.
 
 [ext0]: README.md
 [ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest
-[ext2]: https://panel.sandbox.paynow.pl/
+[ext2]: https://panel.sandbox.paynow.pl/auth/register
