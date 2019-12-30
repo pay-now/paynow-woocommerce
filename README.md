@@ -7,29 +7,27 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ## Instalacja
 1. Pobierz  wtyczkę z [rezpozytorium Github][ext1] i zapisz na dysku swojego komputera jako plik zip
-2. Rozpakuj pobrane archiwum
-3. Utwórz archiwum zip z folderu /woocommerce-gateway-paynow
-4. Przejdź do panelu administracyjnego Wordpress
-5. Przejdź do zakładki `Wtyczki`
+2. Przejdź do panelu administracyjnego Wordpress
+3. Przejdź do zakładki `Wtyczki`
 
 ![Instalacja krok 5][ext3]
 
-6. Wybierz opcję `Dodaj nową` 
+4. Wybierz opcję `Dodaj nową` 
 
 ![Instalacja krok 6][ext4]
 
-7. Wybierz opcję `Wyślij wtyczkę na serwer` i wskaż archiwum zawierające wtyczkę (utworzone w kroku 3)
+5. Wybierz opcję `Wyślij wtyczkę na serwer` i wskaż archiwum zawierające wtyczkę (pobrane w kroku 1)
 
 ![Instalacja krok 7][ext5]
 
-8. Następnie aktywuj ją za pomocą opcji `Włącz wtyczkę`
+6. Następnie aktywuj ją za pomocą opcji `Włącz wtyczkę`
 
 ![Instalacja krok 8][ext6]
 
 ## Konfiguracja
 1. Przejdź do zakładki `WooCommerce` w panelu administracyjnym
 2. Przejdź do `Ustawienia > Płatności`
-3. Na liście dostępnych metod płatności znajdź `Paynow` i kliknij `Konfiguruj`
+3. Na liście dostępnych metod płatności znajdź `Paynow` i kliknij `Zarządzaj`
 
 ![Konfiguracja krok 3][ext7]
 
