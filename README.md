@@ -23,8 +23,10 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ## FAQ
 **Jak skonfigurować adres powrotu?**
+
 Adres powrotu ustawi się automatycznie dla każdego zamówienia. Nie ma potrzeby ręcznej konfiguracji tego adresu.
 **Jak skonfigurować adres powiadomień?**
+
 W panelu sprzedawcy Paynow  przejdź do zakładki `Ustawienia > Sklepy i punkty płatności`, w polu `Adres powiadomień` ustaw adres:
 `https://twoja-domena.pl/?wc-api=WC_Gateway_Paynow`.
 
@@ -42,3 +44,4 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 
 [ext0]: README.EN.md
 [ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest
+[ext2]: https://panel.sandbox.paynow.pl/
