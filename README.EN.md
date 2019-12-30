@@ -28,7 +28,7 @@ Return address will be set automatically for each order. There is no need to man
 
 **How to configure a notification address?**
 
-In the Paynow merchant panel go to the tab `Settings> Shops and poses`, in the field` Notification address` set the address: `https: //twoja-domena.pl/? Wc-api = WC_Gateway_Paynow`.
+In the Paynow merchant panel go to the tab `Settings > Shops and poses`, in the field `Notification address` set the address: `https://your-domain.pl/?wc-api=WC_Gateway_Paynow`.
 
 ## Sandbox
 To be able to test our Paynow Sandbox environment register [here][ext2]
@@ -44,4 +44,4 @@ MIT license. For more information, see the LICENSE file.
 
 [ext0]: README.md
 [ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest
-[ext2]: https://panel.sandbox.paynow.pl/
+[ext2]: https://panel.sandbox.paynow.pl/auth/register
