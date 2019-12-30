@@ -11,15 +11,35 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 3. Utwórz archiwum zip z folderu /woocommerce-gateway-paynow
 4. Przejdź do panelu administracyjnego Wordpress
 5. Przejdź do zakładki `Wtyczki`
-6. Wybierz opcję `Dodaj nową` i wskaż archiwum zawierające wtyczkę (utworzone w kroku 3)
-7. Następnie aktywuj ją za pomocą opcji `Włącz wtyczkę`
+
+![Instalacja krok 5][ext3]
+
+6. Wybierz opcję `Dodaj nową` 
+
+![Instalacja krok 6][ext4]
+
+7. Wybierz opcję `Wyślij wtyczkę na serwer` i wskaż archiwum zawierające wtyczkę (utworzone w kroku 3)
+
+![Instalacja krok 7][ext5]
+
+8. Następnie aktywuj ją za pomocą opcji `Włącz wtyczkę`
+
+![Instalacja krok 8][ext6]
 
 ## Konfiguracja
 1. Przejdź do zakładki `WooCommerce` w panelu administracyjnym
 2. Przejdź do `Ustawienia > Płatności`
 3. Na liście dostępnych metod płatności znajdź `Paynow` i kliknij `Konfiguruj`
+
+![Konfiguracja krok 3][ext7]
+
 4. Klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow
+
+![Konfiguracja krok 4][ext8]
+
 5. Wpisz `Klucz API` i `Klucz podpisu`
+
+![Konfiguracja krok 5][ext9]
 
 ## FAQ
 **Jak skonfigurować adres powrotu?**
@@ -46,3 +66,10 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 [ext0]: README.EN.md
 [ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest
 [ext2]: https://panel.sandbox.paynow.pl/auth/register
+[ext3]: instruction/step1.png
+[ext4]: instruction/step2.png
+[ext5]: instruction/step3.png
+[ext6]: instruction/step4.png
+[ext7]: instruction/step5.png
+[ext8]: instruction/step6.png
+[ext9]: instruction/step7.png
