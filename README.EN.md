@@ -1,7 +1,7 @@
 [**Wersja polska**][ext0]
 # Paynow WooCommerce Plugin
 
-Paynow plugin adds quick bank transfers and Blik payment to a WooCommerce shop.
+Paynow plugin adds quick bank transfers and BLIK payment to a WooCommerce shop.
 
 This plugin supports WooCommerce 2.2 and higher.
 
