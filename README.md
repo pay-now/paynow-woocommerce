@@ -73,4 +73,4 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 [ext7]: instruction/step5.png
 [ext8]: instruction/step6.png
 [ext9]: instruction/step7.png
-[ext9]: instruction/step8.png
+[ext10]: instruction/step8.png
