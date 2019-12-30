@@ -23,8 +23,11 @@ This plugin supports WooCommerce 2.2 and higher.
 
 ## FAQ
 **How to configure return address?**
+
 Return address will be set automatically for each order. There is no need to manually configure this address.
+
 **How to configure a notification address?**
+
 In the Paynow merchant panel go to the tab `Settings> Shops and poses`, in the field` Notification address` set the address: `https: //twoja-domena.pl/? Wc-api = WC_Gateway_Paynow`.
 
 ## Sandbox
