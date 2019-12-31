@@ -20,19 +20,19 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 2. Przejdź do panelu administracyjnego Wordpress
 3. Przejdź do zakładki `Wtyczki`
 
-![Instalacja krok 5][ext3]
+![Instalacja krok 3][ext3]
 
 4. Wybierz opcję `Dodaj nową` 
 
-![Instalacja krok 6][ext4]
+![Instalacja krok 4][ext4]
 
-5. Wybierz opcję `Wyślij wtyczkę na serwer` i wskaż archiwum zawierające wtyczkę (pobrane w kroku 1gi)
+5. Wybierz opcję `Wyślij wtyczkę na serwer` i wskaż archiwum zawierające wtyczkę (pobrane w kroku 1.)
 
-![Instalacja krok 7][ext5]
+![Instalacja krok 5][ext5]
 
 6. Następnie aktywuj ją za pomocą opcji `Włącz wtyczkę`
 
-![Instalacja krok 8][ext6]
+![Instalacja krok 6][ext6]
 
 ## Konfiguracja
 1. Przejdź do zakładki `WooCommerce` w panelu administracyjnym
@@ -45,7 +45,7 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ![Konfiguracja krok 4][ext8]
 
-5. Wpisz `Klucz API` i `Klucz podpisu`
+5. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja środowiska produkcyjnego` lub `Konfiguracja środowiska testowego` wpisz `Klucz API` i `Klucz podpisu`
 
 ![Konfiguracja krok 5][ext9]
 
