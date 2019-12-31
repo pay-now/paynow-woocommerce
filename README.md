@@ -13,7 +13,6 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 * [FAQ](#FAQ)
 * [Sandbox](#sandbox)
 * [Wsparcie](#wsparcie)
-* [Więcej informacji](#wsparcie)
 * [Licencja](#licencja)
 
 ## Instalacja
