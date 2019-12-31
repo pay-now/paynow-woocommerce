@@ -1,7 +1,7 @@
 [**Wersja polska**][ext0]
 # Paynow WooCommerce Plugin
 
-Paynow plugin adds quick bank transfers and BLIK payment to a WooCommerce shop.
+The Paynow plugin adds quick bank transfers and BLIK payment to a WooCommerce shop.
 
 This plugin supports WooCommerce 2.2 and higher.
 
@@ -14,17 +14,17 @@ This plugin supports WooCommerce 2.2 and higher.
 * [License](#license)
 
 ## Installation
-1. Download plugin from the [Github repository][ext1] to the local directory as zip
+1. Download the plugin from the [Github repository][ext1] to a local directory as a zip file
 2. Go to the Wordpress administration page
 3. Go to `Plugins` 
 
 ![Installation step 3][ext3]
 
-4. Use `Add new` option
+4. Use the `Add new` option
 
 ![Installation step 4][ext4]
 
-5. Use `Upload plugin` option and point to the archive containing the plugin (downloaded in the 1st step)
+5. Use the `Upload plugin` option and point to the archive containing the plugin (downloaded in the 1st step)
 
 ![Installation step 5][ext5]
 
@@ -40,33 +40,33 @@ This plugin supports WooCommerce 2.2 and higher.
 
 ![Configuration step 3][ext7]
 
-4. Credential Keys can be found in `Settings > Shops and poses > Authentication data` in Paynow merchant panel
+4. Credential Keys can be found in `Settings > Shops and poses > Authentication data` in the Paynow merchant panel
 
 ![Configuration step 4][ext8]
 
-5. Depending on the environment you want to connect with go to section `Production configuration` or `Sandbox configuration` and type `Api-Key` and `Signature-Key` in proper fields
+5. Depending on the environment you want to connect to go to the `Production configuration` section or the `Sandbox configuration` section and type `Api-Key` and `Signature-Key` in the proper fields.
 
 ![Configuration step 5][ext9]
 
 
 ## FAQ
-**How to configure return address?**
+**How to configure the return address?**
 
-Return address will be set automatically for each order. There is no need to manually configure this address.
+The return address will be set automatically for each order. There is no need to manually configure this address.
 
-**How to configure a notification address?**
+**How to configure the notification address?**
 
 In the Paynow merchant panel go to the tab `Settings > Shops and poses`, in the field `Notification address` set the address: `https://your-domain.pl/?wc-api=WC_Gateway_Paynow`.
 
 ![Configuration of the notifiction address][ext10]
 
 ## Sandbox
-To be able to test our Paynow Sandbox environment register [here][ext2]
+To be able to test our Paynow Sandbox environment, register [here][ext2].
 
 ## Support
 If you have any questions or issues, please contact our support at support@paynow.pl.
 
-If you wish to learn more about Paynow visit our website: https://www.paynow.pl/
+If you wish to learn more about Paynow visit our website: https://www.paynow.pl/.
 
 ## License
 MIT license. For more information, see the LICENSE file.
