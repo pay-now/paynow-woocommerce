@@ -5,21 +5,59 @@ Wtyczka Paynow dodaje szybkie płatności i płatności BLIK do sklepu WooCommer
 
 Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
+## Spis treści
+* [Instalacja](#instalacja)
+* [Konfiguracja](#konfiguracja)
+* [FAQ](#FAQ)
+* [Sandbox](#sandbox)
+* [Wsparcie](#wsparcie)
+* [Licencja](#licencja)
+
 ## Instalacja
 1. Pobierz  wtyczkę z [rezpozytorium Github][ext1] i zapisz na dysku swojego komputera jako plik zip
-2. Rozpakuj pobrane archiwum
-3. Utwórz archiwum zip z folderu /woocommerce-gateway-paynow
-4. Przejdź do panelu administracyjnego Wordpress
-5. Przejdź do zakładki `Wtyczki`
-6. Wybierz opcję `Dodaj nową` i wskaż archiwum zawierające wtyczkę (utworzone w kroku 3)
-7. Następnie aktywuj ją za pomocą opcji `Włącz wtyczkę`
+2. Przejdź do panelu administracyjnego Wordpress
+3. Przejdź do zakładki `Wtyczki`
+
+![Instalacja krok 3][ext3]
+
+4. Wybierz opcję `Dodaj nową` 
+
+![Instalacja krok 4][ext4]
+
+5. Wybierz opcję `Wyślij wtyczkę na serwer` i wskaż archiwum zawierające wtyczkę (pobrane w kroku 1.)
+
+![Instalacja krok 5][ext5]
+
+6. Następnie aktywuj ją za pomocą opcji `Włącz wtyczkę`
+
+![Instalacja krok 6][ext6]
 
 ## Konfiguracja
 1. Przejdź do zakładki `WooCommerce` w panelu administracyjnym
 2. Przejdź do `Ustawienia > Płatności`
-3. Na liście dostępnych metod płatności znajdź `Paynow` i kliknij `Konfiguruj`
+3. Na liście dostępnych metod płatności znajdź `Paynow` i kliknij `Zarządzaj`
+
+![Konfiguracja krok 3][ext7]
+
 4. Klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow
-5. Wpisz `Klucz API` i `Klucz podpisu`
+
+![Konfiguracja krok 4][ext8]
+
+5. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja środowiska produkcyjnego` lub `Konfiguracja środowiska testowego` wpisz `Klucz API` i `Klucz podpisu`
+
+![Konfiguracja krok 5][ext9]
+
+## FAQ
+**Jak skonfigurować adres powrotu?**
+
+Adres powrotu ustawi się automatycznie dla każdego zamówienia. Nie ma potrzeby ręcznej konfiguracji tego adresu.
+
+**Jak skonfigurować adres powiadomień?**
+
+W panelu sprzedawcy Paynow  przejdź do zakładki `Ustawienia > Sklepy i punkty płatności`, w polu `Adres powiadomień` ustaw adres:
+`https://twoja-domena.pl/?wc-api=WC_Gateway_Paynow`.
+
+![Konfiguracja adresu powiadomień][ext10]
 
 ## FAQ
 **Jak skonfigurować adres powrotu?**
@@ -37,8 +75,7 @@ W celu przetestowania działania bramki Paynow zapraszamy do skorzystania z nasz
 ## Wsparcie
 Jeśli masz jakiekolwiek pytania lub problemy, skontaktuj się z naszym wsparciem technicznym: support@paynow.pl.
 
-## Więcej informacji
-Jeśli chciałbyś dowiedzieć się więcej o bramce płatności Paynow odwiedź naszą stronę: https://www.paynow.pl/
+Jeśli chciałbyś dowiedzieć się więcej o bramce płatności Paynow odwiedź naszą stronę: https://www.paynow.pl/.
 
 ## Licencja
 Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
@@ -46,3 +83,11 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 [ext0]: README.EN.md
 [ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest
 [ext2]: https://panel.sandbox.paynow.pl/auth/register
+[ext3]: instruction/step1.png
+[ext4]: instruction/step2.png
+[ext5]: instruction/step3.png
+[ext6]: instruction/step4.png
+[ext7]: instruction/step5.png
+[ext8]: instruction/step6.png
+[ext9]: instruction/step7.png
+[ext10]: instruction/step8.png
