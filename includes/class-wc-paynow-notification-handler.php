@@ -41,7 +41,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 			}
 
 			$this->process_notification( $order, $notification_data );
-		} catch ( \Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
 			status_header( 400 );
 			exit;
@@ -61,10 +61,13 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 		$notification_status = $notification_data['status'];
 
 		$mapped_order_status = $this->map_order_status( $order );
+		$order_id            = WC_Paynow_Helper::is_old_wc_version() ? $order->id : $order->get_id();
+
 		if ( ! $this->is_correct_status( $mapped_order_status, $notification_status ) ) {
-			throw new Exception( 'Order status transition is incorrect ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order->get_id() );
+			throw new Exception( 'Order status transition is incorrect ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order_id );
 		}
-		WC_Paynow_Logger::log( 'Info: Order status transition is correct ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order->get_id() );
+
+		WC_Paynow_Logger::log( 'Info: Order status transition is correct ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order_id );
 		switch ( $notification_status ) {
 			case Status::STATUS_PENDING:
 				$order->update_status( 'pending', __( 'Awaiting payment confirmation from Paynow', 'woocommerce-gateway-paynow' ) );
