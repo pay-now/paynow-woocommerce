@@ -14,7 +14,7 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 * [Licencja](#licencja)
 
 ## Instalacja
-1. Pobierz  wtyczkę z [rezpozytorium Github][ext1] i zapisz na dysku swojego komputera jako plik zip
+1. Pobierz plik paynow.zip z [rezpozytorium Github][ext1] i zapisz na dysku swojego komputera
 2. Przejdź do panelu administracyjnego Wordpress
 3. Przejdź do zakładki `Wtyczki`
 

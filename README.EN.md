@@ -14,7 +14,7 @@ This plugin supports WooCommerce 2.2 and higher.
 * [License](#license)
 
 ## Installation
-1. Download the plugin from the [Github repository][ext1] to a local directory as a zip file
+1. Download the paynow.zip file from [Github repository][ext1] to a local directory
 2. Go to the Wordpress administration page
 3. Go to `Plugins` 
 
