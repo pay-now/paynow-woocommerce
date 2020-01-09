@@ -43,7 +43,11 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ![Konfiguracja krok 4][ext8]
 
-5. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja środowiska produkcyjnego` lub `Konfiguracja środowiska testowego` wpisz `Klucz API` i `Klucz podpisu`
+5. W zależności od środowiska, z którym chesz się połaczyć wpisz:
+* dla środowiska produkcyjnego
+    * `Klucz API (Production)` i `Klucz podpisu (Production)` 
+* dla środowiska testowego
+    * `Klucz API (Sandbox)` i `Klucz podpisu (Sandbox)`
 
 ![Konfiguracja krok 5][ext9]
 
