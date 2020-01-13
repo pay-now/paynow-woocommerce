@@ -14,6 +14,9 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 * [Licencja](#licencja)
 
 ## Instalacja
+
+Zobacz również [filmiki instruktażowy][ext12].
+
 1. Pobierz  wtyczkę z [rezpozytorium Github][ext1] i zapisz na dysku swojego komputera jako plik zip
 2. Przejdź do panelu administracyjnego Wordpress
 3. Przejdź do zakładki `Wtyczki`
@@ -39,7 +42,9 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ![Konfiguracja krok 3][ext7]
 
-4. Produkcyjne klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow. Klucze dla środowiska testowego znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w [panelu środowiska testowego][ext11].
+4. Produkcyjne klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow. 
+
+Klucze dla środowiska testowego znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w [panelu środowiska testowego][ext11].
 
 ![Konfiguracja krok 4][ext8]
 
@@ -99,3 +104,4 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 [ext9]: instruction/step7.png
 [ext10]: instruction/step8.png
 [ext11]: https://panel.sandbox.paynow.pl/merchant/payments
+[ext12]: https://paynow.wistia.com/medias/g62mlym13x
