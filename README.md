@@ -44,7 +44,7 @@ Zobacz również [filmiki instruktażowy][ext12].
 
 4. Produkcyjne klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow. 
 
-→ Klucze dla środowiska testowego znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w [panelu środowiska testowego][ext11].
+    Klucze dla środowiska testowego znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w [panelu środowiska testowego][ext11].
 
 ![Konfiguracja krok 4][ext8]
 
