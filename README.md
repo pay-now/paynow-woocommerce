@@ -39,7 +39,7 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ![Konfiguracja krok 3][ext7]
 
-4. Klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow
+4. Produkcyjne klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow. Klucze dla środowiska testowego znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w [panelu środowiska testowego][ext11].
 
 ![Konfiguracja krok 4][ext8]
 
@@ -98,3 +98,4 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 [ext8]: instruction/step6.png
 [ext9]: instruction/step7.png
 [ext10]: instruction/step8.png
+[ext11]: https://panel.sandbox.paynow.pl/merchant/payments
