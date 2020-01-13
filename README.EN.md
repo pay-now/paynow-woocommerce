@@ -43,11 +43,19 @@ See also [instructional video][ext12].
 
 ![Configuration step 3][ext7]
 
-4. Credential Keys can be found in `Settings > Shops and poses > Authentication data` in the Paynow merchant panel
+4. Production credential keys can be found in `Settings > Shops and poses > Authentication data` in the Paynow merchant panel.
+
+    Sandbox credential keys can be found in `Settings > Shops and poses > Authentication data` in the [sandbox panel][ext11].
 
 ![Configuration step 4][ext8]
 
-5. Depending on the environment you want to connect to go to the `Production configuration` section or the `Sandbox configuration` section and type `Api-Key` and `Signature-Key` in the proper fields.
+5. Depending on the environment you want to connect type:
+* for the production environment 
+    * `API  Key (Production)` 
+    * `Signature Key (Production)` 
+* for the sandbox environment 
+    * `API Key (Sandbox)` 
+    * `Signature Key (Sandbox)`
 
 ![Configuration step 5][ext9]
 
@@ -94,5 +102,6 @@ MIT license. For more information, see the LICENSE file.
 [ext8]: instruction/step6.png
 [ext9]: instruction/step7_EN.png
 [ext10]: instruction/step8.png
+[ext11]: https://panel.sandbox.paynow.pl/merchant/payments
 [ext12]: https://paynow.wistia.com/medias/g62mlym13x
 
