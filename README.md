@@ -15,7 +15,7 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ## Instalacja
 
-Zobacz również [filmiki instruktażowy][ext12].
+Zobacz również [filmik instruktażowy][ext12].
 
 1. Pobierz  wtyczkę z [rezpozytorium Github][ext1] i zapisz na dysku swojego komputera jako plik zip
 2. Przejdź do panelu administracyjnego Wordpress
