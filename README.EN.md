@@ -14,6 +14,9 @@ This plugin supports WooCommerce 2.2 and higher.
 * [License](#license)
 
 ## Installation
+
+See also [instructional video][ext12].
+
 1. Download the plugin from the [Github repository][ext1] to a local directory as a zip file
 2. Go to the Wordpress administration page
 3. Go to `Plugins` 
@@ -91,3 +94,5 @@ MIT license. For more information, see the LICENSE file.
 [ext8]: instruction/step6.png
 [ext9]: instruction/step7_EN.png
 [ext10]: instruction/step8.png
+[ext12]: https://paynow.wistia.com/medias/g62mlym13x
+
