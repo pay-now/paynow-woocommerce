@@ -71,16 +71,6 @@ W panelu sprzedawcy Paynow  przejdź do zakładki `Ustawienia > Sklepy i punkty 
 
 ![Konfiguracja adresu powiadomień][ext10]
 
-## FAQ
-**Jak skonfigurować adres powrotu?**
-
-Adres powrotu ustawi się automatycznie dla każdego zamówienia. Nie ma potrzeby ręcznej konfiguracji tego adresu.
-
-**Jak skonfigurować adres powiadomień?**
-
-W panelu sprzedawcy Paynow  przejdź do zakładki `Ustawienia > Sklepy i punkty płatności`, w polu `Adres powiadomień` ustaw adres:
-`https://twoja-domena.pl/?wc-api=WC_Gateway_Paynow`.
-
 ## Sandbox
 W celu przetestowania działania bramki Paynow zapraszamy do skorzystania z naszego środowiska testowego. W tym celu zarejestruj się na stronie: [panel.sandbox.paynow.pl][ext2]. 
 
