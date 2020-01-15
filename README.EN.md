@@ -17,7 +17,7 @@ This plugin supports WooCommerce 2.2 and higher.
 
 See also [instructional video][ext12].
 
-1. Download the plugin from the [Github repository][ext1] to a local directory as a zip file
+1. Download the paynow.zip file from [Github repository][ext1] to a local directory
 2. Go to the Wordpress administration page
 3. Go to `Plugins` 
 
@@ -71,15 +71,6 @@ In the Paynow merchant panel go to the tab `Settings > Shops and poses`, in the 
 
 ![Configuration of the notifiction address][ext10]
 
-## FAQ
-**How to configure return address?**
-
-Return address will be set automatically for each order. There is no need to manually configure this address.
-
-**How to configure a notification address?**
-
-In the Paynow merchant panel go to the tab `Settings > Shops and poses`, in the field `Notification address` set the address: `https://your-domain.pl/?wc-api=WC_Gateway_Paynow`.
-
 ## Sandbox
 To be able to test our Paynow Sandbox environment, register [here][ext2].
 
@@ -104,4 +95,3 @@ MIT license. For more information, see the LICENSE file.
 [ext10]: instruction/step8.png
 [ext11]: https://panel.sandbox.paynow.pl/merchant/payments
 [ext12]: https://paynow.wistia.com/medias/g62mlym13x
-

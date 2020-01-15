@@ -98,12 +98,12 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 	}
 
 	public function send_payment_request( $order ) {
-		$currency        = $order->get_currency();
-		$order_id        = $order->get_id();
+		$currency        = WC_Paynow_Helper::is_old_wc_version() ? $order->get_order_currency() : $order->get_currency();
+		$order_id        = WC_Paynow_Helper::is_old_wc_version() ? $order->id : $order->get_id();
 		$billing_data    = $order->get_address();
 		$payment_data    = [
 			'amount'      => WC_Paynow_Helper::get_amount( $order->get_total() ),
-			'currency'    => $currency,
+			'currency'    => strtoupper( $currency ),
 			'externalId'  => $order_id,
 			'description' => __( 'Order No: ', 'woocommerce-gateway-paynow' ) . $order_id,
 			'buyer'       => [
@@ -142,7 +142,9 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			// Remove cart
 			WC()->cart->empty_cart();
 
-			$order->save();
+			if ( is_callable( array( $order, 'save' ) ) ) {
+				$order->save();
+			}
 
 			return [
 				'result'   => 'success',
