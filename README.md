@@ -14,6 +14,9 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 * [Licencja](#licencja)
 
 ## Instalacja
+
+Zobacz również [filmik instruktażowy][ext12].
+
 1. Pobierz plik paynow.zip z [rezpozytorium Github][ext1] i zapisz na dysku swojego komputera
 2. Przejdź do panelu administracyjnego Wordpress
 3. Przejdź do zakładki `Wtyczki`
@@ -39,11 +42,19 @@ Wtyczka wspiera WooCommerce w wersji 2.2 lub wyższej.
 
 ![Konfiguracja krok 3][ext7]
 
-4. Klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow
+4. Produkcyjne klucze dostępu znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w panelu sprzedawcy Paynow. 
+
+    Klucze dla środowiska testowego znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w [panelu środowiska testowego][ext11].
 
 ![Konfiguracja krok 4][ext8]
 
-5. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja środowiska produkcyjnego` lub `Konfiguracja środowiska testowego` wpisz `Klucz API` i `Klucz podpisu`
+5. W zależności od środowiska, z którym chesz się połaczyć wpisz:
+* dla środowiska produkcyjnego
+    * `Klucz API (Production)` 
+    * `Klucz podpisu (Production)` 
+* dla środowiska testowego
+    * `Klucz API (Sandbox)` 
+    * `Klucz podpisu (Sandbox)`
 
 ![Konfiguracja krok 5][ext9]
 
@@ -58,16 +69,6 @@ W panelu sprzedawcy Paynow  przejdź do zakładki `Ustawienia > Sklepy i punkty 
 `https://twoja-domena.pl/?wc-api=WC_Gateway_Paynow`.
 
 ![Konfiguracja adresu powiadomień][ext10]
-
-## FAQ
-**Jak skonfigurować adres powrotu?**
-
-Adres powrotu ustawi się automatycznie dla każdego zamówienia. Nie ma potrzeby ręcznej konfiguracji tego adresu.
-
-**Jak skonfigurować adres powiadomień?**
-
-W panelu sprzedawcy Paynow  przejdź do zakładki `Ustawienia > Sklepy i punkty płatności`, w polu `Adres powiadomień` ustaw adres:
-`https://twoja-domena.pl/?wc-api=WC_Gateway_Paynow`.
 
 ## Sandbox
 W celu przetestowania działania bramki Paynow zapraszamy do skorzystania z naszego środowiska testowego. W tym celu zarejestruj się na stronie: [panel.sandbox.paynow.pl][ext2]. 
@@ -91,3 +92,5 @@ Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
 [ext8]: instruction/step6.png
 [ext9]: instruction/step7.png
 [ext10]: instruction/step8.png
+[ext11]: https://panel.sandbox.paynow.pl/merchant/payments
+[ext12]: https://paynow.wistia.com/medias/g62mlym13x
