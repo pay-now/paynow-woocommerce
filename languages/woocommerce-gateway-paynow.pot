@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-05 19:42+0000\n"
+"POT-Creation-Date: 2020-03-03 12:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -15,122 +15,133 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.0; wp-5.2.3"
 
-#: includes/class-wc-gateway-paynow.php:38
-#: includes/includes/class-wc-gateway-paynow.php:38
-msgid "Paynow"
+#: includes/class-wc-paynow-notification-handler.php:73
+msgid "Awaiting payment confirmation from Paynow"
 msgstr ""
 
-#: includes/class-wc-gateway-paynow.php:39
-#: includes/includes/class-wc-gateway-paynow.php:39
-msgid "Accepts payments by Paynow"
+#: includes/class-wc-paynow-notification-handler.php:76
+msgid "Payment has not been authorized by the buyer."
 msgstr ""
 
-#: includes/class-wc-gateway-paynow.php:52
-#: includes/includes/class-wc-gateway-paynow.php:52
-msgid "Pay by Paynow"
-msgstr ""
-
-#: includes/class-wc-gateway-paynow.php:53
-#: includes/includes/class-wc-gateway-paynow.php:53
-msgid "Secure BLIK payments and fast online transfers"
-msgstr ""
-
-#: includes/class-wc-gateway-paynow.php:108
-#: includes/includes/class-wc-gateway-paynow.php:108
-msgid "Order No: "
-msgstr ""
-
-#: includes/class-wc-gateway-paynow.php:136
-#: includes/includes/class-wc-gateway-paynow.php:137
-msgid "Awaiting Paynow payment"
-msgstr ""
-
-#: includes/class-wc-gateway-paynow.php:152
 #: includes/class-wc-paynow-notification-handler.php:80
-#: includes/includes/class-wc-paynow-notification-handler.php:80
-#: includes/includes/class-wc-gateway-paynow.php:153
+msgid "Payment has been authorized by the buyer."
+msgstr ""
+
+#: includes/class-wc-paynow-notification-handler.php:83 
+#: includes/class-wc-gateway-paynow.php:155
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
 msgstr ""
 
-#: includes/class-wc-gateway-paynow.php:179
-#: includes/includes/class-wc-gateway-paynow.php:180
+#: includes/class-wc-gateway-paynow.php:38
+msgid "Paynow"
+msgstr ""
+
+#: includes/class-wc-gateway-paynow.php:39
+msgid "Accepts payments by Paynow"
+msgstr ""
+
+#: includes/class-wc-gateway-paynow.php:52
+msgid "Pay by Paynow"
+msgstr ""
+
+#: includes/class-wc-gateway-paynow.php:53
+msgid "Secure BLIK payments and fast online transfers"
+msgstr ""
+
+#: includes/class-wc-gateway-paynow.php:108
+msgid "Order No: "
+msgstr ""
+
+#: includes/class-wc-gateway-paynow.php:137
+msgid "Awaiting Paynow payment"
+msgstr ""
+
+#: includes/class-wc-gateway-paynow.php:182
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
 msgstr ""
 
-#: includes/class-wc-paynow-notification-handler.php:70
-#: includes/includes/class-wc-paynow-notification-handler.php:70
-msgid "Awaiting payment confirmation from Paynow"
-msgstr ""
-
-#: includes/class-wc-paynow-notification-handler.php:73
-#: includes/includes/class-wc-paynow-notification-handler.php:73
-msgid "Payment has not been authorized by the buyer."
-msgstr ""
-
-#: includes/class-wc-paynow-notification-handler.php:77
-#: includes/includes/class-wc-paynow-notification-handler.php:77
-msgid "Payment has been authorized by the buyer."
-msgstr ""
-
 #: includes/admin/paynow-settings.php:10
-#: includes/includes/admin/paynow-settings.php:10
 msgid "Enable/Disable"
 msgstr ""
 
 #: includes/admin/paynow-settings.php:11
-#: includes/includes/admin/paynow-settings.php:11
 msgid "Enable Paynow"
 msgstr ""
 
 #: includes/admin/paynow-settings.php:17
-#: includes/includes/admin/paynow-settings.php:17
-msgid "Test mode (Sandbox)"
+msgid "Debug"
 msgstr ""
 
 #: includes/admin/paynow-settings.php:18
-#: includes/includes/admin/paynow-settings.php:18
-msgid "Enabled test mode"
-msgstr ""
-
-#: includes/admin/paynow-settings.php:19
-#: includes/includes/admin/paynow-settings.php:19
-msgid "Enable if you are using test shop environment"
-msgstr ""
-
-#: includes/admin/paynow-settings.php:25
-#: includes/includes/admin/paynow-settings.php:25
-msgid "Api Key (Sandbox)"
-msgstr ""
-
-#: includes/admin/paynow-settings.php:30
-#: includes/includes/admin/paynow-settings.php:30
-msgid "Signature Key (Sandbox)"
-msgstr ""
-
-#: includes/admin/paynow-settings.php:35
-#: includes/includes/admin/paynow-settings.php:35
-msgid "Api Key (Production)"
-msgstr ""
-
-#: includes/admin/paynow-settings.php:40
-#: includes/includes/admin/paynow-settings.php:40
-msgid "Signature Key (Production)"
-msgstr ""
-
-#: includes/admin/paynow-settings.php:46
-#: includes/includes/admin/paynow-settings.php:46
 msgid "Enable logs"
 msgstr ""
 
-#: includes/admin/paynow-settings.php:48
-#: includes/includes/admin/paynow-settings.php:48
+#: includes/admin/paynow-settings.php:20
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr ""
 
-#: includes/includes/admin/paynow-settings.php:45
-msgid "Debug"
+#: includes/admin/paynow-settings.php:25
+msgid "Production configuration"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:27
+msgid ""
+"Production keys can be found in <i>Settings > Shops and poses > "
+"Authentication data</i> in the Paynow merchant panel."
+msgstr ""
+
+#: includes/admin/paynow-settings.php:30
+msgid "Api Key (Production)"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:35
+msgid "Signature Key (Production)"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:40
+msgid "Sandbox configuration"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:42
+msgid ""
+"Sandbox keys can be found in <i>Settings > Shops and poses > Authentication "
+"data</i> in <a href=\"https://panel.sandbox.paynow.pl/auth/login\" "
+"target=\"_blank\">the Paynow Sandbox panel</a>."
+msgstr ""
+
+#: includes/admin/paynow-settings.php:45
+msgid "Test mode (Sandbox)"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:46
+msgid "Enabled test mode"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:47
+msgid "Enable if you are using test shop environment"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:53
+msgid "Api Key (Sandbox)"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:58
+msgid "Signature Key (Sandbox)"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:63
+msgid "Support"
+msgstr ""
+
+#: includes/admin/paynow-settings.php:65
+msgid ""
+"If you have any problems with configuration, please find the instruction <a "
+"href=\"https://github.com/pay-now/paynow-woocommerce/blob/master/README.EN."
+"md\" target=\"_blank\">here</a>.<br /> If you have any questions or issues, "
+"please contact our support at <a href=\"mailto:support@paynow.pl\">"
+"support@paynow.pl</a>"
 msgstr ""
