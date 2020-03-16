@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-03 12:41+0000\n"
-"PO-Revision-Date: 2020-03-03 14:00+0000\n"
-"Last-Translator: Jan Nowak <michal.skladanowski@melements.pl>\n"
+"POT-Creation-Date: 2020-03-16 13:50+0000\n"
+"PO-Revision-Date: 2020-03-16 13:53+0000\n"
+"Last-Translator: Michał Składanowski <michal.skladanowski@melements.pl>\n"
 "Language-Team: Polski\n"
 "Language: pl-PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
@@ -69,94 +69,103 @@ msgstr ""
 "%1$s."
 
 #: includes/admin/paynow-settings.php:10
+msgid "Informations"
+msgstr "Informacje"
+
+#: includes/admin/paynow-settings.php:12
+msgid ""
+"If you do not have an account in the Paynow system yet, <a href=\"https:"
+"//paynow.pl/boarding\" target=\"_blank\">register in the Production</a> or "
+"<a href=\"https://panel.sandbox.paynow.pl/auth/register\" target=\"_blank\">"
+"Sandbox environment</a>.<br /> If you have any problem with configuration, "
+"please find the manual <a href=\"https://github.com/pay-now/paynow-"
+"woocommerce/blob/master/README.EN.md\" target=\"_blank\">here</a>."
+msgstr ""
+"Jeśli nie posiadasz jeszcze konta w systemie Paynow, <a href=\"https:"
+"//paynow.pl/boarding\" target=\"_blank\">złóż wniosek</a> lub skorzystaj z "
+"<a href=\"https://panel.sandbox.paynow.pl/auth/register\" target=\"_blank\">"
+"środowiska testowego</a>.<br />Jeżeli masz problemy z konfiguracją, "
+"instrukcje znajdziesz <a href=\"https://github.com/pay-now/paynow-"
+"woocommerce/blob/master/README.EN.md\" target=\"_blank\">tutaj</a>."
+
+#: includes/admin/paynow-settings.php:15
 msgid "Enable/Disable"
 msgstr "Włącz/Wyłącz"
 
-#: includes/admin/paynow-settings.php:11
+#: includes/admin/paynow-settings.php:16
 msgid "Enable Paynow"
 msgstr "Włącz Paynow"
 
-#: includes/admin/paynow-settings.php:17
+#: includes/admin/paynow-settings.php:22
 msgid "Debug"
 msgstr "Debugowanie"
 
-#: includes/admin/paynow-settings.php:18
+#: includes/admin/paynow-settings.php:23
 msgid "Enable logs"
 msgstr "Włącz logi"
 
-#: includes/admin/paynow-settings.php:20
+#: includes/admin/paynow-settings.php:25
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
-#: includes/admin/paynow-settings.php:25
+#: includes/admin/paynow-settings.php:30
 msgid "Production configuration"
 msgstr "Konfiguracja środowiska produkcyjnego"
 
-#: includes/admin/paynow-settings.php:27
+#: includes/admin/paynow-settings.php:32
 msgid ""
-"Production keys can be found in <i>Settings > Shops and poses > "
-"Authentication data</i> in the Paynow merchant panel."
+"Production authentication keys are available in <i>the Paynow tab > Settings "
+"> Shops and payment points > Authentication data</i> in mBank's online "
+"banking."
 msgstr ""
-"Produkcyjne klucze dostępu znajdziesz w zakładce <i>Ustawienia > Sklepy i "
-"punkty płatności > Dane uwierzytelniające</i> w panelu sprzedawcy Paynow."
+"Klucze uwierzytelniające dostępne są w zakładce <i>Ustawienia > Sklepy i "
+"punkty płatności > Dane uwierzytelniające</i> w bankowości internetowej "
+"mBanku."
 
-#: includes/admin/paynow-settings.php:30
-msgid "Api Key (Production)"
-msgstr "Klucz dostępu do API (Produkcja)"
+#: includes/admin/paynow-settings.php:35 includes/admin/paynow-settings.php:58
+msgid "Api Key"
+msgstr "Klucz dostępu do API"
 
-#: includes/admin/paynow-settings.php:35
-msgid "Signature Key (Production)"
-msgstr "Klucz obliczania podpisu (Produkcja)"
+#: includes/admin/paynow-settings.php:40 includes/admin/paynow-settings.php:63
+msgid "Signature Key"
+msgstr "Klucz obliczania podpisu"
 
-#: includes/admin/paynow-settings.php:40
+#: includes/admin/paynow-settings.php:45
 msgid "Sandbox configuration"
 msgstr "Konfiguracja środowiska testowego(Sandbox)"
 
-#: includes/admin/paynow-settings.php:42
+#: includes/admin/paynow-settings.php:47
 msgid ""
-"Sandbox keys can be found in <i>Settings > Shops and poses > Authentication "
-"data</i> in <a href=\"https://panel.sandbox.paynow.pl/auth/login\" "
-"target=\"_blank\">the Paynow Sandbox panel</a>."
+"Sandbox authentication keys can be found in <i>Settings > Shops and poses > "
+"Authentication data</i> in <a href=\"https://panel.sandbox.paynow."
+"pl/auth/login\" target=\"_blank\">the Paynow Sandbox panel</a>."
 msgstr ""
-"Klucze dla środowiska testowego znajdziesz w zakładce <i>Ustawienia > Sklepy "
-"i punkty płatności > Dane uwierzytelniające</i> w <a href=\"https://panel."
-"sandbox.paynow.pl/auth/login\" target=\"_blank\">panelu środowiska "
-"testowego</a>."
+"Klucze uwierzytelniające dla środowiska testowego znajdziesz w zakładce <i>"
+"Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające</i> w <a "
+"href=\\\"https://panel.sandbox.paynow.pl/auth/login\\\" "
+"target=\\\"_blank\\\">panelu środowiska testowego</a>."
 
-#: includes/admin/paynow-settings.php:45
+#: includes/admin/paynow-settings.php:50
 msgid "Test mode (Sandbox)"
 msgstr "Tryb testowy (Sandbox)"
 
-#: includes/admin/paynow-settings.php:46
+#: includes/admin/paynow-settings.php:51
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
-#: includes/admin/paynow-settings.php:47
+#: includes/admin/paynow-settings.php:52
 msgid "Enable if you are using test shop environment"
 msgstr "Włącz jeśli używasz testowej wersji sklepu"
 
-#: includes/admin/paynow-settings.php:53
-msgid "Api Key (Sandbox)"
-msgstr "Klucz dostępu do API (Sandbox)"
-
-#: includes/admin/paynow-settings.php:58
-msgid "Signature Key (Sandbox)"
-msgstr "Klucz obliczania podpisu (Sandbox)"
-
-#: includes/admin/paynow-settings.php:63
+#: includes/admin/paynow-settings.php:68
 msgid "Support"
 msgstr "Pomoc"
 
-#: includes/admin/paynow-settings.php:65
+#: includes/admin/paynow-settings.php:70
 msgid ""
-"If you have any problems with configuration, please find the instruction <a "
-"href=\"https://github.com/pay-now/paynow-woocommerce/blob/master/README.EN."
-"md\" target=\"_blank\">here</a>.<br /> If you have any questions or issues, "
-"please contact our support at <a href=\"mailto:support@paynow.pl\">"
-"support@paynow.pl</a>"
+"If you have any questions or issues, please contact our support at <a "
+"href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
 msgstr ""
-"Jeżeli masz problemy z konfiguracją, szczegółową instrukcję znajdziesz <a "
-"href=\"https://github.com/pay-now/paynow-woocommerce/blob/master/README.md\" "
-"target=\"_blank\">tutaj</a>.<br /> Jeśli masz jakiekolwiek pytania lub "
-"problemy, skontaktuj się z naszym wsparciem technicznym: <a href=\"mailto:"
-"support@paynow.pl\">support@paynow.pl</a>"
+"Jeśli masz jakiekolwiek pytania lub problemy, skontaktuj się z naszym "
+"wsparciem technicznym: <a href=\"mailto:support@paynow.pl\">support@paynow."
+"pl</a>."
