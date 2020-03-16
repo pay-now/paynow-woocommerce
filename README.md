@@ -48,7 +48,7 @@ Zobacz również [filmik instruktażowy][ext12].
 
 ![Konfiguracja krok 4][ext8]
 
-5. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja środowiska produkcyjnego` lub `Konfiguracja środowiska testowego(Sandbox)` wpisz `Klucz dostępu do API` i `Klucz obliczania podpisu`.
+5. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja środowiska produkcyjnego` lub `Konfiguracja środowiska testowego(Sandbox)` podaj `Klucz dostępu do API` i `Klucz obliczania podpisu`.
 
 ![Konfiguracja krok 5][ext9]
 
