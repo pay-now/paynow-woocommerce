@@ -49,13 +49,7 @@ See also [instructional video][ext12].
 
 ![Configuration step 4][ext8]
 
-5. Depending on the environment you want to connect type:
-* for the production environment 
-    * `API  Key (Production)` 
-    * `Signature Key (Production)` 
-* for the sandbox environment 
-    * `API Key (Sandbox)` 
-    * `Signature Key (Sandbox)`
+5. Depending on the environment you want to connect to go to the `Production configuration` section or the `Sandbox configuration` section and type `Api Key` and `Signature Key` in the proper fields.
 
 ![Configuration step 5][ext9]
 
