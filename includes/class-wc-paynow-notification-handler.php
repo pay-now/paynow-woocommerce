@@ -115,8 +115,11 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 	private function is_correct_status( $previous_status, $next_status ) {
 		$payment_status_flow    = [
 			Status::STATUS_NEW       => [
+				Status::STATUS_NEW,
 				Status::STATUS_PENDING,
-				Status::STATUS_ERROR
+				Status::STATUS_ERROR,
+				Status::STATUS_CONFIRMED,
+				Status::STATUS_REJECTED
 			],
 			Status::STATUS_PENDING   => [
 				Status::STATUS_CONFIRMED,
@@ -124,7 +127,10 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 			],
 			Status::STATUS_REJECTED  => [ Status::STATUS_CONFIRMED ],
 			Status::STATUS_CONFIRMED => [],
-			Status::STATUS_ERROR     => [ Status::STATUS_CONFIRMED, Status::STATUS_REJECTED ]
+			Status::STATUS_ERROR     => [
+				Status::STATUS_CONFIRMED,
+				Status::STATUS_REJECTED
+            		]
 		];
 		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
 		$is_change_possible     = in_array( $next_status, $payment_status_flow[ $previous_status ] );
