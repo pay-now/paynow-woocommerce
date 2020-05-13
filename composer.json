@@ -11,7 +11,7 @@
   "type": "woocommerce-plugin",
   "require": {
     "php": ">=5.4",
-    "pay-now/paynow-php-sdk": "^1.0.4"
+    "pay-now/paynow-php-sdk": "^1.0.6"
   },
   "minimum-stability": "stable"
 }
