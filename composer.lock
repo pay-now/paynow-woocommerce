@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c79cc41a0f7623d6a27c1eca97de182",
+    "content-hash": "299d6c3463125bf9676029750f2626a1",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -131,16 +131,16 @@
         },
         {
             "name": "pay-now/paynow-php-sdk",
-            "version": "1.0.4",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pay-now/paynow-php-sdk.git",
-                "reference": "b641b30251840bbc3ec095839a3405262eb4209a"
+                "reference": "c6e4936ab4b2d505d0825c6d5fca832c8efc2ef9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pay-now/paynow-php-sdk/zipball/b641b30251840bbc3ec095839a3405262eb4209a",
-                "reference": "b641b30251840bbc3ec095839a3405262eb4209a",
+                "url": "https://api.github.com/repos/pay-now/paynow-php-sdk/zipball/c6e4936ab4b2d505d0825c6d5fca832c8efc2ef9",
+                "reference": "c6e4936ab4b2d505d0825c6d5fca832c8efc2ef9",
                 "shasum": ""
             },
             "require": {
@@ -184,7 +184,7 @@
                 "payment processing",
                 "paynow"
             ],
-            "time": "2019-12-06T13:47:24+00:00"
+            "time": "2020-05-13T09:32:54+00:00"
         },
         {
             "name": "php-http/curl-client",
@@ -244,16 +244,16 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "1.7.0",
+            "version": "1.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "e822f86a6983790aa17ab13aa7e69631e86806b6"
+                "reference": "82dbef649ccffd8e4f22e1953c3a5265992b83c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/discovery/zipball/e822f86a6983790aa17ab13aa7e69631e86806b6",
-                "reference": "e822f86a6983790aa17ab13aa7e69631e86806b6",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/82dbef649ccffd8e4f22e1953c3a5265992b83c0",
+                "reference": "82dbef649ccffd8e4f22e1953c3a5265992b83c0",
                 "shasum": ""
             },
             "require": {
@@ -305,7 +305,7 @@
                 "message",
                 "psr7"
             ],
-            "time": "2019-06-30T09:04:27+00:00"
+            "time": "2020-01-03T11:25:47+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -633,7 +633,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4"
+        "php": ">=5.4",
+        "ext-json": "*"
     },
     "platform-dev": []
 }

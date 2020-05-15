@@ -91,9 +91,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 	 * @return string
 	 */
 	private function map_order_status( $order ) {
-		if ( $order->has_status( 'on-hold' ) ) {
-			return Status::STATUS_NEW;
-		} elseif ( $order->has_status( 'pending' ) ) {
+		if ( $order->has_status( 'on-hold' ) || $order->has_status( 'pending' ) ) {
 			return Status::STATUS_PENDING;
 		} elseif ( $order->has_status( 'processing' ) ) {
 			return Status::STATUS_CONFIRMED;

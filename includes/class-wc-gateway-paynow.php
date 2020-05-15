@@ -133,9 +133,6 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 				$order->set_transaction_id( $payment_data->paymentId );
 			}
 
-			// Mark as on-hold (we're awaiting the payment)
-			$order->update_status( 'on-hold', __( 'Awaiting Paynow payment', 'woocommerce-gateway-paynow' ) );
-
 			// Reduce stock levels
 			$this->reduce_stock( $order );
 
