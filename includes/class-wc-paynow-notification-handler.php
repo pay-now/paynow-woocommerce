@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Paynow\Model\Payment\Status;
+use Paynow\Notification;
 
 class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 
@@ -30,7 +31,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 		WC_Paynow_Logger::log( 'Info: Received payment status notification ' . $notification_data['status'] . ' for order ' . $notification_data['externalId'] );
 
 		try {
-			new \Paynow\Notification( $this->signature_key, $payload, $headers );
+			new Notification( $this->signature_key, $payload, $headers );
 			$order = wc_get_order( $notification_data['externalId'] );
 
 			if ( ! $order ) {

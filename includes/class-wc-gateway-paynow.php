@@ -3,8 +3,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Paynow\Client;
 use Paynow\Environment;
 use Paynow\Exception\PaynowException;
+use Paynow\Service\Payment;
+use Paynow\Service\ShopConfiguration;
 
 class WC_Gateway_Paynow extends WC_Payment_Gateway {
 
@@ -28,7 +31,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 
 	/**
 	 * API Client
-	 * @var \Paynow\Client
+	 * @var Client
 	 */
 	private $api_client;
 
@@ -69,7 +72,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 		$this->init_paynow_client();
 		// update shop configuration
 		try {
-			$shop_configuration = new \Paynow\Service\ShopConfiguration( $this->api_client );
+			$shop_configuration = new ShopConfiguration( $this->api_client );
 			$shop_configuration->changeUrls( $this->get_return_url(), WC_Paynow_Helper::get_notification_url() );
 		} catch ( PaynowException $exception ) {
 			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
@@ -89,7 +92,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 
 	private function init_paynow_client() {
 		$user_agent       = 'Wordpress-' . get_bloginfo( 'version' ) . '/WooCommerce-' . WC()->version . '/Plugin-' . WC_PAYNOW_PLUGIN_VERSION;
-		$this->api_client = new \Paynow\Client(
+		$this->api_client = new Client(
 			$this->api_key,
 			$this->signature_key,
 			$this->sandbox ? Environment::SANDBOX : Environment::PRODUCTION,
@@ -112,7 +115,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			'continueUrl' => $this->get_return_url( $order )
 		];
 		$idempotency_key = uniqid( $order_id, true );
-		$payment         = new \Paynow\Service\Payment( $this->api_client );
+		$payment         = new Payment( $this->api_client );
 
 		return $payment->authorize( $payment_data, $idempotency_key );
 	}
@@ -128,9 +131,9 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 
 			// add paymentId to order
 			if ( WC_Paynow_Helper::is_old_wc_version() ) {
-				update_post_meta( $order_id, '_transaction_id', $payment_data->paymentId );
+				update_post_meta( $order_id, '_transaction_id', $payment_data->getPaymentId() );
 			} else {
-				$order->set_transaction_id( $payment_data->paymentId );
+				$order->set_transaction_id( $payment_data->getPaymentId() );
 			}
 
 			// Reduce stock levels
@@ -145,10 +148,14 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 
 			return [
 				'result'   => 'success',
-				'redirect' => $payment_data->redirectUrl
+				'redirect' => $payment_data->getRedirectUrl()
 			];
 		} catch ( PaynowException $exception ) {
-			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() . ' - ' . json_encode( $exception->getErrors() ) );
+			$errors = $exception->getErrors();
+			foreach ( $errors as $error ) {
+				WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
+				WC_Paynow_Logger::log( 'Error: ' . $error->getType() . ' - ' . $error->getMessage() );
+			}
 			wc_add_notice( __( 'Error occurred during the payment process and the payment could not be completed.', 'woocommerce-gateway-paynow' ), 'error' );
 			$order->add_order_note( $exception->getMessage() );
 

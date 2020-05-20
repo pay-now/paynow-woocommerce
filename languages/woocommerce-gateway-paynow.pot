@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-16 13:53+0000\n"
+"POT-Creation-Date: 2020-05-20 18:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Payment has been authorized by the buyer."
 msgstr ""
 
-#: includes/class-wc-paynow-notification-handler.php:83 
+#: includes/class-wc-paynow-notification-handler.php:83
 #: includes/class-wc-gateway-paynow.php:155
 msgid ""
 "Error occurred during the payment process and the payment could not be "
@@ -52,10 +52,6 @@ msgstr ""
 
 #: includes/class-wc-gateway-paynow.php:108
 msgid "Order No: "
-msgstr ""
-
-#: includes/class-wc-gateway-paynow.php:137
-msgid "Awaiting Paynow payment"
 msgstr ""
 
 #: includes/class-wc-gateway-paynow.php:182
