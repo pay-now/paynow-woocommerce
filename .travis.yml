@@ -1,5 +1,6 @@
 script: skip
 before_deploy:
+  - composer install
   - zip -r paynow.zip ./* -x instruction/\* -x *.md
 deploy:
   provider: releases
@@ -11,5 +12,3 @@ deploy:
     repo: pay-now/paynow-woocommerce
     branch: master
     tags: true
-
-
