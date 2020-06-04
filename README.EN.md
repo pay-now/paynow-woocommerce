@@ -1,27 +1,31 @@
 [**Wersja polska**][ext0]
+
 # Paynow WooCommerce Plugin
 
 The Paynow plugin adds quick bank transfers and BLIK payments to a WooCommerce shop.
 
 ## Table of Contents
-* [Prerequisites](#prerequisites)
-* [Installation](#installation)
-* [Configuration](#configuration)
-* [FAQ](#FAQ)
-* [Sandbox](#sandbox)
-* [Support](#support)
-* [License](#license)
+
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [FAQ](#FAQ)
+- [Sandbox](#sandbox)
+- [Support](#support)
+- [License](#license)
 
 ## Prerequisites
+
 - PHP since 7.1
 - WooCommerce 2.2 or higher
 
 ## Installation
+
 See also [instructional video][ext12].
 
 1. Download the paynow.zip file from [Github repository][ext1] to a local directory
 2. Go to the Wordpress administration page
-3. Go to `Plugins` 
+3. Go to `Plugins`
 
 ![Installation step 3][ext3]
 
@@ -37,26 +41,27 @@ See also [instructional video][ext12].
 
 ![Installation step 6][ext6]
 
-
 ## Configuration
+
 1. Go to the WooCommerce administration page
 2. Go to `Settings > Payments`
 3. Search and select `Paynow` and click `Manage`
 
 ![Configuration step 3][ext7]
 
-4. Production credential keys can be found in `Settings > Shops and poses > Authentication data` in the Paynow merchant panel.
+4. Production credential keys can be found in the tab `My business > Paynow > Settings > Shops and poses > Authentication data` in the mBank online banking.
 
-    Sandbox credential keys can be found in `Settings > Shops and poses > Authentication data` in the [sandbox panel][ext11].
+   Sandbox credential keys can be found in `Settings > Shops and poses > Authentication data` in the [sandbox panel][ext11].
 
-![Configuration step 4][ext8]
+![Configuration step 4a][ext8]
+![Configuration step 4b][ext13]
 
 5. Depending on the environment you want to connect to go to the `Production configuration` section or the `Sandbox configuration` section and type `Api Key` and `Signature Key` in the proper fields.
 
 ![Configuration step 5][ext9]
 
-
 ## FAQ
+
 **How to configure the return address?**
 
 The return address will be set automatically for each order. There is no need to manually configure this address.
@@ -68,14 +73,17 @@ In the Paynow merchant panel go to the tab `Settings > Shops and poses`, in the 
 ![Configuration of the notifiction address][ext10]
 
 ## Sandbox
+
 To be able to test our Paynow Sandbox environment, register [here][ext2].
 
 ## Support
+
 If you have any questions or issues, please contact our support at support@paynow.pl.
 
 If you wish to learn more about Paynow visit our website: https://www.paynow.pl/.
 
 ## License
+
 MIT license. For more information, see the LICENSE file.
 
 [ext0]: README.md
@@ -91,3 +99,4 @@ MIT license. For more information, see the LICENSE file.
 [ext10]: instruction/step8.png
 [ext11]: https://panel.sandbox.paynow.pl/merchant/payments
 [ext12]: https://paynow.wistia.com/medias/g62mlym13x
+[ext13]: instruction/step6b.png
