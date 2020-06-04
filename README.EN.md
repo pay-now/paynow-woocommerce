@@ -94,7 +94,7 @@ MIT license. For more information, see the LICENSE file.
 [ext5]: instruction/step3_EN.png
 [ext6]: instruction/step4_EN.png
 [ext7]: instruction/step5_EN.png
-[ext8]: instruction/step6.png
+[ext8]: instruction/step6a.png
 [ext9]: instruction/step7_EN.png
 [ext10]: instruction/step8.png
 [ext11]: https://panel.sandbox.paynow.pl/merchant/payments
