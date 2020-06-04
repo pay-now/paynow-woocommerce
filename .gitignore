@@ -3,3 +3,7 @@
 
 # ignore PhpStorm .idea folder
 .idea
+
+# composer vendor
+vendor
+compose.lock

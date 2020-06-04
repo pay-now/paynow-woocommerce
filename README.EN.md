@@ -3,9 +3,8 @@
 
 The Paynow plugin adds quick bank transfers and BLIK payments to a WooCommerce shop.
 
-This plugin supports WooCommerce 2.2 and higher.
-
 ## Table of Contents
+* [Prerequisites](#prerequisites)
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [FAQ](#FAQ)
@@ -13,8 +12,11 @@ This plugin supports WooCommerce 2.2 and higher.
 * [Support](#support)
 * [License](#license)
 
-## Installation
+## Prerequisites
+- PHP since 7.1
+- WooCommerce 2.2 or higher
 
+## Installation
 See also [instructional video][ext12].
 
 1. Download the paynow.zip file from [Github repository][ext1] to a local directory
