@@ -58,7 +58,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 	 *
 	 * @throws Exception
 	 */
-	private function process_notification( $order, $notification_data ) {
+	private function process_notification( $order, array $notification_data ) {
 		$notification_status = $notification_data['status'];
 
 		$mapped_order_status = $this->map_order_status( $order );
@@ -75,6 +75,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 				break;
 			case Status::STATUS_REJECTED:
 				$order->update_status( 'cancelled', __( 'Payment has not been authorized by the buyer.', 'woocommerce-gateway-paynow' ) );
+				$this->increase_stock($order);
 				break;
 			case Status::STATUS_CONFIRMED:
 				$order->payment_complete( $notification_data['paymentId'] );
@@ -82,6 +83,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 				break;
 			case Status::STATUS_ERROR:
 				$order->update_status( 'failed', __( 'Error occurred during the payment process and the payment could not be completed.', 'woocommerce-gateway-paynow' ) );
+				$this->increase_stock($order);
 				break;
 		}
 	}

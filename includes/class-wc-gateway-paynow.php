@@ -136,13 +136,10 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 				$order->set_transaction_id( $payment_data->getPaymentId() );
 			}
 
-			// Reduce stock levels
-			$this->reduce_stock( $order );
-
 			// Remove cart
 			WC()->cart->empty_cart();
 
-			if ( is_callable( array( $order, 'save' ) ) ) {
+			if ( is_callable( [ $order, 'save' ] ) ) {
 				$order->save();
 			}
 
@@ -166,11 +163,9 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 	/**
 	 * @param WC_Order $order
 	 */
-	private function reduce_stock( $order ) {
-		if ( WC_Paynow_Helper::is_old_wc_version() ) {
-			$order->reduce_order_stock();
-		} else {
-			wc_reduce_stock_levels( $order->get_id() );
+	protected function increase_stock( $order ) {
+		if ( ! WC_Paynow_Helper::is_old_wc_version() ) {
+			wc_increase_stock_levels( $order );
 		}
 	}
 
