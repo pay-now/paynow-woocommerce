@@ -12,7 +12,7 @@
   "type": "woocommerce-plugin",
   "minimum-stability": "stable",
   "require": {
-    "php": "^7.1",
+    "php": ">=7.1",
     "pay-now/paynow-php-sdk": "^2.0",
     "nyholm/psr7": "^1.2",
     "php-http/curl-client": "^2.1"
