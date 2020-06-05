@@ -4,6 +4,7 @@
  * Plugin URI: https://github.com/pay-now/paynow-woocommerce
  * Description: Accepts payments by Paynow
  * Version: 1.0.10
+ * Requires PHP: 7.1
  * Author: mElements S.A.
  * Author URI: https://www.paynow.pl
  * License: MIT
