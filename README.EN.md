@@ -49,7 +49,7 @@ See also [instructional video][ext12].
 
 ![Configuration step 3][ext7]
 
-4. Production credential keys can be found in the tab `My business > Paynow > Settings > Shops and poses > Authentication data` in the mBank online banking.
+4. Production credential keys can be found in the tab `My business > Paynow > Settings > Shops and poses > Authentication data` in the mBank's online banking.
 
    Sandbox credential keys can be found in `Settings > Shops and poses > Authentication data` in the [sandbox panel][ext11].
 

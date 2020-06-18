@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-20 18:47+0000\n"
-"PO-Revision-Date: 2020-05-20 18:48+0000\n"
+"POT-Creation-Date: 2020-06-18 11:58+0000\n"
+"PO-Revision-Date: 2020-06-18 12:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl_PL\n"
@@ -13,22 +13,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.4; wp-5.4.1"
+"X-Loco-Version: 2.4.0; wp-5.4.2"
 
-#: includes/class-wc-paynow-notification-handler.php:73
+#: includes/class-wc-paynow-notification-handler.php:76
 msgid "Awaiting payment confirmation from Paynow"
 msgstr "Oczekuje na potwierdzenie płatności z Paynow"
 
-#: includes/class-wc-paynow-notification-handler.php:76
+#: includes/class-wc-paynow-notification-handler.php:79
 msgid "Payment has not been authorized by the buyer."
 msgstr "Płatność nie została zatwierdzona przez kupującego."
 
-#: includes/class-wc-paynow-notification-handler.php:80
+#: includes/class-wc-paynow-notification-handler.php:84
 msgid "Payment has been authorized by the buyer."
 msgstr "Płatność została zatwierdzona przez kupującego."
 
-#: includes/class-wc-paynow-notification-handler.php:83
-#: includes/class-wc-gateway-paynow.php:155
+#: includes/class-wc-paynow-notification-handler.php:87
+#: includes/class-wc-gateway-paynow.php:156
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
@@ -36,27 +36,29 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie."
 
-#: includes/class-wc-gateway-paynow.php:38
+#: includes/class-wc-gateway-paynow.php:41
 msgid "Paynow"
 msgstr "Paynow"
 
-#: includes/class-wc-gateway-paynow.php:39
+#. Description of the plugin
+#: includes/class-wc-gateway-paynow.php:42
 msgid "Accepts payments by Paynow"
 msgstr "Przyjmuj płatności internetowe z bramką Paynow"
 
-#: includes/class-wc-gateway-paynow.php:52
+#. Name of the plugin
+#: includes/class-wc-gateway-paynow.php:55
 msgid "Pay by Paynow"
 msgstr "Zapłać z Paynow"
 
-#: includes/class-wc-gateway-paynow.php:53
+#: includes/class-wc-gateway-paynow.php:56
 msgid "Secure BLIK payments and fast online transfers"
 msgstr "Bezpieczne płatności BLIK i szybkie przelewy internetowe"
 
-#: includes/class-wc-gateway-paynow.php:108
+#: includes/class-wc-gateway-paynow.php:111
 msgid "Order No: "
 msgstr "Zamówienie: "
 
-#: includes/class-wc-gateway-paynow.php:182
+#: includes/class-wc-gateway-paynow.php:181
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
@@ -110,13 +112,13 @@ msgstr "Konfiguracja środowiska produkcyjnego"
 
 #: includes/admin/paynow-settings.php:32
 msgid ""
-"Production authentication keys are available in <i>the Paynow tab > Settings "
-"> Shops and payment points > Authentication data</i> in mBank's online "
-"banking."
+"Production authentication keys are available in <i>My business > Paynow > "
+"Settings > Shops and payment points > Authentication data</i> in mBank's "
+"online banking."
 msgstr ""
-"Klucze uwierzytelniające dostępne są w zakładce <i>Ustawienia > Sklepy i "
-"punkty płatności > Dane uwierzytelniające</i> w bankowości internetowej "
-"mBanku."
+"Klucze uwierzytelniające dostępne są w zakładce <i>Mój biznes > Paynow > "
+"Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające</i> w "
+"bankowości internetowej mBanku."
 
 #: includes/admin/paynow-settings.php:35 includes/admin/paynow-settings.php:58
 msgid "Api Key"
