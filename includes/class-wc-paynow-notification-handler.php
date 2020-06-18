@@ -68,7 +68,6 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 			throw new Exception( 'Order status transition is incorrect ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order_id );
 		}
 
-
 		WC_Paynow_Logger::log( 'Info: Order status transition is correct ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order_id );
 		switch ( $notification_status ) {
 			case Status::STATUS_PENDING:
