@@ -149,9 +149,11 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			];
 		} catch ( PaynowException $exception ) {
 			$errors = $exception->getErrors();
-			foreach ( $errors as $error ) {
-				WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
-				WC_Paynow_Logger::log( 'Error: ' . $error->getType() . ' - ' . $error->getMessage() );
+			if ($errors) {
+				foreach ( $errors as $error ) {
+					WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
+					WC_Paynow_Logger::log( 'Error: ' . $error->getType() . ' - ' . $error->getMessage() );
+				}
 			}
 			wc_add_notice( __( 'Error occurred during the payment process and the payment could not be completed.', 'woocommerce-gateway-paynow' ), 'error' );
 			$order->add_order_note( $exception->getMessage() );

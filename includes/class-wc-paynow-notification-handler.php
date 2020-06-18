@@ -68,6 +68,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 			throw new Exception( 'Order status transition is incorrect ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order_id );
 		}
 
+
 		WC_Paynow_Logger::log( 'Info: Order status transition is correct ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order_id );
 		switch ( $notification_status ) {
 			case Status::STATUS_PENDING:
@@ -75,7 +76,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 				break;
 			case Status::STATUS_REJECTED:
 				$order->update_status( 'cancelled', __( 'Payment has not been authorized by the buyer.', 'woocommerce-gateway-paynow' ) );
-				$this->increase_stock($order);
+				$this->increase_stock( $order );
 				break;
 			case Status::STATUS_CONFIRMED:
 				$order->payment_complete( $notification_data['paymentId'] );
@@ -83,7 +84,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 				break;
 			case Status::STATUS_ERROR:
 				$order->update_status( 'failed', __( 'Error occurred during the payment process and the payment could not be completed.', 'woocommerce-gateway-paynow' ) );
-				$this->increase_stock($order);
+				$this->increase_stock( $order );
 				break;
 		}
 	}
@@ -94,8 +95,8 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 	 * @return string
 	 */
 	private function map_order_status( $order ) {
-		if ( $order->has_status( 'on-hold' ) || $order->has_status( 'pending' ) ) {
-			return Status::STATUS_PENDING;
+		if ( $order->has_status( 'pending' ) ) {
+			return Status::STATUS_NEW;
 		} elseif ( $order->has_status( 'processing' ) ) {
 			return Status::STATUS_CONFIRMED;
 		} elseif ( $order->has_status( 'failed' ) ) {
@@ -131,7 +132,7 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 			Status::STATUS_ERROR     => [
 				Status::STATUS_CONFIRMED,
 				Status::STATUS_REJECTED
-            		]
+			]
 		];
 		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
 		$is_change_possible     = in_array( $next_status, $payment_status_flow[ $previous_status ] );
