@@ -29,7 +29,7 @@ return apply_filters(
 		'production_title'       => [
 			'title'   => __( 'Production configuration', 'woocommerce-gateway-paynow' ),
 			'type'    => 'title',
-			'description' => __( "Production authentication keys are available in <i>My business > Paynow > Settings > Shops and payment points > Authentication data</i> in mBank's online banking.", 'woocommerce-gateway-paynow' ),
+			'description' => __( "Production authentication keys are available in <i>My Business > Paynow > Settings > Shops and payment points > Authentication data</i> in mBank's online banking.", 'woocommerce-gateway-paynow' ),
 		],
 		'production_api_key'       => [
 			'title'   => __( 'Api Key', 'woocommerce-gateway-paynow' ),
