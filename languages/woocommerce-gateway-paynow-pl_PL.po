@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-18 11:58+0000\n"
-"PO-Revision-Date: 2020-06-18 12:02+0000\n"
+"POT-Creation-Date: 2020-06-18 13:03+0000\n"
+"PO-Revision-Date: 2020-06-18 13:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl_PL\n"
@@ -15,20 +15,20 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.4.0; wp-5.4.2"
 
-#: includes/class-wc-paynow-notification-handler.php:76
+#: includes/class-wc-paynow-notification-handler.php:74
 msgid "Awaiting payment confirmation from Paynow"
 msgstr "Oczekuje na potwierdzenie płatności z Paynow"
 
-#: includes/class-wc-paynow-notification-handler.php:79
+#: includes/class-wc-paynow-notification-handler.php:77
 msgid "Payment has not been authorized by the buyer."
 msgstr "Płatność nie została zatwierdzona przez kupującego."
 
-#: includes/class-wc-paynow-notification-handler.php:84
+#: includes/class-wc-paynow-notification-handler.php:82
 msgid "Payment has been authorized by the buyer."
 msgstr "Płatność została zatwierdzona przez kupującego."
 
-#: includes/class-wc-paynow-notification-handler.php:87
-#: includes/class-wc-gateway-paynow.php:156
+#: includes/class-wc-paynow-notification-handler.php:85
+#: includes/class-wc-gateway-paynow.php:158
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
@@ -58,7 +58,7 @@ msgstr "Bezpieczne płatności BLIK i szybkie przelewy internetowe"
 msgid "Order No: "
 msgstr "Zamówienie: "
 
-#: includes/class-wc-gateway-paynow.php:181
+#: includes/class-wc-gateway-paynow.php:183
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
@@ -112,11 +112,11 @@ msgstr "Konfiguracja środowiska produkcyjnego"
 
 #: includes/admin/paynow-settings.php:32
 msgid ""
-"Production authentication keys are available in <i>My business > Paynow > "
+"Production authentication keys are available in <i>My Business > Paynow > "
 "Settings > Shops and payment points > Authentication data</i> in mBank's "
 "online banking."
 msgstr ""
-"Klucze uwierzytelniające dostępne są w zakładce <i>Mój biznes > Paynow > "
+"Klucze uwierzytelniające dostępne są w zakładce <i>Mój Biznes > Paynow > "
 "Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające</i> w "
 "bankowości internetowej mBanku."
 
