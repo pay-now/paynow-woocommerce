@@ -108,7 +108,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			'amount'      => WC_Paynow_Helper::get_amount( $order->get_total() ),
 			'currency'    => strtoupper( $currency ),
 			'externalId'  => $order_id,
-			'description' => __( 'Order No: ', 'woocommerce-gateway-paynow' ) . $order_id,
+			'description' => __( 'Order No: ', 'woocommerce-gateway-paynow' ) . $order->get_order_number(),
 			'buyer'       => [
 				'email' => $billing_data['email']
 			],
