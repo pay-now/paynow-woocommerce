@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Pay by Paynow
+ * Plugin Name: Pay by paynow.pl
  * Plugin URI: https://github.com/pay-now/paynow-woocommerce
- * Description: Accepts payments by Paynow
+ * Description: paynow is a secure online payment by bank transfer, BLIK and card.
  * Version: 1.0.14
  * Requires PHP: 7.1
  * Author: mElements S.A.
  * Author URI: https://www.paynow.pl
- * License: MIT
+ * License: GPLv3
  * Text Domain: woocommerce-gateway-paynow
  * Domain Path: /languages
  */

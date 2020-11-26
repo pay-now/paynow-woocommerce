@@ -86,7 +86,7 @@ Jeśli chciałbyś dowiedzieć się więcej o bramce płatności Paynow odwiedź
 
 ## Licencja
 
-Licencja MIT. Szczegółowe informacje znajdziesz w pliku LICENSE.
+Licencja GPL. Szczegółowe informacje znajdziesz w pliku LICENSE.
 
 [ext0]: README.EN.md
 [ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest/download/paynow.zip

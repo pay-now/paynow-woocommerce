@@ -84,7 +84,7 @@ If you wish to learn more about Paynow visit our website: https://www.paynow.pl/
 
 ## License
 
-MIT license. For more information, see the LICENSE file.
+GPL license. For more information, see the LICENSE file.
 
 [ext0]: README.md
 [ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest
