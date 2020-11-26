@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2020-11-26 10:32+0000\n"
+"PO-Revision-Date: 2020-11-26 11:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl-PL\n"
@@ -153,7 +153,9 @@ msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
 #: includes/class-wc-gateway-paynow.php:56
-msgid "Secure BLIK  and credit cards payments and fast online transfers"
+#, fuzzy
+#| msgid "Secure BLIK  and credit cards payments and fast online transfers"
+msgid "Secure BLIK, credit cards payments and fast online transfers"
 msgstr ""
 "Bezpieczne płatności BLIK, szybkie przelewy internetowe i płatności kartą"
 

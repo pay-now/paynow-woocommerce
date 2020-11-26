@@ -53,7 +53,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 
 		// Get setting values.
 		$this->title         = __( 'Pay by Paynow', 'woocommerce-gateway-paynow' );
-		$this->description   = __( 'Secure BLIK  and credit cards payments and fast online transfers', 'woocommerce-gateway-paynow' );
+		$this->description   = __( 'Secure BLIK, credit cards payments and fast online transfers', 'woocommerce-gateway-paynow' );
 		$this->enabled       = $this->get_option( 'enabled' );
 		$this->sandbox       = $this->get_option( 'sandbox' ) === "yes";
 		$this->api_key       = $this->sandbox ? $this->get_option( 'sandbox_api_key' ) : $this->get_option( 'production_api_key' );
