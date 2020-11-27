@@ -110,7 +110,9 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			'externalId'  => $order_id,
 			'description' => __( 'Order No: ', 'woocommerce-gateway-paynow' ) . $order->get_order_number(),
 			'buyer'       => [
-				'email' => $billing_data['email']
+				'email' => $billing_data['email'],
+				'firstName' => $billing_data['first_name'],
+				'lastName' => $billing_data['last_name']
 			],
 			'continueUrl' => $this->get_return_url( $order )
 		];

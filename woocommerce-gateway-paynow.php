@@ -39,7 +39,7 @@ function woocommerce_gateway_paynow_init() {
 }
 
 function woocommerce_paynow_add_gateway( $methods ) {
-	$methods[] = 'WC_Gateway_Paynow';
+	array_unshift($methods, 'WC_Gateway_Paynow' );
 
 	return $methods;
 }
