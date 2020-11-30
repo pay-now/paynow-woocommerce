@@ -32,7 +32,7 @@ class WC_Paynow_Helper {
 	 * @return string
 	 */
 	public static function get_notification_url() {
-		return add_query_arg( 'wc-api', 'WC_Gateway_Paynow', home_url( '/' ));
+		return add_query_arg( 'wc-api', 'WC_Gateway_Paynow', home_url( '/' ) );
 	}
 
 	/**
@@ -57,6 +57,6 @@ class WC_Paynow_Helper {
 	}
 
 	public static function is_old_wc_version() {
-		return version_compare( WC_VERSION, '3.0', '<');
+		return version_compare( WC_VERSION, '3.0', '<' );
 	}
 }
