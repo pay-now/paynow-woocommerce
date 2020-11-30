@@ -41,6 +41,12 @@ class WC_Gateway_Paynow_Notification_Handler extends WC_Gateway_Paynow {
 				exit;
 			}
 
+			if ( $order->get_payment_method() !== $this->id ) {
+				WC_Paynow_Logger::log( 'Error: Other payment gateway is selected for ' . $notification_data['externalId'] );
+				status_header( 400 );
+				exit;
+			}
+
 			$this->process_notification( $order, $notification_data );
 		} catch ( Exception $exception ) {
 			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
