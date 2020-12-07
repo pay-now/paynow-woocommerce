@@ -7,3 +7,5 @@
 # composer vendor
 vendor
 compose.lock
+dist
+build

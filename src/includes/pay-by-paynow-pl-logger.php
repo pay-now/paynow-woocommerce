@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_Paynow_Logger {
 
 	public static $logger;
-	const WC_LOG_FILENAME = 'woocommerce-gateway-paynow';
+	const WC_LOG_FILENAME = 'gateway-pay-by-paynow-pl';
 
 	public static function log( $message ) {
 		if ( ! class_exists( 'WC_Logger' ) ) {

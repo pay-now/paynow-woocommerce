@@ -1,14 +1,25 @@
-script: skip
+branches:
+  only:
+    - master
+
 before_deploy:
   - composer install
-  - zip -r paynow.zip ./* -x instruction/\* -x *.md
+  - mkdir dist
+  - mkdir dist/pay-by-paynow-pl
+  - cp -R vendor dist/pay-by-paynow-pl
+  - cp -R src/* dist/pay-by-paynow-pl
+  - zip -r pay-by-paynow-pl.zip dist/pay-by-paynow-pl
+
 deploy:
   provider: releases
   api_key:
     secure: EIIa6wnMPvcs5qNtn+ggdC8vJCjAV7JOWGeM1EyFOhonD2vaKdPOC0VQd6ifxA03U87K5SlydFtpdqDMG0GSW71x2wo+ABZO3n/2rtAhnlynW6vJ2TUbqYyAa/O47lugGLp8MZ893jIgSSSZ29MT92Tw5FE9jmUtvSUTfzbi4SeDvaT6Api19IcqzCE5yl9crRnTvLej5wsgaBNDFj1dW9SGQ+pWRw8heLEZxxksysv1MqCCNGuB3htpbHXrdPJfaNKKYIJWZQUh2v0agnUBdCQtCRXkp8qObWbt59cw0dTFlBq6v6ApJy2tNMD7RMSPPDy5Gkffg0nRKyrSBkF4b2t9eKgaLcg9pdpg0r7fnSijS13BXTYpVJX4UqlhQL2s9QBdtK5wpfeUr0042QlWR+VzjP13n2Lxuutz4+0QKBbVKoM2NmS8lHlzDF2pNOqOS0n1Wkc98nYdEPzS5k3iXI16GIcQHSUWKbICHIEEPqC7fK9x2arJfTQu5OoUWvQzwpLNDcD6u9PoI/6jbHT0R8qM+kh6ck15V61xs1o5z+2/8cGyDC16IacSa/hv2KnWHWQTVwVu1TEQAgjw0AAAXpkyGqajEh/9JxrqlAURLr9QNoE9gwfO2bBdFGjKxbUueqY4PdS0lx/8B5UFnEkMtWbKx1cLOTcuU2wQlvBRk/o=
-  file: paynow.zip
-  skip_cleanup: true
+  file: dist/pay-by-paynow-pl.zip
+  cleanup: false
   on:
     repo: pay-now/paynow-woocommerce
     branch: master
     tags: true
+
+after_deploy:
+  - bash ./scripts/deploy_to_wp_svn.sh

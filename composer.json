@@ -1,7 +1,7 @@
 {
   "name": "pay-now/paynow-woocommerce",
-  "description": "WooCommerce Paynow Plugin",
-  "license": "MIT",
+  "description": "paynow.pl plugin for WooCommerce",
+  "license": "GPLv3",
   "version": "1.0.14",
   "authors": [
     {
