@@ -2,7 +2,7 @@
   "name": "pay-now/paynow-woocommerce",
   "description": "paynow.pl plugin for WooCommerce",
   "license": "GPLv3",
-  "version": "1.0.14",
+  "version": "1.1.0",
   "authors": [
     {
       "name": "mElements S.A.",
