@@ -7,7 +7,7 @@
  * Requires PHP: 7.1
  * Author: mElements S.A.
  * Author URI: https://www.paynow.pl
- * License: MIT
+ * License: GPLv3
  * Text Domain: gateway-pay-by-paynow-pl
  * Domain Path: /languages
  */

@@ -5,6 +5,11 @@ if [[ -z "$TRAVIS" ]]; then
 	exit 1
 fi
 
+if [[ -z "$WP_ORG_USERNAME" ]]; then
+	echo "WordPress.org password not set" 1>&2
+	exit 1
+fi
+
 if [[ -z "$WP_ORG_PASSWORD" ]]; then
 	echo "WordPress.org password not set" 1>&2
 	exit 1
@@ -15,19 +20,11 @@ if [[ -z "$TRAVIS_BRANCH" || "$TRAVIS_BRANCH" != "master" ]]; then
 	exit 0
 fi
 
-WP_ORG_USERNAME="ksadowskime"
 PLUGIN="pay-by-paynow-pl"
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
-PLUGIN_BUILDS_PATH="$PROJECT_ROOT"
+PLUGIN_BUILDS_PATH="$PROJECT_ROOT/dist/"
 PLUGIN_BUILD_CONFIG_PATH="$PROJECT_ROOT"
 VERSION="$TRAVIS_TAG"
-ZIP_FILE="$PROJECT_ROOT/$PLUGIN.zip"
-
-# Ensure the zip file for the current version has been built
-if [ ! -f "$ZIP_FILE" ]; then
-    echo "Built zip file $ZIP_FILE does not exist" 1>&2
-    exit 1
-fi
 
 # Check if the tag exists for the version we are building
 TAG=$(svn ls "https://plugins.svn.wordpress.org/$PLUGIN/tags/$VERSION")
@@ -39,13 +36,6 @@ if [ $error == 0 ]; then
 fi
   
 cd "$PLUGIN_BUILDS_PATH"
-mkdir build 
-cd build
-
-# Remove any unzipped dir so we start from scratch
-rm -fR "$PLUGIN"
-# Unzip the built plugin
-unzip -q -o "$ZIP_FILE"
 
 # Clean up any previous svn dir
 rm -fR svn

@@ -23,7 +23,7 @@ Wtyczka Paynow dodaje szybkie płatności i płatności BLIK do sklepu WooCommer
 
 Zobacz również [filmik instruktażowy][ext12].
 
-1. Pobierz plik [paynow.zip][ext1] i zapisz na dysku swojego komputera
+1. Pobierz plik [pay-by-paynow-pl.zip][ext1] i zapisz na dysku swojego komputera
 2. Przejdź do panelu administracyjnego Wordpress
 3. Przejdź do zakładki `Wtyczki`
 
@@ -89,7 +89,7 @@ Jeśli chciałbyś dowiedzieć się więcej o bramce płatności Paynow odwiedź
 Licencja GPL. Szczegółowe informacje znajdziesz w pliku LICENSE.
 
 [ext0]: README.EN.md
-[ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest/download/paynow.zip
+[ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest/download/pay-by-paynow-pl.zip
 [ext2]: https://panel.sandbox.paynow.pl/auth/register
 [ext3]: instruction/step1.png
 [ext4]: instruction/step2.png

@@ -6,7 +6,7 @@ Requires PHP: 7.1
 Stable tag: 1.0.14
 License: GPLv3
 
-paynow is a secure online payment by bank transfers, BLIK and card.
+**pay**now is a secure online payment by bank transfers, BLIK and card.
 
 == Description ==
 paynow is a secure online payment by bank transfers, BLIK and card.
@@ -14,7 +14,7 @@ paynow is a secure online payment by bank transfers, BLIK and card.
 == Installation ==
 1. Go to the WooCommerce administration page
 2. Go to `Settings > Payments`
-3. Search and select `Paynow` and click `Manage`
+3. Search and select `paynow.pl` and click `Manage`
 4. Production credential keys can be found in the tab `My business > Paynow > Settings > Shops and poses > Authentication data` in the mBank\'s online banking.
 Sandbox credential keys can be found in `Settings > Shops and poses > Authentication data` in the [sandbox panel][ext0].
 [ext0]: https://panel.sandbox.paynow.pl/auth/register

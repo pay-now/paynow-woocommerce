@@ -23,7 +23,7 @@ The Paynow plugin adds quick bank transfers and BLIK payments to a WooCommerce s
 
 See also [instructional video][ext12].
 
-1. Download the paynow.zip file from [Github repository][ext1] to a local directory
+1. Download the pay-by-paynow-pl.zip file from [Github repository][ext1] to a local directory
 2. Go to the Wordpress administration page
 3. Go to `Plugins`
 
@@ -87,7 +87,7 @@ If you wish to learn more about Paynow visit our website: https://www.paynow.pl/
 GPL license. For more information, see the LICENSE file.
 
 [ext0]: README.md
-[ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest
+[ext1]: https://github.com/pay-now/paynow-woocommerce/releases/latest/download/pay-by-paynow-pl.zip
 [ext2]: https://panel.sandbox.paynow.pl/auth/register
 [ext3]: instruction/step1_EN.png
 [ext4]: instruction/step2_EN.png
