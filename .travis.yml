@@ -1,7 +1,3 @@
-branches:
-  only:
-    - master
-
 before_deploy:
   - composer install
   - mkdir dist

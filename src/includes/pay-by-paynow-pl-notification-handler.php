@@ -25,10 +25,10 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 		}
 
 		$payload           = trim( file_get_contents( 'php://input' ) );
-		$headers           = WC_Paynow_Helper::get_request_headers();
+		$headers           = WC_Pay_By_Paynow_PL_Helper::get_request_headers();
 		$notification_data = json_decode( $payload, true );
 
-		WC_Paynow_Logger::log( 'Info: Received payment status notification ' . $notification_data['status'] . ' for order ' . $notification_data['externalId'] );
+		WC_Pay_By_Paynow_PL_Logger::log( 'Info: Received payment status notification ' . $notification_data['status'] . ' for order ' . $notification_data['externalId'] );
 
 		try {
 			new Notification( $this->signature_key, $payload, $headers );
@@ -36,20 +36,20 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 
 			if ( ! $order ) {
 				$error_message = 'Order was not found for ' . $notification_data['externalId'];
-				WC_Paynow_Logger::log( 'Error: ' . $error_message );
+				WC_Pay_By_Paynow_PL_Logger::log( 'Error: ' . $error_message );
 				status_header( 400 );
 				exit;
 			}
 
 			if ( $order->get_payment_method() !== $this->id ) {
-				WC_Paynow_Logger::log( 'Error: Other payment gateway is selected for ' . $notification_data['externalId'] );
+				WC_Pay_By_Paynow_PL_Logger::log( 'Error: Other payment gateway is selected for ' . $notification_data['externalId'] );
 				status_header( 400 );
 				exit;
 			}
 
 			$this->process_notification( $order, $notification_data );
 		} catch ( Exception $exception ) {
-			WC_Paynow_Logger::log( 'Error: ' . $exception->getMessage() );
+			WC_Pay_By_Paynow_PL_Logger::log( 'Error: ' . $exception->getMessage() );
 			status_header( 400 );
 			exit;
 		}
@@ -68,13 +68,13 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 		$notification_status = $notification_data['status'];
 
 		$mapped_order_status = $this->map_order_status( $order );
-		$order_id            = WC_Paynow_Helper::is_old_wc_version() ? $order->id : $order->get_id();
+		$order_id            = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->id : $order->get_id();
 
 		if ( ! $this->is_correct_status( $mapped_order_status, $notification_status ) ) {
 			throw new Exception( 'Order status transition is incorrect ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order_id );
 		}
 
-		WC_Paynow_Logger::log( 'Info: Order status transition is correct ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order_id );
+		WC_Pay_By_Paynow_PL_Logger::log( 'Info: Order status transition is correct ' . $mapped_order_status . ' - ' . $notification_status . ' for order ' . $order_id );
 		switch ( $notification_status ) {
 			case Status::STATUS_NEW:
 				$order->update_status( 'pending', __( 'Awaiting payment authorization', 'pay-by-paynow-pl' ) );

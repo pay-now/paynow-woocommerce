@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Provides static methods as helpers.
  */
-class WC_Paynow_Helper {
+class WC_Pay_By_Paynow_PL_Helper {
 	/**
 	 * Get amount to pay
 	 *
