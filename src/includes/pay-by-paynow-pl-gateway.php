@@ -9,7 +9,7 @@ use Paynow\Exception\PaynowException;
 use Paynow\Service\Payment;
 use Paynow\Service\ShopConfiguration;
 
-class WC_Gateway_Paynow extends WC_Payment_Gateway {
+class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	/**
 	 * Is test mode active?
@@ -36,11 +36,11 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 	private $api_client;
 
 	public function __construct() {
-		$this->id                 = 'paynow';
+		$this->id                 = 'pay_by_paynow_pl';
 		$this->has_fields         = false;
-		$this->method_title       = __( 'Paynow', 'gateway-pay-by-paynow-pl' );
-		$this->method_description = __( 'Accepts payments by paynow.pl', 'gateway-pay-by-paynow-pl' );
-		$this->icon               = apply_filters( 'woocommerce_paaynow_icon', WC_PAYNOW_PLUGIN_URL . '/assets/images/logo.png' );
+		$this->method_title       = __( 'paynow.pl', 'pay-by-paynow-pl' );
+		$this->method_description = __( 'Accepts secure BLIK, credit cards payments and fast online transfers by paynow.pl', 'pay-by-paynow-pl' );
+		$this->icon               = apply_filters( 'woocommerce_' . $this->id . '_icon', WC_PAYNOW_PLUGIN_URL . '/assets/images/logo.png' );
 		$this->supports           = [
 			'products'
 		];
@@ -52,8 +52,8 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 		$this->init_settings();
 
 		// Get setting values.
-		$this->title         = __( 'Pay by paynow.pl', 'gateway-pay-by-paynow-pl' );
-		$this->description   = __( 'Secure BLIK, credit cards payments and fast online transfers', 'gateway-pay-by-paynow-pl' );
+		$this->title         = __( 'Pay by paynow.pl', 'pay-by-paynow-pl' );
+		$this->description   = __( 'Secure BLIK, credit cards payments and fast online transfers', 'pay-by-paynow-pl' );
 		$this->enabled       = $this->get_option( 'enabled' );
 		$this->sandbox       = $this->get_option( 'sandbox' ) === "yes";
 		$this->api_key       = $this->sandbox ? $this->get_option( 'sandbox_api_key' ) : $this->get_option( 'production_api_key' );
@@ -108,7 +108,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 			'amount'      => WC_Paynow_Helper::get_amount( $order->get_total() ),
 			'currency'    => strtoupper( $currency ),
 			'externalId'  => $order_id,
-			'description' => __( 'Order No: ', 'gateway-pay-by-paynow-pl' ) . $order->get_order_number(),
+			'description' => __( 'Order No: ', 'pay-by-paynow-pl' ) . $order->get_order_number(),
 			'buyer'       => [
 				'email'     => $billing_data['email'],
 				'firstName' => $billing_data['first_name'],
@@ -157,7 +157,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 					WC_Paynow_Logger::log( 'Error: ' . $error->getType() . ' - ' . $error->getMessage() );
 				}
 			}
-			wc_add_notice( __( 'Error occurred during the payment process and the payment could not be completed.', 'gateway-pay-by-paynow-pl' ), 'error' );
+			wc_add_notice( __( 'Error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
 			$order->add_order_note( $exception->getMessage() );
 
 			return false;
@@ -182,7 +182,7 @@ class WC_Gateway_Paynow extends WC_Payment_Gateway {
 	 */
 	public function validate_minimum_payment_amount( $order ) {
 		if ( WC_Paynow_Helper::get_amount( $order->get_total() ) < WC_Paynow_Helper::get_minimum_amount() ) {
-			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'gateway-pay-by-paynow-pl' ), wc_price( WC_Paynow_Helper::get_minimum_amount() / 100 ) ) );
+			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'pay-by-paynow-pl' ), wc_price( WC_Paynow_Helper::get_minimum_amount() / 100 ) ) );
 		}
 	}
 }

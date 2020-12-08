@@ -8,7 +8,7 @@
  * Author: mElements S.A.
  * Author URI: https://www.paynow.pl
  * License: GPLv3
- * Text Domain: gateway-pay-by-paynow-pl
+ * Text Domain: pay-by-paynow-pl
  * Domain Path: /languages
  */
 
@@ -23,7 +23,7 @@ function gateway_pay_by_paynow_pl_init() {
 		return;
 	}
 
-	load_plugin_textdomain( 'gateway-pay-by-paynow-pl', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'pay-by-paynow-pl', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 	define( 'WC_PAYNOW_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 	define( 'WC_PAYNOW_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -39,7 +39,7 @@ function gateway_pay_by_paynow_pl_init() {
 }
 
 function add_gateway_pay_by_paynow_pl( $methods ) {
-	array_unshift( $methods, 'WC_Gateway_Paynow' );
+	array_unshift( $methods, 'WC_Gateway_Pay_By_Paynow_PL' );
 
 	return $methods;
 }
