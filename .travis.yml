@@ -23,3 +23,5 @@ deploy:
 
 after_deploy:
   - bash ./scripts/deploy_to_wp_svn.sh
+
+script: skip
