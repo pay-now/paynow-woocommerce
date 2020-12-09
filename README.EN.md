@@ -68,7 +68,7 @@ The return address will be set automatically for each order. There is no need to
 
 **How to configure the notification address?**
 
-In the Paynow merchant panel go to the tab `Settings > Shops and poses`, in the field `Notification address` set the address: `https://your-domain.pl/?wc-api=WC_Gateway_Paynow`.
+In the Paynow merchant panel go to the tab `Settings > Shops and poses`, in the field `Notification address` set the address: `https://your-domain.pl/?wc-api=WC_Gateway_Pay_By_Paynow_PL`.
 
 ![Configuration of the notifiction address][ext10]
 

@@ -3,10 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WC_Paynow_Logger {
+class WC_Pay_By_Paynow_PL_Logger {
 
 	public static $logger;
-	const WC_LOG_FILENAME = 'gateway-pay-by-paynow-pl';
+	const WC_LOG_FILENAME = 'pay-by-paynow-pl';
 
 	public static function log( $message ) {
 		if ( ! class_exists( 'WC_Logger' ) ) {
@@ -15,7 +15,7 @@ class WC_Paynow_Logger {
 
 		if ( apply_filters( 'wc_paynow_logging', true, $message ) ) {
 			if ( empty( self::$logger ) ) {
-				if ( WC_Paynow_Helper::is_old_wc_version() ) {
+				if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
 					self::$logger = new WC_Logger();
 				} else {
 					self::$logger = wc_get_logger();
@@ -27,7 +27,7 @@ class WC_Paynow_Logger {
 				return;
 			}
 
-			if ( WC_Paynow_Helper::is_old_wc_version() ) {
+			if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
 				self::$logger->add( self::WC_LOG_FILENAME, $message );
 			} else {
 				self::$logger->debug( $message, [ 'source' => self::WC_LOG_FILENAME ] );

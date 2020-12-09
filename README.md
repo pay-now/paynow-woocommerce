@@ -70,7 +70,7 @@ Adres powrotu ustawi się automatycznie dla każdego zamówienia. Nie ma potrzeb
 **Jak skonfigurować adres powiadomień?**
 
 W panelu sprzedawcy Paynow przejdź do zakładki `Ustawienia > Sklepy i punkty płatności`, w polu `Adres powiadomień` ustaw adres:
-`https://twoja-domena.pl/?wc-api=WC_Gateway_Paynow`.
+`https://twoja-domena.pl/?wc-api=WC_Gateway_Pay_By_Paynow_PL`.
 
 ![Konfiguracja adresu powiadomień][ext10]
 

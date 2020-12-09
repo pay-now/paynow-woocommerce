@@ -1,7 +1,3 @@
-branches:
-  only:
-    - master
-
 before_deploy:
   - composer install
   - mkdir dist
@@ -23,3 +19,5 @@ deploy:
 
 after_deploy:
   - bash ./scripts/deploy_to_wp_svn.sh
+
+script: skip

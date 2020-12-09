@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Provides static methods as helpers.
  */
-class WC_Paynow_Helper {
+class WC_Pay_By_Paynow_PL_Helper {
 	/**
 	 * Get amount to pay
 	 *
@@ -32,7 +32,7 @@ class WC_Paynow_Helper {
 	 * @return string
 	 */
 	public static function get_notification_url() {
-		return add_query_arg( 'wc-api', 'WC_Gateway_Paynow', home_url( '/' ) );
+		return add_query_arg( 'wc-api', 'WC_Gateway_Pay_By_Paynow_PL', home_url( '/' ) );
 	}
 
 	/**
