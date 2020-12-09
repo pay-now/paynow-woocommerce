@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 13:05+0000\n"
+"POT-Creation-Date: 2020-12-09 09:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -17,7 +17,9 @@ msgstr ""
 
 #. Description of the plugin
 #: includes/pay-by-paynow-pl-gateway.php:42
-msgid "Accepts payments by paynow.pl"
+msgid ""
+"Accepts secure BLIK, credit cards payments and fast online transfers by "
+"paynow.pl"
 msgstr ""
 
 #: includes/admin/pay-by-paynow-pl-settings.php:35
@@ -25,8 +27,8 @@ msgstr ""
 msgid "Api Key"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:74
-#: includes/pay-by-paynow-pl-notification-handler.php:77
+#: includes/pay-by-paynow-pl-notification-handler.php:80
+#: includes/pay-by-paynow-pl-notification-handler.php:83
 msgid "Awaiting payment authorization"
 msgstr ""
 
@@ -55,7 +57,7 @@ msgid "Enabled test mode"
 msgstr ""
 
 #: includes/pay-by-paynow-pl-gateway.php:160
-#: includes/pay-by-paynow-pl-notification-handler.php:87
+#: includes/pay-by-paynow-pl-notification-handler.php:93
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
@@ -90,16 +92,16 @@ msgstr ""
 msgid "Pay by paynow.pl"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:84
+#: includes/pay-by-paynow-pl-notification-handler.php:90
 msgid "Payment has been authorized by the buyer"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:80
+#: includes/pay-by-paynow-pl-notification-handler.php:86
 msgid "Payment has not been authorized by the buyer"
 msgstr ""
 
 #: includes/pay-by-paynow-pl-gateway.php:41
-msgid "Paynow"
+msgid "paynow.pl"
 msgstr ""
 
 #: includes/admin/pay-by-paynow-pl-settings.php:32
