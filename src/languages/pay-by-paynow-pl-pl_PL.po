@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2020-11-30 13:05+0000\n"
+"PO-Revision-Date: 2020-12-09 09:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl_PL\n"
@@ -17,17 +17,20 @@ msgstr ""
 
 #. Description of the plugin
 #: includes/pay-by-paynow-pl-gateway.php:42
-#| msgid "Accepts payments by Paynow"
-msgid "Accepts payments by paynow.pl"
-msgstr "Przyjmuj płatności internetowe z bramką paynow.pl"
+msgid ""
+"Accepts secure BLIK, credit cards payments and fast online transfers by "
+"paynow.pl"
+msgstr ""
+"Przyjmuj bezpieczne płatności BLIK, kartą kredytową oraz szybkimi przelewami "
+"przez paynow.pl"
 
 #: includes/admin/pay-by-paynow-pl-settings.php:35
 #: includes/admin/pay-by-paynow-pl-settings.php:58
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
-#: includes/pay-by-paynow-pl-notification-handler.php:74
-#: includes/pay-by-paynow-pl-notification-handler.php:77
+#: includes/pay-by-paynow-pl-notification-handler.php:80
+#: includes/pay-by-paynow-pl-notification-handler.php:83
 msgid "Awaiting payment authorization"
 msgstr "Oczekiwanie na autoryzację płatności"
 
@@ -56,7 +59,7 @@ msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
 #: includes/pay-by-paynow-pl-gateway.php:160
-#: includes/pay-by-paynow-pl-notification-handler.php:87
+#: includes/pay-by-paynow-pl-notification-handler.php:93
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
@@ -103,19 +106,19 @@ msgstr "Zamówienie: "
 msgid "Pay by paynow.pl"
 msgstr "Zapłać z paynow.pl"
 
-#: includes/pay-by-paynow-pl-notification-handler.php:84
+#: includes/pay-by-paynow-pl-notification-handler.php:90
 #| msgid "Payment has been authorized by the buyer."
 msgid "Payment has been authorized by the buyer"
 msgstr "Płatność została zatwierdzona przez kupującego"
 
-#: includes/pay-by-paynow-pl-notification-handler.php:80
+#: includes/pay-by-paynow-pl-notification-handler.php:86
 #| msgid "Payment has not been authorized by the buyer."
 msgid "Payment has not been authorized by the buyer"
 msgstr "Płatność nie została zatwierdzona przez kupującego"
 
 #: includes/pay-by-paynow-pl-gateway.php:41
-msgid "Paynow"
-msgstr "Paynow"
+msgid "paynow.pl"
+msgstr "paynow.pl"
 
 #: includes/admin/pay-by-paynow-pl-settings.php:32
 msgid ""
