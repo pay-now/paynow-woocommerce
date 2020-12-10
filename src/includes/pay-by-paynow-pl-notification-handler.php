@@ -84,6 +84,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 				break;
 			case Status::STATUS_REJECTED:
 				$order->update_status( 'failed', __( 'Payment has not been authorized by the buyer', 'pay-by-paynow-pl' ) );
+				if ( $this->get_option( 'stock_increase_on_failed' ) ) {
+					$this->increase_stock($order);
+				}
 				break;
 			case Status::STATUS_CONFIRMED:
 				$order->payment_complete( $notification_data['paymentId'] );
@@ -91,6 +94,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 				break;
 			case Status::STATUS_ERROR:
 				$order->update_status( 'failed', __( 'Error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ) );
+				if ( $this->get_option( 'stock_increase_on_failed' ) ) {
+					$this->increase_stock($order);
+				}
 				break;
 		}
 	}
