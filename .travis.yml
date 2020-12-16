@@ -2,11 +2,11 @@ before_deploy:
   - composer install
   - mkdir dist
   - mkdir dist/pay-by-paynow-pl
+  - cp -R assets dist
   - cp -R vendor dist/pay-by-paynow-pl
   - cp -R src/* dist/pay-by-paynow-pl
   - cp -f readme.txt dist/pay-by-paynow-pl/
   - cp -f LICENSE dist/pay-by-paynow-pl/license.txt
-  - cp -R composer.lock dist/pay-by-paynow-pl
   - cd dist
   - zip -r pay-by-paynow-pl.zip pay-by-paynow-pl
 

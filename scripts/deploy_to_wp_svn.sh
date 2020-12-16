@@ -38,6 +38,9 @@ rm -fR svn
 # Checkout the SVN repo
 svn co -q "https://plugins.svn.wordpress.org/$PLUGIN" svn
 
+# Copy assets
+rsync -r -p assets svn
+
 # Move out the trunk directory to a temp location
 mv svn/trunk ./svn-trunk
 # Create trunk directory
