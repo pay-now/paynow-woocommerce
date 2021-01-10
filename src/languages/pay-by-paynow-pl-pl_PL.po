@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2020-12-09 09:14+0000\n"
+"PO-Revision-Date: 2020-12-10 08:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl_PL\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.0; wp-5.4.2"
+"X-Loco-Version: 2.4.6; wp-5.6"
 
 #. Description of the plugin
 #: includes/pay-by-paynow-pl-gateway.php:42
@@ -37,6 +37,10 @@ msgstr "Oczekiwanie na autoryzację płatności"
 #: includes/admin/pay-by-paynow-pl-settings.php:22
 msgid "Debug"
 msgstr "Debugowanie"
+
+#: includes/admin/pay-by-paynow-pl-settings.php:74
+msgid "Enable"
+msgstr "Włącz"
 
 #: includes/admin/pay-by-paynow-pl-settings.php:16
 msgid "Enable gateway"
@@ -83,7 +87,7 @@ msgstr ""
 "instrukcje znajdziesz <a href=\"https://github.com/pay-now/paynow-"
 "woocommerce/blob/master/README.md\" target=\"_blank\">tutaj</a>."
 
-#: includes/admin/pay-by-paynow-pl-settings.php:70
+#: includes/admin/pay-by-paynow-pl-settings.php:81
 msgid ""
 "If you have any questions or issues, please contact our support at <a "
 "href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
@@ -92,9 +96,21 @@ msgstr ""
 "wsparciem technicznym: <a href=\"mailto:support@paynow.pl\">support@paynow."
 "pl</a>."
 
+#: includes/admin/pay-by-paynow-pl-settings.php:73
+#, fuzzy
+#| msgid "Increase stock for failed payments"
+msgid "Increase products stock for failed payments"
+msgstr "Przywracaj produkty do stanu magazynowego po nieudanej płatności"
+
 #: includes/admin/pay-by-paynow-pl-settings.php:10
 msgid "Informations"
 msgstr "Informacje"
+
+#: includes/admin/pay-by-paynow-pl-settings.php:70
+msgid "Manage stock rules for orders based on payments status"
+msgstr ""
+"Zarządzaj regułami stanów magazynowych dla zamówień na podstawie statusu "
+"płatności"
 
 #: includes/pay-by-paynow-pl-gateway.php:111
 msgid "Order No: "
@@ -172,6 +188,10 @@ msgstr ""
 "%1$s."
 
 #: includes/admin/pay-by-paynow-pl-settings.php:68
+msgid "Stock management"
+msgstr "Zarządzanie stanem magazynowym"
+
+#: includes/admin/pay-by-paynow-pl-settings.php:79
 msgid "Support"
 msgstr "Pomoc"
 

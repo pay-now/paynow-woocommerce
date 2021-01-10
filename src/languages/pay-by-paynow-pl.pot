@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-09 09:09+0000\n"
+"POT-Creation-Date: 2020-12-10 08:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -34,6 +34,10 @@ msgstr ""
 
 #: includes/admin/pay-by-paynow-pl-settings.php:22
 msgid "Debug"
+msgstr ""
+
+#: includes/admin/pay-by-paynow-pl-settings.php:74
+msgid "Enable"
 msgstr ""
 
 #: includes/admin/pay-by-paynow-pl-settings.php:16
@@ -73,14 +77,22 @@ msgid ""
 "woocommerce/blob/master/README.EN.md\" target=\"_blank\">here</a>."
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:70
+#: includes/admin/pay-by-paynow-pl-settings.php:81
 msgid ""
 "If you have any questions or issues, please contact our support at <a "
 "href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
 msgstr ""
 
+#: includes/admin/pay-by-paynow-pl-settings.php:73
+msgid "Increase products stock for failed payments"
+msgstr ""
+
 #: includes/admin/pay-by-paynow-pl-settings.php:10
 msgid "Informations"
+msgstr ""
+
+#: includes/admin/pay-by-paynow-pl-settings.php:70
+msgid "Manage stock rules for orders based on payments status"
 msgstr ""
 
 #: includes/pay-by-paynow-pl-gateway.php:111
@@ -146,6 +158,10 @@ msgid ""
 msgstr ""
 
 #: includes/admin/pay-by-paynow-pl-settings.php:68
+msgid "Stock management"
+msgstr ""
+
+#: includes/admin/pay-by-paynow-pl-settings.php:79
 msgid "Support"
 msgstr ""
 

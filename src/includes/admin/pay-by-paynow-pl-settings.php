@@ -64,6 +64,17 @@ return apply_filters(
 			'type'    => 'password',
 			'default' => '',
 		],
+		'stock_managment_title'    => [
+			'title'       => __( 'Stock management', 'pay-by-paynow-pl' ),
+			'type'        => 'title',
+			'description' => __( 'Manage stock rules for orders based on payments status', 'pay-by-paynow-pl' ),
+		],
+		'stock_increase_on_failed'           => [
+			'title'   => __( 'Increase products stock for failed payments', 'pay-by-paynow-pl' ),
+			'label'   => __( 'Enable', 'pay-by-paynow-pl' ),
+			'type'    => 'checkbox',
+			'default' => 'no',
+		],
 		'support'                  => [
 			'title'       => __( 'Support', 'pay-by-paynow-pl' ),
 			'type'        => 'title',
