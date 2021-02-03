@@ -28,28 +28,27 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 		$headers           = WC_Pay_By_Paynow_PL_Helper::get_request_headers();
 		$notification_data = json_decode( $payload, true );
 
-		WC_Pay_By_Paynow_PL_Logger::log( 'Info: Received payment status notification ' . $notification_data['status'] . ' for order ' . $notification_data['externalId'] );
+		WC_Pay_By_Paynow_PL_Logger::info( 'Received payment notification {orderId={}, paymentId={}, status={}}', [$notification_data['externalId'], $notification_data['paymentId'], $notification_data['status']]);
 
 		try {
 			new Notification( $this->signature_key, $payload, $headers );
 			$order = wc_get_order( $notification_data['externalId'] );
 
 			if ( ! $order ) {
-				$error_message = 'Order was not found for ' . $notification_data['externalId'];
-				WC_Pay_By_Paynow_PL_Logger::log( 'Error: ' . $error_message );
+				WC_Pay_By_Paynow_PL_Logger::error( 'Order was not found {orderId={}, paymentId={}}', [$notification_data['externalId'], $notification_data['paymentId']]);
 				status_header( 400 );
 				exit;
 			}
 
 			if ( $order->get_payment_method() !== $this->id ) {
-				WC_Pay_By_Paynow_PL_Logger::log( 'Error: Other payment gateway is selected for ' . $notification_data['externalId'] );
+				WC_Pay_By_Paynow_PL_Logger::error( 'Other payment gateway is already selected {orderId={}, paymentId={}}', [$notification_data['externalId'], $notification_data['paymentId']]);
 				status_header( 400 );
 				exit;
 			}
 
 			$this->process_notification( $order, $notification_data );
 		} catch ( Exception $exception ) {
-			WC_Pay_By_Paynow_PL_Logger::log( 'Error: ' . $exception->getMessage() );
+			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() . ' {orderId={}}', $notification_data['externalId']);
 			status_header( 400 );
 			exit;
 		}
