@@ -1,7 +1,7 @@
 === Pay by paynow.pl ===
 Tags: payment, payment gateway, paynow, woocommerce, płatności
 Requires at least: 4.4
-Tested up to: 5.53
+Tested up to: 5.6
 Requires PHP: 7.1
 Stable tag: 1.0.14
 License: GPLv3
@@ -9,15 +9,18 @@ License: GPLv3
 **pay**now is a secure online payment by bank transfers, BLIK and card.
 
 == Description ==
-paynow is a secure online payment by bank transfers, BLIK and card.
+**pay**now gives you a free registration and only 0.95% commission.
+
+Simple configuration for BLIK, quick transfers and cards payments. Pay-out immediately on the bank account. To use paynow, you need to have a business account in mBank.
+
+If you do not have an account in the Paynow system yet, register in the [Production](https://paynow.pl/boarding) or [Sandbox environment](https://panel.sandbox.paynow.pl/auth/register).
 
 == Installation ==
 1. Go to the WooCommerce administration page
 2. Go to `Settings > Payments`
 3. Search and select `paynow.pl` and click `Manage`
-4. Production credential keys can be found in the tab `My business > Paynow > Settings > Shops and poses > Authentication data` in the mBank\'s online banking.
-Sandbox credential keys can be found in `Settings > Shops and poses > Authentication data` in the [sandbox panel][ext0].
-[ext0]: https://panel.sandbox.paynow.pl/auth/register
+4. Production credential keys can be found in the tab `My business > Paynow > Settings > Shops and poses > Authentication data` in the mBank's online banking.
+**Sandbox credential keys can be found in `Settings > Shops and poses > Authentication data` in the [sandbox panel](https://panel.sandbox.paynow.pl/auth/login).
 5. Depending on the environment you want to connect to go to the `Production configuration` section or the `Sandbox configuration` section and type `Api Key` and `Signature Key` in the proper fields.
 
 

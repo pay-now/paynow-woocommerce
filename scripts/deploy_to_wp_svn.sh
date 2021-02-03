@@ -15,11 +15,6 @@ if [[ -z "$WP_ORG_PASSWORD" ]]; then
 	exit 1
 fi
 
-if [[ -z "$TRAVIS_BRANCH" || "$TRAVIS_BRANCH" != "master" ]]; then
-	echo "Build branch is required and must be 'master'" 1>&2
-	exit 0
-fi
-
 PLUGIN="pay-by-paynow-pl"
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 PLUGIN_BUILDS_PATH="$PROJECT_ROOT/dist/"
@@ -42,6 +37,9 @@ rm -fR svn
 
 # Checkout the SVN repo
 svn co -q "https://plugins.svn.wordpress.org/$PLUGIN" svn
+
+# Copy assets
+rsync -r -p assets svn
 
 # Move out the trunk directory to a temp location
 mv svn/trunk ./svn-trunk
