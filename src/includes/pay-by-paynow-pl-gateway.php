@@ -75,7 +75,7 @@ class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$shop_configuration = new ShopConfiguration( $this->api_client );
 			$shop_configuration->changeUrls( $this->get_return_url(), WC_Pay_By_Paynow_PL_Helper::get_notification_url() );
 		} catch ( PaynowException $exception ) {
-			WC_Pay_By_Paynow_PL_Logger::log( 'Error: ' . $exception->getMessage() );
+			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
 	}
 
@@ -153,8 +153,8 @@ class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$errors = $exception->getErrors();
 			if ( $errors ) {
 				foreach ( $errors as $error ) {
-					WC_Pay_By_Paynow_PL_Logger::log( 'Error: ' . $exception->getMessage() );
-					WC_Pay_By_Paynow_PL_Logger::log( 'Error: ' . $error->getType() . ' - ' . $error->getMessage() );
+					WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() . ' {orderId={}}', [ $order_id ] );
+					WC_Pay_By_Paynow_PL_Logger::error( $error->getType() . ' - ' . $error->getMessage() . ' {orderId={}}', [ $order_id ] );
 				}
 			}
 			wc_add_notice( __( 'Error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );

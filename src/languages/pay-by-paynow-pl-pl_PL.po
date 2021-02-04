@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2020-12-09 09:14+0000\n"
+"PO-Revision-Date: 2021-02-03 10:41+0000\n"
 "Last-Translator: \n"
-"Language-Team: Polski\n"
+"Language-Team: Polish\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
@@ -31,8 +31,8 @@ msgstr "Klucz dostępu do API"
 
 #: includes/pay-by-paynow-pl-notification-handler.php:80
 #: includes/pay-by-paynow-pl-notification-handler.php:83
-msgid "Awaiting payment authorization"
-msgstr "Oczekiwanie na autoryzację płatności"
+msgid "Awaiting payment authorization - %s."
+msgstr "Oczekiwanie na autoryzację płatności - %s."
 
 #: includes/admin/pay-by-paynow-pl-settings.php:22
 msgid "Debug"
@@ -58,8 +58,18 @@ msgstr "Włącz/Wyłącz"
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
-#: includes/pay-by-paynow-pl-gateway.php:160
 #: includes/pay-by-paynow-pl-notification-handler.php:93
+msgid ""
+"Error occurred during the payment process and the payment could not be "
+"completed - %s."
+msgstr ""
+"Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
+"ponownie - %s."
+
+#: includes/pay-by-paynow-pl-gateway.php:160
+#| msgid ""
+#| "Error occurred during the payment process and the payment could not be "
+#| "completed"
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
@@ -108,13 +118,13 @@ msgstr "Zapłać z paynow.pl"
 
 #: includes/pay-by-paynow-pl-notification-handler.php:90
 #| msgid "Payment has been authorized by the buyer."
-msgid "Payment has been authorized by the buyer"
-msgstr "Płatność została zatwierdzona przez kupującego"
+msgid "Payment has been authorized by the buyer - %s."
+msgstr "Płatność została zatwierdzona przez kupującego - %s."
 
 #: includes/pay-by-paynow-pl-notification-handler.php:86
 #| msgid "Payment has not been authorized by the buyer."
-msgid "Payment has not been authorized by the buyer"
-msgstr "Płatność nie została zatwierdzona przez kupującego"
+msgid "Payment has not been authorized by the buyer - %s."
+msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
 
 #: includes/pay-by-paynow-pl-gateway.php:41
 msgid "paynow.pl"
