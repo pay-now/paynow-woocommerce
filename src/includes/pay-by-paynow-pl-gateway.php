@@ -7,6 +7,7 @@ use Paynow\Client;
 use Paynow\Environment;
 use Paynow\Exception\PaynowException;
 use Paynow\Service\Payment;
+use Paynow\Service\Refund;
 use Paynow\Service\ShopConfiguration;
 
 class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
@@ -42,7 +43,8 @@ class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$this->method_description = __( 'Accepts secure BLIK, credit cards payments and fast online transfers by paynow.pl', 'pay-by-paynow-pl' );
 		$this->icon               = apply_filters( 'woocommerce_' . $this->id . '_icon', WC_PAY_BY_PAYNOW_PL_PLUGIN_URL . '/assets/images/logo.png' );
 		$this->supports           = [
-			'products'
+			'products',
+			'refunds'
 		];
 
 		// Load the form fields.
@@ -102,7 +104,7 @@ class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	public function send_payment_request( $order ) {
 		$currency        = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->get_order_currency() : $order->get_currency();
-		$order_id        = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->id : $order->get_id();
+		$order_id        = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
 		$billing_data    = $order->get_address();
 		$payment_data    = [
 			'amount'      => WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ),
@@ -162,6 +164,104 @@ class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 			return false;
 		}
+	}
+
+	public function process_refund( $order_id, $amount = null, $reason = '' ) {
+		$order      = wc_get_order( $order_id );
+		$payment_id = $order->get_transaction_id();
+
+		if ( ! $this->check_can_make_refund( $order, WC_Pay_By_Paynow_PL_Helper::get_amount( $amount ) ) ) {
+			return new WP_Error( 'error', __( 'Refund can\'t be processed. Please check logs for more information', 'pay-by-paynow-pl' ) );
+		}
+
+		WC_Pay_By_Paynow_PL_Logger::debug( 'Processing refund request {orderId={}, paymentId={}, amount={}}', [
+			$order_id,
+			$payment_id,
+			$amount
+		] );
+
+		try {
+			$refund      = new Refund( $this->api_client );
+			$refund_data = $refund->create(
+				$payment_id,
+				uniqid($order_id, true ),
+				WC_Pay_By_Paynow_PL_Helper::get_amount( $amount )
+			);
+
+			WC_Pay_By_Paynow_PL_Logger::info( 'Refund has been created successfully {orderId={}, paymentId={}, refundId={}, amount={}}', [
+				$order_id,
+				$payment_id,
+				$refund_data->getRefundId(),
+				$amount
+			] );
+
+			if ( ! empty( $refund_data->getRefundId() ) ) {
+				$order->add_order_note( 'Refund request processed correctly - ' . $refund_data->getRefundId() );
+
+				return true;
+			}
+
+			return false;
+		} catch ( PaynowException $exception ) {
+			$errors = $exception->getErrors();
+			if ( $errors ) {
+				foreach ( $errors as $error ) {
+					$order->add_order_note( 'Error occurred during the refund process - ' . $error->getMessage() );
+					WC_Pay_By_Paynow_PL_Logger::error( $error->getType() . ' - ' . $error->getMessage() . ' {orderId={}, paymentId={}}', [
+						$order_id,
+						$payment_id
+					] );
+
+					return new WP_Error( 'error', __( 'Refund process failed. Please check logs for more information', 'pay-by-paynow-pl' ) );
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public function check_can_make_refund( $order, $amount ) {
+		if ( ! $this->can_refund_order( $order ) ) {
+			return false;
+		}
+
+		$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
+
+		if ( empty( $order_id ) ) {
+			WC_Pay_By_Paynow_PL_Logger::warning( 'Order was not found to make a refund {orderId={}}', [ $order_id ] );
+
+			return false;
+		}
+
+		if ( empty( $order->get_transaction_id() ) ) {
+			WC_Pay_By_Paynow_PL_Logger::warning( 'The order has no payment to make a refund {orderId={}}', [ $order_id ] );
+
+			return false;
+		}
+
+		if ( empty( $amount ) ) {
+			WC_Pay_By_Paynow_PL_Logger::warning( 'The amount of the refund must be above zero {orderId={}}', [ $order_id ] );
+
+			return false;
+		}
+
+		if ( ! $order->has_status( wc_get_is_paid_statuses() ) ) {
+			WC_Pay_By_Paynow_PL_Logger::warning( 'Status of the order must be in paid status {orderId={}, status={}}', [
+				$order_id,
+				$order->get_status()
+			] );
+
+			return false;
+		}
+
+		if ( empty( $order->get_remaining_refund_amount() ) ) {
+			WC_Pay_By_Paynow_PL_Logger::warning( 'There is no more remaining amount to refund {orderId={}, amount={}}', [
+				$order_id,
+				$order->get_remaining_refund_amount()
+			] );
+		}
+
+		return true;
 	}
 
 	/**

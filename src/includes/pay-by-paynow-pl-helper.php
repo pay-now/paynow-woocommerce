@@ -19,6 +19,16 @@ class WC_Pay_By_Paynow_PL_Helper {
 	}
 
 	/**
+	 * Returns ID of order
+	 * @param $order
+	 *
+	 * @return mixed
+	 */
+	public static function get_order_id( $order ) {
+		return self::is_old_wc_version() ? $order->id : $order->get_id();
+	}
+
+	/**
 	 * Get minimum payment amount value
 	 * @return int
 	 */

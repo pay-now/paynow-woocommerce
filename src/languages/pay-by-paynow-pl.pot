@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 10:42+0000\n"
+"POT-Creation-Date: 2021-02-23 14:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Loco-Version: 2.3.0; wp-5.2.3"
 
 #. Description of the plugin
-#: includes/pay-by-paynow-pl-gateway.php:42
+#: includes/pay-by-paynow-pl-gateway.php:43
 msgid ""
 "Accepts secure BLIK, credit cards payments and fast online transfers by "
 "paynow.pl"
@@ -27,8 +27,8 @@ msgstr ""
 msgid "Api Key"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:84
-#: includes/pay-by-paynow-pl-notification-handler.php:87
+#: includes/pay-by-paynow-pl-notification-handler.php:101
+#: includes/pay-by-paynow-pl-notification-handler.php:104
 msgid "Awaiting payment authorization - %s."
 msgstr ""
 
@@ -56,13 +56,13 @@ msgstr ""
 msgid "Enabled test mode"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:97
+#: includes/pay-by-paynow-pl-notification-handler.php:114
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed - %s."
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:160
+#: includes/pay-by-paynow-pl-gateway.php:162
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
@@ -88,21 +88,25 @@ msgstr ""
 msgid "Informations"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:111
+#: includes/pay-by-paynow-pl-gateway.php:113
 msgid "Order No: "
 msgstr ""
 
 #. Name of the plugin
-#: includes/pay-by-paynow-pl-gateway.php:55
+#: includes/pay-by-paynow-pl-gateway.php:57
 msgid "Pay by paynow.pl"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:94
+#: includes/pay-by-paynow-pl-notification-handler.php:111
 msgid "Payment has been authorized by the buyer - %s."
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:90
+#: includes/pay-by-paynow-pl-notification-handler.php:107
 msgid "Payment has not been authorized by the buyer - %s."
+msgstr ""
+
+#: includes/pay-by-paynow-pl-gateway.php:42
+msgid "paynow.pl"
 msgstr ""
 
 #: includes/admin/pay-by-paynow-pl-settings.php:32
@@ -114,6 +118,14 @@ msgstr ""
 
 #: includes/admin/pay-by-paynow-pl-settings.php:30
 msgid "Production configuration"
+msgstr ""
+
+#: includes/pay-by-paynow-pl-gateway.php:174
+msgid "Refund can't be processed. Please check logs for more information"
+msgstr ""
+
+#: includes/pay-by-paynow-pl-gateway.php:215
+msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 
 #: includes/admin/pay-by-paynow-pl-settings.php:47
@@ -131,7 +143,7 @@ msgstr ""
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:56
+#: includes/pay-by-paynow-pl-gateway.php:58
 msgid "Secure BLIK, credit cards payments and fast online transfers"
 msgstr ""
 
@@ -140,7 +152,7 @@ msgstr ""
 msgid "Signature Key"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:185
+#: includes/pay-by-paynow-pl-gateway.php:285
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
