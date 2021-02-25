@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-02-03 10:41+0000\n"
+"PO-Revision-Date: 2021-02-23 14:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Loco-Version: 2.4.0; wp-5.4.2"
 
 #. Description of the plugin
-#: includes/pay-by-paynow-pl-gateway.php:42
+#: includes/pay-by-paynow-pl-gateway.php:43
 msgid ""
 "Accepts secure BLIK, credit cards payments and fast online transfers by "
 "paynow.pl"
@@ -29,8 +29,8 @@ msgstr ""
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
-#: includes/pay-by-paynow-pl-notification-handler.php:80
-#: includes/pay-by-paynow-pl-notification-handler.php:83
+#: includes/pay-by-paynow-pl-notification-handler.php:101
+#: includes/pay-by-paynow-pl-notification-handler.php:104
 msgid "Awaiting payment authorization - %s."
 msgstr "Oczekiwanie na autoryzację płatności - %s."
 
@@ -58,7 +58,7 @@ msgstr "Włącz/Wyłącz"
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
-#: includes/pay-by-paynow-pl-notification-handler.php:93
+#: includes/pay-by-paynow-pl-notification-handler.php:114
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed - %s."
@@ -66,7 +66,7 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie - %s."
 
-#: includes/pay-by-paynow-pl-gateway.php:160
+#: includes/pay-by-paynow-pl-gateway.php:162
 #| msgid ""
 #| "Error occurred during the payment process and the payment could not be "
 #| "completed"
@@ -106,27 +106,27 @@ msgstr ""
 msgid "Informations"
 msgstr "Informacje"
 
-#: includes/pay-by-paynow-pl-gateway.php:111
+#: includes/pay-by-paynow-pl-gateway.php:113
 msgid "Order No: "
 msgstr "Zamówienie: "
 
 #. Name of the plugin
-#: includes/pay-by-paynow-pl-gateway.php:55
+#: includes/pay-by-paynow-pl-gateway.php:57
 #| msgid "Pay by Paynow"
 msgid "Pay by paynow.pl"
 msgstr "Zapłać z paynow.pl"
 
-#: includes/pay-by-paynow-pl-notification-handler.php:90
+#: includes/pay-by-paynow-pl-notification-handler.php:111
 #| msgid "Payment has been authorized by the buyer."
 msgid "Payment has been authorized by the buyer - %s."
 msgstr "Płatność została zatwierdzona przez kupującego - %s."
 
-#: includes/pay-by-paynow-pl-notification-handler.php:86
+#: includes/pay-by-paynow-pl-notification-handler.php:107
 #| msgid "Payment has not been authorized by the buyer."
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
 
-#: includes/pay-by-paynow-pl-gateway.php:41
+#: includes/pay-by-paynow-pl-gateway.php:42
 msgid "paynow.pl"
 msgstr "paynow.pl"
 
@@ -143,6 +143,16 @@ msgstr ""
 #: includes/admin/pay-by-paynow-pl-settings.php:30
 msgid "Production configuration"
 msgstr "Konfiguracja środowiska produkcyjnego"
+
+#: includes/pay-by-paynow-pl-gateway.php:174
+msgid "Refund can't be processed. Please check logs for more information"
+msgstr ""
+"Zwrot nie może zostać zlecony. Sprawdź logi aby uzyskać więcej informacji."
+
+#: includes/pay-by-paynow-pl-gateway.php:215
+msgid "Refund process failed. Please check logs for more information"
+msgstr ""
+"Nie udało się zlecić zwrotu. Sprawdź logi aby uzyskać więcej informacji."
 
 #: includes/admin/pay-by-paynow-pl-settings.php:47
 msgid ""
@@ -163,7 +173,7 @@ msgstr "Konfiguracja środowiska testowego(Sandbox)"
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
-#: includes/pay-by-paynow-pl-gateway.php:56
+#: includes/pay-by-paynow-pl-gateway.php:58
 msgid "Secure BLIK, credit cards payments and fast online transfers"
 msgstr ""
 "Bezpieczne płatności BLIK, szybkie przelewy internetowe i płatności kartą"
@@ -173,7 +183,7 @@ msgstr ""
 msgid "Signature Key"
 msgstr "Klucz obliczania podpisu"
 
-#: includes/pay-by-paynow-pl-gateway.php:185
+#: includes/pay-by-paynow-pl-gateway.php:285
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
