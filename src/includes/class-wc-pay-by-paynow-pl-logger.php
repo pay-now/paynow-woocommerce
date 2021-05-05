@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit();
 
 class WC_Pay_By_Paynow_PL_Logger {
 
@@ -26,7 +24,7 @@ class WC_Pay_By_Paynow_PL_Logger {
 				}
 			}
 
-			$settings = get_option( 'woocommerce_paynow_settings' );
+			$settings = get_option( 'woocommerce_pay_by_paynow_pl_settings' );
 			if ( empty( $settings ) || isset( $settings['debug_logs'] ) && 'yes' !== $settings['debug_logs'] ) {
 				return;
 			}
@@ -34,39 +32,39 @@ class WC_Pay_By_Paynow_PL_Logger {
 			if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
 				self::$logger->add( self::WC_LOG_FILENAME, $message );
 			} else {
-				self::$logger->{$type}( self::process_record($message, $context), [ 'source' => self::WC_LOG_FILENAME ] );
+				self::$logger->{$type}( self::process_record( $message, $context ), [ 'source' => self::WC_LOG_FILENAME ] );
 			}
 		}
 	}
 
 	public static function info( $message, $context = [] ) {
-		self::add_log(self::INFO, $message, $context);
+		self::add_log( self::INFO, $message, $context );
 	}
 
 	public static function debug( $message, $context = [] ) {
-		self::add_log(self::DEBUG, $message, $context);
+		self::add_log( self::DEBUG, $message, $context );
 	}
 
 	public static function error( $message, $context = [] ) {
-		self::add_log(self::ERROR, $message, $context);
+		self::add_log( self::ERROR, $message, $context );
 	}
 
 	public static function warning( $message, $context = [] ) {
-		self::add_log(self::WARNING, $message, $context);
+		self::add_log( self::WARNING, $message, $context );
 	}
 
-	private static function process_record($message, $context) {
-		$split_message = explode('{}', $message);
-		$message_part_count = sizeof($split_message);
-		$result_message = '';
-		for ($i = 0; $i < $message_part_count; $i++) {
-			if ($i > 0 && sizeof($context) >= $i) {
-				$paramValue = $context[$i - 1];
-				if (!is_array($paramValue)) {
+	private static function process_record( $message, $context ) {
+		$split_message      = explode( '{}', $message );
+		$message_part_count = sizeof( $split_message );
+		$result_message     = '';
+		for ( $i = 0; $i < $message_part_count; $i ++ ) {
+			if ( $i > 0 && sizeof( $context ) >= $i ) {
+				$paramValue = $context[ $i - 1 ];
+				if ( ! is_array( $paramValue ) ) {
 					$result_message .= $paramValue;
 				}
 			}
-			$messagePart = $split_message[$i];
+			$messagePart    = $split_message[ $i ];
 			$result_message .= $messagePart;
 		}
 

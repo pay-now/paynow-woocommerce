@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-23 14:09+0000\n"
+"POT-Creation-Date: 2021-05-05 12:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -15,60 +15,81 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.0; wp-5.2.3"
 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:10
+msgid "Accept Blik payments with paynow.pl"
+msgstr ""
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:10
+msgid "Accept card payments with paynow.pl"
+msgstr ""
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:13
+msgid "Accept online transfer payments with paynow.pl"
+msgstr ""
+
 #. Description of the plugin
-#: includes/pay-by-paynow-pl-gateway.php:43
 msgid ""
 "Accepts secure BLIK, credit cards payments and fast online transfers by "
 "paynow.pl"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:35
-#: includes/admin/pay-by-paynow-pl-settings.php:58
+#: includes/settings/pay-by-paynow-pl-settings.php:31
+#: includes/settings/pay-by-paynow-pl-settings.php:54
 msgid "Api Key"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:101
-#: includes/pay-by-paynow-pl-notification-handler.php:104
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:105
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:108
+#, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:22
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:7
+msgid "Blik payment"
+msgstr ""
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:7
+msgid "Card payment"
+msgstr ""
+
+#: includes/settings/pay-by-paynow-pl-settings.php:18
 msgid "Debug"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:16
+#: includes/settings/pay-by-paynow-pl-settings.php:7
 msgid "Enable gateway"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:52
+#: includes/settings/pay-by-paynow-pl-settings.php:48
 msgid "Enable if you are using test shop environment"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:23
+#: includes/settings/pay-by-paynow-pl-settings.php:19
 msgid "Enable logs"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:15
+#: includes/settings/pay-by-paynow-pl-settings.php:6
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:51
+#: includes/settings/pay-by-paynow-pl-settings.php:47
 msgid "Enabled test mode"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:114
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:118
+#, php-format
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed - %s."
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:162
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:151
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:12
+#: includes/settings/pay-by-paynow-pl-settings.php:15
 msgid ""
 "If you do not have an account in the Paynow system yet, <a href=\"https:"
 "//paynow.pl/boarding\" target=\"_blank\">register in the Production</a> or "
@@ -78,90 +99,115 @@ msgid ""
 "woocommerce/blob/master/README.EN.md\" target=\"_blank\">here</a>."
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:70
+#: includes/settings/pay-by-paynow-pl-settings.php:66
 msgid ""
 "If you have any questions or issues, please contact our support at <a "
 "href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:10
+#: includes/settings/pay-by-paynow-pl-settings.php:13
 msgid "Informations"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:113
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:10
+msgid "Online transfer payment"
+msgstr ""
+
+#: includes/class-paynow-gateway.php:51
 msgid "Order No: "
 msgstr ""
 
 #. Name of the plugin
-#: includes/pay-by-paynow-pl-gateway.php:57
 msgid "Pay by paynow.pl"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:111
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:115
+#, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr ""
 
-#: includes/pay-by-paynow-pl-notification-handler.php:107
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:111
+#, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:42
-msgid "paynow.pl"
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:9
+msgid "paynow.pl - Blik payments"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:32
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:9
+msgid "paynow.pl - Card payments"
+msgstr ""
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:12
+msgid "paynow.pl - Online payments"
+msgstr ""
+
+#: includes/settings/pay-by-paynow-pl-settings.php:28
 msgid ""
 "Production authentication keys are available in <i>My Business > Paynow > "
 "Settings > Shops and payment points > Authentication data</i> in mBank's "
 "online banking."
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:30
+#: includes/settings/pay-by-paynow-pl-settings.php:26
 msgid "Production configuration"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:174
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:163
 msgid "Refund can't be processed. Please check logs for more information"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:215
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:203
 msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:47
+#: includes/settings/pay-by-paynow-pl-settings.php:43
 msgid ""
 "Sandbox authentication keys can be found in <i>Settings > Shops and poses > "
 "Authentication data</i> in <a href=\"https://panel.sandbox.paynow."
 "pl/auth/login\" target=\"_blank\">the Paynow Sandbox panel</a>."
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:45
+#: includes/settings/pay-by-paynow-pl-settings.php:41
 msgid "Sandbox configuration"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:25
+#: includes/settings/pay-by-paynow-pl-settings.php:21
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:58
-msgid "Secure BLIK, credit cards payments and fast online transfers"
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
+msgid ""
+"Secure BLIK, credit cards payments and fast online transfers provided by "
+"paynow.pl"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:40
-#: includes/admin/pay-by-paynow-pl-settings.php:63
+#: includes/settings/pay-by-paynow-pl-settings.php:36
+#: includes/settings/pay-by-paynow-pl-settings.php:59
 msgid "Signature Key"
 msgstr ""
 
-#: includes/pay-by-paynow-pl-gateway.php:285
+#: includes/class-wc-pay-by-paynow-pl-helper.php:82
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:68
+#: includes/settings/pay-by-paynow-pl-settings.php:64
 msgid "Support"
 msgstr ""
 
-#: includes/admin/pay-by-paynow-pl-settings.php:50
+#: includes/settings/pay-by-paynow-pl-settings.php:46
 msgid "Test mode (Sandbox)"
+msgstr ""
+
+#: pay-by-paynow-pl.php:17
+#, php-format
+msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
+msgstr ""
+
+msgid "Choose bank:"
 msgstr ""

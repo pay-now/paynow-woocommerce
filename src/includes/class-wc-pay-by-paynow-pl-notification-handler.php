@@ -1,16 +1,14 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit();
 
 use Paynow\Model\Payment\Status;
 use Paynow\Notification;
 
 class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By_Paynow_PL {
 
-	public function __construct() {
+	function __construct() {
 		parent::__construct();
-		add_action( 'woocommerce_api_wc_gateway_' . $this->id, [ $this, 'handle_notification' ] );
+		add_action( 'woocommerce_api_wc_gateway_pay_by_paynow_pl', [ $this, 'handle_notification' ] );
 	}
 
 	/**
@@ -35,7 +33,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 		] );
 
 		try {
-			new Notification( $this->signature_key, $payload, $headers );
+			new Notification( $this->gateway->get_signature_key(), $payload, $headers );
 			$order = wc_get_order( $notification_data['externalId'] );
 
 			if ( ! $order ) {
@@ -47,7 +45,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 				exit;
 			}
 
-			if ( $order->get_payment_method() !== $this->id ) {
+			if ( strpos( $order->get_payment_method(), WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) === false ) {
 				WC_Pay_By_Paynow_PL_Logger::error( 'Other payment gateway is already selected {orderId={}, paymentId={}}', [
 					$notification_data['externalId'],
 					$notification_data['paymentId']
@@ -65,7 +63,13 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 				] );
 			}
 		} catch ( Exception $exception ) {
-			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() . ' {orderId={}, paymentId={}}', $notification_data['externalId'], $notification_data['paymentId'] );
+			WC_Pay_By_Paynow_PL_Logger::error(
+				$exception->getMessage() . ' {orderId={}, paymentId={}}',
+				[
+					$notification_data['externalId'],
+					$notification_data['paymentId']
+				]
+			);
 			status_header( 400 );
 			exit;
 		}
@@ -80,7 +84,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	 *
 	 * @throws Exception
 	 */
-	private function process_notification( $order, array $notification_data ) {
+	private function process_notification( WC_order $order, array $notification_data ) {
 		$notification_status = $notification_data['status'];
 
 		$mapped_order_status = $this->map_order_status( $order );
@@ -121,7 +125,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	 *
 	 * @return string
 	 */
-	private function map_order_status( $order ) {
+	private function map_order_status( WC_Order $order ) {
 		if ( $order->has_status( 'on-hold' ) ) {
 			return Status::STATUS_PENDING;
 		} elseif ( $order->has_status( 'processing' ) ) {

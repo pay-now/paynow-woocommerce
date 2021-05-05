@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-02-23 14:11+0000\n"
+"PO-Revision-Date: 2021-05-05 12:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -13,10 +13,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.0; wp-5.4.2"
+"X-Loco-Version: 2.5.2; wp-5.7.1"
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:10
+msgid "Accept Blik payments with paynow.pl"
+msgstr "Przyjmuj płatności Blikiem przez paynow.pl"
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:10
+msgid "Accept card payments with paynow.pl"
+msgstr "Przyjmuj płatności kartą przez paynow.pl"
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:13
+msgid "Accept online transfer payments with paynow.pl"
+msgstr "Przyjmuj płatności przelewem internetowym przez paynow.pl"
 
 #. Description of the plugin
-#: includes/pay-by-paynow-pl-gateway.php:43
 msgid ""
 "Accepts secure BLIK, credit cards payments and fast online transfers by "
 "paynow.pl"
@@ -24,41 +35,54 @@ msgstr ""
 "Przyjmuj bezpieczne płatności BLIK, kartą kredytową oraz szybkimi przelewami "
 "przez paynow.pl"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:35
-#: includes/admin/pay-by-paynow-pl-settings.php:58
+#: includes/settings/pay-by-paynow-pl-settings.php:31
+#: includes/settings/pay-by-paynow-pl-settings.php:54
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
-#: includes/pay-by-paynow-pl-notification-handler.php:101
-#: includes/pay-by-paynow-pl-notification-handler.php:104
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:105
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:108
+#, php-format
 msgid "Awaiting payment authorization - %s."
-msgstr "Oczekiwanie na autoryzację płatności - %s."
+msgstr "Płatność oczekuje na autoruzację - %s."
 
-#: includes/admin/pay-by-paynow-pl-settings.php:22
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:7
+msgid "Blik payment"
+msgstr "Płatność Blikiem"
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:7
+msgid "Card payment"
+msgstr "Płatność kartą"
+
+msgid "Choose bank:"
+msgstr "Wybierz bank:"
+
+#: includes/settings/pay-by-paynow-pl-settings.php:18
 msgid "Debug"
 msgstr "Debugowanie"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:16
+#: includes/settings/pay-by-paynow-pl-settings.php:7
 msgid "Enable gateway"
 msgstr "Włącz bramkę"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:52
+#: includes/settings/pay-by-paynow-pl-settings.php:48
 msgid "Enable if you are using test shop environment"
 msgstr "Włącz jeśli używasz testowej wersji sklepu"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:23
+#: includes/settings/pay-by-paynow-pl-settings.php:19
 msgid "Enable logs"
 msgstr "Włącz logi"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:15
+#: includes/settings/pay-by-paynow-pl-settings.php:6
 msgid "Enable/Disable"
 msgstr "Włącz/Wyłącz"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:51
+#: includes/settings/pay-by-paynow-pl-settings.php:47
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
-#: includes/pay-by-paynow-pl-notification-handler.php:114
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:118
+#, php-format
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed - %s."
@@ -66,10 +90,7 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie - %s."
 
-#: includes/pay-by-paynow-pl-gateway.php:162
-#| msgid ""
-#| "Error occurred during the payment process and the payment could not be "
-#| "completed"
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:151
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
@@ -77,7 +98,7 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie."
 
-#: includes/admin/pay-by-paynow-pl-settings.php:12
+#: includes/settings/pay-by-paynow-pl-settings.php:15
 msgid ""
 "If you do not have an account in the Paynow system yet, <a href=\"https:"
 "//paynow.pl/boarding\" target=\"_blank\">register in the Production</a> or "
@@ -93,7 +114,7 @@ msgstr ""
 "instrukcje znajdziesz <a href=\"https://github.com/pay-now/paynow-"
 "woocommerce/blob/master/README.md\" target=\"_blank\">tutaj</a>."
 
-#: includes/admin/pay-by-paynow-pl-settings.php:70
+#: includes/settings/pay-by-paynow-pl-settings.php:66
 msgid ""
 "If you have any questions or issues, please contact our support at <a "
 "href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
@@ -102,35 +123,46 @@ msgstr ""
 "wsparciem technicznym: <a href=\"mailto:support@paynow.pl\">support@paynow."
 "pl</a>."
 
-#: includes/admin/pay-by-paynow-pl-settings.php:10
+#: includes/settings/pay-by-paynow-pl-settings.php:13
 msgid "Informations"
 msgstr "Informacje"
 
-#: includes/pay-by-paynow-pl-gateway.php:113
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:10
+msgid "Online transfer payment"
+msgstr "Płatność przelewem internetowym"
+
+#: includes/class-paynow-gateway.php:51
 msgid "Order No: "
-msgstr "Zamówienie: "
+msgstr "Zamówienie numer:"
 
 #. Name of the plugin
-#: includes/pay-by-paynow-pl-gateway.php:57
 #| msgid "Pay by Paynow"
 msgid "Pay by paynow.pl"
 msgstr "Zapłać z paynow.pl"
 
-#: includes/pay-by-paynow-pl-notification-handler.php:111
-#| msgid "Payment has been authorized by the buyer."
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:115
+#, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr "Płatność została zatwierdzona przez kupującego - %s."
 
-#: includes/pay-by-paynow-pl-notification-handler.php:107
-#| msgid "Payment has not been authorized by the buyer."
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:111
+#, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
 
-#: includes/pay-by-paynow-pl-gateway.php:42
-msgid "paynow.pl"
-msgstr "paynow.pl"
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:9
+msgid "paynow.pl - Blik payments"
+msgstr "paynow.pl - płatności Blikiem"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:32
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:9
+msgid "paynow.pl - Card payments"
+msgstr "paynow.pl - płatności kartą"
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:12
+msgid "paynow.pl - Online payments"
+msgstr "paynow.pl - płatności przelewem internetowym"
+
+#: includes/settings/pay-by-paynow-pl-settings.php:28
 msgid ""
 "Production authentication keys are available in <i>My Business > Paynow > "
 "Settings > Shops and payment points > Authentication data</i> in mBank's "
@@ -140,21 +172,21 @@ msgstr ""
 "Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające</i> w "
 "bankowości internetowej mBanku."
 
-#: includes/admin/pay-by-paynow-pl-settings.php:30
+#: includes/settings/pay-by-paynow-pl-settings.php:26
 msgid "Production configuration"
 msgstr "Konfiguracja środowiska produkcyjnego"
 
-#: includes/pay-by-paynow-pl-gateway.php:174
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:163
 msgid "Refund can't be processed. Please check logs for more information"
 msgstr ""
 "Zwrot nie może zostać zlecony. Sprawdź logi aby uzyskać więcej informacji."
 
-#: includes/pay-by-paynow-pl-gateway.php:215
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:203
 msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 "Nie udało się zlecić zwrotu. Sprawdź logi aby uzyskać więcej informacji."
 
-#: includes/admin/pay-by-paynow-pl-settings.php:47
+#: includes/settings/pay-by-paynow-pl-settings.php:43
 msgid ""
 "Sandbox authentication keys can be found in <i>Settings > Shops and poses > "
 "Authentication data</i> in <a href=\"https://panel.sandbox.paynow."
@@ -165,25 +197,28 @@ msgstr ""
 "href=\\\"https://panel.sandbox.paynow.pl/auth/login\\\" "
 "target=\\\"_blank\\\">panelu środowiska testowego</a>."
 
-#: includes/admin/pay-by-paynow-pl-settings.php:45
+#: includes/settings/pay-by-paynow-pl-settings.php:41
 msgid "Sandbox configuration"
 msgstr "Konfiguracja środowiska testowego(Sandbox)"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:25
+#: includes/settings/pay-by-paynow-pl-settings.php:21
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
-#: includes/pay-by-paynow-pl-gateway.php:58
-msgid "Secure BLIK, credit cards payments and fast online transfers"
-msgstr ""
-"Bezpieczne płatności BLIK, szybkie przelewy internetowe i płatności kartą"
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
+msgid ""
+"Secure BLIK, credit cards payments and fast online transfers provided by "
+"paynow.pl"
+msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:40
-#: includes/admin/pay-by-paynow-pl-settings.php:63
+#: includes/settings/pay-by-paynow-pl-settings.php:36
+#: includes/settings/pay-by-paynow-pl-settings.php:59
 msgid "Signature Key"
 msgstr "Klucz obliczania podpisu"
 
-#: includes/pay-by-paynow-pl-gateway.php:285
+#: includes/class-wc-pay-by-paynow-pl-helper.php:82
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
@@ -191,10 +226,15 @@ msgstr ""
 "Przepraszamy, minimalna wartość zamówienia dla tej metody płatności wynosi "
 "%1$s."
 
-#: includes/admin/pay-by-paynow-pl-settings.php:68
+#: includes/settings/pay-by-paynow-pl-settings.php:64
 msgid "Support"
 msgstr "Pomoc"
 
-#: includes/admin/pay-by-paynow-pl-settings.php:50
+#: includes/settings/pay-by-paynow-pl-settings.php:46
 msgid "Test mode (Sandbox)"
 msgstr "Tryb testowy (Sandbox)"
+
+#: pay-by-paynow-pl.php:17
+#, php-format
+msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
+msgstr "Wymagana jest wersja PHP w wersji 7.1+, twoja wersja to %s."
