@@ -1,5 +1,5 @@
 before_deploy:
-  - composer install
+  - composer install --no-dev --optimize-autoloader
   - mkdir dist
   - mkdir dist/pay-by-paynow-pl
   - cp -R assets dist

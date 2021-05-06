@@ -1,7 +1,7 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit();
+
+use Paynow\Exception\PaynowException;
 
 /**
  * Provides static methods as helpers.
@@ -20,6 +20,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 
 	/**
 	 * Returns ID of order
+	 *
 	 * @param $order
 	 *
 	 * @return mixed
@@ -68,5 +69,18 @@ class WC_Pay_By_Paynow_PL_Helper {
 
 	public static function is_old_wc_version() {
 		return version_compare( WC_VERSION, '3.0', '<' );
+	}
+
+	/**
+	 * Validate minimum payment amount
+	 *
+	 * @param $order
+	 *
+	 * @throws PaynowException
+	 */
+	public static function validate_minimum_payment_amount( $amount ) {
+		if ( WC_Pay_By_Paynow_PL_Helper::get_amount( $amount ) < WC_Pay_By_Paynow_PL_Helper::get_minimum_amount() ) {
+			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'pay-by-paynow-pl' ), wc_price( WC_Pay_By_Paynow_PL_Helper::get_minimum_amount() / 100 ) ) );
+		}
 	}
 }
