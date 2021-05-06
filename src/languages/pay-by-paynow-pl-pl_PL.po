@@ -133,7 +133,7 @@ msgstr "Płatność przelewem internetowym"
 
 #: includes/class-paynow-gateway.php:51
 msgid "Order No: "
-msgstr "Zamówienie numer:"
+msgstr "Zamówienie numer: "
 
 #. Name of the plugin
 #| msgid "Pay by Paynow"
