@@ -1,7 +1,13 @@
+.paynow-payment-option-pbls {
+    flex-wrap: wrap;
+    display: flex;
+}
+
 .paynow-payment-option-pbl {
-    width: 23%;
-    float: left;
     margin: 1%;
+    flex-basis: 23%;
+    display: flex;
+    flex-direction: column;
 }
 
 .paynow-payment-option-pbl label {
