@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-05-05 12:48+0000\n"
+"PO-Revision-Date: 2021-05-11 09:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -162,6 +162,10 @@ msgstr "paynow.pl - płatności kartą"
 msgid "paynow.pl - Online payments"
 msgstr "paynow.pl - płatności przelewem internetowym"
 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:32
+msgid "Please choose bank from the list to make payment"
+msgstr "Aby przejść do płatności dokonaj wyboru banku z listy."
+
 #: includes/settings/pay-by-paynow-pl-settings.php:28
 msgid ""
 "Production authentication keys are available in <i>My Business > Paynow > "
@@ -205,9 +209,9 @@ msgstr "Konfiguracja środowiska testowego(Sandbox)"
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
 msgid ""
 "Secure BLIK, credit cards payments and fast online transfers provided by "
 "paynow.pl"
@@ -218,7 +222,7 @@ msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 msgid "Signature Key"
 msgstr "Klucz obliczania podpisu"
 
-#: includes/class-wc-pay-by-paynow-pl-helper.php:82
+#: includes/class-wc-pay-by-paynow-pl-helper.php:83
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
