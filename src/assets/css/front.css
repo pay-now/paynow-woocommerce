@@ -51,3 +51,9 @@
     border: 1px solid #d2d2d2;
     background: #f3f3f3;
 }
+
+.payment_method_pay_by_paynow_pl_pbl label > img,
+.payment_method_pay_by_paynow_pl_card label > img,
+.payment_method_pay_by_paynow_pl_blik label > img {
+    max-height: 1.618em;
+}
