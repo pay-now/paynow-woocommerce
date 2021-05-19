@@ -33,14 +33,14 @@ class Paynow_Gateway {
 	/**
 	 * Sends payment request
 	 *
-	 * @param $order
+	 * @param WC_Order $order
 	 * @param $return_url
 	 * @param null $payment_method_id
 	 *
 	 * @return Authorize
 	 * @throws PaynowException
 	 */
-	public function payment_request( $order, $return_url, $payment_method_id = null ) {
+	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null ) {
 		$currency     = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->get_order_currency() : $order->get_currency();
 		$order_id     = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
 		$billing_data = $order->get_address();
@@ -56,13 +56,48 @@ class Paynow_Gateway {
 			],
 			'continueUrl' => $return_url
 		];
+
 		if ( ! empty( $payment_method_id ) ) {
 			$payment_data['paymentMethodId'] = $payment_method_id;
 		}
+
+		if ( get_option( 'send_order_items' ) ) {
+			$order_items = [];
+			foreach ( $order->get_items() as $item ) {
+				$product       = $item->get_product();
+				$order_items[] = [
+					'name'     => $product->get_title(),
+					'category' => $this->get_categories( $product->get_id() ),
+					'quantity' => $item->get_quantity(),
+					'price'    => WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? wc_price( wc_get_price_including_tax( $product ) ) : $product->get_price_including_tax() )
+				];
+			}
+
+			if ( ! empty( $order_items ) ) {
+				$payment_data['orderItems'] = $order_items;
+			}
+		}
+
 		$idempotency_key = uniqid( $order_id, true );
 		$payment         = new Payment( $this->client );
 
 		return $payment->authorize( $payment_data, $idempotency_key );
+	}
+
+	/**
+	 * @param $product_id
+	 *
+	 * @return string|null
+	 */
+	private function get_categories( $product_id ) {
+		$terms = get_the_terms( $product_id, 'product_cat' );
+
+		$categories = [];
+		foreach ( $terms as $term ) {
+			$categories[] = $term->name;
+		}
+
+		return implode( ', ', $categories );
 	}
 
 	/**
