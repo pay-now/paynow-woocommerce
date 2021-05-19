@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-05-11 09:51+0000\n"
+"PO-Revision-Date: 2021-05-19 13:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -20,6 +20,7 @@ msgid "Accept Blik payments with paynow.pl"
 msgstr "Przyjmuj płatności Blikiem przez paynow.pl"
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:10
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:10
 msgid "Accept card payments with paynow.pl"
 msgstr "Przyjmuj płatności kartą przez paynow.pl"
 
@@ -35,8 +36,8 @@ msgstr ""
 "Przyjmuj bezpieczne płatności BLIK, kartą kredytową oraz szybkimi przelewami "
 "przez paynow.pl"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:31
-#: includes/settings/pay-by-paynow-pl-settings.php:54
+#: includes/settings/pay-by-paynow-pl-settings.php:37
+#: includes/settings/pay-by-paynow-pl-settings.php:60
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
@@ -65,7 +66,7 @@ msgstr "Debugowanie"
 msgid "Enable gateway"
 msgstr "Włącz bramkę"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:48
+#: includes/settings/pay-by-paynow-pl-settings.php:54
 msgid "Enable if you are using test shop environment"
 msgstr "Włącz jeśli używasz testowej wersji sklepu"
 
@@ -73,11 +74,22 @@ msgstr "Włącz jeśli używasz testowej wersji sklepu"
 msgid "Enable logs"
 msgstr "Włącz logi"
 
+#: includes/settings/pay-by-paynow-pl-settings.php:27
+#| msgid ""
+#| "Enable sending ordered products information like name, categories, "
+#| "quantity and unit price"
+msgid ""
+"Enable sending ordered products information: name, categories, quantity and "
+"unit price"
+msgstr ""
+"Włącz wysyłkę informacji o zamówionych produktach (nazwa, kategorie, ilość "
+"oraz cena jednostkowa)"
+
 #: includes/settings/pay-by-paynow-pl-settings.php:6
 msgid "Enable/Disable"
 msgstr "Włącz/Wyłącz"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:47
+#: includes/settings/pay-by-paynow-pl-settings.php:53
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
@@ -98,6 +110,10 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie."
 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:7
+msgid "Google Pay"
+msgstr ""
+
 #: includes/settings/pay-by-paynow-pl-settings.php:15
 msgid ""
 "If you do not have an account in the Paynow system yet, <a href=\"https:"
@@ -114,7 +130,7 @@ msgstr ""
 "instrukcje znajdziesz <a href=\"https://github.com/pay-now/paynow-"
 "woocommerce/blob/master/README.md\" target=\"_blank\">tutaj</a>."
 
-#: includes/settings/pay-by-paynow-pl-settings.php:66
+#: includes/settings/pay-by-paynow-pl-settings.php:72
 msgid ""
 "If you have any questions or issues, please contact our support at <a "
 "href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
@@ -155,6 +171,7 @@ msgid "paynow.pl - Blik payments"
 msgstr "paynow.pl - płatności Blikiem"
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:9
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:9
 msgid "paynow.pl - Card payments"
 msgstr "paynow.pl - płatności kartą"
 
@@ -166,7 +183,7 @@ msgstr "paynow.pl - płatności przelewem internetowym"
 msgid "Please choose bank from the list to make payment"
 msgstr "Aby przejść do płatności dokonaj wyboru banku z listy."
 
-#: includes/settings/pay-by-paynow-pl-settings.php:28
+#: includes/settings/pay-by-paynow-pl-settings.php:34
 msgid ""
 "Production authentication keys are available in <i>My Business > Paynow > "
 "Settings > Shops and payment points > Authentication data</i> in mBank's "
@@ -176,7 +193,7 @@ msgstr ""
 "Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające</i> w "
 "bankowości internetowej mBanku."
 
-#: includes/settings/pay-by-paynow-pl-settings.php:26
+#: includes/settings/pay-by-paynow-pl-settings.php:32
 msgid "Production configuration"
 msgstr "Konfiguracja środowiska produkcyjnego"
 
@@ -190,7 +207,7 @@ msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 "Nie udało się zlecić zwrotu. Sprawdź logi aby uzyskać więcej informacji."
 
-#: includes/settings/pay-by-paynow-pl-settings.php:43
+#: includes/settings/pay-by-paynow-pl-settings.php:49
 msgid ""
 "Sandbox authentication keys can be found in <i>Settings > Shops and poses > "
 "Authentication data</i> in <a href=\"https://panel.sandbox.paynow."
@@ -201,7 +218,7 @@ msgstr ""
 "href=\\\"https://panel.sandbox.paynow.pl/auth/login\\\" "
 "target=\\\"_blank\\\">panelu środowiska testowego</a>."
 
-#: includes/settings/pay-by-paynow-pl-settings.php:41
+#: includes/settings/pay-by-paynow-pl-settings.php:47
 msgid "Sandbox configuration"
 msgstr "Konfiguracja środowiska testowego(Sandbox)"
 
@@ -210,15 +227,18 @@ msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
-msgid ""
-"Secure BLIK, credit cards payments and fast online transfers provided by "
-"paynow.pl"
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
+msgid "Secure and fast payments provided by paynow.pl"
 msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:36
-#: includes/settings/pay-by-paynow-pl-settings.php:59
+#: includes/settings/pay-by-paynow-pl-settings.php:26
+msgid "Send order items"
+msgstr "Wysyłaj informację o produktach"
+
+#: includes/settings/pay-by-paynow-pl-settings.php:42
+#: includes/settings/pay-by-paynow-pl-settings.php:65
 msgid "Signature Key"
 msgstr "Klucz obliczania podpisu"
 
@@ -230,11 +250,11 @@ msgstr ""
 "Przepraszamy, minimalna wartość zamówienia dla tej metody płatności wynosi "
 "%1$s."
 
-#: includes/settings/pay-by-paynow-pl-settings.php:64
+#: includes/settings/pay-by-paynow-pl-settings.php:70
 msgid "Support"
 msgstr "Pomoc"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:46
+#: includes/settings/pay-by-paynow-pl-settings.php:52
 msgid "Test mode (Sandbox)"
 msgstr "Tryb testowy (Sandbox)"
 

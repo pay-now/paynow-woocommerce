@@ -8,7 +8,7 @@ class WC_Payment_Gateway_Pay_By_Paynow_PL_Pbl extends WC_Gateway_Pay_By_Paynow_P
 	public function __construct() {
 		$this->id                 = 'pay_by_paynow_pl_pbl';
 		$this->title              = __( 'Online transfer payment', 'pay-by-paynow-pl' );
-		$this->description        = __( 'Secure BLIK, credit cards payments and fast online transfers provided by paynow.pl', 'pay-by-paynow-pl' );
+		$this->description        = __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' );
 		$this->method_title       = __( 'paynow.pl - Online payments', 'pay-by-paynow-pl' );
 		$this->method_description = __( 'Accept online transfer payments with paynow.pl', 'pay-by-paynow-pl' );
 		$this->icon               = 'https://static.paynow.pl/brand/paynow_logo_black.png';
