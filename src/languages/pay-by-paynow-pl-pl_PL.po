@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-05-19 12:38+0000\n"
+"PO-Revision-Date: 2021-05-19 13:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -20,6 +20,7 @@ msgid "Accept Blik payments with paynow.pl"
 msgstr "Przyjmuj płatności Blikiem przez paynow.pl"
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:10
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:10
 msgid "Accept card payments with paynow.pl"
 msgstr "Przyjmuj płatności kartą przez paynow.pl"
 
@@ -109,6 +110,10 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie."
 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:7
+msgid "Google Pay"
+msgstr ""
+
 #: includes/settings/pay-by-paynow-pl-settings.php:15
 msgid ""
 "If you do not have an account in the Paynow system yet, <a href=\"https:"
@@ -166,6 +171,7 @@ msgid "paynow.pl - Blik payments"
 msgstr "paynow.pl - płatności Blikiem"
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:9
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:9
 msgid "paynow.pl - Card payments"
 msgstr "paynow.pl - płatności kartą"
 
@@ -223,9 +229,8 @@ msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
-msgid ""
-"Secure BLIK, credit cards payments and fast online transfers provided by "
-"paynow.pl"
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
+msgid "Secure and fast payments provided by paynow.pl"
 msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 
 #: includes/settings/pay-by-paynow-pl-settings.php:26
