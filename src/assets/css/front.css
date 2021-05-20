@@ -54,6 +54,7 @@
 
 .payment_method_pay_by_paynow_pl_pbl label > img,
 .payment_method_pay_by_paynow_pl_card label > img,
-.payment_method_pay_by_paynow_pl_blik label > img {
+.payment_method_pay_by_paynow_pl_blik label > img,
+.payment_method_pay_by_paynow_pl_google_pay label > img {
     max-height: 1.618em;
 }
