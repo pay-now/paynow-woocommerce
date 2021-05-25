@@ -89,8 +89,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 
 		$plugin_settings = [];
-
-		foreach ( $this->settings as $key => $value ) {
+		foreach ( $this->settings as $key => $val ) {
 			if ( in_array( $key, $this->payment_gateway_options ) ) {
 				$plugin_settings[ $key ] = $value;
 			}
