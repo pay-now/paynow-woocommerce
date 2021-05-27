@@ -48,7 +48,7 @@ msgstr "Klucz dostępu do API"
 #: includes/class-wc-pay-by-paynow-pl-notification-handler.php:108
 #, php-format
 msgid "Awaiting payment authorization - %s."
-msgstr "Płatność oczekuje na autoruzację - %s."
+msgstr "Płatność oczekuje na autoryzację - %s."
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:7
 msgid "Blik payment"
