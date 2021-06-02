@@ -78,7 +78,7 @@ class Paynow_Gateway {
 			}
 		}
 
-		$idempotency_key = uniqid( $order_id, true );
+		$idempotency_key = substr( uniqid( $order_id, true ), 0, 36 );
 		$payment         = new Payment( $this->client );
 
 		return $payment->authorize( $payment_data, $idempotency_key );
@@ -115,7 +115,7 @@ class Paynow_Gateway {
 
 		return $refund->create(
 			$payment_id,
-			uniqid( $order_id, true ),
+			substr( uniqid( $order_id, true ), 0, 36 ),
 			WC_Pay_By_Paynow_PL_Helper::get_amount( $amount )
 		);
 	}

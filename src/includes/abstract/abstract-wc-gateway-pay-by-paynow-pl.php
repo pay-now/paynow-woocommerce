@@ -170,9 +170,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		try {
 			$refund_data = $this->gateway->refund_request(
+				$order_id,
 				$payment_id,
-				uniqid( $order_id, true ),
-				WC_Pay_By_Paynow_PL_Helper::get_amount( $amount )
+				$amount
 			);
 
 			WC_Pay_By_Paynow_PL_Logger::info( 'Refund has been created successfully {orderId={}, paymentId={}, refundId={}, amount={}}', [
