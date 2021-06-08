@@ -31,3 +31,5 @@ define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX', 'pay_by_paynow_pl_' );
 // include main plugin file.
 require_once( WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-pay-by-paynow-pl-manager.php' );
 require_once( WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'vendor/autoload.php' );
+
+add_filter( 'woocommerce_payment_gateways', 'wc_pay_by_paynow_pl_payment_gateways' );
