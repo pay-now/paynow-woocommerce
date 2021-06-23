@@ -21,6 +21,16 @@ class WC_Pay_By_Paynow_Pl_Manager {
 
 	public function plugins_loaded() {
 		load_plugin_textdomain( 'pay-by-paynow-pl', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages' );
+
+        $this->payment_gateways = apply_filters(
+            'wc_pay_by_paynow_pl_payment_gateways',
+            [
+                'WC_Payment_Gateway_Pay_By_Paynow_PL_Blik',
+                'WC_Payment_Gateway_Pay_By_Paynow_PL_Pbl',
+                'WC_Payment_Gateway_Pay_By_Paynow_PL_Card',
+                'WC_Payment_Gateway_Pay_By_Paynow_PL_Google_Pay'
+            ]
+        );
 	}
 
 	public function woocommerce_dependencies() {
@@ -36,16 +46,6 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php';
-
-		$this->payment_gateways = apply_filters(
-			'wc_pay_by_paynow_pl_payment_gateways',
-			[
-				'WC_Payment_Gateway_Pay_By_Paynow_PL_Blik',
-				'WC_Payment_Gateway_Pay_By_Paynow_PL_Pbl',
-				'WC_Payment_Gateway_Pay_By_Paynow_PL_Card',
-				'WC_Payment_Gateway_Pay_By_Paynow_PL_Google_Pay'
-			]
-		);
 	}
 
 	public function payment_gateways() {
