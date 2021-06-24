@@ -29,11 +29,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$this->icon = 'https://static.paynow.pl/payment-method-icons/' . $this->payment_method_id . '.png';
 		}
 
-		$this->gateway = new Paynow_Gateway(
-			$this->get_option( 'sandbox' ) === "yes" ? $this->get_option( 'sandbox_api_key' ) : $this->get_option( 'production_api_key' ),
-			$this->get_option( 'sandbox' ) === "yes" ? $this->get_option( 'sandbox_signature_key' ) : $this->get_option( 'production_signature_key' ),
-			$this->get_option( 'sandbox' ) === "yes"
-		);
+		$this->gateway = new Paynow_Gateway( $this->settings );
 	}
 
 	public function init_supports() {

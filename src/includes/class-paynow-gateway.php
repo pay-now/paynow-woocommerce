@@ -13,6 +13,8 @@ use Paynow\Service\ShopConfiguration;
 
 class Paynow_Gateway {
 
+	protected $settings;
+
 	protected $client;
 
 	/**
@@ -21,8 +23,11 @@ class Paynow_Gateway {
 	 */
 	protected $signature_key;
 
-	public function __construct( $api_key, $signature_key, $is_sandbox = false ) {
-		$this->signature_key = $signature_key;
+	public function __construct( array $settings ) {
+		$this->settings      = $settings;
+		$is_sandbox          = $settings['sandbox'] === "yes";
+		$api_key             = $is_sandbox ? $settings['sandbox_api_key'] : $settings['production_api_key'];
+		$this->signature_key = $settings['sandbox'] === "yes" ? $settings['sandbox_signature_key'] : $settings['production_signature_key'];
 		$this->client        = $this->client = new Client(
 			$api_key,
 			$this->signature_key,
@@ -61,7 +66,7 @@ class Paynow_Gateway {
 			$payment_data['paymentMethodId'] = $payment_method_id;
 		}
 
-		if ( get_option( 'send_order_items' ) ) {
+		if ( $this->settings['send_order_items'] ) {
 			$order_items = [];
 			foreach ( $order->get_items() as $item ) {
 				$product       = $item->get_product();
