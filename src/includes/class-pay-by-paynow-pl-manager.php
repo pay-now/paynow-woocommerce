@@ -57,5 +57,4 @@ function pay_by_paynow_wc() {
 	return WC_Pay_By_Paynow_Pl_Manager::instance();
 }
 
-
 pay_by_paynow_wc();
