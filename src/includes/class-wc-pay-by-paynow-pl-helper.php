@@ -83,4 +83,22 @@ class WC_Pay_By_Paynow_PL_Helper {
 			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'pay-by-paynow-pl' ), wc_price( WC_Pay_By_Paynow_PL_Helper::get_minimum_amount() / 100 ) ) );
 		}
 	}
+
+	/**
+	 * Returns list of product categories
+	 *
+	 * @param $product_id
+	 *
+	 * @return string|null
+	 */
+	public static function get_product_categories( $product_id ) {
+		$terms = get_the_terms( $product_id, 'product_cat' );
+
+		$categories = [];
+		foreach ( $terms as $term ) {
+			$categories[] = $term->name;
+		}
+
+		return implode( ', ', $categories );
+	}
 }
