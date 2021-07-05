@@ -24,10 +24,12 @@ class Paynow_Gateway {
 	protected $signature_key;
 
 	public function __construct( array $settings ) {
-		if ( ! empty( $this->settings ) && isset( $settings['sandbox'] ) && isset( $settings['sandbox_api_key'] ) && isset( $settings['production_api_key'] ) ) {
-			$is_sandbox          = $settings['sandbox'] === "yes";
-			$api_key             = $is_sandbox ? $settings['sandbox_api_key'] : $settings['production_api_key'];
-			$this->signature_key = $is_sandbox ? $settings['sandbox_signature_key'] : $settings['production_signature_key'];
+		$this->settings = $settings;
+		if ( ! empty( $this->settings ) && isset( $this->settings['sandbox'] ) && ( isset( $this->settings['sandbox_api_key'] ) || isset( $this->settings['production_api_key'] ) ) ) {
+			$is_sandbox          = $this->settings['sandbox'] === "yes";
+			$api_key             = $is_sandbox ? $this->settings['sandbox_api_key'] : $this->settings['production_api_key'];
+			$this->signature_key = $is_sandbox ? $this->settings['sandbox_signature_key'] : $this->settings['production_signature_key'];
+
 
 			if ( $api_key && $this->signature_key ) {
 				$this->client = $this->client = new Client(
