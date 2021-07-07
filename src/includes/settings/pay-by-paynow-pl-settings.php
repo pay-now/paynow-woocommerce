@@ -26,7 +26,7 @@ return [
 		'title'       => __( 'Send order items', 'pay-by-paynow-pl' ),
 		'label'       => __( 'Enable sending ordered products information: name, categories, quantity and unit price', 'pay-by-paynow-pl' ),
 		'type'        => 'checkbox',
-		'default'     => 'yes'
+		'default'     => 'no'
 	],
 	'production_title'         => [
 		'title'       => __( 'Production configuration', 'pay-by-paynow-pl' ),

@@ -76,7 +76,7 @@ class Paynow_Gateway {
 			$payment_data['paymentMethodId'] = $payment_method_id;
 		}
 
-		if ( $this->settings['send_order_items'] ) {
+		if ( $this->settings['send_order_items'] === 'yes' ) {
 			$order_items = [];
 			foreach ( $order->get_items() as $item ) {
 				$product       = $item->get_product();
@@ -87,6 +87,10 @@ class Paynow_Gateway {
 					'price'    => WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? wc_price( wc_get_price_including_tax( $product ) ) : $product->get_price_including_tax() )
 				];
 			}
+
+            $order_items = array_filter($order_items, function($item){
+                return !empty($item['category']);
+            });
 
 			if ( ! empty( $order_items ) ) {
 				$payment_data['orderItems'] = $order_items;
