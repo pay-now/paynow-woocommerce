@@ -22,12 +22,25 @@ return [
 		'default'     => 'no',
 		'desc_tip'    => true
 	],
-	'send_order_items'         => [
-		'title'       => __( 'Send order items', 'pay-by-paynow-pl' ),
-		'label'       => __( 'Enable sending ordered products information: name, categories, quantity and unit price', 'pay-by-paynow-pl' ),
+    'send_order_items'         => [
+        'title'       => __( 'Send order items', 'pay-by-paynow-pl' ),
+        'label'       => __( 'Enable sending ordered products information: name, categories, quantity and unit price', 'pay-by-paynow-pl' ),
+        'type'        => 'checkbox',
+        'default'     => 'no'
+    ],
+	'use_payment_validity_time_flag'         => [
+		'title'       => __( 'Use payment validity time', 'pay-by-paynow-pl' ),
+		'label'       => __( 'Enable to limit the validity of the payment.', 'pay-by-paynow-pl' ),
 		'type'        => 'checkbox',
 		'default'     => 'no'
 	],
+    'payment_validity_time'         => [
+        'title'       => __( 'Payment validity time', 'pay-by-paynow-pl' ),
+        'type'        => 'number',
+        'description' => __( 'Determines how long it will be possible to pay for the order from the moment the payment link is generated. Value expressed in seconds. Maximum value is 86400 seconds.', 'pay-by-paynow-pl' ),
+        'default'     => 86400,
+        'desc_tip'    => true
+    ],
 	'production_title'         => [
 		'title'       => __( 'Production configuration', 'pay-by-paynow-pl' ),
 		'type'        => 'title',

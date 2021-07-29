@@ -117,6 +117,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 			case Status::STATUS_ERROR:
 				$order->update_status( 'failed', sprintf( __( 'Error occurred during the payment process and the payment could not be completed - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
+            case Status::STATUS_EXPIRED:
+                $order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
 		}
 	}
 
@@ -152,11 +155,13 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 				Status::STATUS_PENDING,
 				Status::STATUS_ERROR,
 				Status::STATUS_CONFIRMED,
-				Status::STATUS_REJECTED
+				Status::STATUS_REJECTED,
+                Status::STATUS_EXPIRED
 			],
 			Status::STATUS_PENDING   => [
 				Status::STATUS_CONFIRMED,
-				Status::STATUS_REJECTED
+				Status::STATUS_REJECTED,
+                Status::STATUS_EXPIRED
 			],
 			Status::STATUS_REJECTED  => [
 				Status::STATUS_NEW,
@@ -167,7 +172,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 				Status::STATUS_NEW,
 				Status::STATUS_CONFIRMED,
 				Status::STATUS_REJECTED
-			]
+			],
+            Status::STATUS_EXPIRED => []
 		];
 		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
 		$is_change_possible     = in_array( $next_status, $payment_status_flow[ $previous_status ] );
