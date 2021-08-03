@@ -57,8 +57,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 			if ( ! $order->has_status( wc_get_is_paid_statuses() ) && $order->get_transaction_id() === $notification_data['paymentId'] ) {
 				$this->process_notification( $order, $notification_data );
 			} else {
-				WC_Pay_By_Paynow_PL_Logger::info( 'Order has one of paid statuses. Skipped notification processing {orderId={}, payment={}}', [
+				WC_Pay_By_Paynow_PL_Logger::info( 'Order has one of paid statuses. Skipped notification processing {orderId={}, orderStatus={}, payment={}}', [
 					$notification_data['externalId'],
+					$order->get_status(),
 					$notification_data['paymentId']
 				] );
 			}
@@ -87,25 +88,22 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	private function process_notification( WC_order $order, array $notification_data ) {
 		$notification_status = $notification_data['status'];
 
-		$mapped_order_status = $this->map_order_status( $order );
-		$order_id            = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->id : $order->get_id();
-
-		if ( ! $this->is_correct_status( $mapped_order_status, $notification_status ) ) {
-			throw new Exception( 'Order status transition is incorrect ' . $mapped_order_status . ' - ' . $notification_status );
+		if ( ! $this->is_correct_status( $order->get_status(), $notification_status ) ) {
+			throw new Exception( 'Order status transition is incorrect {orderStatus={}, paymentStatus={}}', [
+				$order->get_status() . ' - ' . $notification_status
+			] );
 		}
 
-		WC_Pay_By_Paynow_PL_Logger::info( 'Order status transition is correct {orderId={}, paymentId={}, actualStatus={}, newStatus={}}', [
+		WC_Pay_By_Paynow_PL_Logger::info( 'Order status transition is correct {orderId={}, paymentId={}, orderStatus={}, paymentStatus={}}', [
 			$notification_data['externalId'],
 			$order->get_transaction_id(),
-			$mapped_order_status,
+			$order->get_status(),
 			$notification_status
 		] );
+
 		switch ( $notification_status ) {
 			case Status::STATUS_NEW:
-				$order->update_status( 'pending', sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
-				break;
-			case Status::STATUS_PENDING:
-				$order->update_status( 'on-hold', sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				$order->add_order_note( sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_REJECTED:
 				$order->update_status( 'failed', sprintf( __( 'Payment has not been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
@@ -117,29 +115,10 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 			case Status::STATUS_ERROR:
 				$order->update_status( 'failed', sprintf( __( 'Error occurred during the payment process and the payment could not be completed - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
-            case Status::STATUS_EXPIRED:
-                $order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
-                break;
+			case Status::STATUS_EXPIRED:
+				$order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				break;
 		}
-	}
-
-	/**
-	 * @param WC_Order $order
-	 *
-	 * @return string
-	 */
-	private function map_order_status( WC_Order $order ) {
-		if ( $order->has_status( 'on-hold' ) ) {
-			return Status::STATUS_PENDING;
-		} elseif ( $order->has_status( 'processing' ) ) {
-			return Status::STATUS_CONFIRMED;
-		} elseif ( $order->has_status( 'failed' ) ) {
-			return Status::STATUS_ERROR;
-		} elseif ( $order->has_status( 'failed' ) ) {
-			return Status::STATUS_REJECTED;
-		}
-
-		return Status::STATUS_NEW;
 	}
 
 	/**
@@ -150,30 +129,20 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	 */
 	private function is_correct_status( $previous_status, $next_status ) {
 		$payment_status_flow    = [
-			Status::STATUS_NEW       => [
+			'pending'              => [
 				Status::STATUS_NEW,
 				Status::STATUS_PENDING,
 				Status::STATUS_ERROR,
 				Status::STATUS_CONFIRMED,
 				Status::STATUS_REJECTED,
-                Status::STATUS_EXPIRED
+				Status::STATUS_EXPIRED
 			],
-			Status::STATUS_PENDING   => [
-				Status::STATUS_CONFIRMED,
-				Status::STATUS_REJECTED,
-                Status::STATUS_EXPIRED
-			],
-			Status::STATUS_REJECTED  => [
-				Status::STATUS_NEW,
-				Status::STATUS_CONFIRMED
-			],
-			Status::STATUS_CONFIRMED => [],
-			Status::STATUS_ERROR     => [
+			'failed'               => [
 				Status::STATUS_NEW,
 				Status::STATUS_CONFIRMED,
+				Status::STATUS_ERROR,
 				Status::STATUS_REJECTED
-			],
-            Status::STATUS_EXPIRED => []
+			]
 		];
 		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
 		$is_change_possible     = in_array( $next_status, $payment_status_flow[ $previous_status ] );
