@@ -1,14 +1,5 @@
 before_deploy:
-  - composer install --no-dev --optimize-autoloader
-  - mkdir dist
-  - mkdir dist/pay-by-paynow-pl
-  - cp -R assets dist
-  - cp -R vendor dist/pay-by-paynow-pl
-  - cp -R src/* dist/pay-by-paynow-pl
-  - cp -f readme.txt dist/pay-by-paynow-pl/
-  - cp -f LICENSE dist/pay-by-paynow-pl/license.txt
-  - cd dist
-  - zip -r pay-by-paynow-pl.zip pay-by-paynow-pl
+  - bash ./scripts/build.sh
 
 deploy:
   provider: releases
