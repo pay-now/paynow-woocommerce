@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-29 13:47+0000\n"
+"POT-Creation-Date: 2021-08-04 13:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -42,8 +42,7 @@ msgstr ""
 msgid "Api Key"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:105 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:108
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:106
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr ""
@@ -63,8 +62,8 @@ msgstr ""
 #: includes/settings/pay-by-paynow-pl-settings.php:40
 msgid ""
 "Determines how long it will be possible to pay for the order from the moment "
-"the payment link is generated. Value expressed in seconds. Maximum value is "
-"86400 seconds."
+"the payment link is generated. Value expressed in seconds. The value must be "
+"between 1 and 86400 seconds."
 msgstr ""
 
 #: includes/settings/pay-by-paynow-pl-settings.php:7
@@ -97,7 +96,7 @@ msgstr ""
 msgid "Enabled test mode"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:118
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:116
 #, php-format
 msgid ""
 "Error occurred during the payment process and the payment could not be "
@@ -146,17 +145,17 @@ msgstr ""
 msgid "Pay by paynow.pl"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:115
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:113
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:121
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:119
 #, php-format
 msgid "Payment has been expired - %s."
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:111
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:109
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr ""
@@ -253,7 +252,7 @@ msgstr ""
 msgid "Use payment validity time"
 msgstr ""
 
-#: pay-by-paynow-pl.php:17
+#: pay-by-paynow-pl.php:19
 #, php-format
 msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
 msgstr ""

@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-08-03 09:46+0000\n"
+"PO-Revision-Date: 2021-08-04 13:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
-"Language: pl_PL\n"
+"Language: pl-PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "MIME-Version: 1.0\n"
@@ -39,13 +39,12 @@ msgstr ""
 "Przyjmuj bezpieczne płatności BLIK, kartą kredytową oraz szybkimi przelewami "
 "przez paynow.pl"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:50
+#: includes/settings/pay-by-paynow-pl-settings.php:50 
 #: includes/settings/pay-by-paynow-pl-settings.php:73
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:105
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:108
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:106
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr "Płatność oczekuje na autoryzację - %s."
@@ -63,14 +62,18 @@ msgid "Debug"
 msgstr "Debugowanie"
 
 #: includes/settings/pay-by-paynow-pl-settings.php:40
+#| msgid ""
+#| "Determines how long it will be possible to pay for the order from the moment "
+#| "the payment link is generated. Value expressed in seconds. Maximum value is "
+#| "86400 seconds."
 msgid ""
 "Determines how long it will be possible to pay for the order from the moment "
-"the payment link is generated. Value expressed in seconds. Maximum value is "
-"86400 seconds."
+"the payment link is generated. Value expressed in seconds. The value must be "
+"between 1 and 86400 seconds."
 msgstr ""
 "Określa jak długo będzie można opłacić zamówienie od momentu wygenerowania "
-"linku do płatności. Wartość wyrażona w sekundach. Maksymalna wartość to "
-"86400 sekund."
+"linku do płatności. Wartość wyrażona w sekundach. Wartość musi zawierać się "
+"w przedziale od 1 do 86400 sekund."
 
 #: includes/settings/pay-by-paynow-pl-settings.php:7
 msgid "Enable gateway"
@@ -86,8 +89,8 @@ msgstr "Włącz logi"
 
 #: includes/settings/pay-by-paynow-pl-settings.php:27
 #| msgid ""
-#| "Enable sending ordered products information like name, categories, "
-#| "quantity and unit price"
+#| "Enable sending ordered products information like name, categories, quantity "
+#| "and unit price"
 msgid ""
 "Enable sending ordered products information: name, categories, quantity and "
 "unit price"
@@ -107,7 +110,7 @@ msgstr "Włącz/Wyłącz"
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:118
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:116
 #, php-format
 msgid ""
 "Error occurred during the payment process and the payment could not be "
@@ -170,17 +173,17 @@ msgstr "Zamówienie numer: "
 msgid "Pay by paynow.pl"
 msgstr "Zapłać z paynow.pl"
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:115
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:113
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr "Płatność została zatwierdzona przez kupującego - %s."
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:121
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:119
 #, php-format
 msgid "Payment has been expired - %s."
 msgstr "Płatność utraciła ważność"
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:111
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:109
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
@@ -252,9 +255,9 @@ msgstr "Konfiguracja środowiska testowego(Sandbox)"
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
 msgid "Secure and fast payments provided by paynow.pl"
 msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
@@ -263,7 +266,7 @@ msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 msgid "Send order items"
 msgstr "Wysyłaj informację o produktach"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:55
+#: includes/settings/pay-by-paynow-pl-settings.php:55 
 #: includes/settings/pay-by-paynow-pl-settings.php:78
 msgid "Signature Key"
 msgstr "Klucz obliczania podpisu"
@@ -288,7 +291,7 @@ msgstr "Tryb testowy (Sandbox)"
 msgid "Use payment validity time"
 msgstr "Czas ważności płatności"
 
-#: pay-by-paynow-pl.php:17
+#: pay-by-paynow-pl.php:19
 #, php-format
 msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
 msgstr "Wymagana jest wersja PHP w wersji 7.1+, twoja wersja to %s."
