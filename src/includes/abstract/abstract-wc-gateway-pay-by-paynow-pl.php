@@ -76,8 +76,6 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $payment_method_settings ), 'yes' );
         update_option( $this->get_api_option_key_name(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $api_settings ), 'yes' );
 
-        $this->display_errors();
-
 		$this->gateway->send_shop_urls_configuration_request( $this->get_return_url() );
 	}
 
@@ -97,16 +95,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	public function init_form_fields() {
-        $this->form_fields = include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/settings/pay-by-paynow-pl-settings.php';
+            $this->form_fields = include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/settings/pay-by-paynow-pl-settings.php';
 	}
-
-    public function validate_payment_validity_time_field( $key, $value ){
-        if((int)$value < 1 || (int)$value > 86400 ){
-            $this->add_error(__('Payment validity time must be greater than 0 and less than 86400 seconds', 'pay-by-paynow-pl'));
-    } else {
-            return $value;
-        }
-    }
 
 	public function process_payment( $order_id ) {
 		$order = wc_get_order( $order_id );
