@@ -73,11 +73,11 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			}
 		}
 
-		update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $payment_method_settings ), 'yes' );
+        update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $payment_method_settings ), 'yes' );
         update_option( $this->get_api_option_key_name(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $api_settings ), 'yes' );
 
-		$this->gateway->send_shop_urls_configuration_request( $this->get_return_url() );
-	}
+        $this->gateway->send_shop_urls_configuration_request( $this->get_return_url() );
+    }
 
 	public function update_option( $key, $value = '' ) {
 		if ( empty( $this->settings ) ) {
@@ -94,9 +94,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		return update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $plugin_settings ), 'yes' );
 	}
 
-	public function init_form_fields() {
-            $this->form_fields = include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/settings/pay-by-paynow-pl-settings.php';
-	}
+    public function init_form_fields() {
+        $this->form_fields = include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/settings/pay-by-paynow-pl-settings.php';
+    }
 
 	public function process_payment( $order_id ) {
 		$order = wc_get_order( $order_id );
