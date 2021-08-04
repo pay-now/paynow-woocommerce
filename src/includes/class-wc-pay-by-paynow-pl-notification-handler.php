@@ -128,19 +128,19 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	 *
 	 * @return string
 	 */
-	private function map_order_status( WC_Order $order ) {
-		if ( $order->has_status( 'on-hold' ) ) {
-			return Status::STATUS_PENDING;
-		} elseif ( $order->has_status( 'processing' ) ) {
-			return Status::STATUS_CONFIRMED;
-		} elseif ( $order->has_status( 'failed' ) ) {
-			return Status::STATUS_ERROR;
-		} elseif ( $order->has_status( 'failed' ) ) {
-			return Status::STATUS_REJECTED;
-		}
+        private function map_order_status( WC_Order $order ) {
+            if ( $order->has_status( 'on-hold' ) ) {
+                return Status::STATUS_PENDING;
+            } elseif ( $order->has_status( 'processing' ) ) {
+                return Status::STATUS_CONFIRMED;
+            } elseif ( $order->has_status( 'failed' ) ) {
+                return Status::STATUS_ERROR;
+            } elseif ( $order->has_status( 'failed' ) ) {
+                return Status::STATUS_REJECTED;
+            }
 
-		return Status::STATUS_NEW;
-	}
+            return Status::STATUS_NEW;
+        }
 
 	/**
 	 * @param $previous_status
