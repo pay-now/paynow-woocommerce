@@ -37,7 +37,7 @@ return [
         'payment_validity_time'         => [
             'title'       => __( 'Payment validity time', 'pay-by-paynow-pl' ),
             'type'        => 'number',
-            'description' => __( 'Determines how long it will be possible to pay for the order from the moment the payment link is generated. Value expressed in seconds. The value must be between 1 and 86400 seconds.', 'pay-by-paynow-pl' ),
+            'description' => __( 'Determines how long it will be possible to pay for the order from the moment the payment link is generated. Value expressed in seconds. The value must be between 60 and 86400 seconds.', 'pay-by-paynow-pl' ),
             'default'     => 86400,
             'desc_tip'    => true
         ],
