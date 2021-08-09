@@ -97,6 +97,10 @@ class Paynow_Gateway {
 			}
 		}
 
+        if ( $this->settings['use_payment_validity_time_flag'] === 'yes' ) {
+            $payment_data['validityTime'] = $this->settings['payment_validity_time'];
+        }
+
 		$idempotency_key = substr( uniqid( $order_id, true ), 0, 36 );
 		$payment         = new Payment( $this->client );
 

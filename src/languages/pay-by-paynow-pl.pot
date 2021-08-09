@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-25 05:34+0000\n"
+"POT-Creation-Date: 2021-08-06 06:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -37,13 +37,12 @@ msgid ""
 "paynow.pl"
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:37
-#: includes/settings/pay-by-paynow-pl-settings.php:60
+#: includes/settings/pay-by-paynow-pl-settings.php:50 
+#: includes/settings/pay-by-paynow-pl-settings.php:73
 msgid "Api Key"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:105
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:108
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:106
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr ""
@@ -60,11 +59,18 @@ msgstr ""
 msgid "Debug"
 msgstr ""
 
+#: includes/settings/pay-by-paynow-pl-settings.php:40
+msgid ""
+"Determines how long it will be possible to pay for the order from the moment "
+"the payment link is generated. Value expressed in seconds. The value must be "
+"between 60 and 86400 seconds."
+msgstr ""
+
 #: includes/settings/pay-by-paynow-pl-settings.php:7
 msgid "Enable gateway"
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:54
+#: includes/settings/pay-by-paynow-pl-settings.php:67
 msgid "Enable if you are using test shop environment"
 msgstr ""
 
@@ -78,22 +84,26 @@ msgid ""
 "unit price"
 msgstr ""
 
+#: includes/settings/pay-by-paynow-pl-settings.php:33
+msgid "Enable to limit the validity of the payment."
+msgstr ""
+
 #: includes/settings/pay-by-paynow-pl-settings.php:6
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:53
+#: includes/settings/pay-by-paynow-pl-settings.php:66
 msgid "Enabled test mode"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:118
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:116
 #, php-format
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:151
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:146
 msgid ""
 "Error occurred during the payment process and the payment could not be "
 "completed."
@@ -113,7 +123,7 @@ msgid ""
 "woocommerce/blob/master/README.EN.md\" target=\"_blank\">here</a>."
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:72
+#: includes/settings/pay-by-paynow-pl-settings.php:85
 msgid ""
 "If you have any questions or issues, please contact our support at <a "
 "href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
@@ -127,7 +137,7 @@ msgstr ""
 msgid "Online transfer payment"
 msgstr ""
 
-#: includes/class-paynow-gateway.php:51
+#: includes/class-paynow-gateway.php:66
 msgid "Order No: "
 msgstr ""
 
@@ -135,14 +145,23 @@ msgstr ""
 msgid "Pay by paynow.pl"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:115
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:113
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:111
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:119
+#, php-format
+msgid "Payment has been expired - %s."
+msgstr ""
+
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:109
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
+msgstr ""
+
+#: includes/settings/pay-by-paynow-pl-settings.php:38
+msgid "Payment validity time"
 msgstr ""
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:9
@@ -165,33 +184,33 @@ msgstr ""
 msgid "Please choose bank from the list to make payment"
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:34
+#: includes/settings/pay-by-paynow-pl-settings.php:47
 msgid ""
 "Production authentication keys are available in <i>My Business > Paynow > "
 "Settings > Shops and payment points > Authentication data</i> in mBank's "
 "online banking."
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:32
+#: includes/settings/pay-by-paynow-pl-settings.php:45
 msgid "Production configuration"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:163
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:158
 msgid "Refund can't be processed. Please check logs for more information"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:203
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:198
 msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:49
+#: includes/settings/pay-by-paynow-pl-settings.php:62
 msgid ""
 "Sandbox authentication keys can be found in <i>Settings > Shops and poses > "
 "Authentication data</i> in <a href=\"https://panel.sandbox.paynow."
 "pl/auth/login\" target=\"_blank\">the Paynow Sandbox panel</a>."
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:47
+#: includes/settings/pay-by-paynow-pl-settings.php:60
 msgid "Sandbox configuration"
 msgstr ""
 
@@ -199,10 +218,10 @@ msgstr ""
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr ""
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
 msgid "Secure and fast payments provided by paynow.pl"
 msgstr ""
 
@@ -210,8 +229,8 @@ msgstr ""
 msgid "Send order items"
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:42
-#: includes/settings/pay-by-paynow-pl-settings.php:65
+#: includes/settings/pay-by-paynow-pl-settings.php:55 
+#: includes/settings/pay-by-paynow-pl-settings.php:78
 msgid "Signature Key"
 msgstr ""
 
@@ -221,18 +240,19 @@ msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:70
+#: includes/settings/pay-by-paynow-pl-settings.php:83
 msgid "Support"
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:52
+#: includes/settings/pay-by-paynow-pl-settings.php:65
 msgid "Test mode (Sandbox)"
 msgstr ""
 
-#: pay-by-paynow-pl.php:17
-#, php-format
-msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
+#: includes/settings/pay-by-paynow-pl-settings.php:32
+msgid "Use payment validity time"
 msgstr ""
 
-msgid "Choose bank:"
+#: pay-by-paynow-pl.php:19
+#, php-format
+msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
 msgstr ""
