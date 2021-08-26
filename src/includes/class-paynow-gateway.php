@@ -81,25 +81,25 @@ class Paynow_Gateway {
 			foreach ( $order->get_items() as $item ) {
 				$product       = $item->get_product();
 				$order_items[] = [
-					'name'     => $product->get_title(),
+					'name'     => esc_html( $product->get_title() ),
 					'category' => WC_Pay_By_Paynow_PL_Helper::get_product_categories( $product->get_id() ),
 					'quantity' => $item->get_quantity(),
 					'price'    => WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? wc_price( wc_get_price_including_tax( $product ) ) : $product->get_price_including_tax() )
 				];
 			}
 
-            $order_items = array_filter( $order_items, function ( $item ) {
-                return ! empty( $item['category'] );
-            } );
+			$order_items = array_filter( $order_items, function ( $item ) {
+				return ! empty( $item['category'] );
+			} );
 
 			if ( ! empty( $order_items ) ) {
 				$payment_data['orderItems'] = $order_items;
 			}
 		}
 
-        if ( $this->settings['use_payment_validity_time_flag'] === 'yes' ) {
-            $payment_data['validityTime'] = $this->settings['payment_validity_time'];
-        }
+		if ( $this->settings['use_payment_validity_time_flag'] === 'yes' ) {
+			$payment_data['validityTime'] = $this->settings['payment_validity_time'];
+		}
 
 		$idempotency_key = substr( uniqid( $order_id, true ), 0, 36 );
 		$payment         = new Payment( $this->client );
