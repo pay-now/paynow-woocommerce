@@ -29,7 +29,7 @@ if [ $error == 0 ]; then
     echo "Tag already exists for version $VERSION, aborting deployment"
     exit 1
 fi
-  
+
 cd "$PLUGIN_BUILDS_PATH"
 
 # Clean up any previous svn dir
@@ -77,6 +77,8 @@ rm -fR svn-trunk
 mkdir svn/tags/$VERSION
 rsync -r -p $PLUGIN/* svn/tags/$VERSION
 
+cd $PLUGIN_BUILDS_PATH
+
 # Add new files to SVN
 svn stat svn | grep '^?' | awk '{print $2}' | xargs -I x svn add x@
 # Remove deleted files from SVN
@@ -86,5 +88,5 @@ svn stat svn
 # Commit to SVN
 svn ci --no-auth-cache --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD svn -m "Deploy version $VERSION"
 
-# Remove SVN temp dir
+ Remove SVN temp dir
 rm -fR svn

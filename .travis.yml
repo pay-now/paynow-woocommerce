@@ -13,7 +13,6 @@ deploy:
     tags: true
 
 after_deploy:
-  - cd ..
   - bash ./scripts/deploy_to_wp_svn.sh
 
 script: skip
