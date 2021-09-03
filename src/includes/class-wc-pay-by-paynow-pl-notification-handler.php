@@ -89,9 +89,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 		$notification_status = $notification_data['status'];
 
 		if ( ! $this->is_correct_status( $order->get_status(), $notification_status ) ) {
-			throw new Exception( 'Order status transition is incorrect {orderStatus={}, paymentStatus={}}', [
-				$order->get_status() . ' - ' . $notification_status
-			] );
+            throw new Exception( 'Order status transition from '. $order->get_status() . ' to ' . $notification_status .' is incorrect');
 		}
 
 		WC_Pay_By_Paynow_PL_Logger::info( 'Order status transition is correct {orderId={}, paymentId={}, orderStatus={}, paymentStatus={}}', [
