@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-08-06 06:36+0000\n"
+"PO-Revision-Date: 2021-09-03 05:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl-PL\n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:106
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:104
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr "Płatność oczekuje na autoryzację - %s."
@@ -56,6 +56,10 @@ msgstr "Płatność Blikiem"
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:7
 msgid "Card payment"
 msgstr "Płatność kartą"
+
+#: includes/templates/pbls.phtml:5
+msgid "Choose bank:"
+msgstr "Wybierz bank:"
 
 #: includes/settings/pay-by-paynow-pl-settings.php:18
 msgid "Debug"
@@ -110,7 +114,7 @@ msgstr "Włącz/Wyłącz"
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:116
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:114
 #, php-format
 msgid ""
 "Error occurred during the payment process and the payment could not be "
@@ -173,17 +177,17 @@ msgstr "Zamówienie numer: "
 msgid "Pay by paynow.pl"
 msgstr "Zapłać z paynow.pl"
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:113
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:111
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr "Płatność została zatwierdzona przez kupującego - %s."
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:119
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:117
 #, php-format
 msgid "Payment has been expired - %s."
 msgstr "Płatność utraciła ważność"
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:109
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:107
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
@@ -255,10 +259,10 @@ msgstr "Konfiguracja środowiska testowego(Sandbox)"
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
+#:  includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
 msgid "Secure and fast payments provided by paynow.pl"
 msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 
