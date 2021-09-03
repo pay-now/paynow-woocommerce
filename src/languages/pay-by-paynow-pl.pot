@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-06 06:36+0000\n"
+"POT-Creation-Date: 2021-09-03 05:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Api Key"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:106
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:104
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr ""
@@ -53,6 +53,10 @@ msgstr ""
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:7
 msgid "Card payment"
+msgstr ""
+
+#: includes/templates/pbls.phtml:5
+msgid "Choose bank:"
 msgstr ""
 
 #: includes/settings/pay-by-paynow-pl-settings.php:18
@@ -96,7 +100,7 @@ msgstr ""
 msgid "Enabled test mode"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:116
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:114
 #, php-format
 msgid ""
 "Error occurred during the payment process and the payment could not be "
@@ -145,17 +149,17 @@ msgstr ""
 msgid "Pay by paynow.pl"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:113
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:111
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:119
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:117
 #, php-format
 msgid "Payment has been expired - %s."
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:109
+#: includes/class-wc-pay-by-paynow-pl-notification-handler.php:107
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr ""
@@ -218,10 +222,10 @@ msgstr ""
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr ""
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
+#:  includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
 msgid "Secure and fast payments provided by paynow.pl"
 msgstr ""
 
