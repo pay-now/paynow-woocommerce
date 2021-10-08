@@ -356,8 +356,27 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
         if( WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order )) {
             $paymentId = $order->get_transaction_id();
-            $status = $this->gateway->payment_status( $paymentId )->getStatus();
-            $this->process_order_status_change( $order, $paymentId, $status );
+            try {
+                $status = $this->gateway->payment_status( $paymentId )->getStatus();
+                if ( ! $order->has_status( wc_get_is_paid_statuses() ) && $order->get_transaction_id() === $paymentId ) {
+                    $this->process_order_status_change( $order, $paymentId, $status );
+                } else {
+                    WC_Pay_By_Paynow_PL_Logger::info( 'Order has one of paid statuses. Skipped notification processing {orderId={}, orderStatus={}, payment={}}', [
+                        $order->get_id(),
+                        $order->get_status(),
+                        $paymentId
+                    ] );
+                }
+            } catch ( Exception $exception ) {
+                WC_Pay_By_Paynow_PL_Logger::error(
+                    $exception->getMessage() . ' {orderId={}, paymentId={}}',
+                    [
+                        $order_id,
+                        $paymentId
+                    ]
+                );
+                exit();
+            }
             wp_redirect( $order->get_checkout_order_received_url() );
             exit();
         }

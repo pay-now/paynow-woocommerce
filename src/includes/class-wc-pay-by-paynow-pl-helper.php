@@ -134,6 +134,6 @@ class WC_Pay_By_Paynow_PL_Helper {
             $paymentMethod = $order->get_payment_method();
         }
 
-        return str_contains($paymentMethod, 'pay_by_paynow_pl' );
+        return str_contains($paymentMethod, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX );
     }
 }
