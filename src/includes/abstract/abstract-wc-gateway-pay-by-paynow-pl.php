@@ -260,7 +260,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		if ( ! is_admin() ) {
 			$available = true;
 			try {
-				WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( WC()->cart->total );
+				$total = WC()->cart->total;
+				
+				// Cart does not exist on order-pay page
+				if( WC()->query->get_current_endpoint() == 'order-pay') {
+					$total = (new WC_Order(get_query_var('order-pay')))->total;
+				}
+
+				WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $total );
 			} catch ( PaynowException $exception ) {
 				$available = false;
 			}
