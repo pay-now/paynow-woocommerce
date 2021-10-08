@@ -96,7 +96,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 
 		$categories = [];
 		foreach ( $terms as $term ) {
-			$categories[] = $term->name;
+			$categories[] = esc_html($term->name);
 		}
 
 		return implode( ', ', $categories );
