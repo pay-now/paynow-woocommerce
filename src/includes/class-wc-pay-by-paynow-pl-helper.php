@@ -110,12 +110,12 @@ class WC_Pay_By_Paynow_PL_Helper {
         $amount = 0;
 
         //checkout page
-        if (isset(WC()->cart)) {
+        if ( isset(WC()->cart) ) {
             $amount = WC()->cart->total;
         }
 
         //order-pay page
-        if (get_query_var('order-pay')) {
+        if ( get_query_var('order-pay') ) {
             $order = new WC_Order(get_query_var('order-pay'));
             $amount = $order->get_total();
         }
@@ -127,8 +127,8 @@ class WC_Pay_By_Paynow_PL_Helper {
      * @param $order
      * @return bool
      */
-    public static function  is_paynow_order($order) {
-        if(WC_Pay_By_Paynow_PL_Helper::is_old_wc_version()){
+    public static function  is_paynow_order( $order ) {
+        if( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ){
             $paymentMethod  = get_post_meta( $order->id, '_payment_method', true );
         } else {
             $paymentMethod = $order->get_payment_method();

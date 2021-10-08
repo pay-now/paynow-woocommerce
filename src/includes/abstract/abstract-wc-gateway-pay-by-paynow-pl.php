@@ -348,16 +348,16 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
         $order_id = wc_get_order_id_by_order_key( $_GET['key'] );
         $order = wc_get_order( $order_id );
-        if(WC_Pay_By_Paynow_PL_Helper::is_old_wc_version()){
+        if( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ){
             $paymentMethod  = get_post_meta( $order->id, '_payment_method', true );
         } else {
             $paymentMethod = $order->get_payment_method();
         }
 
-        if( WC_Pay_By_Paynow_PL_Helper::is_paynow_order($order)) {
+        if( WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order )) {
             $paymentId = $order->get_transaction_id();
-            $status = $this->gateway->payment_status($paymentId)->getStatus();
-            $this->process_order_status_change($order, $paymentId, $status);
+            $status = $this->gateway->payment_status( $paymentId )->getStatus();
+            $this->process_order_status_change( $order, $paymentId, $status );
             wp_redirect( $order->get_checkout_order_received_url() );
             exit();
         }
@@ -378,7 +378,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
         $order_key = $order->get_order_key();
         $order_key_check = $_GET['key'];
 
-        if($order_key == $order_key_check && WC_Pay_By_Paynow_PL_Helper::is_paynow_order($order)){
+        if( $order_key == $order_key_check && WC_Pay_By_Paynow_PL_Helper::is_paynow_order($order) ){
             $allcaps['pay_for_order'] = true;
         }
 
