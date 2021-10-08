@@ -6,6 +6,7 @@ if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
 }
 
 use Paynow\Exception\PaynowException;
+use Paynow\Model\Payment\Status;
 
 abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	protected $payment_method_id;
@@ -260,7 +261,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		if ( ! is_admin() ) {
 			$available = true;
 			try {
-				WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( WC()->cart->total );
+				WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( WC_Pay_By_Paynow_PL_Helper::get_cart_total() );
 			} catch ( PaynowException $exception ) {
 				$available = false;
 			}
@@ -271,8 +272,123 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		return parent::is_available();
 	}
 
+    /**
+     * @param WC_order $order
+     * @param string $paymentId
+     * @param string $notification_status
+     * @throws Exception
+     */
+    public function process_order_status_change( WC_order $order, string $paymentId, string $notification_status ) {
+
+        if ( ! $this->is_correct_status( $order->get_status(), $notification_status ) ) {
+            throw new Exception( 'Order status transition from '. $order->get_status() . ' to ' . $notification_status .' is incorrect');
+        }
+
+        WC_Pay_By_Paynow_PL_Logger::info( 'Order status transition is correct {orderId={}, paymentId={}, orderStatus={}, paymentStatus={}}', [
+            WC_Pay_By_Paynow_PL_Helper::get_order_id($order),
+            $order->get_transaction_id(),
+            $order->get_status(),
+            $notification_status
+        ] );
+
+        switch ( $notification_status ) {
+            case Status::STATUS_NEW:
+                $order->add_order_note( sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+            case Status::STATUS_REJECTED:
+                $order->update_status( 'failed', sprintf( __( 'Payment has not been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+            case Status::STATUS_CONFIRMED:
+                $order->payment_complete( $paymentId );
+                $order->add_order_note( sprintf( __( 'Payment has been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+            case Status::STATUS_ERROR:
+                $order->update_status( 'failed', sprintf( __( 'Error occurred during the payment process and the payment could not be completed - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+            case Status::STATUS_EXPIRED:
+                $order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+        }
+    }
+
+    /**
+     * @param $previous_status
+     * @param $next_status
+     *
+     * @return bool
+     */
+    public static function is_correct_status( $previous_status, $next_status ) {
+        $payment_status_flow    = [
+            'pending'              => [
+                Status::STATUS_NEW,
+                Status::STATUS_PENDING,
+                Status::STATUS_ERROR,
+                Status::STATUS_CONFIRMED,
+                Status::STATUS_REJECTED,
+                Status::STATUS_EXPIRED
+            ],
+            'failed'               => [
+                Status::STATUS_NEW,
+                Status::STATUS_CONFIRMED,
+                Status::STATUS_ERROR,
+                Status::STATUS_REJECTED
+            ]
+        ];
+        $previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
+        $is_change_possible     = in_array( $next_status, $payment_status_flow[ $previous_status ] );
+
+        return $previous_status_exists && $is_change_possible;
+    }
+
+    function redirect_order_received_page(){
+
+        if( !is_wc_endpoint_url( 'order-received' ) || empty( $_GET['key'] ) || empty( $_GET['paymentId'] ) || empty( $_GET['paymentStatus'] ) ) {
+            return;
+        }
+
+        $order_id = wc_get_order_id_by_order_key( $_GET['key'] );
+        $order = wc_get_order( $order_id );
+        if(WC_Pay_By_Paynow_PL_Helper::is_old_wc_version()){
+            $paymentMethod  = get_post_meta( $order->id, '_payment_method', true );
+        } else {
+            $paymentMethod = $order->get_payment_method();
+        }
+
+        if( WC_Pay_By_Paynow_PL_Helper::is_paynow_order($order)) {
+            $paymentId = $order->get_transaction_id();
+            $status = $this->gateway->payment_status($paymentId)->getStatus();
+            $this->process_order_status_change($order, $paymentId, $status);
+            wp_redirect( $order->get_checkout_order_received_url() );
+            exit();
+        }
+        return;
+    }
+
+    function allow_payment_without_login( $allcaps, $caps, $args ) {
+        if ( !isset( $caps[0] ) || $caps[0] != 'pay_for_order' )
+            return $allcaps;
+        if ( !isset( $_GET['key'] ) )
+            return $allcaps;
+
+        $order = wc_get_order( $args[2] );
+        if( !$order ){
+            return $allcaps;
+        }
+
+        $order_key = $order->get_order_key();
+        $order_key_check = $_GET['key'];
+
+        if($order_key == $order_key_check && WC_Pay_By_Paynow_PL_Helper::is_paynow_order($order)){
+            $allcaps['pay_for_order'] = true;
+        }
+
+        return $allcaps;
+    }
+
 	protected function hooks() {
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, [ $this, 'process_admin_options' ] );
+        add_action( 'template_redirect', [$this, 'redirect_order_received_page'] );
+        add_filter( 'user_has_cap', [$this, 'allow_payment_without_login' ], 10, 3 );
 	}
 
 	private function get_api_option_key_name() {
