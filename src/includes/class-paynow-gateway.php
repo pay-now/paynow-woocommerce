@@ -164,7 +164,7 @@ class Paynow_Gateway {
 		}
 		$payment = new Payment( $this->client );
 
-		return $payment->getPaymentMethods( get_woocommerce_currency(), WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_cart_total() ) );
+		return $payment->getPaymentMethods( get_woocommerce_currency(), WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_total_amount() ) );
 	}
 
     /**
