@@ -348,11 +348,6 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
         $order_id = wc_get_order_id_by_order_key( $_GET['key'] );
         $order = wc_get_order( $order_id );
-        if( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ){
-            $paymentMethod  = get_post_meta( $order->id, '_payment_method', true );
-        } else {
-            $paymentMethod = $order->get_payment_method();
-        }
 
         if( WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order )) {
             $paymentId = $order->get_transaction_id();
