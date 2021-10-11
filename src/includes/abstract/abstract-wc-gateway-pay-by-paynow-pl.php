@@ -358,6 +358,11 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
             $paymentId = $order->get_transaction_id();
             try {
                 $status = $this->gateway->payment_status( $paymentId )->getStatus();
+                WC_Pay_By_Paynow_PL_Logger::info( 'Received payment status from API {orderId={}, paymentId={}, status={}}', [
+                    $order->get_id(),
+                    $paymentId,
+                    $status
+                ] );
                 if ( ! $order->has_status( wc_get_is_paid_statuses() ) && $order->get_transaction_id() === $paymentId ) {
                     $this->process_order_status_change( $order, $paymentId, $status );
                 } else {
