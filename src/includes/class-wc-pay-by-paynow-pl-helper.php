@@ -106,7 +106,7 @@ class WC_Pay_By_Paynow_PL_Helper {
     /**
      * @return int
      */
-    public static function get_payment_total_amount() {
+    public static function get_payment_amount() {
         $amount = 0;
 
         //checkout page

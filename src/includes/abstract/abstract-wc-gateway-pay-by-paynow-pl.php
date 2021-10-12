@@ -261,7 +261,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		if ( ! is_admin() ) {
 			$available = true;
 			try {
-				WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_total_amount() );
+				WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
 			} catch ( PaynowException $exception ) {
 				$available = false;
 			}
