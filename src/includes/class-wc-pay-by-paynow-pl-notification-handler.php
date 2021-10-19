@@ -54,11 +54,6 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 				exit;
 			}
 
-            WC_Pay_By_Paynow_PL_Logger::info( 'Meta data {orderTransactionId={}, paymentId={}}', [
-                $order->get_transaction_id(),
-                $notification_data['paymentId']
-            ] );
-
 			if ( ! $order->has_status( wc_get_is_paid_statuses() ) && ($order->get_transaction_id() === $notification_data['paymentId'] || $notification_data['status'] === Status::STATUS_NEW ) ) {
                 $this->process_order_status_change( $order, $notification_data['paymentId'], $notification_data['status'] );
 			} else {
