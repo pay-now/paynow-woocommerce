@@ -76,7 +76,7 @@ class Paynow_Gateway {
 			$payment_data['paymentMethodId'] = $payment_method_id;
 		}
 
-		if ( $this->settings['send_order_items'] ) {
+		if ( $this->settings['send_order_items'] === 'yes' ) {
 			$order_items = [];
 			foreach ( $order->get_items() as $item ) {
 				$product       = $item->get_product();
@@ -88,10 +88,18 @@ class Paynow_Gateway {
 				];
 			}
 
+            $order_items = array_filter( $order_items, function ( $item ) {
+                return ! empty( $item['category'] );
+            } );
+
 			if ( ! empty( $order_items ) ) {
 				$payment_data['orderItems'] = $order_items;
 			}
 		}
+
+        if ( $this->settings['use_payment_validity_time_flag'] === 'yes' ) {
+            $payment_data['validityTime'] = $this->settings['payment_validity_time'];
+        }
 
 		$idempotency_key = substr( uniqid( $order_id, true ), 0, 36 );
 		$payment         = new Payment( $this->client );
@@ -156,6 +164,20 @@ class Paynow_Gateway {
 		}
 		$payment = new Payment( $this->client );
 
-		return $payment->getPaymentMethods( get_woocommerce_currency(), WC_Pay_By_Paynow_PL_Helper::get_amount( WC()->cart->total ) );
+		return $payment->getPaymentMethods( get_woocommerce_currency(), WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() ) );
 	}
+
+    /**
+     * @param $payment_id
+     * @return \Paynow\Response\Payment\Status|void
+     * @throws PaynowException
+     */
+    public function payment_status( $payment_id ) {
+        if ( ! $this->client ) {
+            return;
+        }
+        $payment = new Payment( $this->client );
+
+        return $payment->status( $payment_id );
+    }
 }
