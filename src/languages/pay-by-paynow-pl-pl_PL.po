@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-10-28 09:12+0000\n"
+"PO-Revision-Date: 2021-11-02 13:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl_PL\n"
@@ -39,6 +39,30 @@ msgid ""
 msgstr ""
 "Przyjmuj bezpieczne płatności BLIK, kartą kredytową oraz szybkimi przelewami "
 "przez paynow.pl"
+
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:306
+#, fuzzy, php-format
+#| msgid ""
+#| "Error occurred during the payment process and the payment could not be "
+#| "completed - %s."
+msgid ""
+"An error occurred during the payment process and the payment could not be "
+"completed - %s."
+msgstr ""
+"Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
+"ponownie - %s."
+
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:147
+#, fuzzy
+#| msgid ""
+#| "Error occurred during the payment process and the payment could not be "
+#| "completed."
+msgid ""
+"An error occurred during the payment process and the payment could not be "
+"completed."
+msgstr ""
+"Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
+"ponownie."
 
 #: includes/settings/pay-by-paynow-pl-settings.php:50
 #: includes/settings/pay-by-paynow-pl-settings.php:73
@@ -115,23 +139,6 @@ msgstr "Włącz/Wyłącz"
 #: includes/settings/pay-by-paynow-pl-settings.php:66
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
-
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:306
-#, php-format
-msgid ""
-"Error occurred during the payment process and the payment could not be "
-"completed - %s."
-msgstr ""
-"Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
-"ponownie - %s."
-
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:147
-msgid ""
-"Error occurred during the payment process and the payment could not be "
-"completed."
-msgstr ""
-"Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
-"ponownie."
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:7
 msgid "Google Pay"

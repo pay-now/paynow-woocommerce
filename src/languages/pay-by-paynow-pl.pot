@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-28 08:47+0000\n"
+"POT-Creation-Date: 2021-11-02 13:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -35,6 +35,19 @@ msgstr ""
 msgid ""
 "Accepts secure BLIK, credit cards payments and fast online transfers by "
 "paynow.pl"
+msgstr ""
+
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:306
+#, php-format
+msgid ""
+"An error occurred during the payment process and the payment could not be "
+"completed - %s."
+msgstr ""
+
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:147
+msgid ""
+"An error occurred during the payment process and the payment could not be "
+"completed."
 msgstr ""
 
 #: includes/settings/pay-by-paynow-pl-settings.php:50
@@ -98,19 +111,6 @@ msgstr ""
 
 #: includes/settings/pay-by-paynow-pl-settings.php:66
 msgid "Enabled test mode"
-msgstr ""
-
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:306
-#, php-format
-msgid ""
-"Error occurred during the payment process and the payment could not be "
-"completed - %s."
-msgstr ""
-
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:147
-msgid ""
-"Error occurred during the payment process and the payment could not be "
-"completed."
 msgstr ""
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:7
