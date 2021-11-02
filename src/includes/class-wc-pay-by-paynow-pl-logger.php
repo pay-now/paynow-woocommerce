@@ -5,12 +5,12 @@ class WC_Pay_By_Paynow_PL_Logger {
 
 	public static $logger;
 	const WC_LOG_FILENAME = 'pay-by-paynow-pl';
-	const DEBUG = 'debug';
-	const INFO = 'info';
-	const WARNING = 'warning';
-	const ERROR = 'error';
+	const DEBUG           = 'debug';
+	const INFO            = 'info';
+	const WARNING         = 'warning';
+	const ERROR           = 'error';
 
-	private static function add_log( $type, $message, $context = [] ) {
+	private static function add_log( $type, $message, $context = array() ) {
 		if ( ! class_exists( 'WC_Logger' ) ) {
 			return;
 		}
@@ -32,24 +32,24 @@ class WC_Pay_By_Paynow_PL_Logger {
 			if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
 				self::$logger->add( self::WC_LOG_FILENAME, $message );
 			} else {
-				self::$logger->{$type}( self::process_record( $message, $context ), [ 'source' => self::WC_LOG_FILENAME ] );
+				self::$logger->{$type}( self::process_record( $message, $context ), array( 'source' => self::WC_LOG_FILENAME ) );
 			}
 		}
 	}
 
-	public static function info( $message, $context = [] ) {
+	public static function info( $message, $context = array() ) {
 		self::add_log( self::INFO, $message, $context );
 	}
 
-	public static function debug( $message, $context = [] ) {
+	public static function debug( $message, $context = array() ) {
 		self::add_log( self::DEBUG, $message, $context );
 	}
 
-	public static function error( $message, $context = [] ) {
+	public static function error( $message, $context = array() ) {
 		self::add_log( self::ERROR, $message, $context );
 	}
 
-	public static function warning( $message, $context = [] ) {
+	public static function warning( $message, $context = array() ) {
 		self::add_log( self::WARNING, $message, $context );
 	}
 
@@ -64,7 +64,7 @@ class WC_Pay_By_Paynow_PL_Logger {
 					$result_message .= $paramValue;
 				}
 			}
-			$messagePart    = $split_message[ $i ];
+			$messagePart     = $split_message[ $i ];
 			$result_message .= $messagePart;
 		}
 
