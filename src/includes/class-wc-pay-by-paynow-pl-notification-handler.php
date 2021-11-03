@@ -8,7 +8,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 
 	function __construct() {
 		parent::__construct();
-		add_action( 'woocommerce_api_wc_gateway_pay_by_paynow_pl', [ $this, 'handle_notification' ] );
+		add_action( 'woocommerce_api_wc_gateway_pay_by_paynow_pl', array( $this, 'handle_notification' ) );
 	}
 
 	/**
@@ -16,8 +16,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	 */
 	public function handle_notification() {
 		if ( ( 'POST' !== $_SERVER['REQUEST_METHOD'] )
-		     || ! isset( $_GET['wc-api'] )
-		     || ( 'WC_Gateway_Pay_By_Paynow_PL_Notification_Handler' !== $_GET['wc-api'] )
+			 || ! isset( $_GET['wc-api'] )
+			 || ( 'WC_Gateway_Pay_By_Paynow_PL_Notification_Handler' !== $_GET['wc-api'] )
 		) {
 			status_header( 400 );
 		}
@@ -26,50 +26,62 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 		$headers           = WC_Pay_By_Paynow_PL_Helper::get_request_headers();
 		$notification_data = json_decode( $payload, true );
 
-		WC_Pay_By_Paynow_PL_Logger::info( 'Received payment notification {orderId={}, paymentId={}, status={}}', [
-			$notification_data['externalId'],
-			$notification_data['paymentId'],
-			$notification_data['status']
-		] );
+		WC_Pay_By_Paynow_PL_Logger::info(
+			'Received payment notification {orderId={}, paymentId={}, status={}}',
+			array(
+				$notification_data['externalId'],
+				$notification_data['paymentId'],
+				$notification_data['status'],
+			)
+		);
 
 		try {
 			new Notification( $this->gateway->get_signature_key(), $payload, $headers );
 			$order = wc_get_order( $notification_data['externalId'] );
 
 			if ( ! $order ) {
-				WC_Pay_By_Paynow_PL_Logger::error( 'Order was not found {orderId={}, paymentId={}}', [
-					$notification_data['externalId'],
-					$notification_data['paymentId']
-				] );
+				WC_Pay_By_Paynow_PL_Logger::error(
+					'Order was not found {orderId={}, paymentId={}}',
+					array(
+						$notification_data['externalId'],
+						$notification_data['paymentId'],
+					)
+				);
 				status_header( 400 );
 				exit;
 			}
 
 			if ( strpos( $order->get_payment_method(), WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) === false ) {
-				WC_Pay_By_Paynow_PL_Logger::error( 'Other payment gateway is already selected {orderId={}, paymentId={}}', [
-					$notification_data['externalId'],
-					$notification_data['paymentId']
-				] );
+				WC_Pay_By_Paynow_PL_Logger::error(
+					'Other payment gateway is already selected {orderId={}, paymentId={}}',
+					array(
+						$notification_data['externalId'],
+						$notification_data['paymentId'],
+					)
+				);
 				status_header( 400 );
 				exit;
 			}
 
 			if ( ! $order->has_status( wc_get_is_paid_statuses() ) && $order->get_transaction_id() === $notification_data['paymentId'] ) {
-                $this->process_order_status_change( $order, $notification_data['paymentId'], $notification_data['status'] );
+				$this->process_order_status_change( $order, $notification_data['paymentId'], $notification_data['status'] );
 			} else {
-				WC_Pay_By_Paynow_PL_Logger::info( 'Order has one of paid statuses. Skipped notification processing {orderId={}, orderStatus={}, payment={}}', [
-					$notification_data['externalId'],
-					$order->get_status(),
-					$notification_data['paymentId']
-				] );
+				WC_Pay_By_Paynow_PL_Logger::info(
+					'Order has one of paid statuses. Skipped notification processing {orderId={}, orderStatus={}, payment={}}',
+					array(
+						$notification_data['externalId'],
+						$order->get_status(),
+						$notification_data['paymentId'],
+					)
+				);
 			}
 		} catch ( Exception $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error(
 				$exception->getMessage() . ' {orderId={}, paymentId={}}',
-				[
+				array(
 					$notification_data['externalId'],
-					$notification_data['paymentId']
-				]
+					$notification_data['paymentId'],
+				)
 			);
 			status_header( 400 );
 			exit;

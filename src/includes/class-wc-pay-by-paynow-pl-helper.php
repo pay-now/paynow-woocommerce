@@ -32,6 +32,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 
 	/**
 	 * Get minimum payment amount value
+	 *
 	 * @return int
 	 */
 	public static function get_minimum_amount() {
@@ -54,7 +55,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 */
 	public static function get_request_headers() {
 		if ( ! function_exists( 'apache_request_headers' ) ) {
-			$headers = [];
+			$headers = array();
 			foreach ( $_SERVER as $key => $value ) {
 				if ( substr( $key, 0, 5 ) == 'HTTP_' ) {
 					$subject                                      = ucwords( str_replace( '_', ' ', strtolower( substr( $key, 5 ) ) ) );
@@ -80,8 +81,8 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @throws PaynowException
 	 */
 	public static function validate_minimum_payment_amount( $amount ) {
-		if ( WC_Pay_By_Paynow_PL_Helper::get_amount( $amount ) < WC_Pay_By_Paynow_PL_Helper::get_minimum_amount() ) {
-			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'pay-by-paynow-pl' ), wc_price( WC_Pay_By_Paynow_PL_Helper::get_minimum_amount() / 100 ) ) );
+		if ( self::get_amount( $amount ) < self::get_minimum_amount() ) {
+			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'pay-by-paynow-pl' ), wc_price( self::get_minimum_amount() / 100 ) ) );
 		}
 	}
 
@@ -95,7 +96,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	public static function get_product_categories( $product_id ) {
 		$terms = get_the_terms( $product_id, 'product_cat' );
 
-		$categories = [];
+		$categories = array();
 		foreach ( $terms as $term ) {
 			$categories[] = $term->name;
 		}
@@ -103,37 +104,37 @@ class WC_Pay_By_Paynow_PL_Helper {
 		return implode( ', ', $categories );
 	}
 
-    /**
-     * @return int
-     */
-    public static function get_payment_amount() {
-        $amount = 0;
+	/**
+	 * @return int
+	 */
+	public static function get_payment_amount() {
+		$amount = 0;
 
-        //checkout page
-        if ( isset(WC()->cart) ) {
-            $amount = WC()->cart->total;
-        }
+		// checkout page
+		if ( isset( WC()->cart ) ) {
+			$amount = WC()->cart->total;
+		}
 
-        //order-pay page
-        if ( get_query_var('order-pay') ) {
-            $order = new WC_Order(get_query_var('order-pay'));
-            $amount = $order->get_total();
-        }
+		// order-pay page
+		if ( get_query_var( 'order-pay' ) ) {
+			$order  = new WC_Order( get_query_var( 'order-pay' ) );
+			$amount = $order->get_total();
+		}
 
-        return $amount;
-    }
+		return $amount;
+	}
 
-    /**
-     * @param $order
-     * @return bool
-     */
-    public static function  is_paynow_order( $order ) {
-        if( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ){
-            $paymentMethod  = get_post_meta( $order->id, '_payment_method', true );
-        } else {
-            $paymentMethod = $order->get_payment_method();
-        }
+	/**
+	 * @param $order
+	 * @return bool
+	 */
+	public static function is_paynow_order( $order ) {
+		if ( self::is_old_wc_version() ) {
+			$paymentMethod = get_post_meta( $order->id, '_payment_method', true );
+		} else {
+			$paymentMethod = $order->get_payment_method();
+		}
 
-        return str_contains($paymentMethod, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX );
-    }
+		return str_contains( $paymentMethod, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX );
+	}
 }
