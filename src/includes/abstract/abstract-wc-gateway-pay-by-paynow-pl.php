@@ -147,7 +147,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 					);
 				}
 			}
-			wc_add_notice( __( 'Error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
+			wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
 			$order->add_order_note( $exception->getMessage() );
 
 			return false;
@@ -199,7 +199,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$errors = $exception->getErrors();
 			if ( $errors ) {
 				foreach ( $errors as $error ) {
-					$order->add_order_note( 'Error occurred during the refund process - ' . $error->getMessage() );
+					$order->add_order_note( 'An error occurred during the refund process - ' . $error->getMessage() );
 					WC_Pay_By_Paynow_PL_Logger::error(
 						$error->getType() . ' - ' . $error->getMessage() . ' {orderId={}, paymentId={}}',
 						array(
@@ -324,7 +324,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				$order->add_order_note( sprintf( __( 'Payment has been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_ERROR:
-				$order->update_status( 'failed', sprintf( __( 'Error occurred during the payment process and the payment could not be completed - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				$order->update_status( 'failed', sprintf( __( 'An error occurred during the payment process and the payment could not be completed - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_EXPIRED:
 				$order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
@@ -354,7 +354,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		if ( ! empty( $order->get_transaction_id() ) ) {
 			WC_Pay_By_Paynow_PL_Logger::info(
-				'Order has already a payment. Attaching new payment {orderId={}, newPaymentId={}}',
+				'The order has already a payment. Attaching new payment {orderId={}, newPaymentId={}}',
 				array(
 					$orderId,
 					$paymentId,
