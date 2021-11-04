@@ -10,8 +10,8 @@
  * License: GPLv3
  * Text Domain: pay-by-paynow-pl
  * Domain Path: /languages
- * Tested up to: 5.8
- * WC tested up to: 5.5.2
+ * Tested up to: 5.8.1
+ * WC tested up to: 5.8.0
  */
 defined( 'ABSPATH' ) || exit();
 
