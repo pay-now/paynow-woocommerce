@@ -134,10 +134,6 @@ class WC_Pay_By_Paynow_PL_Helper {
 		} else {
 			$paymentMethod = $order->get_payment_method();
 		}
-        if (strpos( $paymentMethod, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) !== false) {
-            return true;
-        } else {
-            return false;
-        }
+        return strpos( $paymentMethod, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) !== false;
 	}
 }
