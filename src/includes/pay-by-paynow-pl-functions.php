@@ -6,7 +6,7 @@ function wc_pay_by_paynow_pl_payment_gateways( $gateways ) {
 }
 
 function wc_pay_by_paynow_pl_plugin_version() {
-	$plugin_data = get_file_data( WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'pay-by-paynow-pl.php', [ 'Version' => 'Version' ], false );
+	$plugin_data = get_file_data( WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'pay-by-paynow-pl.php', array( 'Version' => 'Version' ), false );
 
 	return $plugin_data['Version'];
 }

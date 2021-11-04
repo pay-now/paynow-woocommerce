@@ -13,7 +13,7 @@
  * Tested up to: 5.8
  * WC tested up to: 5.5.2
  */
-defined( 'ABSPATH' ) || exit ();
+defined( 'ABSPATH' ) || exit();
 
 function wc_pay_by_paynow_pl_php_version_notice() {
 	$message = sprintf( __( 'Your PHP version is %s but Pay by paynow.pl requires version 7.1+.', 'pay-by-paynow-pl' ), PHP_VERSION );
@@ -31,7 +31,7 @@ define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS', plugin_dir_url( __FILE__ ) . 'asset
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX', 'pay_by_paynow_pl_' );
 
 // include main plugin file.
-require_once( WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-pay-by-paynow-pl-manager.php' );
-require_once( WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'vendor/autoload.php' );
+require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-pay-by-paynow-pl-manager.php';
+require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'vendor/autoload.php';
 
 add_filter( 'woocommerce_payment_gateways', 'wc_pay_by_paynow_pl_payment_gateways' );
