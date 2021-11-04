@@ -314,7 +314,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		switch ( $notification_status ) {
 			case Status::STATUS_NEW:
-				$order->add_order_note( sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				$this->process_new_status( $order, $paymentId );
 				break;
 			case Status::STATUS_REJECTED:
 				$order->update_status( 'failed', sprintf( __( 'Payment has not been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
@@ -329,7 +329,40 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			case Status::STATUS_EXPIRED:
 				$order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
+			case Status::STATUS_ABANDONED:
+				$order->update_status( 'pending', sprintf( __( 'Payment has been abandoned - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				break;
 		}
+	}
+
+	/**
+	 * @param WC_order $order
+	 * @param string   $paymentId
+	 */
+	private function process_new_status( WC_order $order, string $paymentId ) {
+
+		$orderId = null;
+
+		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+			$orderId = $order->id;
+			update_post_meta( $orderId, '_transaction_id', $paymentId );
+		} else {
+			$orderId = $order->get_id();
+			$order->set_transaction_id( $paymentId );
+			$order->save();
+		}
+
+		if ( ! empty( $order->get_transaction_id() ) ) {
+			WC_Pay_By_Paynow_PL_Logger::info(
+				'The order has already a payment. Attaching new payment {orderId={}, newPaymentId={}}',
+				array(
+					$orderId,
+					$paymentId,
+				)
+			);
+		}
+
+		$order->update_status( 'pending', sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 	}
 
 	/**
@@ -347,12 +380,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				Status::STATUS_CONFIRMED,
 				Status::STATUS_REJECTED,
 				Status::STATUS_EXPIRED,
+				Status::STATUS_ABANDONED,
 			),
 			'failed'  => array(
 				Status::STATUS_NEW,
 				Status::STATUS_CONFIRMED,
 				Status::STATUS_ERROR,
 				Status::STATUS_REJECTED,
+				Status::STATUS_ABANDONED,
 			),
 		);
 		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
@@ -382,6 +417,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 						$status,
 					)
 				);
+
 				if ( ! $order->has_status( wc_get_is_paid_statuses() ) && $order->get_transaction_id() === $paymentId ) {
 					$this->process_order_status_change( $order, $paymentId, $status );
 				} else {
