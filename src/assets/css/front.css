@@ -46,7 +46,6 @@
 
 .paynow-payment-option-pbl.disabled label {
 	cursor: not-allowed;
-	opacity: 0.6;
 }
 
 .paynow-payment-option-pbl input[type=radio]:checked + label {
