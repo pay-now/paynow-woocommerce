@@ -29,5 +29,10 @@
     "cs-fix": [
       "php vendor/bin/phpcbf --standard=WooCommerce-Core --ignore=*/vendor/* ."
     ]
+  },
+  "config": {
+    "platform": {
+      "php": "7.1"
+    }
   }
 }
