@@ -21,6 +21,7 @@
 	display: flex !important;
 	justify-content: center;
 	align-items: center;
+	background: #ffffff;
 }
 
 .paynow-payment-option-pbl label img {
