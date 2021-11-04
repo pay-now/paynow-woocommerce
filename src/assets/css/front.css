@@ -21,6 +21,7 @@
 	display: flex !important;
 	justify-content: center;
 	align-items: center;
+	background: #ffffff;
 }
 
 .paynow-payment-option-pbl label img {
@@ -45,6 +46,7 @@
 
 .paynow-payment-option-pbl.disabled label {
 	cursor: not-allowed;
+	opacity: 0.6;
 }
 
 .paynow-payment-option-pbl input[type=radio]:checked + label {
