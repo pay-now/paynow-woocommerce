@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-11-04 08:26+0000\n"
+"PO-Revision-Date: 2021-11-10 13:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl-PL\n"
@@ -15,20 +15,20 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.5.5; wp-5.8.1"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:10
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:10
 #| msgid "Accept Blik payments with paynow.pl"
 msgid "Accept BLIK payments with paynow.pl"
 msgstr "Przyjmuj płatności BLIKIEM przez paynow.pl"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:10
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:10
 msgid "Accept card payments with paynow.pl"
 msgstr "Przyjmuj płatności kartą przez paynow.pl"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:10
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:10
 msgid "Accept Google Pay payments with paynow.pl"
 msgstr "Przyjmuj płatności Googe Pay przez paynow.pl"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:13
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:13
 msgid "Accept online transfer payments with paynow.pl"
 msgstr "Przyjmuj płatności przelewem internetowym przez paynow.pl"
 
@@ -40,7 +40,7 @@ msgstr ""
 "Przyjmuj bezpieczne płatności BLIK, kartą kredytową oraz szybkimi przelewami "
 "przez paynow.pl"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:327
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:327
 #, fuzzy
 #, php-format
 #| msgid ""
@@ -53,7 +53,7 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie - %s."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:150
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:150
 #, fuzzy
 #| msgid ""
 #| "Error occurred during the payment process and the payment could not be "
@@ -65,31 +65,34 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:50
-#:  
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:73
+#: includes/settings/pay-by-paynow-pl-settings.php:50 
+#: includes/settings/pay-by-paynow-pl-settings.php:73
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:365
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:365
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr "Płatność oczekuje na autoryzację - %s."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:7
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:7
 #| msgid "Blik payment"
 msgid "BLIK payment"
 msgstr "Płatność BLIKIEM"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:7
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:7
 msgid "Card payment"
 msgstr "Płatność kartą"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:18
+#: includes/templates/pbls.phtml:5
+msgid "Choose bank:"
+msgstr "Wybierz bank:"
+
+#: includes/settings/pay-by-paynow-pl-settings.php:18
 msgid "Debug"
 msgstr "Debugowanie"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:40
+#: includes/settings/pay-by-paynow-pl-settings.php:40
 #| msgid ""
 #| "Determines how long it will be possible to pay for the order from the moment "
 #| "the payment link is generated. Value expressed in seconds. The value must be "
@@ -103,19 +106,19 @@ msgstr ""
 "linku do płatności. Wartość wyrażona w sekundach. Wartość musi zawierać się "
 "w przedziale od 60 do 86400 sekund."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:7
+#: includes/settings/pay-by-paynow-pl-settings.php:7
 msgid "Enable gateway"
 msgstr "Włącz bramkę"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:67
+#: includes/settings/pay-by-paynow-pl-settings.php:67
 msgid "Enable if you are using test shop environment"
 msgstr "Włącz jeśli używasz testowej wersji sklepu"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:19
+#: includes/settings/pay-by-paynow-pl-settings.php:19
 msgid "Enable logs"
 msgstr "Włącz logi"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:27
+#: includes/settings/pay-by-paynow-pl-settings.php:27
 #| msgid ""
 #| "Enable sending ordered products information like name, categories, quantity "
 #| "and unit price"
@@ -126,23 +129,23 @@ msgstr ""
 "Włącz wysyłkę informacji o zamówionych produktach (nazwa, kategorie, ilość "
 "oraz cena jednostkowa)"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:33
+#: includes/settings/pay-by-paynow-pl-settings.php:33
 msgid "Enable to limit the validity of the payment."
 msgstr "Włącz ograniczenie czasu ważności płatności."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:6
+#: includes/settings/pay-by-paynow-pl-settings.php:6
 msgid "Enable/Disable"
 msgstr "Włącz/Wyłącz"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:66
+#: includes/settings/pay-by-paynow-pl-settings.php:66
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:7
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:7
 msgid "Google Pay"
 msgstr "Google Pay"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:15
+#: includes/settings/pay-by-paynow-pl-settings.php:15
 msgid ""
 "If you do not have an account in the Paynow system yet, <a href=\"https:"
 "//paynow.pl/boarding\" target=\"_blank\">register in the Production</a> or "
@@ -158,7 +161,7 @@ msgstr ""
 "instrukcje znajdziesz <a href=\"https://github.com/pay-now/paynow-"
 "woocommerce/blob/master/README.md\" target=\"_blank\">tutaj</a>."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:85
+#: includes/settings/pay-by-paynow-pl-settings.php:85
 msgid ""
 "If you have any questions or issues, please contact our support at <a "
 "href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
@@ -167,15 +170,15 @@ msgstr ""
 "wsparciem technicznym: <a href=\"mailto:support@paynow.pl\">support@paynow."
 "pl</a>."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:13
+#: includes/settings/pay-by-paynow-pl-settings.php:13
 msgid "Informations"
 msgstr "Informacje"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:10
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:10
 msgid "Online transfer payment"
 msgstr "Płatność szybkim przelewem"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/class-paynow-gateway.php:67
+#: includes/class-paynow-gateway.php:67
 msgid "Order No: "
 msgstr "Zamówienie numer: "
 
@@ -184,52 +187,52 @@ msgstr "Zamówienie numer: "
 msgid "Pay by paynow.pl"
 msgstr "Zapłać z paynow.pl"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:333
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:333
 #, php-format
 msgid "Payment has been abandoned - %s."
-msgstr ""
+msgstr "Płatność została porzucona przez kupującego"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:324
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:324
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr "Płatność została zatwierdzona przez kupującego - %s."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:330
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:330
 #, php-format
 msgid "Payment has been expired - %s."
 msgstr "Płatność utraciła ważność"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:320
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:320
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:38
+#: includes/settings/pay-by-paynow-pl-settings.php:38
 msgid "Payment validity time"
 msgstr "Czas ważności płatności"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:9
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:9
 #| msgid "paynow.pl - Blik payments"
 msgid "paynow.pl - BLIK payments"
 msgstr "paynow.pl - płatności BLIKIEM"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:9
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:9
 msgid "paynow.pl - Card payments"
 msgstr "paynow.pl - płatności kartą"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:9
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:9
 msgid "paynow.pl - Google Pay payments"
 msgstr "paynow.pl - płatności Google Pay"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:12
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:12
 msgid "paynow.pl - Online payments"
 msgstr "paynow.pl - płatności przelewem internetowym"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:32
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:32
 msgid "Please choose bank from the list to make payment"
 msgstr "Aby przejść do płatności dokonaj wyboru banku z listy."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:47
+#: includes/settings/pay-by-paynow-pl-settings.php:47
 msgid ""
 "Production authentication keys are available in <i>My Business > Paynow > "
 "Settings > Shops and payment points > Authentication data</i> in mBank's "
@@ -239,21 +242,21 @@ msgstr ""
 "Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające</i> w "
 "bankowości internetowej mBanku."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:45
+#: includes/settings/pay-by-paynow-pl-settings.php:45
 msgid "Production configuration"
 msgstr "Konfiguracja środowiska produkcyjnego"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:162
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:162
 msgid "Refund can't be processed. Please check logs for more information"
 msgstr ""
 "Zwrot nie może zostać zlecony. Sprawdź logi aby uzyskać więcej informacji."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:211
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:211
 msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 "Nie udało się zlecić zwrotu. Sprawdź logi aby uzyskać więcej informacji."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:62
+#: includes/settings/pay-by-paynow-pl-settings.php:62
 msgid ""
 "Sandbox authentication keys can be found in <i>Settings > Shops and poses > "
 "Authentication data</i> in <a href=\"https://panel.sandbox.paynow."
@@ -264,35 +267,31 @@ msgstr ""
 "href=\\\"https://panel.sandbox.paynow.pl/auth/login\\\" "
 "target=\\\"_blank\\\">panelu środowiska testowego</a>."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:60
+#: includes/settings/pay-by-paynow-pl-settings.php:60
 msgid "Sandbox configuration"
 msgstr "Konfiguracja środowiska testowego(Sandbox)"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:21
+#: includes/settings/pay-by-paynow-pl-settings.php:21
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8
-#:  
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
-#:  
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
-#:  
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
+#:  includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
 msgid "Secure and fast payments provided by paynow.pl"
 msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:26
+#: includes/settings/pay-by-paynow-pl-settings.php:26
 msgid "Send order items"
 msgstr "Wysyłaj informację o produktach"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:55
-#:  
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:78
+#: includes/settings/pay-by-paynow-pl-settings.php:55 
+#: includes/settings/pay-by-paynow-pl-settings.php:78
 msgid "Signature Key"
 msgstr "Klucz obliczania podpisu"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/class-wc-pay-by-paynow-pl-helper.php:85
+#: includes/class-wc-pay-by-paynow-pl-helper.php:85
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
@@ -300,19 +299,19 @@ msgstr ""
 "Przepraszamy, minimalna wartość zamówienia dla tej metody płatności wynosi "
 "%1$s."
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:83
+#: includes/settings/pay-by-paynow-pl-settings.php:83
 msgid "Support"
 msgstr "Pomoc"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:65
+#: includes/settings/pay-by-paynow-pl-settings.php:65
 msgid "Test mode (Sandbox)"
 msgstr "Tryb testowy (Sandbox)"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/includes/settings/pay-by-paynow-pl-settings.php:32
+#: includes/settings/pay-by-paynow-pl-settings.php:32
 msgid "Use payment validity time"
 msgstr "Czas ważności płatności"
 
-#: bitnami/wordpress/wp-content/plugins/pay-by-paynow-pl/pay-by-paynow-pl.php:19
+#: pay-by-paynow-pl.php:19
 #, php-format
 msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
 msgstr "Wymagana jest wersja PHP w wersji 7.1+, twoja wersja to %s."
