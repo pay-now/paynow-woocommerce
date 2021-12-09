@@ -1,11 +1,10 @@
 <?php
-
 if ( ! empty( $methods ) ) {
 	?>
     <p><?php echo __( 'Choose bank:', 'pay-by-paynow-pl' ); ?></p>
     <div class="paynow-payment-option-pbls">
 		<?php
-		foreach ( $methods->getOnlyPbls() as $method ) {
+		foreach ( $methods as $method ) {
 			?>
             <div class="paynow-payment-option-pbl<?php echo ! $method->isEnabled() ? ' disabled' : ''; ?>">
                 <input type="radio" name="paymentMethodId" value="<?php echo $method->getId(); ?>"
@@ -18,6 +17,7 @@ if ( ! empty( $methods ) ) {
 		}
 		?>
     </div>
-    <p><?php echo $this->description; ?></p>
 	<?php
+    include( 'data_processing_info.phtml' );
 }
+?>

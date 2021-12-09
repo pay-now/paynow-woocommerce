@@ -3,6 +3,7 @@ defined( 'ABSPATH' ) || exit();
 
 use Paynow\Client;
 use Paynow\Environment;
+use Paynow\Exception\ConfigurationException;
 use Paynow\Exception\PaynowException;
 use Paynow\Response\Payment\Authorize;
 use Paynow\Response\PaymentMethods\PaymentMethods;
@@ -45,14 +46,16 @@ class Paynow_Gateway {
 	/**
 	 * Sends payment request
 	 *
-	 * @param WC_Order   $order
+	 * @param WC_Order $order
 	 * @param $return_url
-	 * @param null       $payment_method_id
+	 * @param null $payment_method_id
+	 * @param null $authorization_code
 	 *
 	 * @return Authorize|void
 	 * @throws PaynowException
+	 * @throws ConfigurationException
 	 */
-	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null ) {
+	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null ) {
 		if ( ! $this->client ) {
 			return;
 		}
@@ -69,12 +72,17 @@ class Paynow_Gateway {
 				'email'     => $billing_data['email'],
 				'firstName' => $billing_data['first_name'],
 				'lastName'  => $billing_data['last_name'],
+				'locale' => $this->get_locale()
 			),
 			'continueUrl' => $return_url,
 		);
 
 		if ( ! empty( $payment_method_id ) ) {
 			$payment_data['paymentMethodId'] = $payment_method_id;
+		}
+
+		if ( ! empty( $authorization_code ) ) {
+			$payment_data['authorizationCode'] = $payment_method_id;
 		}
 
 		if ( $this->settings['send_order_items'] === 'yes' ) {
@@ -159,16 +167,35 @@ class Paynow_Gateway {
 	}
 
 	/**
+	 * Return available payment methods
+	 *
 	 * @return PaymentMethods|void
-	 * @throws PaynowException
 	 */
 	public function payment_methods() {
 		if ( ! $this->client ) {
 			return;
 		}
-		$payment = new Payment( $this->client );
+		$payment_methods = array();
+		try {
+			$currency = get_woocommerce_currency();
+			$amount   = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
+			$cacheKey = 'paynow_payment_methods_' . ($this->settings['sandbox'] ? 'sandbox' : 'production') . '_' . $currency . '_' . $amount;
+			if ( ! empty( WC()->session->get( $cacheKey ) ) ) {
+				$payment_methods = WC()->session->get( $cacheKey );
+			} else {
+				WC_Pay_By_Paynow_PL_Logger::info( "Retrieving payment methods {currency={}, amount={}}",
+					array(
+						$currency,
+						$amount,
+					) );
+				$payment_methods = (new Payment( $this->client ))->getPaymentMethods( $currency, $amount )->getAll();
+				WC()->session->set( $cacheKey, $payment_methods );
+			}
+		} catch ( PaynowException $exception ) {
+			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
+		}
 
-		return $payment->getPaymentMethods( get_woocommerce_currency(), WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() ) );
+		return $payment_methods;
 	}
 
 	/**
@@ -183,5 +210,38 @@ class Paynow_Gateway {
 		$payment = new Payment( $this->client );
 
 		return $payment->status( $payment_id );
+	}
+
+	/**
+	 * Return GDPR notices
+	 *
+	 * @return array|null
+	 */
+	public function gdpr_notices(): ?array {
+		$notices = array();
+		$locale = $this->get_locale();
+		try {
+			WC_Pay_By_Paynow_PL_Logger::info("Retrieving GDPR notices");
+			$cacheKey = strtolower('paynow_gdpr_notices_' . ( $this->settings['sandbox'] ? 'sandbox' : 'production' ) . '_' . str_replace( '-', '_', $locale ));
+			if ( ! empty( WC()->session->get( $cacheKey ) ) ) {
+				$notices = WC()->session->get( $cacheKey );
+			} else {
+				$notices = (new Paynow\Service\DataProcessing($this->client))->getNotices($locale)->getAll();
+				WC()->session->set( $cacheKey, $notices );
+			}
+		} catch (PaynowException $exception) {
+			WC_Pay_By_Paynow_PL_Logger::error($exception->getMessage());
+		}
+
+		return $notices;
+	}
+
+	/**
+	 * Return locale
+	 *
+	 * @return string
+	 */
+	private function get_locale() {
+		return str_replace('_', '-', get_user_locale());
 	}
 }

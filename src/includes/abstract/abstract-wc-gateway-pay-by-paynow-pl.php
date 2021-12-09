@@ -107,11 +107,13 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $order->get_total() );
 
 			$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
+			$authorization_code = (int) preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
 
 			$payment_data = $this->gateway->payment_request(
 				$order,
 				$this->get_return_url( $order ),
-				$payment_method_id ? intval( $payment_method_id ) : $this->payment_method_id
+				$payment_method_id ?? null,
+				$authorization_code ?? null
 			);
 			add_post_meta( $order_id, '_transaction_id', $payment_data->getPaymentId(), true );
 
@@ -131,7 +133,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 			return array(
 				'result'   => 'success',
-				'redirect' => $payment_data->getRedirectUrl(),
+				'redirect' => $payment_data->getRedirectUrl() ?? null,
 			);
 		} catch ( PaynowException $exception ) {
 			$errors = $exception->getErrors();

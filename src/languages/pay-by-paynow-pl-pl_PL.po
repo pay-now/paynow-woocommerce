@@ -3,10 +3,10 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2021-11-10 13:15+0000\n"
+"PO-Revision-Date: 2021-12-09 07:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
-"Language: pl-PL\n"
+"Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.5.5; wp-5.8.1"
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:10
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:13
 #| msgid "Accept Blik payments with paynow.pl"
 msgid "Accept BLIK payments with paynow.pl"
 msgstr "Przyjmuj płatności BLIKIEM przez paynow.pl"
@@ -28,7 +28,7 @@ msgstr "Przyjmuj płatności kartą przez paynow.pl"
 msgid "Accept Google Pay payments with paynow.pl"
 msgstr "Przyjmuj płatności Googe Pay przez paynow.pl"
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:13
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:14
 msgid "Accept online transfer payments with paynow.pl"
 msgstr "Przyjmuj płatności przelewem internetowym przez paynow.pl"
 
@@ -40,9 +40,8 @@ msgstr ""
 "Przyjmuj bezpieczne płatności BLIK, kartą kredytową oraz szybkimi przelewami "
 "przez paynow.pl"
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:327
-#, fuzzy
-#, php-format
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:329
+#, fuzzy, php-format
 #| msgid ""
 #| "Error occurred during the payment process and the payment could not be "
 #| "completed - %s."
@@ -53,7 +52,7 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie - %s."
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:150
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:152
 #, fuzzy
 #| msgid ""
 #| "Error occurred during the payment process and the payment could not be "
@@ -65,17 +64,17 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie."
 
-#: includes/settings/pay-by-paynow-pl-settings.php:50 
+#: includes/settings/pay-by-paynow-pl-settings.php:50
 #: includes/settings/pay-by-paynow-pl-settings.php:73
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:365
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:367
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr "Płatność oczekuje na autoryzację - %s."
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:7
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:10
 #| msgid "Blik payment"
 msgid "BLIK payment"
 msgstr "Płatność BLIKIEM"
@@ -94,9 +93,9 @@ msgstr "Debugowanie"
 
 #: includes/settings/pay-by-paynow-pl-settings.php:40
 #| msgid ""
-#| "Determines how long it will be possible to pay for the order from the moment "
-#| "the payment link is generated. Value expressed in seconds. The value must be "
-#| "between 1 and 86400 seconds."
+#| "Determines how long it will be possible to pay for the order from the "
+#| "moment the payment link is generated. Value expressed in seconds. The "
+#| "value must be between 1 and 86400 seconds."
 msgid ""
 "Determines how long it will be possible to pay for the order from the moment "
 "the payment link is generated. Value expressed in seconds. The value must be "
@@ -120,8 +119,8 @@ msgstr "Włącz logi"
 
 #: includes/settings/pay-by-paynow-pl-settings.php:27
 #| msgid ""
-#| "Enable sending ordered products information like name, categories, quantity "
-#| "and unit price"
+#| "Enable sending ordered products information like name, categories, "
+#| "quantity and unit price"
 msgid ""
 "Enable sending ordered products information: name, categories, quantity and "
 "unit price"
@@ -140,6 +139,10 @@ msgstr "Włącz/Wyłącz"
 #: includes/settings/pay-by-paynow-pl-settings.php:66
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
+
+#: includes/templates/blik.phtml:3
+msgid "Enter the BLIK code:"
+msgstr "Podaj kod BLIK:"
 
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:7
 msgid "Google Pay"
@@ -174,11 +177,11 @@ msgstr ""
 msgid "Informations"
 msgstr "Informacje"
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:10
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
 msgid "Online transfer payment"
 msgstr "Płatność szybkim przelewem"
 
-#: includes/class-paynow-gateway.php:67
+#: includes/class-paynow-gateway.php:70
 msgid "Order No: "
 msgstr "Zamówienie numer: "
 
@@ -187,22 +190,22 @@ msgstr "Zamówienie numer: "
 msgid "Pay by paynow.pl"
 msgstr "Zapłać z paynow.pl"
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:333
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:335
 #, php-format
 msgid "Payment has been abandoned - %s."
 msgstr "Płatność została porzucona przez kupującego"
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:324
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:326
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr "Płatność została zatwierdzona przez kupującego - %s."
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:330
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:332
 #, php-format
 msgid "Payment has been expired - %s."
 msgstr "Płatność utraciła ważność"
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:320
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:322
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
@@ -211,7 +214,7 @@ msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
 msgid "Payment validity time"
 msgstr "Czas ważności płatności"
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:9
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:12
 #| msgid "paynow.pl - Blik payments"
 msgid "paynow.pl - BLIK payments"
 msgstr "paynow.pl - płatności BLIKIEM"
@@ -224,13 +227,17 @@ msgstr "paynow.pl - płatności kartą"
 msgid "paynow.pl - Google Pay payments"
 msgstr "paynow.pl - płatności Google Pay"
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:12
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:13
 msgid "paynow.pl - Online payments"
 msgstr "paynow.pl - płatności przelewem internetowym"
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:32
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:33
 msgid "Please choose bank from the list to make payment"
 msgstr "Aby przejść do płatności dokonaj wyboru banku z listy."
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:38
+msgid "Please enter correct BLIK code"
+msgstr "Podaj kod BLIK"
 
 #: includes/settings/pay-by-paynow-pl-settings.php:47
 msgid ""
@@ -246,12 +253,16 @@ msgstr ""
 msgid "Production configuration"
 msgstr "Konfiguracja środowiska produkcyjnego"
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:162
+#: includes/templates/blik.phtml:18
+msgid "Read more"
+msgstr "Czytaj więcej"
+
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:164
 msgid "Refund can't be processed. Please check logs for more information"
 msgstr ""
 "Zwrot nie może zostać zlecony. Sprawdź logi aby uzyskać więcej informacji."
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:211
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:213
 msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 "Nie udało się zlecić zwrotu. Sprawdź logi aby uzyskać więcej informacji."
@@ -275,10 +286,10 @@ msgstr "Konfiguracja środowiska testowego(Sandbox)"
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:11
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:12
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
-#:  includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
 msgid "Secure and fast payments provided by paynow.pl"
 msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 
@@ -286,12 +297,12 @@ msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 msgid "Send order items"
 msgstr "Wysyłaj informację o produktach"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:55 
+#: includes/settings/pay-by-paynow-pl-settings.php:55
 #: includes/settings/pay-by-paynow-pl-settings.php:78
 msgid "Signature Key"
 msgstr "Klucz obliczania podpisu"
 
-#: includes/class-wc-pay-by-paynow-pl-helper.php:85
+#: includes/class-wc-pay-by-paynow-pl-helper.php:84
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
