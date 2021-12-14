@@ -27,11 +27,26 @@ if ( version_compare( PHP_VERSION, '7.1', '<' ) ) {
 }
 
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH', plugin_dir_path( __FILE__ ) );
-define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS', plugin_dir_url( __FILE__ ) . 'assets/' );
+define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH', plugin_dir_url( __FILE__ ) . 'assets/' );
+define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH', 'includes/templates/' );
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX', 'pay_by_paynow_pl_' );
 
 // include main plugin file.
 require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-pay-by-paynow-pl-manager.php';
+include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-pay-by-paynow-pl-page.php';
 require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'vendor/autoload.php';
 
-add_filter( 'woocommerce_payment_gateways', 'wc_pay_by_paynow_pl_payment_gateways' );
+register_activation_hook( __FILE__, 'wc_pay_by_paynow_pl_activate' );
+register_deactivation_hook( __FILE__, 'wc_pay_by_paynow_pl_deactivate' );
+function wc_pay_by_paynow_pl_activate() {
+	$page = new WC_Pay_By_Paynow_Pl_Page(WC_Pay_By_Paynow_Pl_Page::CONFIRM_BLIK_PAYMENT_ID);
+	$page->set_title(__( 'Confirm BLIK payment', 'pay-by-paynow-pl' ));
+	$page->add();
+}
+
+function wc_pay_by_paynow_pl_deactivate() {
+	$page = new WC_Pay_By_Paynow_Pl_Page(WC_Pay_By_Paynow_Pl_Page::CONFIRM_BLIK_PAYMENT_ID);
+	$page->remove();
+}
+
+add_action('rest_api_init', 'paynow_rest_status_init');

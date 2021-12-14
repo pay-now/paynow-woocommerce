@@ -82,6 +82,10 @@
     padding-left: 1rem;
 }
 
+.paynow-data-processing-info li {
+    line-height: normal !important;
+}
+
 .paynow-data-processing-info li:before {
     display: inline !important;
 }
