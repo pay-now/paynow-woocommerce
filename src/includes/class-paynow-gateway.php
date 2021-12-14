@@ -5,8 +5,8 @@ use Paynow\Client;
 use Paynow\Environment;
 use Paynow\Exception\ConfigurationException;
 use Paynow\Exception\PaynowException;
+use Paynow\Model\PaymentMethods\PaymentMethod;
 use Paynow\Response\Payment\Authorize;
-use Paynow\Response\PaymentMethods\PaymentMethods;
 use Paynow\Response\Refund\Status;
 use Paynow\Service\Payment;
 use Paynow\Service\Refund;
@@ -82,7 +82,7 @@ class Paynow_Gateway {
 		}
 
 		if ( ! empty( $authorization_code ) ) {
-			$payment_data['authorizationCode'] = $payment_method_id;
+			$payment_data['authorizationCode'] = $authorization_code;
 		}
 
 		if ( $this->settings['send_order_items'] === 'yes' ) {
@@ -168,13 +168,13 @@ class Paynow_Gateway {
 
 	/**
 	 * Return available payment methods
-	 *
-	 * @return PaymentMethods|void
+	 * @return PaymentMethod[]|null
 	 */
-	public function payment_methods() {
+	public function payment_methods(): ?array {
 		if ( ! $this->client ) {
-			return;
+			return null;
 		}
+
 		$payment_methods = array();
 		try {
 			$currency = get_woocommerce_currency();
@@ -195,7 +195,7 @@ class Paynow_Gateway {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
 
-		return $payment_methods;
+		return $payment_methods ?? null;
 	}
 
 	/**
@@ -221,11 +221,11 @@ class Paynow_Gateway {
 		$notices = array();
 		$locale = $this->get_locale();
 		try {
-			WC_Pay_By_Paynow_PL_Logger::info("Retrieving GDPR notices");
 			$cacheKey = strtolower('paynow_gdpr_notices_' . ( $this->settings['sandbox'] ? 'sandbox' : 'production' ) . '_' . str_replace( '-', '_', $locale ));
 			if ( ! empty( WC()->session->get( $cacheKey ) ) ) {
 				$notices = WC()->session->get( $cacheKey );
 			} else {
+				WC_Pay_By_Paynow_PL_Logger::info("Retrieving GDPR notices");
 				$notices = (new Paynow\Service\DataProcessing($this->client))->getNotices($locale)->getAll();
 				WC()->session->set( $cacheKey, $notices );
 			}
@@ -241,7 +241,7 @@ class Paynow_Gateway {
 	 *
 	 * @return string
 	 */
-	private function get_locale() {
+	private function get_locale(): string {
 		return str_replace('_', '-', get_user_locale());
 	}
 }

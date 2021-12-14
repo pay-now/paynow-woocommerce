@@ -1,0 +1,10 @@
+<div class="paynow-confirm-blik">
+    <img src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/blik-confirm.png'; ?>"
+         alt="<?php echo __( 'Confirm the payment using the app on your phone.', 'pay-by-paynow-pl' ); ?>">
+</div>
+<script>
+    var paynow_status_rest_api = '<?php echo WC_Gateway_Pay_By_Paynow_PL_Status_Handler::get_rest_api_status_url() . '?' . http_build_query( array(
+			'orderId' => filter_input( INPUT_GET, 'orderId' ),
+			'token'   => filter_input( INPUT_GET, 'token' )
+		) );?>';
+</script>

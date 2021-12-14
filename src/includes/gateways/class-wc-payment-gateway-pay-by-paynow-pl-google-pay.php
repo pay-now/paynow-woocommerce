@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit();
 
 class WC_Payment_Gateway_Pay_By_Paynow_PL_Google_Pay extends WC_Gateway_Pay_By_Paynow_PL {
 	public function __construct() {
-		$this->id                 = 'pay_by_paynow_pl_google_pay';
+		$this->id                 = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'google_pay';
 		$this->title              = __( 'Google Pay', 'pay-by-paynow-pl' );
 		$this->description        = __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' );
 		$this->method_title       = __( 'paynow.pl - Google Pay payments', 'pay-by-paynow-pl' );
