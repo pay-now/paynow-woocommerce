@@ -62,6 +62,7 @@
 
 .payment_method_pay_by_paynow_pl_blik input[type=text] {
     letter-spacing: 5px;
+    font-weight: bold;
 }
 
 .payment_method_pay_by_paynow_pl_blik label {
@@ -70,7 +71,7 @@
 
 .paynow-data-processing-info {
     margin-top: 1rem;
-    font-size: 1.35rem;
+    font-size: .8rem;
 }
 
 .paynow-data-processing-info .expand {
@@ -79,15 +80,21 @@
 }
 
 .paynow-data-processing-info ul {
-    padding-left: 1rem;
+    margin-left: 0;
+    margin-bottom: 0;
+    list-style-type: lower-alpha !important;
 }
 
-.paynow-data-processing-info li {
-    line-height: normal !important;
+.paynow-data-processing-info ul li {
+    list-style: lower-alpha !important;
 }
 
 .paynow-data-processing-info li:before {
     display: inline !important;
+}
+
+.paynow-data-processing-info .paynow-data-processing-info-more.collapse {
+    display: none;
 }
 
 @media (max-width: 576px) {

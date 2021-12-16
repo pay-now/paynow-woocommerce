@@ -199,17 +199,32 @@ class Paynow_Gateway {
 	}
 
 	/**
+	 * @param $order_id
 	 * @param $payment_id
-	 * @return \Paynow\Response\Payment\Status|void
-	 * @throws PaynowException
+	 *
+	 * @return string
 	 */
-	public function payment_status( $payment_id ) {
+	public function payment_status( $order_id, $payment_id ): ?string {
 		if ( ! $this->client ) {
-			return;
+			return null;
 		}
-		$payment = new Payment( $this->client );
 
-		return $payment->status( $payment_id );
+		try {
+			$payment = new Payment( $this->client );
+
+			$response = $payment->status( $payment_id );
+			return $response->getStatus() ?? null;
+		} catch (PaynowException $exception) {
+			WC_Pay_By_Paynow_PL_Logger::error(
+				$exception->getMessage() . ' {orderId={}, paymentId={}}',
+				array(
+					$order_id,
+					$payment_id,
+				)
+			);
+		}
+
+		return null;
 	}
 
 	/**

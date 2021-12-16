@@ -8,8 +8,8 @@
  * @copyright mElements S.A.
  * @license   MIT License
  **/
-(function ($) {
-    let  pollPaymentStatus = setInterval(function () {
+(function () {
+    let pollPaymentStatus = setInterval(function () {
             checkPaymentStatus();
         }, 3000),
 
@@ -19,19 +19,18 @@
                 dataType: 'json',
                 type: 'get',
                 success: function (message) {
-                    console.log(message)
                     if (message.payment_status !== "PENDING") {
                         clearInterval(pollPaymentStatus);
                         window.location.replace(message.redirect_url);
                     }
                 },
                 error: function () {
-
+                    window.location.replace(paynow_order_confirmed);
                 }
             });
         };
 
     setTimeout(() => {
-        redirectToReturn()
+        window.location.replace(paynow_order_confirmed);
     }, 60000);
 })();

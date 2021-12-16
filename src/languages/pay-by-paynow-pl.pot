@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-14 07:42+0000\n"
+"POT-Creation-Date: 2021-12-17 13:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -37,14 +37,14 @@ msgid ""
 "paynow.pl"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:346
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:356
 #, php-format
 msgid ""
 "An error occurred during the payment process and the payment could not be "
 "completed - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:174
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:184
 msgid ""
 "An error occurred during the payment process and the payment could not be "
 "completed."
@@ -55,16 +55,16 @@ msgstr ""
 msgid "Api Key"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:485
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:495
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:171
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:181
 msgid "BLIK code already used"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:168
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:178
 msgid "BLIK code has expired"
 msgstr ""
 
@@ -80,11 +80,15 @@ msgstr ""
 msgid "Choose bank:"
 msgstr ""
 
-#: pay-by-paynow-pl.php:43
+#: includes/templates/data_processing_info.phtml:7
+msgid "Collapse"
+msgstr ""
+
+#: pay-by-paynow-pl.php:44 includes/pay-by-paynow-pl-functions.php:59
 msgid "Confirm BLIK payment"
 msgstr ""
 
-#: includes/templates/confirm_blik_payment.phtml:2
+#: includes/templates/confirm_blik_payment.phtml:3
 msgid "Confirm the payment using the app on your phone."
 msgstr ""
 
@@ -169,22 +173,22 @@ msgstr ""
 msgid "Pay by paynow.pl"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:352
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:362
 #, php-format
 msgid "Payment has been abandoned - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:343
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:353
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:349
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:359
 #, php-format
 msgid "Payment has been expired - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:339
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:349
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr ""
@@ -209,7 +213,7 @@ msgstr ""
 msgid "paynow.pl - Online payments"
 msgstr ""
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:34
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:33
 msgid "Please choose bank from the list below to make the payment"
 msgstr ""
 
@@ -228,15 +232,16 @@ msgstr ""
 msgid "Production configuration"
 msgstr ""
 
+#: includes/templates/data_processing_info.phtml:7
 #: includes/templates/data_processing_info.phtml:8
 msgid "Read more"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:190
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:200
 msgid "Refund can't be processed. Please check logs for more information"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:239
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:249
 msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 
@@ -289,7 +294,7 @@ msgstr ""
 msgid "Use payment validity time"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:165
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:175
 msgid "Wrong BLIK code"
 msgstr ""
 

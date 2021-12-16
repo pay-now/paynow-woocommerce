@@ -404,40 +404,32 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$order    = wc_get_order( $order_id );
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order ) ) {
-			$paymentId = $order->get_transaction_id();
-			try {
-				$status = $this->gateway->payment_status( $paymentId )->getStatus();
+			$payment_id = $order->get_transaction_id();
+			$status = $this->gateway->payment_status( $order_id, $payment_id );
+			if($status) {
 				WC_Pay_By_Paynow_PL_Logger::info(
 					'Received payment status from API {orderId={}, paymentId={}, status={}}',
 					array(
 						$order->get_id(),
-						$paymentId,
+						$payment_id,
 						$status,
 					)
 				);
 
-				if ( ! $order->has_status( wc_get_is_paid_statuses() ) && $order->get_transaction_id() === $paymentId ) {
-					$this->process_order_status_change( $order, $paymentId, $status );
+				if ( ! $order->has_status( wc_get_is_paid_statuses() ) && $order->get_transaction_id() === $payment_id ) {
+					$this->process_order_status_change( $order, $payment_id, $status );
 				} else {
 					WC_Pay_By_Paynow_PL_Logger::info(
 						'Order has one of paid statuses. Skipped notification processing {orderId={}, orderStatus={}, payment={}}',
 						array(
 							$order->get_id(),
 							$order->get_status(),
-							$paymentId,
+							$payment_id,
 						)
 					);
 				}
-			} catch ( Exception $exception ) {
-				WC_Pay_By_Paynow_PL_Logger::error(
-					$exception->getMessage() . ' {orderId={}, paymentId={}}',
-					array(
-						$order_id,
-						$paymentId,
-					)
-				);
-				exit();
 			}
+
 			wp_redirect( $order->get_checkout_order_received_url() );
 			exit();
 		}

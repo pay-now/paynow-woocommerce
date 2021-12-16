@@ -9,7 +9,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 		$order  = wc_get_order( $orderId );
 		$response = [];
 		if ($token === self::get_token_hash($this->gateway->get_signature_key(), array('orderId' => (int)$orderId)) ) {
-			$status = $this->gateway->payment_status( $order->get_transaction_id() )->getStatus();
+			$status = $this->gateway->payment_status( $orderId, $order->get_transaction_id() );
 			$response = array(
 				'order_status'   => $order->get_status(),
 				'payment_status' => $status,

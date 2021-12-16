@@ -17,7 +17,6 @@ class WC_Payment_Gateway_Pay_By_Paynow_PL_Pbl extends WC_Gateway_Pay_By_Paynow_P
 	}
 
 	public function payment_fields() {
-		wp_enqueue_style( $this->id . '_styles', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'css/front.css', array(), wc_pay_by_paynow_pl_plugin_version() );
 		try {
 			$method_block = 'pbls';
 			$methods = $this->get_only_payment_methods_for_type(Type::PBL);

@@ -4,7 +4,7 @@
 			<div class="paynow-data-processing-info-less">
 				<?php echo $notice->getTitle(); ?>
 				<?php if ( $notice->getContent() ) { ?>&nbsp;
-					<span class="expand" data-toggle="collapse" data-target="#paynow_disclaimer_<?php echo $method_block; ?>">
+					<span class="expand" data-toggle="collapse" data-target="#paynow_disclaimer_<?php echo $method_block; ?>" data-expanded-text="<?php echo __( 'Collapse', 'pay-by-paynow-pl' ); ?>" data-collapsed-text="<?php echo __( 'Read more', 'pay-by-paynow-pl' ); ?>">
 						<?php echo __( 'Read more', 'pay-by-paynow-pl' ); ?>
                     </span>
 				<?php } ?>
