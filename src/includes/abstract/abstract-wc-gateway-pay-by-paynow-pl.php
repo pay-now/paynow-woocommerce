@@ -100,13 +100,13 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	public function process_payment( $order_id ): array {
-		$order = wc_get_order( $order_id );
+		$order    = wc_get_order( $order_id );
 		$response = array();
 
 		try {
 			WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $order->get_total() );
 
-			$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
+			$payment_method_id  = filter_input( INPUT_POST, 'paymentMethodId' );
 			$authorization_code = (int) preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
 
 			$payment_data = $this->gateway->payment_request(
@@ -131,25 +131,28 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				$order->save();
 			}
 
-			if (! in_array( $payment_data->getStatus(), [
+			if ( ! in_array(
+				$payment_data->getStatus(),
+				array(
 					Paynow\Model\Payment\Status::STATUS_NEW,
-					Paynow\Model\Payment\Status::STATUS_PENDING
-				] ) ) {
+					Paynow\Model\Payment\Status::STATUS_PENDING,
+				)
+			) ) {
 				$response['result'] = 'failure';
 			} else {
-				$response['result']   = 'success';
-				if ($payment_data->getRedirectUrl()) {
+				$response['result'] = 'success';
+				if ( $payment_data->getRedirectUrl() ) {
 					$response['redirect'] = $payment_data->getRedirectUrl();
 				} else {
-					if ($authorization_code) {
-						$redirect_page          = new WC_Pay_By_Paynow_Pl_Page( WC_Pay_By_Paynow_Pl_Page::CONFIRM_BLIK_PAYMENT_ID );
+					if ( $authorization_code ) {
+						$redirect_page = new WC_Pay_By_Paynow_Pl_Page( WC_Pay_By_Paynow_Pl_Page::CONFIRM_BLIK_PAYMENT_ID );
 						if ( ! $redirect_page->get_id() ) {
 							$redirect_page->set_title( __( 'Confirm BLIK payment', 'pay-by-paynow-pl' ) );
 							$redirect_page->add();
 							$redirect_page = new WC_Pay_By_Paynow_Pl_Page( WC_Pay_By_Paynow_Pl_Page::CONFIRM_BLIK_PAYMENT_ID );
 						}
-						$redirect_data          = array( 'orderId' => (int)$order_id );
-						$redirect_data['token'] = WC_Gateway_Pay_By_Paynow_PL_Status_Handler::get_token_hash($this->gateway->get_signature_key(), $redirect_data);
+						$redirect_data          = array( 'orderId' => (int) $order_id );
+						$redirect_data['token'] = WC_Gateway_Pay_By_Paynow_PL_Status_Handler::get_token_hash( $this->gateway->get_signature_key(), $redirect_data );
 						$response['redirect']   = $redirect_page->get_url() . '?' . http_build_query( $redirect_data );
 					} else {
 						$response['redirect'] = $this->get_return_url( $order );
@@ -172,9 +175,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 					);
 				}
 
-				if ($exception->getErrors() && $exception->getErrors()[0]) {
-					WC_Pay_By_Paynow_PL_Logger::error($exception->getMessage());
-					switch ($exception->getErrors()[0]->getType()) {
+				if ( $exception->getErrors() && $exception->getErrors()[0] ) {
+					WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
+					switch ( $exception->getErrors()[0]->getType() ) {
 						case 'AUTHORIZATION_CODE_INVALID':
 							wc_add_notice( __( 'Wrong BLIK code', 'pay-by-paynow-pl' ), 'error' );
 							break;
@@ -400,7 +403,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	public function redirect_order_received_page() {
-		if ( ! is_wc_endpoint_url( 'order-received' ) || empty( $_GET['key'] ) || empty( $_GET['paymentId'] )) {
+		if ( ! is_wc_endpoint_url( 'order-received' ) || empty( $_GET['key'] ) || empty( $_GET['paymentId'] ) ) {
 			return;
 		}
 
@@ -409,8 +412,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order ) ) {
 			$payment_id = $order->get_transaction_id();
-			$status = $this->gateway->payment_status( $order_id, $payment_id );
-			if($status) {
+			$status     = $this->gateway->payment_status( $order_id, $payment_id );
+			if ( $status ) {
 				WC_Pay_By_Paynow_PL_Logger::info(
 					'Received payment status from API {orderId={}, paymentId={}, status={}}',
 					array(
@@ -464,7 +467,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	/**
 	 * @param WC_order $order
-	 * @param string $paymentId
+	 * @param string   $paymentId
 	 *
 	 * @throws WC_Data_Exception
 	 */
@@ -496,10 +499,13 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	protected function hooks() {
-		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array(
-			$this,
-			'process_admin_options'
-		) );
+		add_action(
+			'woocommerce_update_options_payment_gateways_' . $this->id,
+			array(
+				$this,
+				'process_admin_options',
+			)
+		);
 		add_action( 'template_redirect', array( $this, 'redirect_order_received_page' ) );
 		add_filter( 'user_has_cap', array( $this, 'allow_payment_without_login' ), 10, 3 );
 		add_filter( 'woocommerce_payment_gateways', 'wc_pay_by_paynow_pl_payment_gateways' );
@@ -508,12 +514,12 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		add_filter( 'wp_get_nav_menu_items', 'wc_pay_by_paynow_pl_gateway_hide_pages' );
 	}
 
-	protected function get_only_payment_methods_for_type($type): array {
-		$payment_methods = $this->gateway->payment_methods();
-		$available_payment_methods = [];
-		if (! empty($payment_methods)) {
-			foreach ($payment_methods as $item) {
-				if ($type === $item->getType()) {
+	protected function get_only_payment_methods_for_type( $type ): array {
+		$payment_methods           = $this->gateway->payment_methods();
+		$available_payment_methods = array();
+		if ( ! empty( $payment_methods ) ) {
+			foreach ( $payment_methods as $item ) {
+				if ( $type === $item->getType() ) {
 					$available_payment_methods[] = $item;
 				}
 			}

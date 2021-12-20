@@ -46,10 +46,10 @@ class Paynow_Gateway {
 	/**
 	 * Sends payment request
 	 *
-	 * @param WC_Order $order
+	 * @param WC_Order   $order
 	 * @param $return_url
-	 * @param null $payment_method_id
-	 * @param null $authorization_code
+	 * @param null       $payment_method_id
+	 * @param null       $authorization_code
 	 *
 	 * @return Authorize|void
 	 * @throws PaynowException
@@ -72,7 +72,7 @@ class Paynow_Gateway {
 				'email'     => $billing_data['email'],
 				'firstName' => $billing_data['first_name'],
 				'lastName'  => $billing_data['last_name'],
-				'locale' => $this->get_locale()
+				'locale'    => $this->get_locale(),
 			),
 			'continueUrl' => $return_url,
 		);
@@ -168,6 +168,7 @@ class Paynow_Gateway {
 
 	/**
 	 * Return available payment methods
+	 *
 	 * @return PaymentMethod[]|null
 	 */
 	public function payment_methods(): ?array {
@@ -179,16 +180,18 @@ class Paynow_Gateway {
 		try {
 			$currency = get_woocommerce_currency();
 			$amount   = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
-			$cacheKey = 'paynow_payment_methods_' . ($this->settings['sandbox'] ? 'sandbox' : 'production') . '_' . $currency . '_' . $amount;
+			$cacheKey = 'paynow_payment_methods_' . ( $this->settings['sandbox'] ? 'sandbox' : 'production' ) . '_' . $currency . '_' . $amount;
 			if ( ! empty( WC()->session->get( $cacheKey ) ) ) {
 				$payment_methods = WC()->session->get( $cacheKey );
 			} else {
-				WC_Pay_By_Paynow_PL_Logger::info( "Retrieving payment methods {currency={}, amount={}}",
+				WC_Pay_By_Paynow_PL_Logger::info(
+					'Retrieving payment methods {currency={}, amount={}}',
 					array(
 						$currency,
 						$amount,
-					) );
-				$payment_methods = (new Payment( $this->client ))->getPaymentMethods( $currency, $amount )->getAll();
+					)
+				);
+				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount )->getAll();
 				WC()->session->set( $cacheKey, $payment_methods );
 			}
 		} catch ( PaynowException $exception ) {
@@ -214,7 +217,7 @@ class Paynow_Gateway {
 
 			$response = $payment->status( $payment_id );
 			return $response->getStatus() ?? null;
-		} catch (PaynowException $exception) {
+		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error(
 				$exception->getMessage() . ' {orderId={}, paymentId={}}',
 				array(
@@ -234,18 +237,18 @@ class Paynow_Gateway {
 	 */
 	public function gdpr_notices(): ?array {
 		$notices = array();
-		$locale = $this->get_locale();
+		$locale  = $this->get_locale();
 		try {
-			$cacheKey = strtolower('paynow_gdpr_notices_' . ( $this->settings['sandbox'] ? 'sandbox' : 'production' ) . '_' . str_replace( '-', '_', $locale ));
+			$cacheKey = strtolower( 'paynow_gdpr_notices_' . ( $this->settings['sandbox'] ? 'sandbox' : 'production' ) . '_' . str_replace( '-', '_', $locale ) );
 			if ( ! empty( WC()->session->get( $cacheKey ) ) ) {
 				$notices = WC()->session->get( $cacheKey );
 			} else {
-				WC_Pay_By_Paynow_PL_Logger::info("Retrieving GDPR notices");
-				$notices = (new Paynow\Service\DataProcessing($this->client))->getNotices($locale)->getAll();
+				WC_Pay_By_Paynow_PL_Logger::info( 'Retrieving GDPR notices' );
+				$notices = ( new Paynow\Service\DataProcessing( $this->client ) )->getNotices( $locale )->getAll();
 				WC()->session->set( $cacheKey, $notices );
 			}
-		} catch (PaynowException $exception) {
-			WC_Pay_By_Paynow_PL_Logger::error($exception->getMessage());
+		} catch ( PaynowException $exception ) {
+			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
 
 		return $notices;
@@ -257,6 +260,6 @@ class Paynow_Gateway {
 	 * @return string
 	 */
 	private function get_locale(): string {
-		return str_replace('_', '-', get_user_locale());
+		return str_replace( '_', '-', get_user_locale() );
 	}
 }
