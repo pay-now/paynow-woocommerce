@@ -9,6 +9,7 @@ Wtyczka Paynow dodaje szybkie płatności i płatności BLIK do sklepu WooCommer
 - [Wymagania](#wymagania)
 - [Instalacja](#instalacja)
 - [Konfiguracja](#konfiguracja)
+- [Wspierane funkcjonalności](#wspierane-funkcjonalnośc)
 - [FAQ](#FAQ)
 - [Sandbox](#sandbox)
 - [Wsparcie](#wsparcie)
@@ -60,6 +61,15 @@ Zobacz również [filmik instruktażowy][ext12].
 5. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja środowiska produkcyjnego` lub `Konfiguracja środowiska testowego(Sandbox)` podaj `Klucz dostępu do API` i `Klucz obliczania podpisu`.
 
 ![Konfiguracja krok 5][ext9]
+
+## Funkcje
+1. Dodaje metody płatności
+- Płatność BLIKIEM (w modelu White Label)
+- Płatność szybkim przelewem
+- Płatność kartą płątniczą
+- Płatność Google Pay
+2. Umożliwia zwroty częściowe lub całościowe
+3. Umożliwia ponowienie płatności
 
 ## FAQ
 

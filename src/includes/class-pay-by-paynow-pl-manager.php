@@ -18,6 +18,9 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 10 );
 		add_action( 'woocommerce_init', array( $this, 'woocommerce_dependencies' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+		add_action('rest_api_init', 'wc_pay_by_paynow_pl_gateway_rest_status_init');
+		add_action('upgrader_process_complete', 'wc_pay_by_paynow_pl_gateway_upgrader_process_complete', 10, 2);
+		add_action('wp_enqueue_scripts',  array($this,'wc_pay_by_paynow_pl_gateway_front_resources'));
 	}
 
 	public function plugins_loaded() {
@@ -33,6 +36,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-notification-handler.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-status-handler.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php';
@@ -49,8 +53,13 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		);
 	}
 
+	public function wc_pay_by_paynow_pl_gateway_front_resources( $hook ) {
+		wp_enqueue_script( WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'scripts', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'js/front.js', array( 'jquery' ), wc_pay_by_paynow_pl_plugin_version() );
+		wp_enqueue_style( WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'styles', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'css/front.css', array(), wc_pay_by_paynow_pl_plugin_version() );
+	}
+
 	public function enqueue_admin_scripts( $hook ) {
-		wp_enqueue_script( 'settings', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS . 'js/settings.js', array( 'jquery' ), wc_pay_by_paynow_pl_plugin_version() );
+		wp_enqueue_script( 'settings', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'js/settings.js', array( 'jquery' ), wc_pay_by_paynow_pl_plugin_version() );
 	}
 
 	public function payment_gateways() {
