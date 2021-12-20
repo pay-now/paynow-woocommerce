@@ -19,8 +19,8 @@ class WC_Payment_Gateway_Pay_By_Paynow_PL_Pbl extends WC_Gateway_Pay_By_Paynow_P
 	public function payment_fields() {
 		try {
 			$method_block = 'pbls';
-			$methods = $this->get_only_payment_methods_for_type(Type::PBL);
-			$notices = $this->gateway->gdpr_notices();
+			$methods      = $this->get_only_payment_methods_for_type( Type::PBL );
+			$notices      = $this->gateway->gdpr_notices();
 			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'pbl_payment.phtml';
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );

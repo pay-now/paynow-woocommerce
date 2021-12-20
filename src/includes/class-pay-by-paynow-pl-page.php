@@ -12,7 +12,7 @@ class WC_Pay_By_Paynow_Pl_Page {
 	public function __construct( $name ) {
 		$this->name = $name;
 
-		$post = get_post( get_option( WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . $this->name.'_id' ) );
+		$post = get_post( get_option( WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . $this->name . '_id' ) );
 		if ( $post != null ) {
 			$this->id    = $post->ID;
 			$this->title = $post->post_title;
@@ -66,7 +66,7 @@ class WC_Pay_By_Paynow_Pl_Page {
 	 * @return false|string|WP_Error
 	 */
 	public function get_url() {
-		return get_permalink($this->id);
+		return get_permalink( $this->id );
 	}
 
 	/**
@@ -85,7 +85,7 @@ class WC_Pay_By_Paynow_Pl_Page {
 		if ( ! $page ) {
 			$info                   = array();
 			$info['post_title']     = $this->title;
-			$info['post_content'] = '[' . WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'content]';
+			$info['post_content']   = '[' . WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'content]';
 			$info['post_status']    = 'publish';
 			$info['post_type']      = 'page';
 			$info['comment_status'] = 'closed';
