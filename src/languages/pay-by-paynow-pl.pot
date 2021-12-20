@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-10 13:12+0000\n"
+"POT-Creation-Date: 2021-12-17 13:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.0; wp-5.2.3"
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:10
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:15
 msgid "Accept BLIK payments with paynow.pl"
 msgstr ""
 
@@ -37,30 +37,38 @@ msgid ""
 "paynow.pl"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:327
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:356
 #, php-format
 msgid ""
 "An error occurred during the payment process and the payment could not be "
 "completed - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:150
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:184
 msgid ""
 "An error occurred during the payment process and the payment could not be "
 "completed."
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:50 
+#: includes/settings/pay-by-paynow-pl-settings.php:50
 #: includes/settings/pay-by-paynow-pl-settings.php:73
 msgid "Api Key"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:365
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:495
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr ""
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:7
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:181
+msgid "BLIK code already used"
+msgstr ""
+
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:178
+msgid "BLIK code has expired"
+msgstr ""
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:12
 msgid "BLIK payment"
 msgstr ""
 
@@ -68,8 +76,20 @@ msgstr ""
 msgid "Card payment"
 msgstr ""
 
-#: includes/templates/pbls.phtml:5
+#: includes/templates/pbl_payment.phtml:4
 msgid "Choose bank:"
+msgstr ""
+
+#: includes/templates/data_processing_info.phtml:7
+msgid "Collapse"
+msgstr ""
+
+#: pay-by-paynow-pl.php:44 includes/pay-by-paynow-pl-functions.php:59
+msgid "Confirm BLIK payment"
+msgstr ""
+
+#: includes/templates/confirm_blik_payment.phtml:3
+msgid "Confirm the payment using the app on your phone."
 msgstr ""
 
 #: includes/settings/pay-by-paynow-pl-settings.php:18
@@ -113,6 +133,10 @@ msgstr ""
 msgid "Enabled test mode"
 msgstr ""
 
+#: includes/templates/blik_payment.phtml:3
+msgid "Enter the BLIK code:"
+msgstr ""
+
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:7
 msgid "Google Pay"
 msgstr ""
@@ -141,7 +165,7 @@ msgstr ""
 msgid "Online transfer payment"
 msgstr ""
 
-#: includes/class-paynow-gateway.php:67
+#: includes/class-paynow-gateway.php:70
 msgid "Order No: "
 msgstr ""
 
@@ -149,22 +173,22 @@ msgstr ""
 msgid "Pay by paynow.pl"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:333
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:362
 #, php-format
 msgid "Payment has been abandoned - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:324
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:353
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:330
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:359
 #, php-format
 msgid "Payment has been expired - %s."
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:320
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:349
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr ""
@@ -173,7 +197,7 @@ msgstr ""
 msgid "Payment validity time"
 msgstr ""
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:9
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:14
 msgid "paynow.pl - BLIK payments"
 msgstr ""
 
@@ -189,8 +213,12 @@ msgstr ""
 msgid "paynow.pl - Online payments"
 msgstr ""
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:32
-msgid "Please choose bank from the list to make payment"
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:33
+msgid "Please choose bank from the list below to make the payment"
+msgstr ""
+
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:35
+msgid "Please enter correct BLIK code"
 msgstr ""
 
 #: includes/settings/pay-by-paynow-pl-settings.php:47
@@ -204,11 +232,16 @@ msgstr ""
 msgid "Production configuration"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:162
+#: includes/templates/data_processing_info.phtml:7
+#: includes/templates/data_processing_info.phtml:8
+msgid "Read more"
+msgstr ""
+
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:200
 msgid "Refund can't be processed. Please check logs for more information"
 msgstr ""
 
-#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:211
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:249
 msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 
@@ -227,10 +260,10 @@ msgstr ""
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr ""
 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:8 
-#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11 
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php:13
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-pbl.php:11
 #: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php:8
-#:  includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
+#: includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php:8
 msgid "Secure and fast payments provided by paynow.pl"
 msgstr ""
 
@@ -238,12 +271,12 @@ msgstr ""
 msgid "Send order items"
 msgstr ""
 
-#: includes/settings/pay-by-paynow-pl-settings.php:55 
+#: includes/settings/pay-by-paynow-pl-settings.php:55
 #: includes/settings/pay-by-paynow-pl-settings.php:78
 msgid "Signature Key"
 msgstr ""
 
-#: includes/class-wc-pay-by-paynow-pl-helper.php:85
+#: includes/class-wc-pay-by-paynow-pl-helper.php:84
 #, php-format
 msgid ""
 "Sorry, the minimum allowed order total is %1$s to use this payment method."
@@ -259,6 +292,10 @@ msgstr ""
 
 #: includes/settings/pay-by-paynow-pl-settings.php:32
 msgid "Use payment validity time"
+msgstr ""
+
+#: includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php:175
+msgid "Wrong BLIK code"
 msgstr ""
 
 #: pay-by-paynow-pl.php:19
