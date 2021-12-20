@@ -7,7 +7,6 @@ if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
 
 use Paynow\Exception\PaynowException;
 use Paynow\Model\Payment\Status;
-use Paynow\Util\SignatureCalculator;
 
 abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	protected $payment_method_id;
@@ -144,6 +143,11 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				} else {
 					if ($authorization_code) {
 						$redirect_page          = new WC_Pay_By_Paynow_Pl_Page( WC_Pay_By_Paynow_Pl_Page::CONFIRM_BLIK_PAYMENT_ID );
+						if ( ! $redirect_page->get_id() ) {
+							$redirect_page->set_title( __( 'Confirm BLIK payment', 'pay-by-paynow-pl' ) );
+							$redirect_page->add();
+							$redirect_page = new WC_Pay_By_Paynow_Pl_Page( WC_Pay_By_Paynow_Pl_Page::CONFIRM_BLIK_PAYMENT_ID );
+						}
 						$redirect_data          = array( 'orderId' => (int)$order_id );
 						$redirect_data['token'] = WC_Gateway_Pay_By_Paynow_PL_Status_Handler::get_token_hash($this->gateway->get_signature_key(), $redirect_data);
 						$response['redirect']   = $redirect_page->get_url() . '?' . http_build_query( $redirect_data );
@@ -396,7 +400,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	public function redirect_order_received_page() {
-		if ( ! is_wc_endpoint_url( 'order-received' ) || empty( $_GET['key'] ) || empty( $_GET['paymentId'] ) || empty( $_GET['paymentStatus'] ) ) {
+		if ( ! is_wc_endpoint_url( 'order-received' ) || empty( $_GET['key'] ) || empty( $_GET['paymentId'] )) {
 			return;
 		}
 
