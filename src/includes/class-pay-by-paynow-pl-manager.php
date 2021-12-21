@@ -19,8 +19,8 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		add_action( 'woocommerce_init', array( $this, 'woocommerce_dependencies' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 		add_action( 'rest_api_init', 'wc_pay_by_paynow_pl_gateway_rest_status_init' );
-		add_action( 'upgrader_process_complete', 'wc_pay_by_paynow_pl_gateway_upgrader_process_complete', 10, 2 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wc_pay_by_paynow_pl_gateway_front_resources' ) );
+		add_action( 'woocommerce_before_thankyou', 'wc_pay_by_paynow_pl_gateway_content_thankyou', 10, 1 );
 	}
 
 	public function plugins_loaded() {

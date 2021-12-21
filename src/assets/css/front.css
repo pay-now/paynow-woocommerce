@@ -58,6 +58,8 @@
 .payment_method_pay_by_paynow_pl_blik label > img,
 .payment_method_pay_by_paynow_pl_google_pay label > img {
 	max-height: 2rem;
+	max-width: 3rem;
+	vertical-align: middle;
 }
 
 .payment_method_pay_by_paynow_pl_blik input[type=text] {
@@ -65,7 +67,7 @@
 	font-weight: bold;
 }
 
-.payment_method_pay_by_paynow_pl_blik label {
+.paynow-blik-white-label label {
 	margin-top: 5px;
 }
 
@@ -80,12 +82,11 @@
 }
 
 .paynow-data-processing-info ul {
-	margin-left: 0;
-	margin-bottom: 0;
+	margin: 0 0 0 15px;
 	list-style-type: lower-alpha !important;
 }
 
-.paynow-data-processing-info ul li {
+#payment .payment_methods .paynow-data-processing-info li {
 	list-style: lower-alpha !important;
 }
 
@@ -107,5 +108,6 @@
 	.payment_method_pay_by_paynow_pl_blik label > img,
 	.payment_method_pay_by_paynow_pl_google_pay label > img {
 		max-height: 1rem;
+		max-width: 3rem;
 	}
 }
