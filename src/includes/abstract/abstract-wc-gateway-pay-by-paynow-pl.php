@@ -18,7 +18,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	/**
 	 * @var Paynow_Gateway
 	 */
-	protected $gateway;
+	public $gateway;
 
 	public function __construct() {
 		$this->init_form_fields();
@@ -144,19 +144,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				if ( $payment_data->getRedirectUrl() ) {
 					$response['redirect'] = $payment_data->getRedirectUrl();
 				} else {
-					if ( $authorization_code ) {
-						$redirect_page = new WC_Pay_By_Paynow_Pl_Page( WC_Pay_By_Paynow_Pl_Page::CONFIRM_BLIK_PAYMENT_ID );
-						if ( ! $redirect_page->get_id() ) {
-							$redirect_page->set_title( __( 'Confirm BLIK payment', 'pay-by-paynow-pl' ) );
-							$redirect_page->add();
-							$redirect_page = new WC_Pay_By_Paynow_Pl_Page( WC_Pay_By_Paynow_Pl_Page::CONFIRM_BLIK_PAYMENT_ID );
-						}
-						$redirect_data          = array( 'orderId' => (int) $order_id );
-						$redirect_data['token'] = WC_Gateway_Pay_By_Paynow_PL_Status_Handler::get_token_hash( $this->gateway->get_signature_key(), $redirect_data );
-						$response['redirect']   = $redirect_page->get_url() . '?' . http_build_query( $redirect_data );
-					} else {
-						$response['redirect'] = $this->get_return_url( $order );
-					}
+					$response['redirect'] = $this->get_return_url( $order ) . ( $authorization_code ? '&' . http_build_query( array( 'paymentId'   => $payment_data->getPaymentId(),
+					                                                                                                                 'confirmBlik' => 1
+							) ) : '' );
 				}
 			}
 
@@ -403,7 +393,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	public function redirect_order_received_page() {
-		if ( ! is_wc_endpoint_url( 'order-received' ) || empty( $_GET['key'] ) || empty( $_GET['paymentId'] ) ) {
+		if ( ! is_wc_endpoint_url( 'order-received' ) || empty( $_GET['key'] ) || empty( $_GET['paymentId'] ) || $_GET['confirmBlik']) {
 			return;
 		}
 
@@ -509,9 +499,6 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		add_action( 'template_redirect', array( $this, 'redirect_order_received_page' ) );
 		add_filter( 'user_has_cap', array( $this, 'allow_payment_without_login' ), 10, 3 );
 		add_filter( 'woocommerce_payment_gateways', 'wc_pay_by_paynow_pl_payment_gateways' );
-		add_filter( 'the_content', 'wc_pay_by_paynow_pl_gateway_content' );
-		add_filter( 'get_pages', 'wc_pay_by_paynow_pl_gateway_hide_pages' );
-		add_filter( 'wp_get_nav_menu_items', 'wc_pay_by_paynow_pl_gateway_hide_pages' );
 	}
 
 	protected function get_only_payment_methods_for_type( $type ): array {

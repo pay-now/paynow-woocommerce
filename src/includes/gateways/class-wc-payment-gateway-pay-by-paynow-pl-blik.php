@@ -5,7 +5,7 @@ use Paynow\Model\PaymentMethods\Type;
 
 class WC_Payment_Gateway_Pay_By_Paynow_PL_Blik extends WC_Gateway_Pay_By_Paynow_PL {
 
-	const BLIK_CONFIRM_PAGE_NAME = 'blik_confirm_page';
+	public const BLIK_CONFIRM_TEMPLATE_NAME = 'confirm_blik_payment';
 
 	public function __construct() {
 		$this->id                 = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik';
