@@ -86,16 +86,12 @@
 	list-style-type: lower-alpha !important;
 }
 
-#payment .payment_methods .paynow-data-processing-info li {
-	list-style: lower-alpha !important;
-}
-
-.paynow-data-processing-info li:before {
-	display: inline !important;
-}
-
 .paynow-data-processing-info .paynow-data-processing-info-more.collapse {
 	display: none;
+}
+
+#payment .payment_methods .paynow-data-processing-info li {
+	list-style: lower-alpha !important;
 }
 
 .paynow-confirm-blik img {
