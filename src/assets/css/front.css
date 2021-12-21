@@ -57,7 +57,45 @@
 .payment_method_pay_by_paynow_pl_card label > img,
 .payment_method_pay_by_paynow_pl_blik label > img,
 .payment_method_pay_by_paynow_pl_google_pay label > img {
-	max-height: 1.618em;
+	max-height: 2rem;
+	max-width: 3rem;
+	vertical-align: middle;
+}
+
+.payment_method_pay_by_paynow_pl_blik input[type=text] {
+	letter-spacing: 5px;
+	font-weight: bold;
+}
+
+.paynow-blik-white-label label {
+	margin-top: 5px;
+}
+
+.paynow-data-processing-info {
+	margin-top: 1rem;
+	font-size: .8rem;
+}
+
+.paynow-data-processing-info .expand {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.paynow-data-processing-info ul {
+	margin: 0 0 0 15px;
+	list-style-type: lower-alpha !important;
+}
+
+.paynow-data-processing-info .paynow-data-processing-info-more.collapse {
+	display: none;
+}
+
+#payment .payment_methods .paynow-data-processing-info li {
+	list-style: lower-alpha !important;
+}
+
+.paynow-confirm-blik img {
+	margin: 0 auto;
 }
 
 @media (max-width: 576px) {
@@ -65,6 +103,7 @@
 	.payment_method_pay_by_paynow_pl_card label > img,
 	.payment_method_pay_by_paynow_pl_blik label > img,
 	.payment_method_pay_by_paynow_pl_google_pay label > img {
-		max-height: 1em;
+		max-height: 1rem;
+		max-width: 3rem;
 	}
 }

@@ -2,7 +2,6 @@
 defined( 'ABSPATH' ) || exit();
 
 use Paynow\Exception\PaynowException;
-use Paynow\Model\Payment\Status;
 
 /**
  * Provides static methods as helpers.
@@ -97,8 +96,10 @@ class WC_Pay_By_Paynow_PL_Helper {
 		$terms = get_the_terms( $product_id, 'product_cat' );
 
 		$categories = array();
-		foreach ( $terms as $term ) {
-			$categories[] = $term->name;
+		if ( ! empty( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$categories[] = $term->name;
+			}
 		}
 
 		return implode( ', ', $categories );
@@ -126,6 +127,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 
 	/**
 	 * @param $order
+	 *
 	 * @return bool
 	 */
 	public static function is_paynow_order( $order ) {
@@ -134,6 +136,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 		} else {
 			$paymentMethod = $order->get_payment_method();
 		}
-        return strpos( $paymentMethod, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) !== false;
+
+		return strpos( $paymentMethod, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) !== false;
 	}
 }

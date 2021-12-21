@@ -9,6 +9,7 @@ The Paynow plugin adds quick bank transfers and BLIK payments to a WooCommerce s
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
+- [Supported functions](#supported-functions)
 - [FAQ](#FAQ)
 - [Sandbox](#sandbox)
 - [Support](#support)
@@ -59,6 +60,15 @@ See also [instructional video][ext12].
 5. Depending on the environment you want to connect to go to the `Production configuration` section or the `Sandbox configuration` section and type `Api Key` and `Signature Key` in the proper fields.
 
 ![Configuration step 5][ext9]
+
+## Supported functions
+1. Add payment methods
+- BLIK payment (with White Label model)
+- Fast transfer payment
+- Card payment
+- Google Pay payment
+2. Add support for full and partial refunds
+3. Add support for re-payment
 
 ## FAQ
 

@@ -1,0 +1,9 @@
+<div class="paynow-confirm-blik">
+    <h2><?php echo __( 'Confirm BLIK payment', 'pay-by-paynow-pl' ); ?></h2>
+    <img src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/blik-confirm.png'; ?>"
+         alt="<?php echo __( 'Confirm the payment using the app on your phone.', 'pay-by-paynow-pl' ); ?>">
+</div>
+<script>
+    var paynow_status_rest_api = '<?php echo $rest_api_status_url;?>';
+    var paynow_order_confirmed = '<?php echo $order->get_checkout_order_received_url();?>'
+</script>
