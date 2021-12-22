@@ -1,4 +1,7 @@
 <?php
+
+use Paynow\Model\PaymentMethods\Type;
+
 defined( 'ABSPATH' ) || exit();
 
 class WC_Payment_Gateway_Pay_By_Paynow_PL_Card extends WC_Gateway_Pay_By_Paynow_PL {
@@ -11,5 +14,14 @@ class WC_Payment_Gateway_Pay_By_Paynow_PL_Card extends WC_Gateway_Pay_By_Paynow_
 		$this->payment_method_id  = 2002;
 		$this->icon               = 'https://static.paynow.pl/brand/paynow_logo_black.png';
 		parent::__construct();
+	}
+
+	/**
+	 * Returns true if payment method is available
+	 *
+	 * @return bool
+	 */
+	public function is_available(): bool {
+		return $this->is_payment_method_available( Type::CARD );
 	}
 }

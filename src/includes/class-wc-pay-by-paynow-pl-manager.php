@@ -2,14 +2,15 @@
 defined( 'ABSPATH' ) || exit();
 
 class WC_Pay_By_Paynow_Pl_Manager {
-	public static $_instance;
+
+	public static $instance;
 
 	public static function instance() {
-		if ( self::$_instance == null ) {
-			self::$_instance = new self();
+		if ( self::$instance === null ) {
+			self::$instance = new self();
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	private $payment_gateways;
@@ -34,9 +35,9 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-helper.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-logger.php';
 
-		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/abstract/abstract-wc-gateway-pay-by-paynow-pl.php';
-		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-notification-handler.php';
-		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-status-handler.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/abstract/class-wc-gateway-pay-by-paynow-pl.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-notification-handler.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-status-handler.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-blik.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-card.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-pay-by-paynow-pl-google-pay.php';

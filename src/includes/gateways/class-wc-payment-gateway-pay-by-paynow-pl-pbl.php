@@ -37,4 +37,25 @@ class WC_Payment_Gateway_Pay_By_Paynow_PL_Pbl extends WC_Gateway_Pay_By_Paynow_P
 
 		return parent::validate_fields();
 	}
+
+	/**
+	 * Returns true if payment method is available
+	 *
+	 * @return bool
+	 */
+	public function is_available(): bool {
+		if ( ! is_admin() ) {
+			$payment_methods          = $this->get_only_payment_methods_for_type( Type::PBL );
+			$filtered_payment_methods = array_filter(
+				$payment_methods,
+				function ( $payment_method ) {
+					return $payment_method->isEnabled();
+				}
+			);
+
+			return parent::is_available() && ! empty( $filtered_payment_methods );
+		}
+
+		return parent::is_available();
+	}
 }

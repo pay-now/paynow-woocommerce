@@ -1,3 +1,9 @@
+/*!
+ * Copyright 2014 Open Exchange Rates
+ *
+ * This source file is subject to the MIT License (MIT) that is bundled with this package in the file license.txt.
+ */
+
 jQuery( document ).ready(
 	function () {
 		setTimeout(

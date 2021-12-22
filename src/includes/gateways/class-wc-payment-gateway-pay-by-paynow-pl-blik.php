@@ -28,12 +28,14 @@ class WC_Payment_Gateway_Pay_By_Paynow_PL_Blik extends WC_Gateway_Pay_By_Paynow_
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function validate_fields(): bool {
 		$payment_authorization_code = (int) preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
 		$blik_payment_methods       = $this->get_only_payment_methods_for_type( Type::BLIK );
-		if ( $blik_payment_methods &&
-			 $this->isWhiteLabelEnabled( $blik_payment_methods ) &&
-			 ( empty( $payment_authorization_code ) || strlen( $payment_authorization_code ) !== 6 ) ) {
+		if ( $blik_payment_methods && $this->isWhiteLabelEnabled( $blik_payment_methods ) &&
+			( empty( $payment_authorization_code ) || strlen( $payment_authorization_code ) !== 6 ) ) {
 			wc_add_notice( __( 'Please enter correct BLIK code', 'pay-by-paynow-pl' ), 'error' );
 
 			return false;
@@ -42,7 +44,21 @@ class WC_Payment_Gateway_Pay_By_Paynow_PL_Blik extends WC_Gateway_Pay_By_Paynow_
 		return parent::validate_fields();
 	}
 
+	/**
+	 * @param $payment_method
+	 *
+	 * @return bool
+	 */
 	private function isWhiteLabelEnabled( $payment_method ): bool {
 		return ! empty( $payment_method[0] ) && Paynow\Model\PaymentMethods\AuthorizationType::CODE === $payment_method[0]->getAuthorizationType();
+	}
+
+	/**
+	 * Returns true if payment method is available
+	 *
+	 * @return bool
+	 */
+	public function is_available(): bool {
+		return $this->is_payment_method_available( Type::BLIK );
 	}
 }
