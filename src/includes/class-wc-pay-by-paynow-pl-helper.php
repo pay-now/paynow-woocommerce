@@ -56,7 +56,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 		if ( ! function_exists( 'apache_request_headers' ) ) {
 			$headers = array();
 			foreach ( $_SERVER as $key => $value ) {
-				if ( substr( $key, 0, 5 ) == 'HTTP_' ) {
+				if ( 'HTTP_' === substr( $key, 0, 5 ) ) {
 					$subject                                      = ucwords( str_replace( '_', ' ', strtolower( substr( $key, 5 ) ) ) );
 					$headers[ str_replace( ' ', '-', $subject ) ] = $value;
 				}

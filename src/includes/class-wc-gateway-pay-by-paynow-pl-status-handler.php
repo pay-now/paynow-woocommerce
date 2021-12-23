@@ -18,7 +18,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 	public function get_rest_status( string $order_id, string $token ): WP_REST_Response {
 		$order    = wc_get_order( $order_id );
 		$response = array();
-		if ( $token === self::get_token_hash( $this->gateway->get_signature_key(), array( 'orderId' => (int) $order_id ) ) ) {
+		if ( self::get_token_hash( $this->gateway->get_signature_key(), array( 'orderId' => (int) $order_id ) ) === $token ) {
 			$status   = $this->gateway->payment_status( $order_id, $order->get_transaction_id() );
 			$response = array(
 				'order_status'   => $order->get_status(),

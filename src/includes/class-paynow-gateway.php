@@ -31,7 +31,7 @@ class Paynow_Gateway {
 	public function __construct( array $settings ) {
 		$this->settings = $settings;
 		if ( ! empty( $this->settings ) && isset( $this->settings['sandbox'] ) && ( isset( $this->settings['sandbox_api_key'] ) || isset( $this->settings['production_api_key'] ) ) ) {
-			$is_sandbox          = $this->settings['sandbox'] === 'yes';
+			$is_sandbox          = 'yes' === $this->settings['sandbox'];
 			$api_key             = $is_sandbox ? $this->settings['sandbox_api_key'] : $this->settings['production_api_key'];
 			$this->signature_key = $is_sandbox ? $this->settings['sandbox_signature_key'] : $this->settings['production_signature_key'];
 
@@ -88,7 +88,7 @@ class Paynow_Gateway {
 			$payment_data['authorizationCode'] = $authorization_code;
 		}
 
-		if ( $this->settings['send_order_items'] === 'yes' ) {
+		if ( 'yes' === $this->settings['send_order_items'] ) {
 			$order_items = array();
 			foreach ( $order->get_items() as $item ) {
 				$product       = $item->get_product();
@@ -112,7 +112,7 @@ class Paynow_Gateway {
 			}
 		}
 
-		if ( $this->settings['use_payment_validity_time_flag'] === 'yes' ) {
+		if ( 'yes' === $this->settings['use_payment_validity_time_flag'] ) {
 			$payment_data['validityTime'] = $this->settings['payment_validity_time'];
 		}
 
@@ -130,7 +130,7 @@ class Paynow_Gateway {
 	 * @param float  $amount Refund amount.
 	 *
 	 * @return Status|null
-	 * @throws PaynowException
+	 * @throws PaynowException Thrown in Paynow SDK during request processing
 	 */
 	public function refund_request( int $order_id, string $payment_id, float $amount ): ?Status {
 		if ( ! $this->client ) {

@@ -318,11 +318,15 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		return parent::is_available();
 	}
 
+	/**
+	 * @param string $type Payment method Type
+	 *
+	 * @return bool
+	 */
 	protected function is_payment_method_available( $type ): bool {
 		if ( ! is_admin() ) {
 			$payment_method = $this->get_only_payment_methods_for_type( $type );
-
-			return parent::is_available() && ! empty( $payment_method ) && $payment_method[0]->isEnabled();
+			return parent::is_available() && ! empty( $payment_method ) && reset( $payment_method )->isEnabled();
 		}
 
 		return parent::is_available();
@@ -356,19 +360,24 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				$this->process_new_status( $order, $payment_id );
 				break;
 			case Status::STATUS_REJECTED:
+				/* translators: %s: Payment ID */
 				$order->update_status( 'failed', sprintf( __( 'Payment has not been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_CONFIRMED:
 				$order->payment_complete( $payment_id );
+				/* translators: %s: Payment ID */
 				$order->add_order_note( sprintf( __( 'Payment has been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_ERROR:
+				/* translators: %s: Payment ID */
 				$order->update_status( 'failed', sprintf( __( 'An error occurred during the payment process and the payment could not be completed - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_EXPIRED:
+				/* translators: %s: Payment ID */
 				$order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_ABANDONED:
+				/* translators: %s: Payment ID */
 				$order->update_status( 'pending', sprintf( __( 'Payment has been abandoned - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 				break;
 		}
@@ -413,7 +422,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			return;
 		}
 
-		$order_id = wc_get_order_id_by_order_key( $_GET['key'] );
+		$order_id = wc_get_order_id_by_order_key( filter_input( INPUT_GET, 'key' ) );
 		$order    = wc_get_order( $order_id );
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order ) ) {
@@ -443,16 +452,16 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				}
 			}
 
-			wp_redirect( $order->get_checkout_order_received_url() );
+			wp_safe_redirect( $order->get_checkout_order_received_url() );
 			exit();
 		}
 	}
 
 	public function allow_payment_without_login( $allcaps, $caps, $args ) {
-		if ( ! isset( $caps[0] ) || $caps[0] !== 'pay_for_order' ) {
+		if ( ! isset( $caps[0] ) || 'pay_for_order' !== $caps[0] ) {
 			return $allcaps;
 		}
-		if ( ! isset( $_GET['key'] ) ) {
+		if ( ! filter_input( INPUT_GET, 'key' ) ) {
 			return $allcaps;
 		}
 
@@ -462,7 +471,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 
 		$order_key       = $order->get_order_key();
-		$order_key_check = $_GET['key'];
+		$order_key_check = filter_input( INPUT_GET, 'key' );
 
 		if ( $order_key == $order_key_check && WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order ) ) {
 			$allcaps['pay_for_order'] = true;
@@ -478,15 +487,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 * @throws WC_Data_Exception
 	 */
 	private function process_new_status( WC_order $order, string $payment_id ) {
-		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
-			$order_id = $order->id;
-			update_post_meta( $order_id, '_transaction_id', $payment_id );
-		} else {
-			$order_id = $order->get_id();
-			$order->set_transaction_id( $payment_id );
-			$order->save();
-		}
-
+		$order_id = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->id : $order->get_id();
 		if ( ! empty( $order->get_transaction_id() ) ) {
 			WC_Pay_By_Paynow_PL_Logger::info(
 				'The order has already a payment. Attaching new payment {order_id={}, newPaymentId={}}',
@@ -497,6 +498,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			);
 		}
 
+		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+			update_post_meta( $order_id, '_transaction_id', $payment_id );
+		} else {
+			$order->set_transaction_id( $payment_id );
+			$order->save();
+		}
+
+		/* translators: %s: Payment ID */
 		$order->update_status( 'pending', sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 	}
 
@@ -518,16 +527,13 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	protected function get_only_payment_methods_for_type( $type ): array {
-		$payment_methods           = $this->gateway->payment_methods();
-		$available_payment_methods = array();
-		if ( ! empty( $payment_methods ) ) {
-			foreach ( $payment_methods as $item ) {
-				if ( $type === $item->getType() ) {
-					$available_payment_methods[] = $item;
-				}
-			}
-		}
+		$payment_methods = $this->gateway->payment_methods();
 
-		return $available_payment_methods;
+		return array_filter(
+			$payment_methods,
+			function ( $payment_method ) use ( $type ) {
+				return $type === $payment_method->getType();
+			}
+		);
 	}
 }

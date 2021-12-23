@@ -6,7 +6,10 @@ use Paynow\Notification;
 
 class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By_Paynow_PL {
 
-	function __construct() {
+	/**
+	 * Constructor of WC_Gateway_Pay_By_Paynow_PL_Notification_Handler
+	 */
+	public function __construct() {
 		parent::__construct();
 		add_action( 'woocommerce_api_wc_gateway_pay_by_paynow_pl', array( $this, 'handle_notification' ) );
 	}
@@ -16,8 +19,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	 */
 	public function handle_notification() {
 		if ( ( 'POST' !== $_SERVER['REQUEST_METHOD'] )
-			 || ! isset( $_GET['wc-api'] )
-			 || ( 'WC_Gateway_Pay_By_Paynow_PL_Notification_Handler' !== $_GET['wc-api'] )
+			 || ( 'WC_Gateway_Pay_By_Paynow_PL_Notification_Handler' !== filter_input( INPUT_GET, 'wc-api' ) )
 		) {
 			status_header( 400 );
 		}
@@ -27,7 +29,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 		$notification_data = json_decode( $payload, true );
 
 		WC_Pay_By_Paynow_PL_Logger::info(
-			'Received payment notification {orderId={}, paymentId={}, status={}}',
+			'Received payment status notification {orderId={}, paymentId={}, status={}}',
 			array(
 				$notification_data['externalId'],
 				$notification_data['paymentId'],
