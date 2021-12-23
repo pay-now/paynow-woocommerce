@@ -488,9 +488,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 */
 	private function process_new_status( WC_order $order, string $payment_id ) {
 		$order_id = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->id : $order->get_id();
-		if ( ! empty( $order->get_transaction_id() ) ) {
+		if ( ! empty( $order->get_transaction_id() ) && $order->get_transaction_id() !== $payment_id ) {
 			WC_Pay_By_Paynow_PL_Logger::info(
-				'The order has already a payment. Attaching new payment {order_id={}, newPaymentId={}}',
+				'The order has already a payment. Attaching new payment {orderId={}, newPaymentId={}}',
 				array(
 					$order_id,
 					$payment_id,
