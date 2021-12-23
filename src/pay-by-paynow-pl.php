@@ -12,12 +12,19 @@
  * Domain Path: /languages
  * Tested up to: 5.8.1
  * WC tested up to: 5.8.0
+ *
+ * @package Paynow
  */
+
 defined( 'ABSPATH' ) || exit();
 
+/**
+ * Print message on PHP version requirement
+ */
 function wc_pay_by_paynow_pl_php_version_notice() {
+	/* translators: %s: PHP version */
 	$message = sprintf( __( 'Your PHP version is %s but Pay by paynow.pl requires version 7.1+.', 'pay-by-paynow-pl' ), PHP_VERSION );
-	echo '<div class="notice notice-error"><p style="font-size: 16px">' . $message . '</p></div>';
+	echo '<div class="notice notice-error"><p style="font-size: 16px">' . esc_html( $message ) . '</p></div>';
 }
 
 if ( version_compare( PHP_VERSION, '7.1', '<' ) ) {
@@ -32,5 +39,5 @@ define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH', 'includes/templates/' );
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX', 'pay_by_paynow_pl_' );
 
 // include main plugin file.
-require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-pay-by-paynow-pl-manager.php';
+require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-manager.php';
 require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'vendor/autoload.php';

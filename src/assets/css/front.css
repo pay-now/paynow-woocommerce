@@ -65,6 +65,7 @@
 .payment_method_pay_by_paynow_pl_blik input[type=text] {
 	letter-spacing: 5px;
 	font-weight: bold;
+	max-width: 100%;
 }
 
 .paynow-blik-white-label label {

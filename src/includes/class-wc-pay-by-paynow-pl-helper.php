@@ -56,7 +56,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 		if ( ! function_exists( 'apache_request_headers' ) ) {
 			$headers = array();
 			foreach ( $_SERVER as $key => $value ) {
-				if ( substr( $key, 0, 5 ) == 'HTTP_' ) {
+				if ( 'HTTP_' === substr( $key, 0, 5 ) ) {
 					$subject                                      = ucwords( str_replace( '_', ' ', strtolower( substr( $key, 5 ) ) ) );
 					$headers[ str_replace( ' ', '-', $subject ) ] = $value;
 				}
@@ -68,6 +68,9 @@ class WC_Pay_By_Paynow_PL_Helper {
 		return apache_request_headers();
 	}
 
+	/**
+	 * @return bool|int
+	 */
 	public static function is_old_wc_version() {
 		return version_compare( WC_VERSION, '3.0', '<' );
 	}
@@ -75,11 +78,11 @@ class WC_Pay_By_Paynow_PL_Helper {
 	/**
 	 * Validate minimum payment amount
 	 *
-	 * @param $order
+	 * @param float $amount Amount of the payment
 	 *
 	 * @throws PaynowException
 	 */
-	public static function validate_minimum_payment_amount( $amount ) {
+	public static function validate_minimum_payment_amount( float $amount ) {
 		if ( self::get_amount( $amount ) < self::get_minimum_amount() ) {
 			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'pay-by-paynow-pl' ), wc_price( self::get_minimum_amount() / 100 ) ) );
 		}
@@ -92,7 +95,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 *
 	 * @return string|null
 	 */
-	public static function get_product_categories( $product_id ) {
+	public static function get_product_categories( $product_id ): ?string {
 		$terms = get_the_terms( $product_id, 'product_cat' );
 
 		$categories = array();
@@ -108,7 +111,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	/**
 	 * @return int
 	 */
-	public static function get_payment_amount() {
+	public static function get_payment_amount(): int {
 		$amount = 0;
 
 		// checkout page
@@ -130,13 +133,13 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 *
 	 * @return bool
 	 */
-	public static function is_paynow_order( $order ) {
+	public static function is_paynow_order( $order ): bool {
 		if ( self::is_old_wc_version() ) {
-			$paymentMethod = get_post_meta( $order->id, '_payment_method', true );
+			$payment_method = get_post_meta( $order->id, '_payment_method', true );
 		} else {
-			$paymentMethod = $order->get_payment_method();
+			$payment_method = $order->get_payment_method();
 		}
 
-		return strpos( $paymentMethod, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) !== false;
+		return strpos( $payment_method, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) !== false;
 	}
 }
