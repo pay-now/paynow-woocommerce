@@ -22,6 +22,7 @@ function wc_pay_by_paynow_pl_gateway_rest_status_init() {
 		array(
 			'methods'  => WP_REST_Server::READABLE,
 			'callback' => 'wc_pay_by_paynow_pl_gateway_check_status',
+			'permission_callback' => '__return_true',
 		)
 	);
 }
