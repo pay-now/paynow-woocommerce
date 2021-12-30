@@ -487,7 +487,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 * @throws WC_Data_Exception
 	 */
 	private function process_new_status( WC_order $order, string $payment_id ) {
-		$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id($order);
+		$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
 		if ( ! empty( $order->get_transaction_id() ) && $order->get_transaction_id() !== $payment_id ) {
 			WC_Pay_By_Paynow_PL_Logger::info(
 				'The order has already a payment. Attaching new payment {orderId={}, newPaymentId={}}',
@@ -529,11 +529,15 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	protected function get_only_payment_methods_for_type( $type ): array {
 		$payment_methods = $this->gateway->payment_methods();
 
-		return array_filter(
-			$payment_methods,
-			function ( $payment_method ) use ( $type ) {
-				return $type === $payment_method->getType();
-			}
-		);
+		if ( ! empty( $payment_methods ) && is_array( $payment_methods ) ) {
+			return array_filter(
+				$payment_methods,
+				function ( $payment_method ) use ( $type ) {
+					return $type === $payment_method->getType();
+				}
+			);
+		}
+
+		return array();
 	}
 }
