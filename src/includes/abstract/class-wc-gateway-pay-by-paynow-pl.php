@@ -226,7 +226,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			);
 
 			if ( ! empty( $refund_data->getRefundId() ) ) {
-				$order->add_order_note( 'Refund request processed correctly - ' . $refund_data->getRefundId() );
+				/* translators: %s: Payment ID */
+				$order->add_order_note( sprintf( __( 'Refund request processed correctly - %s' ), $refund_data->getRefundId() ) );
 
 				return true;
 			}
@@ -236,7 +237,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$errors = $exception->getErrors();
 			if ( $errors ) {
 				foreach ( $errors as $error ) {
-					$order->add_order_note( 'An error occurred during the refund process - ' . $error->getMessage() );
+					/* translators: %s: Error message */
+					$order->add_order_note( sprintf( __( 'An error occurred during the refund process - %s' ), $error->getMessage() ) );
 					WC_Pay_By_Paynow_PL_Logger::error(
 						$error->getType() . ' - ' . $error->getMessage() . ' {orderId={}, paymentId={}}',
 						array(
@@ -323,7 +325,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 *
 	 * @return bool
 	 */
-	protected function is_payment_method_available( $type ): bool {
+	protected function is_payment_method_available( string $type ): bool {
 		if ( ! is_admin() ) {
 			$payment_method = $this->get_only_payment_methods_for_type( $type );
 			return parent::is_available() && ! empty( $payment_method ) && reset( $payment_method )->isEnabled();
