@@ -175,7 +175,7 @@ class Paynow_Gateway {
 	 * @return PaymentMethod[]|null
 	 */
 	public function payment_methods(): ?array {
-		if ( ! $this->client ) {
+		if ( ! $this->client || empty(WC_Pay_By_Paynow_PL_Helper::get_payment_amount())) {
 			return null;
 		}
 
@@ -201,7 +201,7 @@ class Paynow_Gateway {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
 
-		return $payment_methods ?? null;
+		return $payment_methods;
 	}
 
 	/**
