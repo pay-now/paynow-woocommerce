@@ -127,12 +127,12 @@ class Paynow_Gateway {
 	 *
 	 * @param int    $order_id Order ID.
 	 * @param string $payment_id Payment ID
-	 * @param float  $amount Refund amount.
+	 * @param int  $amount Refund amount.
 	 *
 	 * @return Status|null
 	 * @throws PaynowException Thrown in Paynow SDK during request processing
 	 */
-	public function refund_request( int $order_id, string $payment_id, float $amount ): ?Status {
+	public function refund_request( int $order_id, string $payment_id, int $amount ): ?Status {
 		if ( ! $this->client ) {
 			return null;
 		}
@@ -141,7 +141,7 @@ class Paynow_Gateway {
 		return $refund->create(
 			$payment_id,
 			substr( uniqid( $order_id, true ), 0, 36 ),
-			WC_Pay_By_Paynow_PL_Helper::get_amount( $amount )
+			$amount
 		);
 	}
 
