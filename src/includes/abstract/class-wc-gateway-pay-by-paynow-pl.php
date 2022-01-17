@@ -195,7 +195,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$order      = wc_get_order( $order_id );
 		$payment_id = $order->get_transaction_id();
 
-		if ( ! $this->check_can_make_refund( $order, WC_Pay_By_Paynow_PL_Helper::get_amount( $amount ) ) ) {
+		$refund_amount =  WC_Pay_By_Paynow_PL_Helper::get_amount( $amount );
+		if ( ! $this->check_can_make_refund( $order, $refund_amount ) ) {
 			return new WP_Error( 'error', __( 'Refund can\'t be processed. Please check logs for more information', 'pay-by-paynow-pl' ) );
 		}
 
@@ -204,7 +205,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			array(
 				$order_id,
 				$payment_id,
-				$amount,
+				$refund_amount,
 			)
 		);
 
@@ -212,7 +213,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$refund_data = $this->gateway->refund_request(
 				$order_id,
 				$payment_id,
-				$amount
+				$refund_amount
 			);
 
 			WC_Pay_By_Paynow_PL_Logger::info(
@@ -221,12 +222,13 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 					$order_id,
 					$payment_id,
 					$refund_data->getRefundId(),
-					$amount,
+					$refund_amount,
 				)
 			);
 
 			if ( ! empty( $refund_data->getRefundId() ) ) {
-				$order->add_order_note( 'Refund request processed correctly - ' . $refund_data->getRefundId() );
+				/* translators: %s: Payment ID */
+				$order->add_order_note( sprintf( __( 'Refund request processed correctly - %s' ), $refund_data->getRefundId() ) );
 
 				return true;
 			}
@@ -236,12 +238,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$errors = $exception->getErrors();
 			if ( $errors ) {
 				foreach ( $errors as $error ) {
-					$order->add_order_note( 'An error occurred during the refund process - ' . $error->getMessage() );
+					/* translators: %s: Error message */
+					$order->add_order_note( sprintf( __( 'An error occurred during the refund process - %s' ), $error->getMessage() ) );
 					WC_Pay_By_Paynow_PL_Logger::error(
-						$error->getType() . ' - ' . $error->getMessage() . ' {orderId={}, paymentId={}}',
+						$error->getType() . ' - ' . $error->getMessage() . ' {orderId={}, paymentId={}, amount={}}',
 						array(
 							$order_id,
 							$payment_id,
+							$refund_amount
 						)
 					);
 
@@ -253,7 +257,13 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		return false;
 	}
 
-	public function check_can_make_refund( $order, $amount ): bool {
+	/**
+	 * @param $order
+	 * @param int $amount
+	 *
+	 * @return bool
+	 */
+	public function check_can_make_refund( $order, int $amount ): bool {
 		if ( ! $this->can_refund_order( $order ) ) {
 			return false;
 		}
@@ -323,7 +333,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 *
 	 * @return bool
 	 */
-	protected function is_payment_method_available( $type ): bool {
+	protected function is_payment_method_available( string $type ): bool {
 		if ( ! is_admin() ) {
 			$payment_method = $this->get_only_payment_methods_for_type( $type );
 			return parent::is_available() && ! empty( $payment_method ) && reset( $payment_method )->isEnabled();
