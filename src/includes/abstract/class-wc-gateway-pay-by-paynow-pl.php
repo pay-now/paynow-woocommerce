@@ -334,9 +334,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	protected function is_payment_method_available( string $type ): bool {
-		if ( ! is_admin() ) {
+		if ( ! is_admin() && parent::is_available()) {
 			$payment_method = $this->get_only_payment_methods_for_type( $type );
-			return parent::is_available() && ! empty( $payment_method ) && reset( $payment_method )->isEnabled();
+			return ! empty( $payment_method ) && reset( $payment_method )->isEnabled();
 		}
 
 		return parent::is_available();
