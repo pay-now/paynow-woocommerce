@@ -127,7 +127,7 @@ class Paynow_Gateway {
 	 *
 	 * @param int    $order_id Order ID.
 	 * @param string $payment_id Payment ID
-	 * @param int  $amount Refund amount.
+	 * @param int    $amount Refund amount.
 	 *
 	 * @return Status|null
 	 * @throws PaynowException Thrown in Paynow SDK during request processing
@@ -175,16 +175,16 @@ class Paynow_Gateway {
 	 * @return PaymentMethod[]|null
 	 */
 	public function payment_methods(): ?array {
-		if ( ! $this->client) {
+		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
+		if ( ! $this->client || ! $amount ) {
 			return null;
 		}
 
 		$payment_methods = array();
 		try {
 			$currency  = get_woocommerce_currency();
-			$amount    = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
 			$cache_key = 'paynow_payment_methods_' . substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount;
-			if ( ! empty( WC()->session->get( $cache_key ) ) ) {
+			if ( ! is_null( WC()->session ) && ! empty( WC()->session->get( $cache_key ) ) ) {
 				$payment_methods = WC()->session->get( $cache_key );
 			} else {
 				WC_Pay_By_Paynow_PL_Logger::info(
@@ -195,7 +195,9 @@ class Paynow_Gateway {
 					)
 				);
 				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount )->getAll();
-				WC()->session->set( $cache_key, $payment_methods );
+				if ( ! is_null( WC()->session ) ) {
+					WC()->session->set( $cache_key, $payment_methods );
+				}
 			}
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
@@ -243,12 +245,14 @@ class Paynow_Gateway {
 		$locale  = $this->get_locale();
 		try {
 			$cache_key = strtolower( 'paynow_gdpr_notices_' . substr( $this->get_signature_key(), 0, 8 ) . '_' . str_replace( '-', '_', $locale ) );
-			if ( ! empty( WC()->session->get( $cache_key ) ) ) {
+			if ( ! is_null( WC()->session ) && ! empty( WC()->session->get( $cache_key ) ) ) {
 				$notices = WC()->session->get( $cache_key );
 			} else {
 				WC_Pay_By_Paynow_PL_Logger::info( 'Retrieving GDPR notices' );
 				$notices = ( new Paynow\Service\DataProcessing( $this->client ) )->getNotices( $locale )->getAll();
-				WC()->session->set( $cache_key, $notices );
+				if ( ! is_null( WC()->session ) ) {
+					WC()->session->set( $cache_key, $notices );
+				}
 			}
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
