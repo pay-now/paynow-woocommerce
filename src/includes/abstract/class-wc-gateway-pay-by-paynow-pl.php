@@ -195,7 +195,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$order      = wc_get_order( $order_id );
 		$payment_id = $order->get_transaction_id();
 
-		$refund_amount =  WC_Pay_By_Paynow_PL_Helper::get_amount( $amount );
+		$refund_amount = WC_Pay_By_Paynow_PL_Helper::get_amount( $amount );
 		if ( ! $this->check_can_make_refund( $order, $refund_amount ) ) {
 			return new WP_Error( 'error', __( 'Refund can\'t be processed. Please check logs for more information', 'pay-by-paynow-pl' ) );
 		}
@@ -245,7 +245,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 						array(
 							$order_id,
 							$payment_id,
-							$refund_amount
+							$refund_amount,
 						)
 					);
 
@@ -259,7 +259,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	/**
 	 * @param $order
-	 * @param int $amount
+	 * @param int   $amount
 	 *
 	 * @return bool
 	 */
@@ -334,7 +334,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	protected function is_payment_method_available( string $type ): bool {
-		if ( ! is_admin() && parent::is_available()) {
+		if ( ! is_admin() && parent::is_available() ) {
 			$payment_method = $this->get_only_payment_methods_for_type( $type );
 			return ! empty( $payment_method ) && reset( $payment_method )->isEnabled();
 		}
