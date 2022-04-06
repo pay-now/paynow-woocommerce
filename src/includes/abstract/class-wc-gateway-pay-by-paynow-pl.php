@@ -107,7 +107,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $order->get_total() );
 
 			$payment_method_id  = filter_input( INPUT_POST, 'paymentMethodId' );
-			$authorization_code = (int) preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
+			$authorization_code = preg_replace( '/[^0-9]+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
 
 			$payment_data = $this->gateway->payment_request(
 				$order,
