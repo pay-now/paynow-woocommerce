@@ -2,7 +2,6 @@
 	flex-wrap: wrap;
 	display: flex;
 	margin: 0 -1%;
-	justify-content: center;
 }
 
 .paynow-payment-option-pbl {
@@ -56,6 +55,9 @@
 .paynow-payment-option-pbl input[type=radio]:checked + label {
 	border: 1px solid #d2d2d2;
 	background: #f3f3f3;
+}
+.payment_method_pay_by_paynow_pl_pbl > p {
+	margin-top: .5rem !important;
 }
 
 .payment_method_pay_by_paynow_pl_pbl label > img,

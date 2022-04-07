@@ -356,7 +356,7 @@ msgstr "Błędny kod BLIK"
 
 #: includes/templates/payment_processor_info.phtml:1
 msgid "You will be redirected to payment provider page."
-msgstr "Zostaniesz przekierowany na stronę dostawy płatności."
+msgstr "Zostaniesz przekierowany na stronę dostawcy płatności."
 
 #. %s: PHP version
 #: pay-by-paynow-pl.php:26
