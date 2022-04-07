@@ -99,6 +99,10 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$this->form_fields = include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/settings/pay-by-paynow-pl-settings.php';
 	}
 
+    public function payment_fields() {
+        include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'payment_processor_info.phtml';
+    }
+
 	public function process_payment( $order_id ): array {
 		$order    = wc_get_order( $order_id );
 		$response = array();

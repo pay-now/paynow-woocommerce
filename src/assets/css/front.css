@@ -1,11 +1,13 @@
 .paynow-payment-option-pbls {
 	flex-wrap: wrap;
 	display: flex;
+	margin: 0 -1%;
+	justify-content: center;
 }
 
 .paynow-payment-option-pbl {
 	margin: 1%;
-	flex-basis: 23%;
+	width: 85px;
 	display: flex;
 	flex-direction: column;
 }
@@ -22,12 +24,15 @@
 	justify-content: center;
 	align-items: center;
 	background: #ffffff;
+	transition: all 250ms;
+	margin-left: 0 !important;
 }
 
 .paynow-payment-option-pbl label img {
 	max-width: 80px;
 	width: 100%;
 	max-height: 100% !important;
+	margin: 0;
 }
 
 .paynow-payment-option-pbl:not(.disabled) label:hover {
@@ -36,7 +41,7 @@
 }
 
 .paynow-payment-option-pbl input[type=radio] {
-	display: none;
+	display: none !important;
 }
 
 .paynow-payment-option-pbl.disabled label img {
@@ -60,6 +65,10 @@
 	max-height: 2rem;
 	max-width: 3rem;
 	vertical-align: middle;
+}
+
+.payment_method_pay_by_paynow_pl_pbl label > img {
+	margin-top: 0.25rem;
 }
 
 .payment_method_pay_by_paynow_pl_blik input[type=text] {
@@ -100,11 +109,16 @@
 }
 
 @media (max-width: 576px) {
-	.payment_method_pay_by_paynow_pl_pbl label > img,
-	.payment_method_pay_by_paynow_pl_card label > img,
-	.payment_method_pay_by_paynow_pl_blik label > img,
-	.payment_method_pay_by_paynow_pl_google_pay label > img {
-		max-height: 1rem;
-		max-width: 3rem;
+	.paynow-payment-option-pbl {
+		width: 31.33%;
+	}
+
+	.paynow-payment-option-pbl label {
+		width: 85px;
+		height: 65px;
+	}
+
+	.payment_method_pay_by_paynow_pl_pbl .paynow-payment-option-pbl label > img {
+		max-width: 5rem;
 	}
 }

@@ -24,7 +24,7 @@ class WC_Payment_Gateway_Pay_By_Paynow_PL_Blik extends WC_Gateway_Pay_By_Paynow_
 			$notices      = $this->gateway->gdpr_notices();
 			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'blik_payment.phtml';
 		} else {
-			echo esc_html( $this->description );
+            parent::payment_fields();
 		}
 	}
 
