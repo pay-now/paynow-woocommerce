@@ -9,3 +9,6 @@ vendor
 compose.lock
 dist
 build
+node_modules/
+test-results/
+playwright-report/
