@@ -1,0 +1,25 @@
+{
+  "name": "paynow-woocommerce",
+  "version": "1.0.0",
+  "description": "Functional tests",
+  "main": "index.js",
+  "devDependencies": {
+    "@playwright/test": "^1.19.2"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pay-now/paynow-woocommerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pay-now/paynow-woocommerce/issues"
+  },
+  "homepage": "https://github.com/pay-now/paynow-woocommerce#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "uuidv4": "^6.2.13"
+  }
+}
