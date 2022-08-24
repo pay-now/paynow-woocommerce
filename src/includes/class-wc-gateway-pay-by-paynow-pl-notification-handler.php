@@ -22,6 +22,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 			 || ( 'WC_Gateway_Pay_By_Paynow_PL_Notification_Handler' !== filter_input( INPUT_GET, 'wc-api' ) )
 		) {
 			status_header( 400 );
+            exit;
 		}
 
 		$payload           = trim( file_get_contents( 'php://input' ) );
