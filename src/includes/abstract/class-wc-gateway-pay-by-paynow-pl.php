@@ -15,6 +15,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		'enabled',
 	);
 
+    public const BLIK_PAYMENT = 0;
+
+    public const PBL_PAYMENT = 1;
+
+    public const PAYNOW_PAYMENT_GETAWAY = [
+        self::BLIK_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX. 'blik',
+        self::PBL_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX. 'pbl',
+    ];
 	/**
 	 * @var Paynow_Gateway
 	 */
@@ -110,11 +118,11 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		try {
 			WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $order->get_total() );
 
-            $payment_method = filter_input( INPUT_POST, 'payment_method');
-            if ($payment_method === 'pay_by_paynow_pl_pbl') {
-			    $payment_method_id  = filter_input( INPUT_POST, 'paymentMethodId' );
-            } else if ($payment_method === 'pay_by_paynow_pl_blik') {
-			    $authorization_code = preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
+            $payment_method = filter_input(INPUT_POST, 'payment_method');
+            if ($payment_method === self::PAYNOW_PAYMENT_GETAWAY[self::PBL_PAYMENT]) {
+                $payment_method_id = filter_input(INPUT_POST, 'paymentMethodId');
+            } else if ($payment_method === self::PAYNOW_PAYMENT_GETAWAY[self::BLIK_PAYMENT]) {
+                $authorization_code = preg_replace('/\s+/', '', filter_input(INPUT_POST, 'authorizationCode'));
             }
 
 
