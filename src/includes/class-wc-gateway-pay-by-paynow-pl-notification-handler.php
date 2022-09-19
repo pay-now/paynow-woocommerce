@@ -6,6 +6,11 @@ use Paynow\Notification;
 
 class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By_Paynow_PL {
 
+    const ALLOWED_WC_API_PARAM_VALUES = [
+        'WC_Gateway_Pay_By_Paynow_PL_Notification_Handler',
+        'WC_Gateway_Pay_By_Paynow_PL'
+    ];
+
 	/**
 	 * Constructor of WC_Gateway_Pay_By_Paynow_PL_Notification_Handler
 	 */
@@ -19,7 +24,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	 */
 	public function handle_notification() {
 		if ( ( 'POST' !== $_SERVER['REQUEST_METHOD'] )
-			 || ( 'WC_Gateway_Pay_By_Paynow_PL_Notification_Handler' !== filter_input( INPUT_GET, 'wc-api' ) )
+			 || ( !in_array(filter_input( INPUT_GET, 'wc-api' ), self::ALLOWED_WC_API_PARAM_VALUES) )
 		) {
 			status_header( 400 );
             exit;
