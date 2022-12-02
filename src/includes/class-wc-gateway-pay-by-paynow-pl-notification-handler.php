@@ -26,7 +26,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 		if ( ( 'POST' !== $_SERVER['REQUEST_METHOD'] )
 			 || ( !in_array(filter_input( INPUT_GET, 'wc-api' ), self::ALLOWED_WC_API_PARAM_VALUES) )
 		) {
-			status_header( 400 );
+			$this->bad_request_response( "Wrong request" );
             exit;
 		}
 
@@ -55,8 +55,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 						$notification_data['paymentId'],
 					)
 				);
-				status_header( 400 );
-				exit;
+				$this->bad_request_response( "Order not found" );
 			}
 
 			if ( strpos( $order->get_payment_method(), WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) === false ) {
@@ -67,8 +66,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 						$notification_data['paymentId'],
 					)
 				);
-				status_header( 400 );
-				exit;
+				$this->bad_request_response( "Other payment gateway is already selected" );
 			}
 
 			if ( ! $order->has_status( wc_get_is_paid_statuses() ) && ( $order->get_transaction_id() === $notification_data['paymentId'] || $notification_data['status'] === Status::STATUS_NEW ) ) {
@@ -91,12 +89,21 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 					$notification_data['paymentId'],
 				)
 			);
-			status_header( 400 );
-			exit;
+			$this->bad_request_response( $exception->getMessage() );
 		}
 
 		status_header( 202 );
 		exit;
+	}
+
+	private function bad_request_response( $reason ) {
+		header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
+		status_header( 400 );
+		echo json_encode( array(
+			"message" => "An error occurred during processing notification",
+			"reason"  => $reason
+		) );
+		die;
 	}
 }
 
