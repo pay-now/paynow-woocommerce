@@ -24,10 +24,10 @@
   },
   "scripts": {
     "cs": [
-      "vendor/bin/phpcs --standard=WooCommerce-Core --ignore=*/vendor/*,*/Test/*,*.js ."
+      "vendor/bin/phpcs"
     ],
     "cs-fix": [
-      "php vendor/bin/phpcbf --standard=WooCommerce-Core --ignore=*/vendor/*,*.js ."
+      "php vendor/bin/phpcbf"
     ]
   },
   "config": {
