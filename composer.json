@@ -33,6 +33,9 @@
   "config": {
     "platform": {
       "php": "7.1"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": false
     }
   }
 }
