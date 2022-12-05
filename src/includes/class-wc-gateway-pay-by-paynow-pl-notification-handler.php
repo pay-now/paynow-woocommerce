@@ -6,10 +6,10 @@ use Paynow\Notification;
 
 class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By_Paynow_PL {
 
-    const ALLOWED_WC_API_PARAM_VALUES = [
-        'WC_Gateway_Pay_By_Paynow_PL_Notification_Handler',
-        'WC_Gateway_Pay_By_Paynow_PL'
-    ];
+	const ALLOWED_WC_API_PARAM_VALUES = array(
+		'WC_Gateway_Pay_By_Paynow_PL_Notification_Handler',
+		'WC_Gateway_Pay_By_Paynow_PL',
+	);
 
 	/**
 	 * Constructor of WC_Gateway_Pay_By_Paynow_PL_Notification_Handler
@@ -23,11 +23,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	 * Handle notification request
 	 */
 	public function handle_notification() {
-		if ( ( 'POST' !== $_SERVER['REQUEST_METHOD'] )
-			 || ( !in_array(filter_input( INPUT_GET, 'wc-api' ), self::ALLOWED_WC_API_PARAM_VALUES) )
-		) {
-			$this->bad_request_response( "Wrong request" );
-            exit;
+		if ( ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' !== $_SERVER['REQUEST_METHOD'] ) || ( ! in_array( filter_input( INPUT_GET, 'wc-api' ), self::ALLOWED_WC_API_PARAM_VALUES, true ) ) ) {
+			$this->bad_request_response( 'Wrong request' );
+			exit;
 		}
 
 		$payload           = trim( file_get_contents( 'php://input' ) );
@@ -55,7 +53,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 						$notification_data['paymentId'],
 					)
 				);
-				$this->bad_request_response( "Order not found" );
+				$this->bad_request_response( 'Order not found' );
 			}
 
 			if ( strpos( $order->get_payment_method(), WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) === false ) {
@@ -66,10 +64,10 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 						$notification_data['paymentId'],
 					)
 				);
-				$this->bad_request_response( "Other payment gateway is already selected" );
+				$this->bad_request_response( 'Other payment gateway is already selected' );
 			}
 
-			if ( ! $order->has_status( wc_get_is_paid_statuses() ) && ( $order->get_transaction_id() === $notification_data['paymentId'] || $notification_data['status'] === Status::STATUS_NEW ) ) {
+			if ( ! $order->has_status( wc_get_is_paid_statuses() ) && ( $order->get_transaction_id() === $notification_data['paymentId'] || Status::STATUS_NEW === $notification_data['status'] ) ) {
 				$this->process_order_status_change( $order, $notification_data['paymentId'], $notification_data['status'] );
 			} else {
 				WC_Pay_By_Paynow_PL_Logger::info(
@@ -99,10 +97,12 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	private function bad_request_response( $reason ) {
 		header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
 		status_header( 400 );
-		echo json_encode( array(
-			"message" => "An error occurred during processing notification",
-			"reason"  => $reason
-		) );
+		echo json_encode(
+			array(
+				'message' => 'An error occurred during processing notification',
+				'reason'  => $reason,
+			)
+		);
 		die;
 	}
 }

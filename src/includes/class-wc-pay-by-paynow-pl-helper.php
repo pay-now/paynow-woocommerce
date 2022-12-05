@@ -56,9 +56,9 @@ class WC_Pay_By_Paynow_PL_Helper {
 		if ( ! function_exists( 'apache_request_headers' ) ) {
 			$headers = array();
 			foreach ( $_SERVER as $key => $value ) {
-				if ( 'HTTP_' === substr( $key, 0, 5 ) ) {
-					$subject                                      = ucwords( str_replace( '_', ' ', strtolower( substr( $key, 5 ) ) ) );
-					$headers[ str_replace( ' ', '-', $subject ) ] = $value;
+				if ( 'HTTP_' === substr( esc_attr( $key ), 0, 5 ) ) {
+					$subject                                      = ucwords( str_replace( '_', ' ', strtolower( substr( esc_attr( $key ), 5 ) ) ) );
+					$headers[ str_replace( ' ', '-', $subject ) ] = esc_attr( $value );
 				}
 			}
 
@@ -84,6 +84,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 */
 	public static function validate_minimum_payment_amount( float $amount ) {
 		if ( self::get_amount( $amount ) < self::get_minimum_amount() ) {
+			/* translators: %1: Order total amount */
 			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'pay-by-paynow-pl' ), wc_price( self::get_minimum_amount() / 100 ) ) );
 		}
 	}
