@@ -1,9 +1,3 @@
-/*!
- * Copyright 2014 Open Exchange Rates
- *
- * This source file is subject to the MIT License (MIT) that is bundled with this package in the file license.txt.
- */
-
 (function () {
 	let pollPaymentStatus = setInterval(
 		function () {
@@ -12,24 +6,24 @@
 		3000
 	),
 
-		checkPaymentStatus = function () {
-			jQuery.ajax(
-				{
-					url: paynow_status_rest_api,
-					dataType: 'json',
-					type: 'get',
-					success: function (message) {
-						if (message.payment_status !== "PENDING") {
-							clearInterval( pollPaymentStatus );
-							window.location.replace( message.redirect_url );
-						}
-					},
-					error: function () {
-						window.location.replace( paynow_order_confirmed );
+	checkPaymentStatus = function () {
+		jQuery.ajax(
+			{
+				url: paynow_status_rest_api,
+				dataType: 'json',
+				type: 'get',
+				success: function (message) {
+					if (message.payment_status !== "PENDING") {
+						clearInterval( pollPaymentStatus );
+						window.location.replace( message.redirect_url );
 					}
+				},
+				error: function () {
+					window.location.replace( paynow_order_confirmed );
 				}
-			);
-		};
+			}
+		);
+	};
 
 	setTimeout(
 		() => {
