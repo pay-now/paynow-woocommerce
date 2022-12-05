@@ -15,14 +15,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		'enabled',
 	);
 
-    public const BLIK_PAYMENT = 0;
+	public const BLIK_PAYMENT = 0;
 
-    public const PBL_PAYMENT = 1;
+	public const PBL_PAYMENT = 1;
 
-    public const PAYNOW_PAYMENT_GETAWAY = [
-        self::BLIK_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX. 'blik',
-        self::PBL_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX. 'pbl',
-    ];
+	public const PAYNOW_PAYMENT_GETAWAY = array(
+		self::BLIK_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik',
+		self::PBL_PAYMENT  => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl',
+	);
 	/**
 	 * @var Paynow_Gateway
 	 */
@@ -107,9 +107,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$this->form_fields = include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/settings/pay-by-paynow-pl-settings.php';
 	}
 
-    public function payment_fields() {
-        include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'payment_processor_info.phtml';
-    }
+	public function payment_fields() {
+		include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'payment_processor_info.phtml';
+	}
 
 	public function process_payment( $order_id ): array {
 		$order    = wc_get_order( $order_id );
@@ -118,13 +118,12 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		try {
 			WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $order->get_total() );
 
-            $payment_method = filter_input(INPUT_POST, 'payment_method');
-            if ($payment_method === self::PAYNOW_PAYMENT_GETAWAY[self::PBL_PAYMENT]) {
-                $payment_method_id = filter_input(INPUT_POST, 'paymentMethodId');
-            } else if ($payment_method === self::PAYNOW_PAYMENT_GETAWAY[self::BLIK_PAYMENT]) {
-                $authorization_code = preg_replace('/\s+/', '', filter_input(INPUT_POST, 'authorizationCode'));
-            }
-
+			$payment_method = filter_input( INPUT_POST, 'payment_method' );
+			if ( self::PAYNOW_PAYMENT_GETAWAY[ self::PBL_PAYMENT ] === $payment_method ) {
+				$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
+			} elseif ( self::PAYNOW_PAYMENT_GETAWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
+				$authorization_code = preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
+			}
 
 			$payment_data = $this->gateway->payment_request(
 				$order,
@@ -245,7 +244,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 			if ( ! empty( $refund_data->getRefundId() ) ) {
 				/* translators: %s: Payment ID */
-				$order->add_order_note( sprintf( __( 'Refund request processed correctly - %s' ), $refund_data->getRefundId() ) );
+				$order->add_order_note( sprintf( __( 'Refund request processed correctly - %s', 'pay-by-paynow-pl' ), $refund_data->getRefundId() ) );
 
 				return true;
 			}
@@ -256,7 +255,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			if ( $errors ) {
 				foreach ( $errors as $error ) {
 					/* translators: %s: Error message */
-					$order->add_order_note( sprintf( __( 'An error occurred during the refund process - %s' ), $error->getMessage() ) );
+					$order->add_order_note( sprintf( __( 'An error occurred during the refund process - %s', 'pay-by-paynow-pl' ), $error->getMessage() ) );
 					WC_Pay_By_Paynow_PL_Logger::error(
 						$error->getType() . ' - ' . $error->getMessage() . ' {orderId={}, paymentId={}, amount={}}',
 						array(
@@ -500,7 +499,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$order_key       = $order->get_order_key();
 		$order_key_check = filter_input( INPUT_GET, 'key' );
 
-		if ( $order_key == $order_key_check && WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order ) ) {
+		if ( $order_key === $order_key_check && WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order ) ) {
 			$allcaps['pay_for_order'] = true;
 		}
 

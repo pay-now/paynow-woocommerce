@@ -36,7 +36,7 @@ class Paynow_Gateway {
 			$this->signature_key = $is_sandbox ? $this->settings['sandbox_signature_key'] : $this->settings['production_signature_key'];
 
 			if ( $api_key && $this->signature_key ) {
-				$this->client = $this->client = new Client(
+				$this->client = new Client(
 					$api_key,
 					$this->signature_key,
 					$is_sandbox ? Environment::SANDBOX : Environment::PRODUCTION,
