@@ -4,7 +4,8 @@ use Paynow\Model\PaymentMethods\Type;
 
 defined( 'ABSPATH' ) || exit();
 
-class WC_Payment_Gateway_Pay_By_Paynow_PL_Card extends WC_Gateway_Pay_By_Paynow_PL {
+class WC_Gateway_Pay_By_Paynow_PL_Card_Payment extends WC_Gateway_Pay_By_Paynow_PL {
+
 	public function __construct() {
 		$this->id                 = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'card';
 		$this->title              = __( 'Card payment', 'pay-by-paynow-pl' );

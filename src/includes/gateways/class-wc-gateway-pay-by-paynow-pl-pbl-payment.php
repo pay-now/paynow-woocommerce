@@ -4,7 +4,8 @@ defined( 'ABSPATH' ) || exit();
 use Paynow\Exception\PaynowException;
 use Paynow\Model\PaymentMethods\Type;
 
-class WC_Payment_Gateway_Pay_By_Paynow_PL_Pbl extends WC_Gateway_Pay_By_Paynow_PL {
+class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_PL {
+
 	public function __construct() {
 		$this->id                 = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl';
 		$this->title              = __( 'Online transfer payment', 'pay-by-paynow-pl' );

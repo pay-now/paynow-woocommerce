@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit();
 
 use Paynow\Model\PaymentMethods\Type;
 
-class WC_Payment_Gateway_Pay_By_Paynow_PL_Blik extends WC_Gateway_Pay_By_Paynow_PL {
+class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_PL {
 
 	public const BLIK_CONFIRM_TEMPLATE_NAME = 'confirm_blik_payment';
 
