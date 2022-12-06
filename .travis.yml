@@ -4,7 +4,10 @@ before_install:
 
 script:
   - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
-  - git clone -b master https://github.com/WordPress/WordPress-Coding-Standards.git wpcs
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then git clone -b master https://github.com/WordPress/WordPress-Coding-Standards.git wpcs; fi
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then ./vendor/bin/phpcs --config-set installed_paths wpcs; fi
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then ./vendor/bin/phpcs; fi
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer cs; fi
 
 before_deploy:
   - bash ./scripts/build.sh
