@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit();
 
 function wc_pay_by_paynow_pl_payment_gateways( $gateways ) {
-	return array_merge( pay_by_paynow_wc()->payment_gateways(), $gateways );
+	return array_merge( wc_pay_by_paynow()->payment_gateways(), $gateways );
 }
 
 function wc_pay_by_paynow_pl_plugin_version() {

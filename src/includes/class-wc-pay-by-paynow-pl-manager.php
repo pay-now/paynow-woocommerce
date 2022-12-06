@@ -111,8 +111,8 @@ class WC_Pay_By_Paynow_Pl_Manager {
  *
  * @return WC_Pay_By_Paynow_Pl_Manager
  */
-function pay_by_paynow_wc(): WC_Pay_By_Paynow_Pl_Manager {
+function wc_pay_by_paynow(): WC_Pay_By_Paynow_Pl_Manager {
 	return WC_Pay_By_Paynow_Pl_Manager::instance();
 }
 
-pay_by_paynow_wc();
+wc_pay_by_paynow();
