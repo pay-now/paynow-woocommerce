@@ -1,19 +1,29 @@
 before_install:
-  - composer install
+  - if [[ "PHP_CODE_SNIFF" == "1" ]]; then composer self-update; fi
+  - if [[ "PHP_CODE_SNIFF" == "1" ]]; then composer install; fi
 
 script:
-  - composer cs
+  - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+  - if [[ "PHP_CODE_SNIFF" == "1" ]];  git clone -b master https://github.com/WordPress/WordPress-Coding-Standards.git wpcs; fi
+  - if [[ "PHP_CODE_SNIFF" == "1" ]]; ./vendor/bin/phpcs --config-set installed_paths wpcs; fi
+  - if [[ "PHP_CODE_SNIFF" == "1" ]]; ./vendor/bin/phpcs; fi
+  - if [[ "PHP_CODE_SNIFF" == "1" ]]; composer cs; fi
 
 before_deploy:
   - bash ./scripts/build.sh
+
+php:
+  - 7.1
+  - 7.2
+  - 7.4
 
 matrix:
   fast_finish: true
   include:
     - php: '7.1'
+    - php: '7.2'
+      env: PHP_CODE_SNIFF=1
     - php: '7.4'
-    - php: '8.0'
-    - php: '8.1'
 
 deploy:
   provider: releases
