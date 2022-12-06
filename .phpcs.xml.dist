@@ -24,7 +24,7 @@
 
     <config name="minimum_supported_wp_version" value="4.9"/>
     <config name="text_domain" value="pay-by-paynow-pl"/>
-    <config name="prefixes" value="pay_by_paynow_pl"/>
+    <config name="prefixes" value="wc_gateway_pay_by_paynow_pl"/>
 
     <rule ref="WordPress-Core"/>
     <rule ref="WordPress.Security.ValidatedSanitizedInput"/>
