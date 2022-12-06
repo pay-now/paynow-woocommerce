@@ -434,6 +434,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				Status::STATUS_ABANDONED,
 			),
 		);
+		// TODO for cancelled
 		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
 		$is_change_possible     = in_array( $next_status, $payment_status_flow[ $previous_status ], true );
 
