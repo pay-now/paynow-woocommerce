@@ -1,17 +1,3 @@
-before_install:
-  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer self-update; fi
-  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer install; fi
-
-script:
-  - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
-  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then git clone -b master https://github.com/WordPress/WordPress-Coding-Standards.git wpcs; fi
-  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then ./vendor/bin/phpcs --config-set installed_paths wpcs; fi
-  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then ./vendor/bin/phpcs; fi
-  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer cs; fi
-
-before_deploy:
-  - bash ./scripts/build.sh
-
 php:
   - 7.1
   - 7.2
@@ -24,6 +10,19 @@ matrix:
     - php: '7.2'
       env: PHP_CODE_SNIFF=1
     - php: '7.4'
+
+before_install:
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer self-update; fi
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer install; fi
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then git clone -b master https://github.com/WordPress/WordPress-Coding-Standards.git wpcs; fi
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then ./vendor/bin/phpcs --config-set installed_paths wpcs; fi
+
+script:
+  - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer cs; fi
+
+before_deploy:
+  - bash ./scripts/build.sh
 
 deploy:
   provider: releases
