@@ -7,6 +7,15 @@ script:
 before_deploy:
   - bash ./scripts/build.sh
 
+matrix:
+  fast_finish: true
+
+  include:
+    - php: '7.1'
+    - php: '7.4'
+    - php: '8.0'
+    - php: '8.1'
+
 deploy:
   provider: releases
   api_key:
