@@ -11,7 +11,7 @@
 			</div>
 			<?php if ( $notice->getContent() ) { ?>
 				<div class="paynow-data-processing-info-more collapse" id="paynow_disclaimer_<?php echo esc_attr( $method_block ); ?>">
-					<?php echo esc_html( $notice->getContent() ); ?>
+					<?php echo strip_tags( $notice->getContent(), "<p><br><ul><ol><li><strong><a>" ); ?>
 				</div>
 			<?php } ?>
 		<?php } ?>
