@@ -6,7 +6,7 @@ Requires PHP: 7.1
 Stable tag: 2.4.14
 License: GPLv3
 
-**pay**now is a secure online payment by bank transfers, BLIK and card.
+**pay**now is a secure online payment by bank transfers, BLIK and card
 
 == Description ==
 **pay**now gives you a free registration and only 0.95% commission.
