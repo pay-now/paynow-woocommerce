@@ -435,7 +435,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			),
 		);
 		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
-		$is_change_possible     = in_array( $next_status, $payment_status_flow[ $previous_status ], true );
+		$is_change_possible     = is_array($payment_status_flow[ $previous_status ]) && in_array( $next_status, $payment_status_flow[ $previous_status ], true );
 
 		return $previous_status_exists && $is_change_possible;
 	}

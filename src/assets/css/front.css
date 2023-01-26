@@ -1,6 +1,6 @@
 .paynow-data-processing-info {
-	margin-top: 1rem;
-	font-size: 80%;
+	margin-top: 1em;
+	font-size: .8em;
 }
 
 .paynow-data-processing-info .expand {
@@ -9,7 +9,8 @@
 }
 
 .paynow-data-processing-info ul {
-	margin: 0 0 0 15px;
+	padding: 0 !important;
+	margin: 0 0 0 15px !important;
 	list-style-type: lower-alpha !important;
 }
 
@@ -19,6 +20,12 @@
 
 #payment .payment_methods .paynow-data-processing-info li {
 	list-style: lower-alpha !important;
+	line-height: 1.5em !important;
+}
+
+#payment ul.payment_methods .paynow-data-processing-info li::before,
+#payment ul.payment_methods .paynow-data-processing-info li::after {
+	display: none !important;
 }
 
 .payment_method_pay_by_paynow_pl_pbl > label > img,
