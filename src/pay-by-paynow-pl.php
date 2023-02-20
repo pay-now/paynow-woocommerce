@@ -8,7 +8,7 @@
  * Author: mElements S.A.
  * Author URI: https://www.paynow.pl
  * License: GPLv3
- * Text Domain: pay-by-paynow-p
+ * Text Domain: pay-by-paynow-pl
  * Domain Path: /languages
  * Tested up to: 6.1.1
  * WC tested up to: 7.1.0
