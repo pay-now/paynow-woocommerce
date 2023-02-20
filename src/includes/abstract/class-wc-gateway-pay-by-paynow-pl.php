@@ -436,7 +436,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		);
 		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
 
-		return $previous_status_exists && in_array( $next_status, $payment_status_flow[$previous_status], true );
+		return $previous_status_exists && in_array( $next_status, $payment_status_flow[ $previous_status ], true );
 	}
 
 	public function redirect_order_received_page() {
