@@ -1,0 +1,11 @@
+---
+stages:
+  - Test
+
+Trigger_pipeline:
+  stage: Test
+  script:
+    - 'curl --fail --request POST --form token=$MY_TRIGGER_TOKEN --form ref=main "https://lab.movecloser.pl/api/v4/projects/667/trigger/pipeline"'
+  rules:
+   - if: $CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "merge_request_event"
+   - when: manual
