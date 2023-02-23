@@ -7,7 +7,14 @@ use Paynow\Exception\PaynowException;
  * Provides static methods as helpers.
  */
 class WC_Pay_By_Paynow_PL_Helper {
-	/**
+
+    const NOTIFICATION_EXTERNAL_ID_FIELD_NAME = 'externalId';
+    const NOTIFICATION_PAYMENT_ID_FIELD_NAME = 'paymentId';
+    const NOTIFICATION_STATUS_FIELD_NAME = 'status';
+    const NOTIFICATION_MODIFIED_AT_FIELD_NAME = 'modifiedAt';
+    const NOTIFICATION_REDIRECT_URL_FIELD_NAME = 'redirectUrl';
+
+    /**
 	 * Get amount to pay
 	 *
 	 * @param float $total Amount due

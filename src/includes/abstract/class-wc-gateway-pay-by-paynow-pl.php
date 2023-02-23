@@ -9,6 +9,11 @@ use Paynow\Exception\PaynowException;
 use Paynow\Model\Payment\Status;
 
 abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
+
+    const ORDER_META_STATUS_FIELD_NAME = '_pay_by_paynow_pl_status';
+    const ORDER_META_MODIFIED_AT_KEY = '_pay_by_paynow_pl_modified_at';
+    const ORDER_META_NOTIFICATION_HISTORY = '_pay_by_paynow_pl_notification_history';
+
 	protected $payment_method_id;
 
 	protected $payment_gateway_options = array(
@@ -23,10 +28,16 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		self::BLIK_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik',
 		self::PBL_PAYMENT  => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl',
 	);
+
 	/**
 	 * @var Paynow_Gateway
 	 */
 	public $gateway;
+
+    /**
+     * @var WC_Pay_By_Paynow_PL_Locking_Mechanism
+     */
+    private $locking_mechanism;
 
 	public function __construct() {
 		$this->init_form_fields();
@@ -39,7 +50,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 
 		$this->gateway = new Paynow_Gateway( $this->settings );
-	}
+        $this->locking_mechanism = new WC_Pay_By_Paynow_PL_Locking_Mechanism();
+    }
 
 	public function init_supports() {
 		$this->supports = array(
@@ -115,96 +127,80 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$order    = wc_get_order( $order_id );
 		$response = array();
 
-		try {
-			WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $order->get_total() );
+        try {
+            WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $order->get_total() );
+        }catch (Exception $e){
+            WC_Pay_By_Paynow_PL_Logger::error( $e->getMessage(), [ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id ] );
+           return $response;
+        }
 
-			$payment_method = filter_input( INPUT_POST, 'payment_method' );
-			if ( self::PAYNOW_PAYMENT_GETAWAY[ self::PBL_PAYMENT ] === $payment_method ) {
-				$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
-			} elseif ( self::PAYNOW_PAYMENT_GETAWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
-				$authorization_code = preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
-			}
-
-			$payment_data = $this->gateway->payment_request(
-				$order,
-				$this->get_return_url( $order ),
-				$payment_method_id ? intval( $payment_method_id ) : $this->payment_method_id,
-				$authorization_code ?? null
-			);
-			add_post_meta( $order_id, '_transaction_id', $payment_data->getPaymentId(), true );
-
-			if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
-				update_post_meta( $order_id, '_transaction_id', $payment_data->getPaymentId() );
-			} else {
-				$order->set_transaction_id( $payment_data->getPaymentId() );
-			}
-
-			WC()->cart->empty_cart();
-
-			if ( is_callable( array( $order, 'save' ) ) ) {
-				$order->save();
-			}
-
-			if ( ! in_array(
-				$payment_data->getStatus(),
-				array(
-					Paynow\Model\Payment\Status::STATUS_NEW,
-					Paynow\Model\Payment\Status::STATUS_PENDING,
-				),
-				true
-			) ) {
-				$response['result'] = 'failure';
-			} else {
-				$response['result'] = 'success';
-				if ( $payment_data->getRedirectUrl() ) {
-					$response['redirect'] = $payment_data->getRedirectUrl();
-				} else {
-					$response['redirect'] = $this->get_return_url( $order ) . ( $authorization_code ? '&' . http_build_query(
-						array(
-							'paymentId'   => $payment_data->getPaymentId(),
-							'confirmBlik' => 1,
-						)
-					) : '' );
-				}
-			}
-
-			return $response;
-		} catch ( PaynowException $exception ) {
-			$errors = $exception->getErrors();
-			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() . ' {orderId={}}', array( $order_id ) );
-			if ( $errors ) {
-				foreach ( $errors as $error ) {
-					WC_Pay_By_Paynow_PL_Logger::error(
-						$error->getType() . ' - ' . $error->getMessage() . ' {orderId={}, paymentMethodId={}}',
-						array(
-							$order_id,
-							$this->payment_method_id,
-						)
-					);
-				}
-
-				if ( $exception->getErrors() && $exception->getErrors()[0] ) {
-					WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
-					switch ( $exception->getErrors()[0]->getType() ) {
-						case 'AUTHORIZATION_CODE_INVALID':
-							wc_add_notice( __( 'Wrong BLIK code', 'pay-by-paynow-pl' ), 'error' );
-							break;
-						case 'AUTHORIZATION_CODE_EXPIRED':
-							wc_add_notice( __( 'BLIK code has expired', 'pay-by-paynow-pl' ), 'error' );
-							break;
-						case 'AUTHORIZATION_CODE_USED':
-							wc_add_notice( __( 'BLIK code already used', 'pay-by-paynow-pl' ), 'error' );
-							break;
-						default:
-							wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
-					}
-				}
-			}
-
-			$order->add_order_note( $exception->getMessage() );
-
-			return array();
+		$payment_method = filter_input( INPUT_POST, 'payment_method' );
+		if ( self::PAYNOW_PAYMENT_GETAWAY[ self::PBL_PAYMENT ] === $payment_method ) {
+			$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
+		} elseif ( self::PAYNOW_PAYMENT_GETAWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
+			$authorization_code = preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
 		}
+
+		$payment_data = $this->gateway->payment_request(
+			$order,
+			$this->get_return_url( $order ),
+			isset($payment_method_id) && $payment_method_id ? intval( $payment_method_id ) : $this->payment_method_id,
+			$authorization_code ?? null
+		);
+        if ( isset( $payment_data[ 'errors' ][ 0 ] ) ) {
+            switch ( $payment_data[ 'errors' ][ 0 ]->getType() ) {
+                case 'AUTHORIZATION_CODE_INVALID':
+                    wc_add_notice( __( 'Wrong BLIK code', 'pay-by-paynow-pl' ), 'error' );
+                    break;
+                case 'AUTHORIZATION_CODE_EXPIRED':
+                    wc_add_notice( __( 'BLIK code has expired', 'pay-by-paynow-pl' ), 'error' );
+                    break;
+                case 'AUTHORIZATION_CODE_USED':
+                    wc_add_notice( __( 'BLIK code already used', 'pay-by-paynow-pl' ), 'error' );
+                    break;
+                default:
+                    wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
+            }
+            return $response;
+        }
+		add_post_meta( $order_id, '_transaction_id', $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], true );
+
+		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+			update_post_meta( $order_id, '_transaction_id', $payment_data [WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ] );
+		} else {
+			$order->set_transaction_id( $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ] );
+		}
+
+		WC()->cart->empty_cart();
+
+		if ( is_callable( array( $order, 'save' ) ) ) {
+			$order->save();
+		}
+
+		if ( ! in_array(
+			$payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME ],
+			array(
+				Status::STATUS_NEW,
+				Status::STATUS_PENDING,
+			),
+			true
+		) ) {
+			$response['result'] = 'failure';
+		} else {
+			$response['result'] = 'success';
+			if ( isset( $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME ] ) ) {
+				$response['redirect'] = $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME ];
+			} else {
+				$response['redirect'] = $this->get_return_url( $order ) . ( $authorization_code ? '&' . http_build_query(
+					array(
+						'paymentId'   => $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ],
+						'confirmBlik' => 1,
+					)
+				) : '' );
+			}
+		}
+
+		return $response;
 	}
 
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
@@ -358,56 +354,181 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		return parent::is_available();
 	}
 
-	/**
-	 * @param WC_order $order
-	 * @param string   $payment_id
-	 * @param string   $notification_status
-	 *
-	 * @throws Exception
-	 */
-	public function process_order_status_change( WC_order $order, string $payment_id, string $notification_status ) {
+    /**
+     * @param $payment_id
+     * @param $status
+     * @param $external_id
+     * @param $modified_at
+     * @param $force
+     * @return void
+     * @throws WC_Pay_By_Paynow_Pl_Notification_Retry_Processing_Exception
+     * @throws WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception
+     */
+    public function process_notification( $payment_id, $status, $external_id, $modified_at = '', $force = false ){
 
-		if ( ! $this->is_correct_status( $order->get_status(), $notification_status ) ) {
-			throw new Exception( 'Order status transition from ' . $order->get_status() . ' to ' . $notification_status . ' is incorrect' );
-		}
+        $context = [
+            WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $external_id,
+            WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME => $payment_id,
+            WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME => $status,
+            WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_MODIFIED_AT_FIELD_NAME => $modified_at
+        ];
 
-		WC_Pay_By_Paynow_PL_Logger::info(
-			'Order status transition is correct {orderId={}, paymentId={}, orderStatus={}, paymentStatus={}}',
-			array(
-				WC_Pay_By_Paynow_PL_Helper::get_order_id( $order ),
-				$order->get_transaction_id(),
-				$order->get_status(),
-				$notification_status,
-			)
-		);
+        if ( $this->locking_mechanism->checkAndCreate( $external_id ) ) {
+            for ($i = 1; $i<=3; $i++) {
+                // phpcs:ignore
+                sleep(1);
+                $isNotificationLocked = $this->locking_mechanism->checkAndCreate( $external_id );
+                if ( $isNotificationLocked == false ) {
+                    break;
+                } elseif ( $i == 3 ) {
+                    throw new WC_Pay_By_Paynow_Pl_Notification_Retry_Processing_Exception( 'Skipped processing. Previous notification is still processing.', $context );
+                }
+            }
+        }
 
-		switch ( $notification_status ) {
-			case Status::STATUS_NEW:
-				$this->process_new_status( $order, $payment_id );
-				break;
-			case Status::STATUS_REJECTED:
-				/* translators: %s: Payment ID */
-				$order->update_status( 'failed', sprintf( __( 'Payment has not been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
-				break;
-			case Status::STATUS_CONFIRMED:
-				$order->payment_complete( $payment_id );
-				/* translators: %s: Payment ID */
-				$order->add_order_note( sprintf( __( 'Payment has been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
-				break;
-			case Status::STATUS_ERROR:
-				/* translators: %s: Payment ID */
-				$order->update_status( 'failed', sprintf( __( 'An error occurred during the payment process and the payment could not be completed - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
-				break;
-			case Status::STATUS_EXPIRED:
-				/* translators: %s: Payment ID */
-				$order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
-				break;
-			case Status::STATUS_ABANDONED:
-				/* translators: %s: Payment ID */
-				$order->update_status( 'pending', sprintf( __( 'Payment has been abandoned - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
-				break;
-		}
-	}
+        $is_new = $status == Status::STATUS_NEW;
+        $is_confirmed = $status == Status::STATUS_CONFIRMED;
+
+        $order = wc_get_order( $external_id );
+
+        if ( ! $order ) {
+            $this->locking_mechanism->delete( $external_id );
+            throw new WC_Pay_By_Paynow_Pl_Notification_Retry_Processing_Exception(
+                'Skipped processing. Order not found.',
+                $context
+            );
+        }
+
+        if ( strpos( $order->get_payment_method(), WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) === false ) {
+            $this->locking_mechanism->delete( $external_id );
+            throw new WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception( 'Other payment gateway is already selected', $context );
+        }
+
+        $order_payment_id = $order->get_transaction_id();
+        $order_payment_status = $order->get_meta( self::ORDER_META_STATUS_FIELD_NAME );
+        $order_payment_status_date = $order->get_meta( self::ORDER_META_MODIFIED_AT_KEY );
+        $order_processed = in_array( $order->get_status(), wc_get_is_paid_statuses() );
+
+        $context += [
+            'orderPaymentId'         => $order_payment_id,
+            'orderPaymentStatus'     => $order_payment_status,
+            'orderPaymentStatusDate' => $order_payment_status_date,
+        ];
+
+
+        if ( $order_processed ) {
+            if ( $is_confirmed && $order_payment_id != $payment_id ) {
+                $order->add_order_note( __( 'Transaction confirmed, but order already paid. Transaction ID: ') . $payment_id  );
+            }
+            $this->locking_mechanism->delete( $external_id );
+            throw new WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception( 'Skipped processing. Order has paid status.', $context );
+        }
+
+        if ( $order_payment_status == $status && $order_payment_id == $payment_id ) {
+            $this->locking_mechanism->delete( $external_id) ;
+            throw new WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception( sprintf( 'Skipped processing. Transition status (%s) already consumed.', $status ), $context );
+        }
+
+        if ($order_payment_id != $payment_id && !$is_new && !$force && !$is_confirmed ) {
+            $this->retryProcessingNTimes( $order, 'Skipped processing. Order has another active payment.', $context );
+        }
+
+        if ( !empty( $order_payment_status_date ) && $order_payment_status_date > $modified_at && !$is_confirmed ) {
+            if ( !$is_new || $order_payment_id == $payment_id ) {
+                $this->locking_mechanism->delete( $external_id );
+                throw new WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception(
+                    'Skipped processing. Order has newer status. Time travels are prohibited.',
+                    $context
+                );
+            }
+        }
+
+        if ( !$this->is_correct_status( $order_payment_status, $status ) && !$is_new && !$force && !$is_confirmed ) {
+            $this->retryProcessingNTimes(
+                $order,
+                sprintf(
+                    'Order status transition from %s to %s is incorrect.',
+                    $order_payment_status,
+                    $status
+                ),
+                $context
+            );
+        }
+
+        $order->add_meta_data( self::ORDER_META_STATUS_FIELD_NAME, $status, true );
+        $order->add_meta_data( self::ORDER_META_MODIFIED_AT_KEY, $modified_at, true );
+
+        WC_Pay_By_Paynow_PL_Logger::info( 'Order status transition is correct.', $context );
+
+        switch ( $status ) {
+            case Status::STATUS_NEW:
+                $this->process_new_status( $order, $payment_id, $context );
+                break;
+            case Status::STATUS_PENDING:
+                /* translators: %s: Payment ID */
+                $order->update_status( 'pending', sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+            case Status::STATUS_REJECTED:
+                /* translators: %s: Payment ID */
+                $order->update_status('failed', sprintf( __( 'Payment has not been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+            case Status::STATUS_CONFIRMED:
+                $this->process_confirm_status( $order, $payment_id, $context );
+                break;
+            case Status::STATUS_ERROR:
+                /* translators: %s: Payment ID */
+                $order->update_status( 'failed', sprintf( __( 'An error occurred during the payment process and the payment could not be completed - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+            case Status::STATUS_EXPIRED:
+                /* translators: %s: Payment ID */
+                $order->update_status( 'failed', sprintf( __ ( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+            case Status::STATUS_ABANDONED:
+                /* translators: %s: Payment ID */
+                $order->update_status( 'pending', sprintf( __( 'Payment has been abandoned - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+                break;
+        }
+        $order->save();
+        $this->locking_mechanism->delete( $external_id );
+        WC_Pay_By_Paynow_PL_Logger::info( 'Notification processed successfully', $context );
+    }
+
+
+    /**
+     * @param WC_order $order
+     * @param $message
+     * @param $context
+     * @param $counter
+     * @return mixed
+     * @throws WC_Pay_By_Paynow_Pl_Notification_Retry_Processing_Exception
+     * @throws WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception
+     */
+    private function retryProcessingNTimes( WC_order $order, $message, $context = [], $counter = 3 )
+    {
+        $history = $order->get_meta( self::ORDER_META_NOTIFICATION_HISTORY );
+        $historyKey = sprintf( '%s:%s', $context[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], $context[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME ] );
+        if ( !isset( $history[ $historyKey ] ) ) {
+            $history[ $historyKey ] = 0;
+        }
+        $history[ $historyKey ]++;
+
+        if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+            $order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
+            update_post_meta( $order_id,  self::ORDER_META_NOTIFICATION_HISTORY, $history );
+        } else {
+            $order->add_meta_data( self::ORDER_META_NOTIFICATION_HISTORY, $history, true );
+            $order->save();
+        }
+
+        $context[ 'statusCounter' ] = $history[ $historyKey ];
+
+        $this->locking_mechanism->delete( $context[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME ] );
+        if ( $history[ $historyKey ] >= $counter ) {
+            throw new WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception( $message, $context );
+        } else {
+            throw new WC_Pay_By_Paynow_Pl_Notification_Retry_Processing_Exception( $message, $context );
+        }
+    }
 
 	/**
 	 * @param $previous_status
@@ -416,27 +537,41 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	public static function is_correct_status( $previous_status, $next_status ): bool {
-		$payment_status_flow    = array(
-			'pending' => array(
-				Status::STATUS_NEW,
-				Status::STATUS_PENDING,
-				Status::STATUS_ERROR,
-				Status::STATUS_CONFIRMED,
-				Status::STATUS_REJECTED,
-				Status::STATUS_EXPIRED,
-				Status::STATUS_ABANDONED,
-			),
-			'failed'  => array(
-				Status::STATUS_NEW,
-				Status::STATUS_CONFIRMED,
-				Status::STATUS_ERROR,
-				Status::STATUS_REJECTED,
-				Status::STATUS_ABANDONED,
-			),
-		);
-		$previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
+        $payment_status_flow = [
+            Status::STATUS_NEW       => [
+                Status::STATUS_PENDING,
+                Status::STATUS_ERROR,
+                Status::STATUS_EXPIRED,
+                Status::STATUS_CONFIRMED,
+                Status::STATUS_REJECTED
+            ],
+            Status::STATUS_PENDING   => [
+                Status::STATUS_CONFIRMED,
+                Status::STATUS_REJECTED,
+                Status::STATUS_EXPIRED,
+                Status::STATUS_ABANDONED
+            ],
+            Status::STATUS_REJECTED  => [
+                Status::STATUS_ABANDONED,
+                Status::STATUS_CONFIRMED
+            ],
+            Status::STATUS_CONFIRMED => [],
+            Status::STATUS_ERROR     => [
+                Status::STATUS_CONFIRMED,
+                Status::STATUS_REJECTED,
+                Status::STATUS_ABANDONED,
+                Status::STATUS_NEW
+            ],
+            Status::STATUS_EXPIRED   => [],
+            Status::STATUS_ABANDONED => [],
+        ];
 
-		return $previous_status_exists && in_array( $next_status, $payment_status_flow[ $previous_status ], true );
+        $previous_status_exists = isset( $payment_status_flow[ $previous_status ] );
+        $is_change_possible = in_array( $next_status, $payment_status_flow[ $previous_status ] );
+        if ( !$previous_status_exists && $next_status == Status::STATUS_NEW ) {
+            return true;
+        }
+        return $previous_status_exists && $is_change_possible;
 	}
 
 	public function redirect_order_received_page() {
@@ -452,31 +587,24 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_paynow_order( $order ) ) {
 			$payment_id = $order->get_transaction_id();
-			$status     = $this->gateway->payment_status( $order_id, $payment_id );
-			if ( $status ) {
-				WC_Pay_By_Paynow_PL_Logger::info(
-					'Received payment status from API {orderId={}, paymentId={}, status={}}',
-					array(
-						$order->get_id(),
-						$payment_id,
-						$status,
-					)
-				);
-
-				if ( ! $order->has_status( wc_get_is_paid_statuses() ) && $order->get_transaction_id() === $payment_id ) {
-					$this->process_order_status_change( $order, $payment_id, $status );
-				} else {
-					WC_Pay_By_Paynow_PL_Logger::info(
-						'Order has one of paid statuses. Skipped notification processing {orderId={}, orderStatus={}, payment={}}',
-						array(
-							$order->get_id(),
-							$order->get_status(),
-							$payment_id,
-						)
-					);
-				}
-			}
-
+            if ( $payment_id ==  $order_id . '_UNKNOWN' ) {
+                $status = Status::STATUS_PENDING;
+            } else {
+                $status = $this->gateway->payment_status($order_id, $payment_id);
+            }
+            $logger_context = [
+                'externalId' => $order_id,
+                'paymentId' => $payment_id,
+                'status' => $status
+            ];
+            if ( $status ) {
+                WC_Pay_By_Paynow_PL_Logger::info( 'Received payment status from API. ',$logger_context );
+                try {
+                    $this->process_notification( $order, $payment_id, $status, date("Y-m-d\TH:i:s"), true );
+                }catch (Exception $e){
+                    WC_Pay_By_Paynow_PL_Logger::error( $e->getMessage(), $logger_context );
+                }
+            }
 			wp_safe_redirect( $order->get_checkout_order_received_url() );
 			exit();
 		}
@@ -505,22 +633,16 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		return $allcaps;
 	}
 
-	/**
-	 * @param WC_order $order
-	 * @param string   $payment_id
-	 *
-	 * @throws WC_Data_Exception
-	 */
-	private function process_new_status( WC_order $order, string $payment_id ) {
+    /**
+     * @param WC_order $order
+     * @param string $payment_id
+     * @param $context
+     * @return void
+     */
+	private function process_new_status( WC_order $order, string $payment_id, $context ) {
 		$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
 		if ( ! empty( $order->get_transaction_id() ) && $order->get_transaction_id() !== $payment_id ) {
-			WC_Pay_By_Paynow_PL_Logger::info(
-				'The order has already a payment. Attaching new payment {orderId={}, newPaymentId={}}',
-				array(
-					$order_id,
-					$payment_id,
-				)
-			);
+			WC_Pay_By_Paynow_PL_Logger::info( 'The order has already a payment. Attaching new payment.', $context );
 		}
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
@@ -531,8 +653,24 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 
 		/* translators: %s: Payment ID */
-		$order->update_status( 'pending', sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+        $order->update_status( 'pending', sprintf( __( 'New payment created for order - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
 	}
+
+    /**
+     * @param WC_order $order
+     * @param string $payment_id
+     * @param $context
+     * @return void
+     */
+    private function process_confirm_status( WC_order $order, string $payment_id, $context ) {
+        if ( ! empty( $order->get_transaction_id() ) && $order->get_transaction_id() !== $payment_id ) {
+            WC_Pay_By_Paynow_PL_Logger::info( 'The order has already a payment. Attaching new payment.', $context );
+            $this->process_new_status( $order, $payment_id, $context );
+        }
+        $order->payment_complete( $payment_id );
+        /* translators: %s: Payment ID */
+        $order->add_order_note( sprintf( __( 'Payment has been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+    }
 
 	private function get_api_option_key_name(): string {
 		return $this->plugin_id . WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'settings';

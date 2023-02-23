@@ -54,7 +54,7 @@ class Paynow_Gateway {
 	 * @param null     $payment_method_id
 	 * @param null     $authorization_code
 	 *
-	 * @return Authorize|void
+	 * @return array|void
 	 * @throws PaynowException
 	 * @throws ConfigurationException
 	 */
@@ -79,6 +79,10 @@ class Paynow_Gateway {
 			),
 			'continueUrl' => $return_url,
 		);
+
+        $logger_context = [
+            WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id
+        ];
 
 		if ( ! empty( $payment_method_id ) ) {
 			$payment_data['paymentMethodId'] = $payment_method_id;
@@ -119,7 +123,42 @@ class Paynow_Gateway {
 		$idempotency_key = substr( uniqid( $order_id, true ), 0, 45 );
 		$payment         = new Payment( $this->client );
 
-		return $payment->authorize( $payment_data, $idempotency_key );
+		try {
+            $api_response_object = $payment->authorize( $payment_data, $idempotency_key );
+            WC_Pay_By_Paynow_PL_Logger::debug(
+                "Retrieved authorization response",
+                array_merge($logger_context, [
+                    WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME => $api_response_object->getStatus(),
+                    WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME => $api_response_object->getPaymentId()
+                ])
+            );
+            return [
+                WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME => $api_response_object->getStatus(),
+                WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME => $api_response_object->getPaymentId(),
+                WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $api_response_object->getRedirectUrl(),
+            ];
+        } catch (PaynowException $exception) {
+            if ( !empty( $authorization_code ) &&
+                ( $exception->getCode() == 504 || strpos( $exception->getMessage(), 'cURL error 28' ) !== false )
+            ) {
+                return [
+                    WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME => Status::STATUS_NEW,
+                    WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME => $order_id.'_UNKNOWN' ,
+                ];
+            } else {
+                WC_Pay_By_Paynow_PL_Logger::error(
+                    $exception->getMessage(),
+                    array_merge( $logger_context, [
+                        'service' => 'Payment',
+                        'action' => 'authorize'
+                    ])
+                );
+                foreach ( $exception->getErrors() ?? [] as $error ) {
+                    WC_Pay_By_Paynow_PL_Logger::error( $error->getType() . ' - ' . $error->getMessage(), $logger_context );
+                }
+                return [ 'errors' => $exception->getErrors() ];
+            }
+        }
 	}
 
 	/**

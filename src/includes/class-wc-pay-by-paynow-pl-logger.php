@@ -82,19 +82,23 @@ class WC_Pay_By_Paynow_PL_Logger {
 	 * @return string
 	 */
 	private static function process_record( string $message, array $context = array() ): string {
-		$split_message      = explode( '{}', $message );
-		$message_part_count = count( $split_message );
-		$result_message     = '';
-		for ( $i = 0; $i < $message_part_count; $i ++ ) {
-			if ( $i > 0 && count( $context ) >= $i ) {
-				$value = $context[ $i - 1 ];
-				if ( ! is_array( $value ) ) {
-					$result_message .= $value;
-				}
-			}
-			$result_message .= $split_message[ $i ];
-		}
-
+        if ( count( array_filter ( array_keys( $context ), 'is_string' ) ) > 0 ) {
+            $strContext = json_encode( $context );
+            $result_message = $message . " {$strContext}";
+        } else {
+            $split_message      = explode( '{}', $message );
+            $message_part_count = count( $split_message );
+            $result_message     = '';
+            for ( $i = 0; $i < $message_part_count; $i ++ ) {
+                if ( $i > 0 && count( $context ) >= $i ) {
+                    $value = $context[ $i - 1 ];
+                    if ( ! is_array( $value ) ) {
+                        $result_message .= $value;
+                    }
+                }
+                $result_message .= $split_message[ $i ];
+            }
+        }
 		return $result_message;
 	}
 }
