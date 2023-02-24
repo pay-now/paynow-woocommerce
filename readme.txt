@@ -3,7 +3,7 @@ Tags: payment, payment gateway, paynow, woocommerce, płatności
 Requires at least: 4.4
 Tested up to: 6.1.1
 Requires PHP: 7.1
-Stable tag: 2.4.15
+Stable tag: 2.4.16
 License: GPLv3
 
 **pay**now is a secure online payment by bank transfers, BLIK and card.
