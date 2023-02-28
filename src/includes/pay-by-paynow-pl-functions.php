@@ -35,7 +35,7 @@ function wc_pay_by_paynow_pl_gateway_content_thankyou( $order_id ) {
 			$rest_api_status_url = WC_Gateway_Pay_By_Paynow_PL_Status_Handler::get_rest_api_status_url() . '?' . http_build_query(
 				array(
 					'orderId' => $order_id,
-					'token'   => WC_Gateway_Pay_By_Paynow_PL_Status_Handler::get_token_hash( $paynow_blik->gateway->get_signature_key(), array( 'orderId' => (int) $order_id ) ),
+					'token'   => WC_Gateway_Pay_By_Paynow_PL_Status_Handler::get_token_hash( $paynow_blik->get_gateway()->get_signature_key(), array( 'orderId' => (int) $order_id ) ),
 				)
 			);
 
