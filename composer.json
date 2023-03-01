@@ -41,7 +41,7 @@
   "extra": {
     "hooks": {
       "pre-commit": [
-        "composer cs-fix"
+        "php vendor/bin/phpcbf"
       ]
     }
   }
