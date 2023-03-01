@@ -37,5 +37,12 @@
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": false
     }
+  },
+  "extra": {
+    "hooks": {
+      "pre-commit": [
+        "composer cs-fix"
+      ]
+    }
   }
 }
