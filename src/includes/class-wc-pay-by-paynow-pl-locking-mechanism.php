@@ -114,6 +114,7 @@ class WC_Pay_By_Paynow_PL_Locking_Mechanism {
      */
     private function generate_lock_path( $external_id )
     {
-        return $this->locks_dir_path . DIRECTORY_SEPARATOR . self::LOCKS_PREFIX . $external_id . '.lock';
+        // phpcs:ignore
+        return $this->locks_dir_path . DIRECTORY_SEPARATOR . self::LOCKS_PREFIX . md5($external_id) . '.lock';
     }
 }
