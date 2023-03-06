@@ -14,11 +14,11 @@ class WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception extends Excepti
      * @param string $message
      * @param array $context
      */
-    public function __construct($message, $context)
+    public function __construct( $message, $context )
     {
         $this->log_message = $message;
         $this->log_context = $context;
 
-        parent::__construct($message);
+        parent::__construct( $message );
     }
 }

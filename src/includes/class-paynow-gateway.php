@@ -8,6 +8,7 @@ use Paynow\Exception\PaynowException;
 use Paynow\Model\PaymentMethods\PaymentMethod;
 use Paynow\Response\Payment\Authorize;
 use Paynow\Response\Refund\Status;
+use Paynow\Model\Payment\Status as PaymentStatus;
 use Paynow\Service\Payment;
 use Paynow\Service\Refund;
 use Paynow\Service\ShopConfiguration;
@@ -46,18 +47,16 @@ class Paynow_Gateway {
 		}
 	}
 
-	/**
-	 * Sends payment request
-	 *
-	 * @param WC_Order $order
-	 * @param string   $return_url Return URL after payment
-	 * @param null     $payment_method_id
-	 * @param null     $authorization_code
-	 *
-	 * @return array|void
-	 * @throws PaynowException
-	 * @throws ConfigurationException
-	 */
+    /**
+     * Sends payment request
+     *
+     * @param WC_Order $order
+     * @param $return_url
+     * @param $payment_method_id
+     * @param $authorization_code
+     * @return array|array[]|void
+     * @throws ConfigurationException
+     */
 	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null ) {
 		if ( ! $this->client ) {
 			return;
@@ -87,8 +86,8 @@ class Paynow_Gateway {
 		if ( ! empty( $payment_method_id ) ) {
 			$payment_data['paymentMethodId'] = $payment_method_id;
 		}
-
-		if ( ! empty( $authorization_code ) ) {
+        $isBlik = ! empty( $authorization_code ) ;
+		if ($isBlik) {
 			$payment_data['authorizationCode'] = $authorization_code;
 		}
 
@@ -125,38 +124,55 @@ class Paynow_Gateway {
 
 		try {
             $api_response_object = $payment->authorize( $payment_data, $idempotency_key );
-            WC_Pay_By_Paynow_PL_Logger::debug(
-                "Retrieved authorization response",
-                array_merge($logger_context, [
-                    WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME => $api_response_object->getStatus(),
-                    WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME => $api_response_object->getPaymentId()
-                ])
-            );
-            return [
+
+            $redirect_url = $api_response_object->getRedirectUrl();
+            if ( is_null( $redirect_url ) ) {
+                $redirect_url = $return_url ;
+                if ( $isBlik ) {
+                    $redirect_url .= strpos( $redirect_url, '?' ) !== null ? '&' : '?'
+                        . http_build_query( [ 'paymentId'   => $api_response_object->getPaymentId(), 'confirmBlik' => 1 ]);
+                }
+            }
+
+            $payment_data = [
                 WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME => $api_response_object->getStatus(),
                 WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME => $api_response_object->getPaymentId(),
-                WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $api_response_object->getRedirectUrl(),
+                WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $redirect_url
             ];
-        } catch (PaynowException $exception) {
-            if ( !empty( $authorization_code ) &&
-                ( $exception->getCode() == 504 || strpos( $exception->getMessage(), 'cURL error 28' ) !== false )
-            ) {
-                return [
-                    WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME => Status::STATUS_NEW,
+
+            WC_Pay_By_Paynow_PL_Logger::debug( "Retrieved authorization response",  array_merge( $logger_context, $payment_data ) );
+
+            return $payment_data;
+        } catch ( PaynowException $exception ) {
+            WC_Pay_By_Paynow_PL_Logger::error( 'Authorization failed', array_merge( $logger_context, [
+                    'service' => 'Payment',
+                    'action' => 'authorize',
+                    'message' => $exception->getMessage(),
+                    'errors' => $exception->getErrors()
+                ] )
+            );
+
+            return [ 'errors' => $exception->getErrors() ];
+        } catch ( \Exception $exception ) {
+            if ( $isBlik && ( $exception->getCode() == 504 || strpos( $exception->getMessage(), 'cURL error 28' ) !== false ) ) {
+                $payment_data =  [
+                    WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME => PaymentStatus::STATUS_NEW,
                     WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME => $order_id.'_UNKNOWN' ,
+                    WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $return_url
+                        . strpos( $return_url, '?' ) !== null ? '&' : '?'
+                        . http_build_query( [ 'paymentId' => $order_id . '_UNKNOWN', 'confirmBlik' => 1 ] )
                 ];
+                WC_Pay_By_Paynow_PL_Logger::error("Authorization response timeout", array_merge( $logger_context, $payment_data ) );
+                return $payment_data;
             } else {
-                WC_Pay_By_Paynow_PL_Logger::error(
-                    $exception->getMessage(),
-                    array_merge( $logger_context, [
+                WC_Pay_By_Paynow_PL_Logger::error( 'Authorization failed', array_merge( $logger_context, [
                         'service' => 'Payment',
-                        'action' => 'authorize'
-                    ])
+                        'action' => 'authorize',
+                        'message' => $exception->getMessage(),
+                        'trace' => $exception->getTraceAsString()
+                    ] )
                 );
-                foreach ( $exception->getErrors() ?? [] as $error ) {
-                    WC_Pay_By_Paynow_PL_Logger::error( $error->getType() . ' - ' . $error->getMessage(), $logger_context );
-                }
-                return [ 'errors' => $exception->getErrors() ];
+                return [ 'errors'  => [ ] ];
             }
         }
 	}

@@ -82,12 +82,11 @@ class WC_Pay_By_Paynow_PL_Logger {
 	 * @return string
 	 */
 	private static function process_record( string $message, array $context = array() ): string {
-        if ( count( array_filter ( array_keys( $context ), 'is_string' ) ) > 0 ) {
-            $strContext = json_encode( $context );
-            $result_message = $message . " {$strContext}";
+        $split_message      = explode( '{}', $message );
+        $message_part_count = count( $split_message );
+        if ( $message_part_count < 2 ) {
+            $result_message = $message . " : " . json_encode( $context );
         } else {
-            $split_message      = explode( '{}', $message );
-            $message_part_count = count( $split_message );
             $result_message     = '';
             for ( $i = 0; $i < $message_part_count; $i ++ ) {
                 if ( $i > 0 && count( $context ) >= $i ) {

@@ -56,7 +56,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
         } catch ( WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception | WC_Pay_By_Paynow_Pl_Notification_Retry_Processing_Exception $exception ){
             $responseCode = ( $exception instanceof WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception ) ? 200 : 400;
             $exception->log_context['responseCode'] = $responseCode;
-            WC_Pay_By_Paynow_PL_Logger::debug(
+            WC_Pay_By_Paynow_PL_Logger::error(
                 $exception->log_message,
                 $exception->log_context
             );

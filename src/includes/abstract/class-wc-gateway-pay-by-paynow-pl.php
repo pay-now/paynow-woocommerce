@@ -129,8 +129,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
         try {
             WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $order->get_total() );
-        }catch (Exception $e){
-            WC_Pay_By_Paynow_PL_Logger::error( $e->getMessage(), [ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id ] );
+        } catch ( Exception $e ) {
+            WC_Pay_By_Paynow_PL_Logger::error( $e->getMessage() , [ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id ] );
            return $response;
         }
 
@@ -144,11 +144,15 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$payment_data = $this->gateway->payment_request(
 			$order,
 			$this->get_return_url( $order ),
-			isset($payment_method_id) &&  empty( $payment_method_id ) ? intval( $payment_method_id ) : $this->payment_method_id,
+			isset( $payment_method_id ) &&  empty( $payment_method_id ) ? intval( $payment_method_id ) : $this->payment_method_id,
 			$authorization_code ?? null
 		);
-        if ( isset( $payment_data[ 'errors' ][ 0 ] ) ) {
-            switch ( $payment_data[ 'errors' ][ 0 ]->getType() ) {
+        if ( isset( $payment_data[ 'errors' ] ) ) {
+            $error_type = null;
+            if ( isset( $payment_data[ 'errors' ] [ 0 ] ) && $payment_data[ 'errors' ][ 0 ] instanceof \Paynow\Exception\Error ) {
+                $error_type = $payment_data[ 'errors' ][ 0 ]->getType();
+            }
+            switch ( $error_type ) {
                 case 'AUTHORIZATION_CODE_INVALID':
                     wc_add_notice( __( 'Wrong BLIK code', 'pay-by-paynow-pl' ), 'error' );
                     break;
@@ -163,6 +167,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
             }
             return $response;
         }
+
 		add_post_meta( $order_id, '_transaction_id', $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], true );
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
@@ -185,19 +190,10 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			),
 			true
 		) ) {
-			$response['result'] = 'failure';
+			$response[ 'result' ] = 'failure';
 		} else {
-			$response['result'] = 'success';
-			if ( isset( $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME ] ) ) {
-				$response['redirect'] = $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME ];
-			} else {
-				$response['redirect'] = $this->get_return_url( $order ) . ( $authorization_code ? '&' . http_build_query(
-					array(
-						'paymentId'   => $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ],
-						'confirmBlik' => 1,
-					)
-				) : '' );
-			}
+			$response[ 'result' ] = 'success';
+            $response[ 'redirect' ] = $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME ];
 		}
 
 		return $response;
@@ -495,7 +491,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 
     /**
-     * @param WC_order $order
+     * @param WC_Order $order
      * @param $message
      * @param $context
      * @param $counter
