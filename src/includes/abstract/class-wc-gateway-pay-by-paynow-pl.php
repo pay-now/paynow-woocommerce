@@ -144,7 +144,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$payment_data = $this->gateway->payment_request(
 			$order,
 			$this->get_return_url( $order ),
-			isset($payment_method_id) && $payment_method_id ? intval( $payment_method_id ) : $this->payment_method_id,
+			isset($payment_method_id) &&  empty( $payment_method_id ) ? intval( $payment_method_id ) : $this->payment_method_id,
 			$authorization_code ?? null
 		);
         if ( isset( $payment_data[ 'errors' ][ 0 ] ) ) {
