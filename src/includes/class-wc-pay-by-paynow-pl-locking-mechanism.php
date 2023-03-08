@@ -105,7 +105,16 @@ class WC_Pay_By_Paynow_PL_Locking_Mechanism {
 			touch( $lock_path );
 		} else {
 			// phpcs:ignore
-			@file_put_contents( $lock_path, '' );
+			$file_saved = @file_put_contents($lock_path, '');
+			if ( false === $file_saved ) {
+				WC_Pay_By_Paynow_PL_Logger::error(
+					'Locking mechanism disabled, no locks path available.',
+					array(
+						'external_id' => $external_id,
+						'lock_path'   => $lock_path,
+					)
+				);
+			}
 		}
 	}
 

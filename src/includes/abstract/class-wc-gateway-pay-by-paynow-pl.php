@@ -377,6 +377,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 */
 	public function process_notification( $payment_id, $status, $external_id, $modified_at = '', $force = false ) {
 
+		// phpcs:ignore
+		set_time_limit(30);
+
 		$context = array(
 			WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $external_id,
 			WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME  => $payment_id,
@@ -396,6 +399,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				}
 			}
 		}
+
+		WC_Pay_By_Paynow_PL_Logger::info( 'Lock passed successfully, notification validation starting.', $context );
 
 		$is_new       = Status::STATUS_NEW === $status;
 		$is_confirmed = Status::STATUS_CONFIRMED === $status;
@@ -440,7 +445,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 
 		if ( ! ( $order_payment_id === $payment_id ) && ! $is_new && ! $force && ! $is_confirmed ) {
-			$this->retryProcessingNTimes( $order, 'Skipped processing. Order has another active payment.', $context );
+			$this->retry_processing_n_times( $order, 'Skipped processing. Order has another active payment.', $context );
 		}
 
 		if ( ! empty( $order_payment_status_date ) && $order_payment_status_date > $modified_at && ! $is_confirmed ) {
@@ -454,7 +459,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 
 		if ( ! $this->is_correct_status( $order_payment_status, $status ) && ! $is_new && ! $force && ! $is_confirmed ) {
-			$this->retryProcessingNTimes(
+			$this->retry_processing_n_times(
 				$order,
 				sprintf(
 					'Order status transition from %s to %s is incorrect.',
@@ -513,14 +518,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 * @throws WC_Pay_By_Paynow_Pl_Notification_Retry_Processing_Exception
 	 * @throws WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception
 	 */
-	private function retryProcessingNTimes( WC_order $order, $message, $context = array(), $counter = 3 ) {
+	private function retry_processing_n_times( WC_Order $order, $message, $context = array(), $counter = 3 ) {
 
 		$history     = $order->get_meta( self::ORDER_META_NOTIFICATION_HISTORY );
 		$history_key = sprintf( '%s:%s', $context[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], $context[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME ] );
 		if ( ! isset( $history[ $history_key ] ) ) {
 			$history[ $history_key ] = 0;
 		}
-		$history[ $history_key ]++;
+		$history[ $history_key ] = (int) $history[ $history_key ] + 1;
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
 			$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
@@ -647,12 +652,12 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * @param WC_order $order
+	 * @param WC_Order $order
 	 * @param string $payment_id
 	 * @param $context
 	 * @return void
 	 */
-	private function process_new_status( WC_order $order, string $payment_id, $context ) {
+	private function process_new_status( WC_Order $order, string $payment_id, $context ) {
 
 		$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
 		if ( ! empty( $order->get_transaction_id() ) && ! ( $order->get_transaction_id() === $payment_id ) ) {
@@ -671,12 +676,12 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * @param WC_order $order
+	 * @param WC_Order $order
 	 * @param string $payment_id
 	 * @param $context
 	 * @return void
 	 */
-	private function process_confirm_status( WC_order $order, string $payment_id, $context ) {
+	private function process_confirm_status( WC_Order $order, string $payment_id, $context ) {
 
 		if ( ! empty( $order->get_transaction_id() ) && ! ( $order->get_transaction_id() === $payment_id ) ) {
 			WC_Pay_By_Paynow_PL_Logger::info( 'The order has already a payment. Attaching new payment.', $context );
