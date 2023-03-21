@@ -1,4 +1,5 @@
 <?php
+
 defined( 'ABSPATH' ) || exit();
 
 use Paynow\Client;
@@ -8,6 +9,7 @@ use Paynow\Exception\PaynowException;
 use Paynow\Model\PaymentMethods\PaymentMethod;
 use Paynow\Response\Payment\Authorize;
 use Paynow\Response\Refund\Status;
+use Paynow\Model\Payment\Status as PaymentStatus;
 use Paynow\Service\Payment;
 use Paynow\Service\Refund;
 use Paynow\Service\ShopConfiguration;
@@ -29,6 +31,7 @@ class Paynow_Gateway {
 	protected $signature_key;
 
 	public function __construct( array $settings ) {
+
 		$this->settings = $settings;
 		if ( ! empty( $this->settings ) && isset( $this->settings['sandbox'] ) && ( isset( $this->settings['sandbox_api_key'] ) || isset( $this->settings['production_api_key'] ) ) ) {
 			$is_sandbox          = 'yes' === $this->settings['sandbox'];
@@ -50,15 +53,14 @@ class Paynow_Gateway {
 	 * Sends payment request
 	 *
 	 * @param WC_Order $order
-	 * @param string   $return_url Return URL after payment
-	 * @param null     $payment_method_id
-	 * @param null     $authorization_code
-	 *
-	 * @return Authorize|void
-	 * @throws PaynowException
+	 * @param $return_url
+	 * @param $payment_method_id
+	 * @param $authorization_code
+	 * @return array|array[]|void
 	 * @throws ConfigurationException
 	 */
 	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null ) {
+
 		if ( ! $this->client ) {
 			return;
 		}
@@ -80,11 +82,15 @@ class Paynow_Gateway {
 			'continueUrl' => $return_url,
 		);
 
+		$logger_context = array(
+			WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id,
+		);
+
 		if ( ! empty( $payment_method_id ) ) {
 			$payment_data['paymentMethodId'] = $payment_method_id;
 		}
-
-		if ( ! empty( $authorization_code ) ) {
+		$is_blik = ! empty( $authorization_code );
+		if ( $is_blik ) {
 			$payment_data['authorizationCode'] = $authorization_code;
 		}
 
@@ -103,6 +109,7 @@ class Paynow_Gateway {
 			$order_items = array_filter(
 				$order_items,
 				function ( $item ) {
+
 					return ! empty( $item['category'] );
 				}
 			);
@@ -119,20 +126,93 @@ class Paynow_Gateway {
 		$idempotency_key = substr( uniqid( $order_id, true ), 0, 45 );
 		$payment         = new Payment( $this->client );
 
-		return $payment->authorize( $payment_data, $idempotency_key );
+		try {
+			$api_response_object = $payment->authorize( $payment_data, $idempotency_key );
+
+			$redirect_url = $api_response_object->getRedirectUrl();
+			if ( is_null( $redirect_url ) ) {
+				$redirect_url = $return_url;
+				if ( $is_blik ) {
+					$redirect_url .= strpos( $redirect_url, '?' ) !== null ? '&' : '?'
+						. http_build_query(
+							array(
+								'paymentId'   => $api_response_object->getPaymentId(),
+								'confirmBlik' => 1,
+							)
+						);
+				}
+			}
+
+			$payment_data = array(
+				WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME       => $api_response_object->getStatus(),
+				WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME   => $api_response_object->getPaymentId(),
+				WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $redirect_url,
+			);
+
+			WC_Pay_By_Paynow_PL_Logger::debug( 'Retrieved authorization response', array_merge( $logger_context, $payment_data ) );
+
+			return $payment_data;
+		} catch ( PaynowException $exception ) {
+			WC_Pay_By_Paynow_PL_Logger::error(
+				'Authorization failed',
+				array_merge(
+					$logger_context,
+					array(
+						'service' => 'Payment',
+						'action'  => 'authorize',
+						'message' => $exception->getMessage(),
+						'errors'  => $exception->getErrors(),
+					)
+				)
+			);
+
+			return array( 'errors' => $exception->getErrors() );
+		} catch ( \Exception $exception ) {
+			if ( $is_blik && ( $exception->getCode() === 504 || ! ( strpos( $exception->getMessage(), 'cURL error 28' ) === false ) ) ) {
+				$payment_data = array(
+					WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME       => PaymentStatus::STATUS_NEW,
+					WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME   => $order_id . '_UNKNOWN',
+					WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $return_url
+					. strpos( $return_url, '?' ) !== null ? '&' : '?'
+						. http_build_query(
+							array(
+								'paymentId'   => $order_id . '_UNKNOWN',
+								'confirmBlik' => 1,
+							)
+						),
+				);
+				WC_Pay_By_Paynow_PL_Logger::error( 'Authorization response timeout', array_merge( $logger_context, $payment_data ) );
+				return $payment_data;
+			} else {
+				WC_Pay_By_Paynow_PL_Logger::error(
+					'Authorization failed',
+					array_merge(
+						$logger_context,
+						array(
+							'service' => 'Payment',
+							'action'  => 'authorize',
+							'message' => $exception->getMessage(),
+							'trace'   => $exception->getTraceAsString(),
+						)
+					)
+				);
+				return array( 'errors' => array() );
+			}
+		}
 	}
 
 	/**
 	 * Sends refund request
 	 *
-	 * @param int    $order_id Order ID.
+	 * @param int $order_id Order ID.
 	 * @param string $payment_id Payment ID
-	 * @param int    $amount Refund amount.
+	 * @param int $amount Refund amount.
 	 *
 	 * @return Status|null
 	 * @throws PaynowException Thrown in Paynow SDK during request processing
 	 */
 	public function refund_request( int $order_id, string $payment_id, int $amount ): ?Status {
+
 		if ( ! $this->client ) {
 			return null;
 		}
@@ -151,6 +231,7 @@ class Paynow_Gateway {
 	 * @param string $return_url Return URL.
 	 */
 	public function send_shop_urls_configuration_request( string $return_url ) {
+
 		if ( ! $this->client ) {
 			return;
 		}
@@ -166,6 +247,7 @@ class Paynow_Gateway {
 	 * @return string
 	 */
 	public function get_signature_key(): string {
+
 		return $this->signature_key;
 	}
 
@@ -175,6 +257,7 @@ class Paynow_Gateway {
 	 * @return PaymentMethod[]|null
 	 */
 	public function payment_methods(): ?array {
+
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
 		if ( ! $this->client || ! $amount ) {
 			return null;
@@ -207,12 +290,13 @@ class Paynow_Gateway {
 	}
 
 	/**
-	 * @param int    $order_id Order ID.
+	 * @param int $order_id Order ID.
 	 * @param string $payment_id Payment ID.
 	 *
 	 * @return string
 	 */
 	public function payment_status( int $order_id, string $payment_id ): ?string {
+
 		if ( ! $this->client ) {
 			return null;
 		}
@@ -241,6 +325,7 @@ class Paynow_Gateway {
 	 * @return array|null
 	 */
 	public function gdpr_notices(): ?array {
+
 		$notices = array();
 		$locale  = $this->get_locale();
 		try {
@@ -267,6 +352,7 @@ class Paynow_Gateway {
 	 * @return string
 	 */
 	private function get_locale(): string {
+
 		return str_replace( '_', '-', get_user_locale() );
 	}
 }

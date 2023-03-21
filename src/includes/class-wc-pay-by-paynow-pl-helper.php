@@ -1,4 +1,5 @@
 <?php
+
 defined( 'ABSPATH' ) || exit();
 
 use Paynow\Exception\PaynowException;
@@ -7,6 +8,13 @@ use Paynow\Exception\PaynowException;
  * Provides static methods as helpers.
  */
 class WC_Pay_By_Paynow_PL_Helper {
+
+	const NOTIFICATION_EXTERNAL_ID_FIELD_NAME  = 'externalId';
+	const NOTIFICATION_PAYMENT_ID_FIELD_NAME   = 'paymentId';
+	const NOTIFICATION_STATUS_FIELD_NAME       = 'status';
+	const NOTIFICATION_MODIFIED_AT_FIELD_NAME  = 'modifiedAt';
+	const NOTIFICATION_REDIRECT_URL_FIELD_NAME = 'redirectUrl';
+
 	/**
 	 * Get amount to pay
 	 *
@@ -15,6 +23,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @return int
 	 */
 	public static function get_amount( $total ) {
+
 		return absint( wc_format_decimal( ( (float) $total * 100 ), wc_get_price_decimals() ) ); // In cents.
 	}
 
@@ -26,6 +35,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @return mixed
 	 */
 	public static function get_order_id( $order ) {
+
 		return self::is_old_wc_version() ? $order->id : $order->get_id();
 	}
 
@@ -35,6 +45,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @return int
 	 */
 	public static function get_minimum_amount() {
+
 		return 100;
 	}
 
@@ -44,6 +55,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @return string
 	 */
 	public static function get_notification_url() {
+
 		return add_query_arg( 'wc-api', 'WC_Gateway_Pay_By_Paynow_PL', home_url( '/' ) );
 	}
 
@@ -53,6 +65,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @return array|false
 	 */
 	public static function get_request_headers() {
+
 		if ( ! function_exists( 'apache_request_headers' ) ) {
 			$headers = array();
 			foreach ( $_SERVER as $key => $value ) {
@@ -72,6 +85,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @return bool|int
 	 */
 	public static function is_old_wc_version() {
+
 		return version_compare( WC_VERSION, '3.0', '<' );
 	}
 
@@ -83,6 +97,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @throws PaynowException
 	 */
 	public static function validate_minimum_payment_amount( float $amount ) {
+
 		if ( self::get_amount( $amount ) < self::get_minimum_amount() ) {
 			/* translators: %1: Order total amount */
 			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'pay-by-paynow-pl' ), wc_price( self::get_minimum_amount() / 100 ) ) );
@@ -97,6 +112,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @return string|null
 	 */
 	public static function get_product_categories( $product_id ): ?string {
+
 		$terms = get_the_terms( $product_id, 'product_cat' );
 
 		$categories = array();
@@ -113,6 +129,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @return int
 	 */
 	public static function get_payment_amount(): int {
+
 		$amount = 0;
 
 		// checkout page
@@ -135,6 +152,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	 * @return bool
 	 */
 	public static function is_paynow_order( $order ): bool {
+
 		if ( self::is_old_wc_version() ) {
 			$payment_method = get_post_meta( $order->id, '_payment_method', true );
 		} else {

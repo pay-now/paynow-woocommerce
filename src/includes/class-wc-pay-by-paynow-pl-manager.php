@@ -1,4 +1,5 @@
 <?php
+
 defined( 'ABSPATH' ) || exit();
 
 /**
@@ -19,6 +20,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 * @return WC_Pay_By_Paynow_Pl_Manager
 	 */
 	public static function instance(): WC_Pay_By_Paynow_Pl_Manager {
+
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
@@ -37,6 +39,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 * Constructor of WC_Pay_By_Paynow_Pl_Manager
 	 */
 	public function __construct() {
+
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 10 );
 		add_action( 'woocommerce_init', array( $this, 'woocommerce_dependencies' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
@@ -49,6 +52,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 * Hook invoked after plugin loaded. Adds translations
 	 */
 	public function plugins_loaded() {
+
 		load_plugin_textdomain( 'pay-by-paynow-pl', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages' );
 	}
 
@@ -56,11 +60,15 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 * Loads dependencies
 	 */
 	public function woocommerce_dependencies() {
+
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/pay-by-paynow-pl-functions.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-paynow-gateway.php';
 
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-helper.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-logger.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-locking-mechanism.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-notification-retry-processing-exception.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-notification-stop-processing-exception.php';
 
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/abstract/class-wc-gateway-pay-by-paynow-pl.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-notification-handler.php';
@@ -85,6 +93,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 * Adds js and css to front
 	 */
 	public function wc_pay_by_paynow_pl_gateway_front_resources() {
+
 		wp_enqueue_script( WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'scripts', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'js/front.js', array( 'jquery' ), wc_pay_by_paynow_pl_plugin_version(), true );
 		wp_enqueue_style( WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'styles', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'css/front.css', array(), wc_pay_by_paynow_pl_plugin_version() );
 	}
@@ -93,6 +102,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 * Adds settings.js to footer for admin
 	 */
 	public function enqueue_admin_scripts() {
+
 		wp_enqueue_script( 'settings', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'js/settings.js', array( 'jquery' ), wc_pay_by_paynow_pl_plugin_version(), true );
 	}
 
@@ -102,6 +112,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 * @return array
 	 */
 	public function payment_gateways(): array {
+
 		return $this->payment_gateways;
 	}
 }
@@ -112,6 +123,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
  * @return WC_Pay_By_Paynow_Pl_Manager
  */
 function wc_pay_by_paynow(): WC_Pay_By_Paynow_Pl_Manager {
+
 	return WC_Pay_By_Paynow_Pl_Manager::instance();
 }
 

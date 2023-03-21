@@ -16,14 +16,27 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 	 * @return WP_REST_Response
 	 */
 	public function get_rest_status( string $order_id, string $token ): WP_REST_Response {
-		$order    = wc_get_order( $order_id );
-		$response = array();
-		if ( self::get_token_hash( $this->gateway->get_signature_key(), array( 'orderId' => (int) $order_id ) ) === $token ) {
+
+		$order      = wc_get_order( $order_id );
+		$response   = array();
+		$return_url = $this->get_return_url( $order );
+
+		if ( $order->get_transaction_id() === $order_id . '_UNKNOWN' ) {
+			$response = array(
+				'order_status'   => $order->get_status(),
+				'payment_status' => \Paynow\Model\Payment\Status::STATUS_PENDING,
+				'redirect_url'   => $return_url
+				. strpos( $return_url, '?' ) !== null ? '&' : '?'
+					. http_build_query( array( 'paymentId' => $order->get_transaction_id() ) ),
+			);
+		} elseif ( self::get_token_hash( $this->gateway->get_signature_key(), array( 'orderId' => (int) $order_id ) ) === $token ) {
 			$status   = $this->gateway->payment_status( $order_id, $order->get_transaction_id() );
 			$response = array(
 				'order_status'   => $order->get_status(),
 				'payment_status' => $status,
-				'redirect_url'   => $this->get_return_url( $order ) . '&' . http_build_query( array( 'paymentId' => $order->get_transaction_id() ) ),
+				'redirect_url'   => $return_url
+				. strpos( $return_url, '?' ) !== null ? '&' : '?'
+					. http_build_query( array( 'paymentId' => $order->get_transaction_id() ) ),
 			);
 		}
 
@@ -32,11 +45,12 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 
 	/**
 	 * @param string $signature_key Paynow signature key.
-	 * @param array  $data Data to generate hash
+	 * @param array $data Data to generate hash
 	 *
 	 * @return string
 	 */
 	public static function get_token_hash( string $signature_key, array $data ): string {
+
 		return hash( 'sha256', ( new SignatureCalculator( $signature_key, wp_json_encode( $data ) ) ) );
 	}
 
@@ -46,6 +60,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 	 * @return string
 	 */
 	public static function get_rest_api_status_url(): string {
+
 		return get_rest_url() . 'paynow/status/';
 	}
 }
