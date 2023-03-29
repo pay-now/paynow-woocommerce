@@ -129,18 +129,15 @@ class Paynow_Gateway {
 		try {
 			$api_response_object = $payment->authorize( $payment_data, $idempotency_key );
 
-			$redirect_url = $api_response_object->getRedirectUrl();
-			if ( is_null( $redirect_url ) ) {
-				$redirect_url = $return_url;
-				if ( $is_blik ) {
-					$redirect_url .= strpos( $redirect_url, '?' ) !== null ? '&' : '?'
-						. http_build_query(
-							array(
-								'paymentId'   => $api_response_object->getPaymentId(),
-								'confirmBlik' => 1,
-							)
-						);
-				}
+			$redirect_url = $api_response_object->getRedirectUrl() ?? $return_url;
+			if ( $is_blik ) {
+				$redirect_url .= ( strpos( $redirect_url, '?' ) !== null ? '&' : '?' )
+					. http_build_query(
+						array(
+							'paymentId'   => $api_response_object->getPaymentId(),
+							'confirmBlik' => 1,
+						)
+					);
 			}
 
 			$payment_data = array(
@@ -173,7 +170,7 @@ class Paynow_Gateway {
 					WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME       => PaymentStatus::STATUS_NEW,
 					WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME   => $order_id . '_UNKNOWN',
 					WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $return_url
-					. strpos( $return_url, '?' ) !== null ? '&' : '?'
+					. ( strpos( $return_url, '?' ) !== null ? '&' : '?' )
 						. http_build_query(
 							array(
 								'paymentId'   => $order_id . '_UNKNOWN',
