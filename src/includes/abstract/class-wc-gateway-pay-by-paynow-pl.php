@@ -522,7 +522,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		$history     = $order->get_meta( self::ORDER_META_NOTIFICATION_HISTORY );
 
-		if (!is_array($history)) {
+		if ( ! is_array( $history ) ) {
 			$history = array();
 		}
 
