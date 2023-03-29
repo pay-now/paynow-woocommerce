@@ -29,7 +29,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 	public function handle_notification() {
 
 		if ( ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' !== $_SERVER['REQUEST_METHOD'] ) || ( ! in_array( filter_input( INPUT_GET, 'wc-api' ), self::ALLOWED_WC_API_PARAM_VALUES, true ) ) ) {
-			$this->bad_request_response( 'Wrong request' );
+			$this->prepare_request_response( 'Wrong request' );
 			exit;
 		}
 		$payload = trim( file_get_contents( 'php://input' ) );
