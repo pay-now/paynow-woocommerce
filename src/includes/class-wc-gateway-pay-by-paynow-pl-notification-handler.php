@@ -65,7 +65,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Notification_Handler extends WC_Gateway_Pay_By
 				$exception->log_context
 			);
 			$this->prepare_request_response( $exception->getMessage(), $response_code );
-		} catch ( Exception $exception ) {
+		} catch ( Error | Exception $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error(
 				'Payment status notification processor -> unknown error' . $exception->getMessage(),
 				$notification_data
