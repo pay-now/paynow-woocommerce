@@ -65,7 +65,7 @@ class Paynow_Gateway {
 			return;
 		}
 
-		$return_url = rtrim($return_url, '?');
+		$return_url = rtrim( $return_url, '?' );
 
 		$currency     = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->get_order_currency() : $order->get_currency();
 		$order_id     = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
@@ -132,7 +132,7 @@ class Paynow_Gateway {
 			$api_response_object = $payment->authorize( $payment_data, $idempotency_key );
 
 			$redirect_url = $api_response_object->getRedirectUrl() ?? $return_url;
-			$redirect_url = rtrim($redirect_url, '?');
+			$redirect_url = rtrim( $redirect_url, '?' );
 			if ( $is_blik ) {
 				$redirect_url .= ( strpos( $redirect_url, '?' ) !== false ? '&' : '?' )
 					. http_build_query(

@@ -19,9 +19,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 
 		$order      = wc_get_order( $order_id );
 		$response   = array();
-		$return_url = rtrim($this->get_return_url( $order ), '?');
+		$return_url = rtrim( $this->get_return_url( $order ), '?' );
 
-		$return_url .=  strpos( $return_url, '?' ) !== false ? '&' : '?' ;
+		$return_url .= strpos( $return_url, '?' ) !== false ? '&' : '?';
 
 		if ( $order->get_transaction_id() === $order_id . '_UNKNOWN' ) {
 			$response = array(
