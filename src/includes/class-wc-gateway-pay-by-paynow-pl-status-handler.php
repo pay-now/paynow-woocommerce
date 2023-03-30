@@ -26,7 +26,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 				'order_status'   => $order->get_status(),
 				'payment_status' => \Paynow\Model\Payment\Status::STATUS_PENDING,
 				'redirect_url'   => $return_url
-				. ( strpos( $return_url, '?' ) !== false ? '&' : '?' )
+				. ( strpos( $return_url, '?' ) !== false ?: '?' )
 					. http_build_query( array( 'paymentId' => $order->get_transaction_id() ) ),
 			);
 		} elseif ( self::get_token_hash( $this->gateway->get_signature_key(), array( 'orderId' => (int) $order_id ) ) === $token ) {
@@ -35,7 +35,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 				'order_status'   => $order->get_status(),
 				'payment_status' => $status,
 				'redirect_url'   => $return_url
-				. ( strpos( $return_url, '?' ) !== false ? '&' : '?' )
+				. ( strpos( $return_url, '?' ) !== false ?: '?' )
 					. http_build_query( array( 'paymentId' => $order->get_transaction_id() ) ),
 			);
 		}
