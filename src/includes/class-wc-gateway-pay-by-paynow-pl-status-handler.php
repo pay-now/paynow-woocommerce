@@ -19,24 +19,22 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 
 		$order      = wc_get_order( $order_id );
 		$response   = array();
-		$return_url = $this->get_return_url( $order );
+		$return_url = rtrim($this->get_return_url( $order ), '?');
+
+		$return_url .=  strpos( $return_url, '?' ) !== false ? '&' : '?' ;
 
 		if ( $order->get_transaction_id() === $order_id . '_UNKNOWN' ) {
 			$response = array(
 				'order_status'   => $order->get_status(),
 				'payment_status' => \Paynow\Model\Payment\Status::STATUS_PENDING,
-				'redirect_url'   => $return_url
-				. ( strpos( $return_url, '?' ) !== false ?: '?' )
-					. http_build_query( array( 'paymentId' => $order->get_transaction_id() ) ),
+				'redirect_url'   => $return_url . http_build_query( array( 'paymentId' => $order->get_transaction_id() ) ),
 			);
 		} elseif ( self::get_token_hash( $this->gateway->get_signature_key(), array( 'orderId' => (int) $order_id ) ) === $token ) {
 			$status   = $this->gateway->payment_status( $order_id, $order->get_transaction_id() );
 			$response = array(
 				'order_status'   => $order->get_status(),
 				'payment_status' => $status,
-				'redirect_url'   => $return_url
-				. ( strpos( $return_url, '?' ) !== false ?: '?' )
-					. http_build_query( array( 'paymentId' => $order->get_transaction_id() ) ),
+				'redirect_url'   => $return_url . http_build_query( array( 'paymentId' => $order->get_transaction_id() ) ),
 			);
 		}
 
@@ -61,6 +59,6 @@ class WC_Gateway_Pay_By_Paynow_PL_Status_Handler extends WC_Gateway_Pay_By_Payno
 	 */
 	public static function get_rest_api_status_url(): string {
 
-		return get_rest_url() . 'paynow/status/?';
+		return get_rest_url() . 'paynow/status/';
 	}
 }
