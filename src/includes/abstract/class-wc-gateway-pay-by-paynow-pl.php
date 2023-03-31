@@ -520,7 +520,12 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 */
 	private function retry_processing_n_times( WC_Order $order, $message, $context = array(), $counter = 3 ) {
 
-		$history     = $order->get_meta( self::ORDER_META_NOTIFICATION_HISTORY );
+		$history = $order->get_meta( self::ORDER_META_NOTIFICATION_HISTORY );
+
+		if ( ! is_array( $history ) ) {
+			$history = array();
+		}
+
 		$history_key = sprintf( '%s:%s', $context[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], $context[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_STATUS_FIELD_NAME ] );
 		if ( ! isset( $history[ $history_key ] ) ) {
 			$history[ $history_key ] = 0;
@@ -618,7 +623,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				WC_Pay_By_Paynow_PL_Logger::info( 'Received payment status from API. ', $logger_context );
 				try {
 					$this->process_notification( $order, $payment_id, $status, gmdate( 'Y-m-d\TH:i:s' ), true );
-				} catch ( Exception $e ) {
+				} catch ( Error | Exception $e ) {
 					WC_Pay_By_Paynow_PL_Logger::error( $e->getMessage(), $logger_context );
 				}
 			}

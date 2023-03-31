@@ -39,7 +39,7 @@ function wc_pay_by_paynow_pl_gateway_content_thankyou( $order_id ) {
 		$paynow_blik = new WC_Gateway_Pay_By_Paynow_PL_Blik_Payment();
 		if ( ! $order->has_status( wc_get_is_paid_statuses() ) && (int) filter_input( INPUT_GET, 'confirmBlik' ) === 1 ) {
 			$rest_api_status_url  = WC_Gateway_Pay_By_Paynow_PL_Status_Handler::get_rest_api_status_url();
-			$rest_api_status_url .= strpos( $rest_api_status_url, '?' ) !== null ? '&' : '?'
+			$rest_api_status_url .= ( strpos( $rest_api_status_url, '?' ) !== false ? '&' : '?' )
 				. http_build_query(
 					array(
 						'orderId' => $order_id,
