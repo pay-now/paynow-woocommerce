@@ -139,7 +139,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$response = array();
 
 		try {
-			WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( $order->get_total() );
+			WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( (float) $order->get_total() );
 		} catch ( Exception $e ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $e->getMessage(), array( WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id ) );
 			return $response;
