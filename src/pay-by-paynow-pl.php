@@ -10,8 +10,8 @@
  * License: GPLv3
  * Text Domain: pay-by-paynow-pl
  * Domain Path: /languages
- * Tested up to: 6.1.1
- * WC tested up to: 7.1.0
+ * Tested up to: 6.2
+ * WC tested up to: 7.7.0
  *
  * @package Paynow
  */
