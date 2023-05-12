@@ -1,7 +1,6 @@
 === Pay by paynow.pl ===
-Tags: payment, payment gateway, paynow, woocommerce, płatności
-Requires at least: 4.4
-Tested up to: 6.1.1
+Tags: payment, payment gateway, paynow, woocommerce, płatności, payments, bramka płatności
+Tested up to: 6.2
 Requires PHP: 7.1
 Stable tag: 2.4.21
 License: GPLv3
