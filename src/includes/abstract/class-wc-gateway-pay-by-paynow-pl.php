@@ -622,7 +622,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			if ( $status ) {
 				WC_Pay_By_Paynow_PL_Logger::info( 'Received payment status from API. ', $logger_context );
 				try {
-					$this->process_notification( $order, $payment_id, $status, gmdate( 'Y-m-d\TH:i:s' ), true );
+					$this->process_notification($payment_id, $status, $order_id, gmdate( 'Y-m-d\TH:i:s' ), true );
 				} catch ( Error | Exception $e ) {
 					WC_Pay_By_Paynow_PL_Logger::error( $e->getMessage(), $logger_context );
 				}
