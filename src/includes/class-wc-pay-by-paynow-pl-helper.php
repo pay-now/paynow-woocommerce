@@ -126,9 +126,9 @@ class WC_Pay_By_Paynow_PL_Helper {
 	}
 
 	/**
-	 * @return int
+	 * @return float
 	 */
-	public static function get_payment_amount(): int {
+	public static function get_payment_amount(): float {
 
 		$amount = 0;
 
@@ -143,7 +143,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 			$amount = $order->get_total();
 		}
 
-		return $amount;
+		return (float) $amount;
 	}
 
 	/**
