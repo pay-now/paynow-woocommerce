@@ -363,3 +363,19 @@ msgstr "Zostaniesz przekierowany na stronę dostawcy płatności."
 #, php-format
 msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
 msgstr "Wymagana jest wersja PHP w wersji 7.1+, twoja wersja to %s."
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:737
+msgid "Incorrect API key format (production)"
+msgstr "Niepoprawny format klucza dostępu do API (produkcja)"
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:741
+msgid "Incorrect API signature key format (production)"
+msgstr "Niepoprawny format klucza obliczania podpisu (produkcja)"
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:745
+msgid "Incorrect API key format (sandbox)"
+msgstr "Niepoprawny format klucza dostępu do API (sandbox)"
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:749
+msgid "Incorrect API signature key format (sandbox)"
+msgstr "Niepoprawny format klucza obliczania podpisu (sandbox)"
