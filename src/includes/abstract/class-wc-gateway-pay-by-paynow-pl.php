@@ -746,12 +746,12 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	public function validate_sandbox_signature_key_field( $key, $value ) {
-		return self::api_credentials_validator( $value, __( 'Incorrect API signature key format (sandbox)' ) );
+		return self::api_credentials_validator( $value, __( 'Incorrect API signature key format (sandbox)', 'pay-by-paynow-pl' ) );
 	}
 
 	private static function api_credentials_validator( $value, $message ) {
-		if ( ! empty($value) &&  ! preg_match( '/^[[:xdigit:]]{8}(?:\-[[:xdigit:]]{4}){3}\-[[:xdigit:]]{12}$/i' , $value ) ) {
-			WC_Admin_Settings::add_error( $message ) ;
+		if ( ! empty( $value ) && ! preg_match( '/^[[:xdigit:]]{8}(?:\-[[:xdigit:]]{4}){3}\-[[:xdigit:]]{12}$/i', $value ) ) {
+			WC_Admin_Settings::add_error( $message );
 			$value = '';
 		}
 		return $value;
