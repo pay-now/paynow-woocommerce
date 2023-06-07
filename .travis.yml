@@ -39,8 +39,10 @@ after_deploy:
 
 notifications:
   slack:
-    rooms:
-      - secure: ZfDvqzzL7hGZ5/i+hkwvRs9nsa5dXKB9q0u6hIHSr5DJqoZbcG/DwbL9d2rjS7Zfkco2yUJsBgnwYIAs4UNh4hfunqbSxMhnWEQNq943OxNpRBeJQD5zh1Tt+JhhNMnRwX+J+d6+qrCXTLuQJuMGIm6eVczI0c3wMt9XUl6X0JSSa2FqHlmM/0IkZgTrexQWdCNj7hURY8GyyjQcvM0MIhsBZ8UgVth3dYvBBNxaaoCUOTW8bV3zklAmlUDqHiLlk2mschlf/G2MkrHSEI8vWfPZM4TikhaX+ccEaV0ls1ROB/5twq6vCWWjpD+zQtAk0YBKFNQtVS5Hojwp2INjrfjq8qrb+p45TP7hTdwApyuhupIgy/7xPjc7cp0CQDbUC2+gW/1H+RZl5B4RNtUGhndaBiklKNkMTtzf9Y/zgPrFaTV0on5dEtr53KJZkjgMtR/TmhF2WnxpvTa4eM45DjyjVTPW1WjlbXJnIrTFwUbvAmPhevGS99loJ0TLtPngbe991PFlQokUj3T34Uh8R2eLPrfqMb5+72eS8jQubQtHGie/awIfmXxEqPhjjvIqrTxTLwwhzPZsK+sb+xtAJdIaZu/ZzVUQf3yw78i4ImNZC3yu296nOEGO/l075C1/qJ+v+z0v3VhuumsP/vmLlGLaDkvyNY6IEwSET6AgfJ4=
+    - rooms:
+        - secure: ZfDvqzzL7hGZ5/i+hkwvRs9nsa5dXKB9q0u6hIHSr5DJqoZbcG/DwbL9d2rjS7Zfkco2yUJsBgnwYIAs4UNh4hfunqbSxMhnWEQNq943OxNpRBeJQD5zh1Tt+JhhNMnRwX+J+d6+qrCXTLuQJuMGIm6eVczI0c3wMt9XUl6X0JSSa2FqHlmM/0IkZgTrexQWdCNj7hURY8GyyjQcvM0MIhsBZ8UgVth3dYvBBNxaaoCUOTW8bV3zklAmlUDqHiLlk2mschlf/G2MkrHSEI8vWfPZM4TikhaX+ccEaV0ls1ROB/5twq6vCWWjpD+zQtAk0YBKFNQtVS5Hojwp2INjrfjq8qrb+p45TP7hTdwApyuhupIgy/7xPjc7cp0CQDbUC2+gW/1H+RZl5B4RNtUGhndaBiklKNkMTtzf9Y/zgPrFaTV0on5dEtr53KJZkjgMtR/TmhF2WnxpvTa4eM45DjyjVTPW1WjlbXJnIrTFwUbvAmPhevGS99loJ0TLtPngbe991PFlQokUj3T34Uh8R2eLPrfqMb5+72eS8jQubQtHGie/awIfmXxEqPhjjvIqrTxTLwwhzPZsK+sb+xtAJdIaZu/ZzVUQf3yw78i4ImNZC3yu296nOEGO/l075C1/qJ+v+z0v3VhuumsP/vmLlGLaDkvyNY6IEwSET6AgfJ4=
+      on_success: never
+      on_failure: always
       template:
         - "Build %{repository_slug} (%{commit})"
         - "%{message}: %{commit_message}"
