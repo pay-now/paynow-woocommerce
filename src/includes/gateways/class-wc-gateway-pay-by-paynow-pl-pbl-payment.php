@@ -55,7 +55,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 				}
 			);
 
-			return parent::is_available() && ! empty( $filtered_payment_methods );
+			return parent::is_available() && ! empty( $filtered_payment_methods ) && $this->show_payment_methods;
 		}
 
 		return parent::is_available();
