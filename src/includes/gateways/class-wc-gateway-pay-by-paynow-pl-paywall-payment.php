@@ -10,10 +10,10 @@ class WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment extends WC_Gateway_Pay_By_Payn
 
 	public function __construct() {
 		$this->id                = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'paywall';
-		$this->title             = $this->generate_title();
 		$this->icon              = 'https://static.paynow.pl/brand/paynow_logo_black.png';
 		$this->payment_method_id = null;
 		parent::__construct();
+		$this->title = $this->generate_title();
 	}
 
 	public function is_available(): bool {
