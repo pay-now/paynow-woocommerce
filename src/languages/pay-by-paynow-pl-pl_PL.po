@@ -387,3 +387,11 @@ msgstr "Pokaż metody płatności"
 #: includes/settings/pay-by-paynow-pl-settings.php:46
 msgid "Enable to show payment methods on the checkout page"
 msgstr "Włącz aby pokazać metody płatności na stronie zamówienia"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paywall-payment.php:38
+msgid "BLIK, online transfer and card payment"
+msgstr "BLIK, szybkie przelewy i karty płatnicze"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paywall-payment.php:41
+msgid "BLIK, online transfers payment"
+msgstr "BLIK, szybkie przelewy"

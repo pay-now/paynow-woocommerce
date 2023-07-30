@@ -256,10 +256,10 @@ class Paynow_Gateway {
 	 *
 	 * @return PaymentMethod[]|null
 	 */
-	public function payment_methods(): ?array {
+	public function payment_methods( $force = false ): ?array {
 
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
-		if ( ! $this->client || ! $amount ) {
+		if ( ( ! $this->client || ! $amount ) && ! $force ) {
 			return null;
 		}
 
@@ -267,7 +267,7 @@ class Paynow_Gateway {
 		try {
 			$currency  = get_woocommerce_currency();
 			$cache_key = 'paynow_payment_methods_' . substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount;
-			if ( ! is_null( WC()->session ) && ! empty( WC()->session->get( $cache_key ) ) ) {
+			if ( ! is_null( WC()->session ) && ! empty( WC()->session->get( $cache_key ) ) && ! $force ) {
 				$payment_methods = WC()->session->get( $cache_key );
 			} else {
 				WC_Pay_By_Paynow_PL_Logger::info(
