@@ -314,3 +314,27 @@ msgstr ""
 #, php-format
 msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
 msgstr ""
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:737
+msgid "Incorrect API key format (production)"
+msgstr ""
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:741
+msgid "Incorrect API signature key format (production)"
+msgstr ""
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:745
+msgid "Incorrect API key format (sandbox)"
+msgstr ""
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:749
+msgid "Incorrect API signature key format (sandbox)"
+msgstr ""
+
+#: includes/settings/pay-by-paynow-pl-settings.php:45
+msgid "Show payment methods"
+msgstr ""
+
+#: includes/settings/pay-by-paynow-pl-settings.php:46
+msgid "Enable to show payment methods on the checkout page"
+msgstr ""

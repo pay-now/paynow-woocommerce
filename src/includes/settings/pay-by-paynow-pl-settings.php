@@ -41,6 +41,12 @@ return array(
 		'default'     => 86400,
 		'desc_tip'    => true,
 	),
+	'show_payment_methods'           => array(
+		'title'   => __( 'Show payment methods', 'pay-by-paynow-pl' ),
+		'label'   => __( 'Enable to show payment methods on the checkout page.', 'pay-by-paynow-pl' ),
+		'type'    => 'checkbox',
+		'default' => 'yes',
+	),
 	'production_title'               => array(
 		'title'       => __( 'Production configuration', 'pay-by-paynow-pl' ),
 		'type'        => 'title',

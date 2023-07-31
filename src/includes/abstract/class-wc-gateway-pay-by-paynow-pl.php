@@ -15,7 +15,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	const ORDER_META_MODIFIED_AT_KEY      = '_pay_by_paynow_pl_modified_at';
 	const ORDER_META_NOTIFICATION_HISTORY = '_pay_by_paynow_pl_notification_history';
 
-	protected $payment_method_id;
+	protected $payment_method_id = null;
+
+	protected $show_payment_methods = true;
 
 	protected $payment_gateway_options
 		= array(
@@ -77,6 +79,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		} else {
 			$this->enabled = ! empty( $this->settings['enabled'] ) && 'yes' === $this->settings['enabled'] ? 'yes' : 'no';
 		}
+
+		$this->show_payment_methods = ( 'yes' === ( $this->settings['show_payment_methods'] ?? 'yes' ) );
 	}
 
 	public function process_admin_options() {
@@ -119,7 +123,6 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				$plugin_settings[ $key ] = $value;
 			}
 		}
-
 		return update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $plugin_settings ), 'yes' );
 	}
 
@@ -145,7 +148,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			return $response;
 		}
 
-		$payment_method = filter_input( INPUT_POST, 'payment_method' );
+		$payment_method     = filter_input( INPUT_POST, 'payment_method' );
+		$payment_method_id  = null;
+		$authorization_code = null;
 		if ( self::PAYNOW_PAYMENT_GETAWAY[ self::PBL_PAYMENT ] === $payment_method ) {
 			$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
 		} elseif ( self::PAYNOW_PAYMENT_GETAWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
@@ -155,8 +160,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$payment_data = $this->gateway->payment_request(
 			$order,
 			$this->get_return_url( $order ),
-			isset( $payment_method_id ) && empty( $payment_method_id ) ? intval( $payment_method_id ) : $this->payment_method_id,
-			$authorization_code ?? null
+			! empty( $payment_method_id ) ? intval( $payment_method_id ) : $this->payment_method_id,
+			$authorization_code
 		);
 		if ( isset( $payment_data['errors'] ) ) {
 			$error_type = null;
@@ -359,7 +364,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		if ( ! is_admin() && parent::is_available() ) {
 			$payment_method = $this->get_only_payment_methods_for_type( $type );
-			return ! empty( $payment_method ) && reset( $payment_method )->isEnabled();
+			return ! empty( $payment_method ) && reset( $payment_method )->isEnabled() && $this->show_payment_methods;
 		}
 
 		return parent::is_available();

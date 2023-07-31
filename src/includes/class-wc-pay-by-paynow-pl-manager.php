@@ -77,15 +77,22 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-paywall-payment.php';
+
+		$payment_gateways = array(
+			'WC_Gateway_Pay_By_Paynow_PL_Blik_Payment',
+			'WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment',
+			'WC_Gateway_Pay_By_Paynow_PL_Card_Payment',
+			'WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment',
+		);
+
+		if ( ! is_admin() ) {
+			$payment_gateways = array_merge( $payment_gateways, array( 'WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment' ) );
+		}
 
 		$this->payment_gateways = apply_filters(
 			'wc_pay_by_paynow_pl_payment_gateways',
-			array(
-				'WC_Gateway_Pay_By_Paynow_PL_Blik_Payment',
-				'WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment',
-				'WC_Gateway_Pay_By_Paynow_PL_Card_Payment',
-				'WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment',
-			)
+			$payment_gateways
 		);
 	}
 
