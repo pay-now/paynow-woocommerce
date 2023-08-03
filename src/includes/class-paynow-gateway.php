@@ -256,10 +256,10 @@ class Paynow_Gateway {
 	 *
 	 * @return PaymentMethod[]|null
 	 */
-	public function payment_methods(): ?array {
+	public function payment_methods( $force = false ): ?array {
 
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
-		if ( ! $this->client || ! $amount ) {
+		if ( ( ! $this->client || ! $amount ) && ! $force ) {
 			return null;
 		}
 
