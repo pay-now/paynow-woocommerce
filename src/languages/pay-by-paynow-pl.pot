@@ -338,3 +338,11 @@ msgstr ""
 #: includes/settings/pay-by-paynow-pl-settings.php:46
 msgid "Enable to show payment methods on the checkout page"
 msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paywall-payment.php:38
+msgid "BLIK, online transfer and card payment"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paywall-payment.php:41
+msgid "BLIK, online transfers payment"
+msgstr ""
