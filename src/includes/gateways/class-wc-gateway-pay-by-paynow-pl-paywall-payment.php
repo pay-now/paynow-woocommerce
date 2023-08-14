@@ -35,9 +35,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment extends WC_Gateway_Pay_By_Payn
 		foreach ( $payment_methods ?? array() as $payment_method ) {
 			/** @var $payment_method PaymentMethod */
 			if ( Type::CARD === $payment_method->getType() && Status::ENABLED === $payment_method->getStatus() ) {
-				return __( 'BLIK, online transfers and card payment', 'pay-by-paynow-pl' );
+				return __( 'BLIK, online transfer and card payment', 'pay-by-paynow-pl' );
 			}
 		}
-		return __( 'BLIK, online transfers payment', 'pay-by-paynow-pl' );
+		return __( 'BLIK, online transfer payment', 'pay-by-paynow-pl' );
 	}
 }
