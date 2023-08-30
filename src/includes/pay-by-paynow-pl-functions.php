@@ -52,3 +52,7 @@ function wc_pay_by_paynow_pl_gateway_content_thankyou( $order_id ) {
 		}
 	}
 }
+
+function wc_pay_by_paynow_leaselink_render_widget($products = null) {
+    wc_pay_by_paynow()->leaselink()->render_widget($products);
+}

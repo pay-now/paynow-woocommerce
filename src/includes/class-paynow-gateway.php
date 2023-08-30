@@ -33,16 +33,16 @@ class Paynow_Gateway {
 	public function __construct( array $settings ) {
 
 		$this->settings = $settings;
-		if ( ! empty( $this->settings ) && isset( $this->settings['sandbox'] ) && ( isset( $this->settings['sandbox_api_key'] ) || isset( $this->settings['production_api_key'] ) ) ) {
-			$is_sandbox          = 'yes' === $this->settings['sandbox'];
-			$api_key             = $is_sandbox ? $this->settings['sandbox_api_key'] : $this->settings['production_api_key'];
-			$this->signature_key = $is_sandbox ? $this->settings['sandbox_signature_key'] : $this->settings['production_signature_key'];
+        $settings_manager = wc_pay_by_paynow()->settings();
+		if ( !empty($settings_manager->get_api_key()) && !empty($settings_manager->get_signature_key()) ) {
+			$api_key             = $settings_manager->get_api_key();
+			$this->signature_key = $settings_manager->get_signature_key();
 
 			if ( $api_key && $this->signature_key ) {
 				$this->client = new Client(
 					$api_key,
 					$this->signature_key,
-					$is_sandbox ? Environment::SANDBOX : Environment::PRODUCTION,
+					$settings_manager->is_sandbox() ? Environment::SANDBOX : Environment::PRODUCTION,
 					'Wordpress-' . get_bloginfo( 'version' ) . '/WooCommerce-' . WC()->version . '/Plugin-' . wc_pay_by_paynow_pl_plugin_version()
 				);
 			}

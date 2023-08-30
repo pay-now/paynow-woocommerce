@@ -41,44 +41,6 @@ return array(
 		'default'     => 86400,
 		'desc_tip'    => true,
 	),
-	'production_title'               => array(
-		'title'       => __( 'Production configuration', 'pay-by-paynow-pl' ),
-		'type'        => 'title',
-		'description' => __( "Production authentication keys are available in <i>My Business > Paynow > Settings > Shops and payment points > Authentication data</i> in mBank's online banking.", 'pay-by-paynow-pl' ),
-	),
-	'production_api_key'             => array(
-		'title'   => __( 'Api Key', 'pay-by-paynow-pl' ),
-		'type'    => 'password',
-		'default' => '',
-	),
-	'production_signature_key'       => array(
-		'title'   => __( 'Signature Key', 'pay-by-paynow-pl' ),
-		'type'    => 'password',
-		'default' => '',
-	),
-	'sandbox_title'                  => array(
-		'title'       => __( 'Sandbox configuration', 'pay-by-paynow-pl' ),
-		'type'        => 'title',
-		'description' => __( 'Sandbox authentication keys can be found in <i>Settings > Shops and poses > Authentication data</i> in <a href="https://panel.sandbox.paynow.pl/auth/login" target="_blank">the Paynow Sandbox panel</a>.', 'pay-by-paynow-pl' ),
-	),
-	'sandbox'                        => array(
-		'title'       => __( 'Test mode (Sandbox)', 'pay-by-paynow-pl' ),
-		'label'       => __( 'Enabled test mode', 'pay-by-paynow-pl' ),
-		'description' => __( 'Enable if you are using test shop environment', 'pay-by-paynow-pl' ),
-		'type'        => 'checkbox',
-		'default'     => 'no',
-		'desc_tip'    => true,
-	),
-	'sandbox_api_key'                => array(
-		'title'   => __( 'Api Key', 'pay-by-paynow-pl' ),
-		'type'    => 'password',
-		'default' => '',
-	),
-	'sandbox_signature_key'          => array(
-		'title'   => __( 'Signature Key', 'pay-by-paynow-pl' ),
-		'type'    => 'password',
-		'default' => '',
-	),
 	'support'                        => array(
 		'title'       => __( 'Support', 'pay-by-paynow-pl' ),
 		'type'        => 'title',
