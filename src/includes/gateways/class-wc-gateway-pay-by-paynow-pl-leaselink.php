@@ -77,8 +77,6 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 
         $woocommerce->cart->empty_cart();
 
-        wp_schedule_event();
-
         return array(
             'result' => 'success',
             'redirect' => wc_pay_by_paynow()->leaselink()->client()->config()->get_url() . $response->get_client_offer_url(),
