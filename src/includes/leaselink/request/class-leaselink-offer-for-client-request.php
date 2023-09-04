@@ -93,6 +93,10 @@ class Leaselink_Offer_For_Client_Request extends Leaselink_Request {
     }
 
     public function set_entry_payment($entry_payment) {
-        $this->set('EntryPayment', $entry_payment);
+        $this->set('EntryNetPayment', $entry_payment);
+    }
+
+    public function set_closing_payment($closing_payment) {
+        $this->set('ClosingNetPayment', $closing_payment);
     }
 }

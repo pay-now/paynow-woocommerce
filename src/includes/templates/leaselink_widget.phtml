@@ -1,5 +1,5 @@
 <div class="paynow-leaselink alignwide <?php echo $data['class']; ?>">
-    <div class="paynow-leaselink__button" data-leaselink-widget-button data-products="<?php echo $data['product_ids'] ?>">
+    <div class="paynow-leaselink__button" data-leaselink-widget-button>
         <?php if (wc_pay_by_paynow()->settings()->get_leaselink_show_rate()): ?>
             <p class="paynow-leaselink__title">WEŹ LEASING OD <?php echo wc_price($data['widget_net_value']) ?></p>
         <?php else: ?>
@@ -16,7 +16,7 @@
 </div>
 
 <div class="paynow-leaselink__calculator__background paynow-leaselink__calculator__hidden" data-leaselink-calculator>
-    <div class="paynow-leaselink__calculator">
+    <div class="paynow-leaselink__calculator" data-products="<?php echo $data['product_ids'] ?>">
         <div class="paynow-leaselink__calculator__header">
             <img class="paynow-leaselink__calculator__header__logo" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/ll-logo.svg'; ?>" alt="ll logo">
             <p>Leasing i raty dla firm 24/7</p>
@@ -68,20 +68,20 @@
 
                 <p class="paynow-leaselink__calculator__config__title">Jaką kwotę chcesz wpłacić na początek?</p>
                 <div class="paynow-leaselink__calculator__config__buttons-wrapper">
-                    <?php foreach ($data['first_pay'] ?? [] as $key => $first_pay): ?>
+                    <?php foreach ($data['entry_payment'] ?? [] as $key => $entry_payment): ?>
                         <div>
-                            <input class="paynow-leaselink__calculator__config__input" type="radio" id="first-pay-<?php echo $first_pay; ?>" name="first-pay" value="<?php echo $first_pay; ?>" <?php echo ($key === 0 ? 'checked' : ''); ?>>
-                            <label class="paynow-leaselink__calculator__config__label" for="first-pay-<?php echo $first_pay; ?>"><?php echo $first_pay; ?>%</label>
+                            <input class="paynow-leaselink__calculator__config__input" type="radio" id="entry-payment-<?php echo $entry_payment; ?>" name="entry-payment" value="<?php echo $entry_payment; ?>" <?php echo ($key === 0 ? 'checked' : ''); ?>>
+                            <label class="paynow-leaselink__calculator__config__label" for="entry-payment-<?php echo $entry_payment; ?>"><?php echo $entry_payment; ?>%</label>
                         </div>
                     <?php endforeach; ?>
                 </div>
 
                 <p class="paynow-leaselink__calculator__config__title">Jaką wysokość wykupu wybierasz?</p>
                 <div class="paynow-leaselink__calculator__config__buttons-wrapper">
-                    <?php foreach ($data['buy_for'] ?? [] as $key => $buy_for): ?>
+                    <?php foreach ($data['closing_payment'] ?? [] as $key => $closing_payment): ?>
                         <div>
-                            <input class="paynow-leaselink__calculator__config__input" type="radio" id="buy-for-<?php echo $buy_for; ?>" name="buy-for" value="<?php echo $buy_for; ?>" <?php echo ($key === 0 ? 'checked' : ''); ?>>
-                            <label class="paynow-leaselink__calculator__config__label" for="buy-for-<?php echo $buy_for; ?>"><?php echo $buy_for; ?>%</label>
+                            <input class="paynow-leaselink__calculator__config__input" type="radio" id="closing-payment-<?php echo $closing_payment; ?>" name="closing-payment" value="<?php echo $closing_payment; ?>" <?php echo ($key === 0 ? 'checked' : ''); ?>>
+                            <label class="paynow-leaselink__calculator__config__label" for="closing-payment-<?php echo $closing_payment; ?>"><?php echo $closing_payment; ?>%</label>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -92,17 +92,17 @@
             <div class="paynow-leaselink__calculator__config__summary">
                 <div class="paynow-leaselink__calculator__config__summary__box">
                     <p class="paynow-leaselink__calculator__config__summary__title">Opłata początkowa:</p>
-                    <p class="paynow-leaselink__calculator__config__summary__value"><?php echo wc_price($data['entry_net_payment']); ?> (netto)</p>
+                    <p class="paynow-leaselink__calculator__config__summary__value" data-entry-netto-payment><?php echo wc_price($data['entry_net_payment']); ?> (netto)</p>
                 </div>
 
                 <div class="paynow-leaselink__calculator__config__summary__box">
                     <p class="paynow-leaselink__calculator__config__summary__title">Wykup:</p>
-                    <p class="paynow-leaselink__calculator__config__summary__value"><?php echo wc_price($data['closing_net_payment']); ?> (netto)</p>
+                    <p class="paynow-leaselink__calculator__config__summary__value" data-closing-netto-payment><?php echo wc_price($data['closing_net_payment']); ?> (netto)</p>
                 </div>
 
                 <div>
                     <p class="paynow-leaselink__calculator__config__summary__title">Produkt finansowy:</p>
-                    <p class="paynow-leaselink__calculator__config__summary__value"><?php echo $data['financial_product_name']; ?></p>
+                    <p class="paynow-leaselink__calculator__config__summary__value" data-financial-product-name><?php echo $data['financial_product_name']; ?></p>
                 </div>
             </div>
         </div>
@@ -142,7 +142,7 @@
             </div>
             <div>
                 <p class="paynow-leaselink__calculator__summary__label">Miesięcznie (netto):</p>
-                <p class="paynow-leaselink__calculator__summary__price"><?php echo wc_price($data['widget_net_value']) ?></p>
+                <p class="paynow-leaselink__calculator__summary__price" data-monthly-netto-payment><?php echo wc_price($data['widget_net_value']) ?></p>
             </div>
         </div>
     </div>

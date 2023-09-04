@@ -63,7 +63,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         $response = wc_pay_by_paynow()->leaselink()->client()->get_offer_for_client($products, [], $partner_site);
 
         if (!$response->is_success()) {
-            throw new Exception('Cannot get offer for client.');
+            throw new Exception('Cannot get offer for client. Please use other payment option.');
         }
 
         /** @var \Leaselink_Process_Client_Decision_Response $decision */
@@ -76,6 +76,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         $order->save();
 
         $woocommerce->cart->empty_cart();
+
+        $timestamp_to_check_status = (new DateTime())->add(new DateInterval('PT1H'))->getTimestamp();
+        as_schedule_single_action($timestamp_to_check_status, 'leaselink_process_order_status', [$order_id, 0]);
 
         return array(
             'result' => 'success',

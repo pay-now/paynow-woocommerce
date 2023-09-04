@@ -22,19 +22,8 @@ jQuery( document ).ready(function () {
 
 	jQuery('[data-leaselink-widget-button]').on(
 		'click',
-		function (ev) {
+		function () {
 			jQuery('[data-leaselink-calculator]').removeClass('paynow-leaselink__calculator__hidden');
-			const products = jQuery(ev.currentTarget).data('products');
-			jQuery.ajax({
-				url: woocommerce_params ? woocommerce_params.ajax_url : '/wp-admin/admin-ajax.php',
-				type: 'GET',
-				data: {
-					action: 'leaselink_get_offer_for_client',
-					products: products ? products : null
-				},
-				success: function (response) {
-				}
-			});
 		}
 	);
 
@@ -46,9 +35,57 @@ jQuery( document ).ready(function () {
 	);
 
 	jQuery(
-		'.paynow-leaselink__calculator input[type=radio][name="rates"], .paynow-leaselink__calculator input[type=radio][name="first-pay"], .paynow-leaselink__calculator input[type=radio][name="buy-for"]'
+		'.paynow-leaselink__calculator input[type=radio][name="rates"], .paynow-leaselink__calculator input[type=radio][name="entry-payment"], .paynow-leaselink__calculator input[type=radio][name="closing-payment"]'
 	).change(
-		function () {
+		function (ev) {
+			const calculator_element = jQuery('[data-leaselink-calculator] .paynow-leaselink__calculator');
+			calculator_element.addClass( 'processing' ).block( {
+				message: null,
+				overlayCSS: {
+					background: '#fff',
+					opacity: 0.6
+				}
+			});
+
+			const products = calculator_element.data('products');
+			const number_of_rates = jQuery('[data-leaselink-calculator] input[name="rates"]:checked').val();
+			const entry_payment_percent = jQuery('[data-leaselink-calculator] input[name="entry-payment"]:checked').val();
+			const closing_payment_percent = jQuery('[data-leaselink-calculator] input[name="closing-payment"]:checked').val();
+			jQuery.ajax({
+				url: woocommerce_params ? woocommerce_params.ajax_url : '/wp-admin/admin-ajax.php',
+				type: 'GET',
+				data: {
+					action: 'leaselink_get_offer_for_client',
+					products: products ? products : null,
+					number_of_rates: number_of_rates ? number_of_rates : 60,
+					entry_payment_percent: entry_payment_percent ? entry_payment_percent : 1,
+					closing_payment_percent: closing_payment_percent ? closing_payment_percent : 1,
+				},
+				success: function (response) {
+					if (response.entry_payment) {
+						jQuery('[data-leaselink-calculator] [data-entry-netto-payment]').html(response.entry_payment);
+					}
+
+					if (response.closing_payment) {
+						jQuery('[data-leaselink-calculator] [data-closing-netto-payment]').html(response.closing_payment);
+					}
+
+					if (response.financial_product) {
+						jQuery('[data-leaselink-calculator] [data-financial-product-name]').html(response.financial_product);
+					}
+
+					if (response.monthly_rate) {
+						jQuery('[data-leaselink-calculator] [data-monthly-netto-payment]').html(response.monthly_rate);
+					}
+
+					if (response.number_of_rates) {
+						jQuery('[data-leaselink-calculator] input[name="rates"][value="' + response.number_of_rates + '"]').prop("checked", true);
+					}
+				},
+				complete: function() {
+					calculator_element.removeClass( 'processing' ).unblock();
+				}
+			});
 		}
 	);
 });

@@ -20,7 +20,12 @@ class Leaselink_Client {
         return $this->config;
     }
 
-    public function get_client_transaction_status($transaction_id, $token) {
+    public function get_client_transaction_status($transaction_id, $token = null) {
+        if (empty($token)) {
+            $site = $this->register_partner_site();
+            $token = $site->get_token();
+        }
+
         $request = new Leaselink_Get_Client_Transaction_Status_Request($transaction_id);
         $request->add_auth_token($token);
 
@@ -41,7 +46,8 @@ class Leaselink_Client {
         $request->add_auth_token($register_partner_response->get_token());
 
         if (!empty($data['rates'])) $request->set_number_of_rates($data['rates']);
-        if (!empty($data['first_pay'])) $request->set_entry_payment($data['first_pay']);
+        if (!empty($data['entry_payment'])) $request->set_entry_payment($data['entry_payment']);
+        if (!empty($data['closing_payment'])) $request->set_closing_payment($data['closing_payment']);
 
         foreach ($products as $product) {
             $quantity = is_array($product) ? $product['qty'] : 1;

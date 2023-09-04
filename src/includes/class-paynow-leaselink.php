@@ -65,6 +65,8 @@ class Paynow_Leaselink {
         add_action('woocommerce_admin_order_data_after_billing_address', array($this, 'add_leaselink_data_to_order_page'));
         add_action('woocommerce_order_details_after_order_table', array($this, 'add_leaselink_data_to_client_order_page'));
         add_action('wp_ajax_leaselink_get_offer_for_client', array($this, 'get_offer_for_client'));
+        add_action('leaselink_process_order_status', array($this, 'process_order_status'), 10, 2);
+        add_action( 'wp_head', array($this, 'print_custom_styles'));
 
         if ($this->settings_manager->get_leaselink_widget_localization() !== Paynow_Settings_Manager::SETTING_WIDGET_LOCALIZATION_NONE) {
             $localization = self::WIDGET_LOCALIZATION_SETTINGS_MAP[$this->settings_manager->get_leaselink_widget_localization()] ?? [];
@@ -161,6 +163,16 @@ class Paynow_Leaselink {
         );
     }
 
+    public function print_custom_styles() {
+        $css = $this->settings_manager->get_leaselink_custom_css();
+
+        if (empty($css)) {
+            return;
+        }
+
+        printf('<style>%s</style>', $css);
+    }
+
     public function render_widget($products = null) {
         if (empty($products)) {
             $product = wc_get_product();
@@ -177,16 +189,21 @@ class Paynow_Leaselink {
         $data = self::WIDGET_COLOR_SETTING_MAP[wc_pay_by_paynow()->settings()->get_leaselink_widget_color()];
         $data['product_ids'] = is_array($products) ? join(',', $products) : $products;
         $data['rates'] = [3, 6, 12, 18, 24, 36, 48, 60, 72];
-        $data['first_pay'] = [1, 10, 20, 30];
-        $data['buy_for'] = [1, 30];
+        $data['entry_payment'] = [1, 10, 20, 30];
+        $data['closing_payment'] = [1, 30];
         $data['widget_products'] = $this->get_products_from_string_of_ids($data['product_ids']);
         $data['widget_products_sum'] = $this->calculate_products_sum($data['widget_products']);
 
         /** @var \Leaselink_Offer_For_Client_Response $response */
         $response = $this->client->get_offer_for_client($data['widget_products'], [
             'rates' => $data['rates'][0],
-            'first_pay' => $data['first_pay'][0],
+            'entry_payment' => $data['entry_payment'][0],
+            'closing_payment' => $data['closing_payment'][0],
         ]);
+
+        if (!$response->is_success()) {
+            return;
+        }
 
         $data['widget_net_value'] = $response->get_monthly_rate_net_value();
         $data['checked_rate'] = $response->get_number_of_rates();
@@ -204,7 +221,24 @@ class Paynow_Leaselink {
 
         $products = $this->get_products_from_request();
 
-        wp_send_json($this->client->get_offer_for_client($products)->get_raw_data());
+        /** @var \Leaselink_Offer_For_Client_Response $response */
+        $response = $this->client->get_offer_for_client($products, [
+            'rates' => sanitize_text_field($_REQUEST['number_of_rates'] ?? '') ?? 60,
+            'entry_payment' => sanitize_text_field($_REQUEST['entry_payment_percent'] ?? '') ?? 1,
+            'closing_payment' => sanitize_text_field($_REQUEST['closing_payment_percent'] ?? '') ?? 1,
+        ]);
+
+        wp_send_json([
+            'number_of_rates' => $response->get_number_of_rates(),
+            'entry_payment' => wc_price($response->get_entry_net_payment()) . ' (netto)',
+            'closing_payment' => wc_price($response->get_closing_net_payment()) . ' (netto)',
+            'financial_product' => $response->get_financial_product_name(),
+            'monthly_rate' => wc_price($response->get_monthly_rate_net_value()),
+        ]);
+    }
+
+    public function process_order_status($order_id, $attempt) {
+        Leaselink_Order_Status_Processor::process($order_id, $attempt);
     }
 
     private function get_products_from_request() {

@@ -164,6 +164,11 @@ class Paynow_Settings_Manager {
         return $this->options['ll_widget_show_rate'] ?? false;
     }
 
+    public function get_leaselink_custom_css()
+    {
+        return $this->options['ll_custom_css'] ?? null;
+    }
+
     public function add_plugin_settings_page() {
 
         add_submenu_page(
