@@ -535,6 +535,17 @@
 	line-height: 20px;
 }
 
+.paynow-leaselink__calculator__config__summary__value.with-help {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.paynow-leaselink__calculator__config__summary__tooltip {
+	cursor: pointer;
+	margin-left: 10px;
+}
+
 .paynow-leaselink__calculator .paynow-leaselink__calculator__config__summary__value .woocommerce-Price-amount.amount {
 	font-size: 16px;
 	line-height: 20px;
@@ -565,11 +576,27 @@
 
 	.paynow-leaselink__calculator__config__summary {
 		width: 30%;
-		display: block;
+		flex-direction: column;
+		justify-content: flex-start;
+		gap: 0;
+	}
+
+	.paynow-leaselink__calculator__config__summary .--financial-product {
+		order: 1;
+		margin-bottom: 87px;
+	}
+
+	.paynow-leaselink__calculator__config__summary .--entry-payment {
+		order: 2;
+		margin-bottom: 36px;
+	}
+
+	.paynow-leaselink__calculator__config__summary .--closing-payment {
+		order: 3;
 	}
 
 	.paynow-leaselink__calculator__config__summary__box {
-		margin-bottom: 30px;
+		margin-bottom: 0;
 	}
 
 	.paynow-leaselink__calculator__config__summary__title {
@@ -580,6 +607,10 @@
 	.paynow-leaselink__calculator__config__summary__value {
 		margin: 0;
 		text-align: right;
+	}
+
+	.paynow-leaselink__calculator__config__summary__value.with-help {
+		justify-content: flex-end;
 	}
 }
 
@@ -756,4 +787,146 @@
 		font-size: 35px;
 		line-height: 44px;
 	}
+}
+
+.paynow-leaselink__calculator__help-background {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	z-index: 200;
+}
+
+@media (min-width: 768px) {
+	.paynow-leaselink__calculator__help-background {
+		width: 630px;
+		left: unset;
+		right: 0;
+	}
+}
+
+.paynow-leaselink__calculator__help-background.paynow-leaselink__calculator__help__hidden {
+	display: none;
+}
+
+.paynow-leaselink__calculator__help {
+	position: absolute;
+	left: 0;
+	width: 100vw;
+	bottom: 200px;
+	z-index: 1;
+	background-color: white;
+}
+
+@media (min-width: 768px) {
+	.paynow-leaselink__calculator__help {
+		left: 50%;
+		width: 478px;
+		bottom: 50%;
+		transform: translate(-50%, 50%);
+		overflow: hidden;
+		border-radius: 15px;
+	}
+
+	.--only-leasing.paynow-leaselink__calculator__help,
+	.--only-loan.paynow-leaselink__calculator__help {
+		width: 300px;
+	}
+}
+
+.paynow-leaselink__calculator__help__exit-wrapper {
+	position: absolute;
+	top: 12px;
+	right: 10px;
+	max-width: 30px;
+	cursor: pointer;
+}
+
+@media (min-width: 768px) {
+	.paynow-leaselink__calculator__help__exit-wrapper {
+		top: 18px;
+		right: 18px;
+		max-width: 18px;
+	}
+}
+
+.paynow-leaselink__calculator__help-header, .paynow-leaselink__calculator__help-row {
+	display: flex;
+	align-items: center;
+}
+
+.--only-leasing .paynow-leaselink__calculator__help-header,
+.--only-loan .paynow-leaselink__calculator__help-header {
+	background-color: #EFEFEF;
+}
+
+.paynow-leaselink__calculator__help-leasing, .paynow-leaselink__calculator__help-loan {
+	width: calc(50% - 1px);
+}
+
+.--only-leasing .paynow-leaselink__calculator__help-leasing,
+.--only-loan .paynow-leaselink__calculator__help-loan {
+	width: 100%;
+}
+
+.paynow-leaselink__calculator__help-header .paynow-leaselink__calculator__help-leasing, .paynow-leaselink__calculator__help-header .paynow-leaselink__calculator__help-loan {
+	text-align: center;
+	margin: 0;
+	padding: 15px 0;
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: 700;
+	color: #822A85;
+}
+
+.paynow-leaselink__calculator__help-row .paynow-leaselink__calculator__help-leasing, .paynow-leaselink__calculator__help-row .paynow-leaselink__calculator__help-loan {
+	margin: 10px 5px 10px 10px;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 18px;
+}
+
+.--only-leasing .paynow-leaselink__calculator__help-row .paynow-leaselink__calculator__help-leasing,
+.--only-loan .paynow-leaselink__calculator__help-row .paynow-leaselink__calculator__help-loan {
+	margin: 0;
+	font-size: 14px;
+	line-height: 16px;
+}
+
+.--only-leasing .paynow-leaselink__calculator__help-row,
+.--only-loan .paynow-leaselink__calculator__help-row {
+	margin: 15px 20px;
+}
+
+.paynow-leaselink__calculator__help-row.--row-gray {
+	background-color: #EFEFEF;
+}
+
+.--only-leasing .paynow-leaselink__calculator__help-row.--row-gray,
+.--only-loan .paynow-leaselink__calculator__help-row.--row-gray {
+	background-color: white;
+}
+
+.paynow-leaselink__calculator__help-hr {
+	margin: 0;
+	align-self: stretch;
+}
+
+.--only-loan .paynow-leaselink__calculator__help-hr,
+.--only-loan .paynow-leaselink__calculator__help-leasing,
+.--only-leasing .paynow-leaselink__calculator__help-hr,
+.--only-leasing .paynow-leaselink__calculator__help-loan {
+	display: none;
+}
+
+.paynow-leaselink__calculator__help__tick {
+	display: none;
+}
+
+.--only-loan .paynow-leaselink__calculator__help__tick,
+.--only-leasing .paynow-leaselink__calculator__help__tick {
+	display: inline-block;
+	margin-right: 16px;
 }

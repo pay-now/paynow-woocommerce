@@ -27,6 +27,11 @@ class Leaselink_Offer_For_Client_Response extends Leaselink_Response {
         return $this->get_from_result('OfferItems.0.EntryNetPayment');
     }
 
+    public function get_financial_operation_type_name()
+    {
+        return $this->get_from_result('FinancialOperationTypeName');
+    }
+
     public function get_financial_product_name()
     {
         return $this->get_from_result('FinancialProductName');

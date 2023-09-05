@@ -210,6 +210,7 @@ class Paynow_Leaselink {
         $data['entry_net_payment'] = $response->get_entry_net_payment();
         $data['closing_net_payment'] = $response->get_closing_net_payment();
         $data['financial_product_name'] = $response->get_financial_product_name();
+        $data['help_tooltip_class'] = $response->get_financial_operation_type_name() === 'OperationalLeasing' ? '--only-leasing' : '--only-loan';
 
         include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'leaselink_widget.phtml';
     }

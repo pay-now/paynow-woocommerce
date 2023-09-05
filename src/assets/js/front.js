@@ -20,6 +20,20 @@ jQuery( document ).ready(function () {
 		1000
 	);
 
+	jQuery('[data-leaselink-calculator-help-open]').on(
+		'click',
+		function () {
+			jQuery('[data-leaselink-calculator-help]').removeClass('paynow-leaselink__calculator__help__hidden');
+		}
+	);
+
+	jQuery('[data-leaselink-calculator-help-close]').on(
+		'click',
+		function () {
+			jQuery('[data-leaselink-calculator-help]').addClass('paynow-leaselink__calculator__help__hidden');
+		}
+	);
+
 	jQuery('[data-leaselink-widget-button]').on(
 		'click',
 		function () {

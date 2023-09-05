@@ -36,7 +36,8 @@ class Leaselink_Order_Status_Processor {
             case 'CANCELLED':
                 $order->update_status('cancelled');
                 break;
-            case 'FINISHED':
+            case 'SIGN_CONTRACT':
+            case 'SEND_ASSET':
                 $order->payment_complete();
                 $order->reduce_order_stock();
                 break;
