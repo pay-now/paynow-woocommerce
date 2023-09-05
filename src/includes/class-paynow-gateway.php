@@ -69,6 +69,7 @@ class Paynow_Gateway {
 
 		$currency     = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->get_order_currency() : $order->get_currency();
 		$order_id     = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
+		$customer_id  = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version( ) ? get_post_meta($order_id, '_customer_user', true) : $order->get_customer_id();
 		$billing_data = $order->get_address();
 		$payment_data = array(
 			'amount'      => WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ),
@@ -83,6 +84,10 @@ class Paynow_Gateway {
 			),
 			'continueUrl' => $return_url,
 		);
+
+		if (!empty($customer_id)){
+			$payment_data['buyer']['externalId'] = md5($customer_id.$this->signature_key);
+		}
 
 		$logger_context = array(
 			WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id,
