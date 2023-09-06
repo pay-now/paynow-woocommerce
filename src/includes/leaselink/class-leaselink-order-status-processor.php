@@ -32,6 +32,11 @@ class Leaselink_Order_Status_Processor {
             return;
         }
 
+        if (!empty($response->get_status_name())) {
+            $order->update_meta_data('_leaselink_status', $response->get_status_name());
+            $order->save();
+        }
+
         switch ($response->get_status_name()) {
             case 'CANCELLED':
                 $order->update_status('cancelled');
