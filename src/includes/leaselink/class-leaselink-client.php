@@ -41,13 +41,15 @@ class Leaselink_Client {
             $register_partner_response->get_partner_name(),
             $register_partner_response->get_partner_user_guid(),
             $register_partner_response->get_partner_user_name(),
-            '00001'
+            '00001',
+            !empty($data['save_data_email']) ? $data['save_data_email'] : '',
+            !empty($data['save_data_phone']) ? $data['save_data_phone'] : '',
+            array_key_exists('full_recalculation', $data) ? $data['full_recalculation'] : true,
+            array_key_exists('save_in_process', $data) ? $data['save_in_process'] : false,
+            array_key_exists('multi_offer', $data) ? $data['multi_offer'] : false,
+            array_key_exists('simulation', $data) ? $data['simulation'] : true
         );
         $request->add_auth_token($register_partner_response->get_token());
-
-        if (!empty($data['rates'])) $request->set_number_of_rates($data['rates']);
-        if (!empty($data['entry_payment'])) $request->set_entry_payment($data['entry_payment']);
-        if (!empty($data['closing_payment'])) $request->set_closing_payment($data['closing_payment']);
 
         foreach ($products as $product) {
             $quantity = is_array($product) ? $product['qty'] : 1;

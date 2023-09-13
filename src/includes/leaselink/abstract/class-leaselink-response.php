@@ -51,7 +51,7 @@ class Leaselink_Response {
 
         $current = $this->data;
         foreach ($keys as $currentKey) {
-            if (!empty($current[$currentKey])) {
+            if (array_key_exists($currentKey, $current)) {
                 $current = $current[$currentKey];
             } else {
                 return null;

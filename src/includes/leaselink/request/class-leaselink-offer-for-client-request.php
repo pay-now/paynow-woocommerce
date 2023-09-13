@@ -87,16 +87,4 @@ class Leaselink_Offer_For_Client_Request extends Leaselink_Request {
             'RequestorName' => $name
         ]);
     }
-
-    public function set_number_of_rates($rates) {
-        $this->set('NumberOfRates', $rates);
-    }
-
-    public function set_entry_payment($entry_payment) {
-        $this->set('EntryNetPayment', $entry_payment);
-    }
-
-    public function set_closing_payment($closing_payment) {
-        $this->set('ClosingNetPayment', $closing_payment);
-    }
 }

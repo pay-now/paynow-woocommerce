@@ -31,7 +31,8 @@
 .payment_method_pay_by_paynow_pl_pbl > label > img,
 .payment_method_pay_by_paynow_pl_card > label > img,
 .payment_method_pay_by_paynow_pl_blik > label > img,
-.payment_method_pay_by_paynow_pl_google_pay > label > img {
+.payment_method_pay_by_paynow_pl_google_pay > label > img,
+.payment_method_pay_by_paynow_pl_leaselink > label > img {
 	max-height: 2rem;
 	max-width: 3rem;
 	vertical-align: middle;
@@ -206,6 +207,7 @@
 }
 
 .paynow-leaselink__calculator__background {
+	max-width: unset !important;
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -213,6 +215,7 @@
 	left: 0;
 	background-color: rgba(0, 0, 0, 0.3);
 	z-index: 100;
+	margin: 0 !important;
 }
 
 .paynow-leaselink__calculator__hidden {
@@ -491,6 +494,10 @@
 	font-size: 16px;
 	font-weight: 700;
 	line-height: 24px;
+}
+
+.paynow-leaselink__calculator__config__input:disabled+.paynow-leaselink__calculator__config__label {
+	opacity: 0.4;
 }
 
 .paynow-leaselink__calculator__config__label {
