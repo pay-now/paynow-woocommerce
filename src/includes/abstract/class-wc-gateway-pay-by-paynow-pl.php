@@ -726,13 +726,15 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$payment_methods = $this->gateway->payment_methods();
 
 		if ( ! empty( $payment_methods ) && is_array( $payment_methods ) ) {
-			return array_filter(
-				$payment_methods,
-				function ( $payment_method ) use ( $type ) {
+			return array_values(
+                array_filter(
+                    $payment_methods,
+                    function ( $payment_method ) use ( $type ) {
 
-					return $type === $payment_method->getType();
-				}
-			);
+                        return $type === $payment_method->getType();
+                    }
+                )
+            );
 		}
 
 		return array();
