@@ -222,6 +222,10 @@
 	display: none;
 }
 
+.paynow-leaselink__calculator::-webkit-scrollbar {
+	display: none;
+}
+
 .paynow-leaselink__calculator {
 	position: fixed;
 	z-index: 100;
@@ -231,6 +235,8 @@
 	width: 100vw;
 	background-color: white;
 	overflow: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 @media (min-width: 768px) {
@@ -260,6 +266,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
 }
 
 @media (max-width: 767px) {
@@ -377,6 +384,7 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		overflow: hidden;
+		text-align: left;
 	}
 
 	.paynow-leaselink__calculator__products__product__title-break {

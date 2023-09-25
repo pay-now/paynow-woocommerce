@@ -60,6 +60,7 @@ class Paynow_Settings_Manager {
         ], [
             'id' => 'paynow_leaselink_config',
             'title' => 'Konfiguracja widgetu LeaseLink',
+            'desc' => 'Nie masz jeszcze umowy z LeaseLink? Napisz do nas na <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a>, a odezwiemy się w ciągu 24h',
             'page' => self::SETTINGS_PAGE_NAME,
             'fields' => [
                 [

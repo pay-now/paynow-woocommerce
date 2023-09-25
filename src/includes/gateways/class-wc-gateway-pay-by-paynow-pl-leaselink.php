@@ -71,7 +71,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 
         $order->update_meta_data('_leaselink_status', $decision->get_transaction_status());
         $order->update_meta_data('_leaselink_number', $response->get_calculation_id());
-        $order->update_meta_data('_leaselink_form', $response->get_financial_product_name());
+        $order->update_meta_data('_leaselink_form', $response->get_first_offer_financial_operation_type() === 0 ? 'Leasing' : 'Pożyczka');
 
         $order->save();
 

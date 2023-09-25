@@ -44,7 +44,7 @@ class Leaselink_Widget {
         $products_ids = $this->get_products_ids_as_array($products);
         $products = $this->get_products($products_ids);
 
-        if (empty($products)) {
+        if (empty($products) || !$this->can_render()) {
             return;
         }
 
@@ -155,5 +155,21 @@ class Leaselink_Widget {
         }
 
         return $mapped_offers;
+    }
+
+    private function can_render() {
+        if (!function_exists('WC')) {
+            return false;
+        }
+
+        $paymentMethods = WC()->payment_gateways()->get_available_payment_gateways() ?? [];
+
+        foreach ($paymentMethods as $method) {
+            if ($method->id === WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'leaselink') {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
