@@ -1,0 +1,38 @@
+<?php if ( !empty( $instruments ) ): ?>
+    <p><?php echo __( 'Select a saved card or enter new card details:', 'pay-by-paynow-pl' ); ?></p>
+    <div class="paynow-payment-option-pbls">
+		<?php foreach ( $instruments as $instrument ):?>
+            <div class="paynow-payment-card-option">
+                <input type="radio" name="paymentMethodToken" value="<?php echo esc_attr( $instrument->getToken() ); ?>" id="<?php echo esc_attr( $instrument->getToken() ); ?>" <?php echo $instrument->isExpired() ? 'disabled' : ''; ?>>
+                <label for="<?php echo esc_attr( $instrument->getToken() ); ?>">
+                    <div class="paynow-payment-card-image">
+                        <img src="<?php echo esc_attr( $instrument->getImage() ); ?>" alt="<?php echo esc_attr( $instrument->getBrand() ); ?>">
+                    </div>
+                    <div class="paynow-payment-card-details">
+                        <?php if ($instrument->isExpired()): ?>
+                            <p class="paynow-payment-card-details-card-name paynow-expired"><?php echo __( 'Card:', 'pay-by-paynow-pl' ); ?> <?php echo esc_attr( $instrument->getName() ); ?></p>
+                            <p class="paynow-payment-card-details-expiration paynow-expired"><?php echo __( 'Expired:', 'pay-by-paynow-pl' ); ?> <?php echo esc_attr( $instrument->getExpirationDate() ); ?></p>
+                        <?php else: ?>
+                            <p class="paynow-payment-card-details-card-name"><?php echo __( 'Card:', 'pay-by-paynow-pl' ); ?> <?php echo esc_attr( $instrument->getName() ); ?></p>
+                            <p class="paynow-payment-card-details-expiration"><?php echo __( 'Expires:', 'pay-by-paynow-pl' ); ?> <?php echo esc_attr( $instrument->getExpirationDate() ); ?></p>
+                        <?php endif; ?>
+                    </div>
+                </label>
+            </div>
+        <?php endforeach; ?>
+        <div class="paynow-payment-card-option">
+            <input type="radio" name="paymentMethodToken" value="" id="paymentMethodToken-default">
+            <label for="paymentMethodToken-default">
+                <div class="paynow-payment-card-image --double">
+                    <img src="https://static.sandbox.paynow.pl/payment-method-icons/visa.png" alt="VISA">
+                    <img src="https://static.sandbox.paynow.pl/payment-method-icons/mastercard.png" alt="MASTERCARD">
+                </div>
+                <div class="paynow-payment-card-details">
+                    <p class="paynow-payment-card-details-card-name"><?php echo __( 'Enter your new card details', 'pay-by-paynow-pl' ); ?></p>
+                    <p class="paynow-payment-card-details-expiration"><?php echo __( 'You can save it in the next step', 'pay-by-paynow-pl' ); ?></p>
+                </div>
+            </label>
+        </div>
+    </div>
+	<?php include( 'data_processing_info.phtml' ); ?>
+<?php endif; ?>

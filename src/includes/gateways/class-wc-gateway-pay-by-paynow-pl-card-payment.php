@@ -17,6 +17,19 @@ class WC_Gateway_Pay_By_Paynow_PL_Card_Payment extends WC_Gateway_Pay_By_Paynow_
 		parent::__construct();
 	}
 
+    public function payment_fields() {
+        $card_payment_methods = $this->get_only_payment_methods_for_type( Type::CARD );
+        $card_payment_method = $card_payment_methods[0] ?? null;
+        if ( $card_payment_method && !empty($card_payment_method->getSavedInstruments()) ) {
+            $method_block = 'card';
+            $notices      = $this->gateway->gdpr_notices();
+            $instruments  = $card_payment_method->getSavedInstruments();
+            include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'card_payment.phtml';
+        } else {
+            parent::payment_fields();
+        }
+    }
+
 	/**
 	 * Returns true if payment method is available
 	 *

@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || exit();
 
 use Paynow\Client;
+use Paynow\Configuration;
 use Paynow\Environment;
 use Paynow\Exception\ConfigurationException;
 use Paynow\Exception\PaynowException;
@@ -43,7 +44,8 @@ class Paynow_Gateway {
 					$api_key,
 					$this->signature_key,
 					$is_sandbox ? Environment::SANDBOX : Environment::PRODUCTION,
-					'Wordpress-' . get_bloginfo( 'version' ) . '/WooCommerce-' . WC()->version . '/Plugin-' . wc_pay_by_paynow_pl_plugin_version()
+					'Wordpress-' . get_bloginfo( 'version' ) . '/WooCommerce-' . WC()->version . '/Plugin-' . wc_pay_by_paynow_pl_plugin_version(),
+                    Configuration::API_VERSION_V3
 				);
 			}
 		}
@@ -56,10 +58,11 @@ class Paynow_Gateway {
 	 * @param $return_url
 	 * @param $payment_method_id
 	 * @param $authorization_code
+	 * @param $payment_method_token
 	 * @return array|array[]|void
 	 * @throws ConfigurationException
 	 */
-	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null ) {
+	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null, $payment_method_token = null ) {
 
 		if ( ! $this->client ) {
 			return;
@@ -100,6 +103,10 @@ class Paynow_Gateway {
 		if ( $is_blik ) {
 			$payment_data['authorizationCode'] = $authorization_code;
 		}
+
+        if (!empty($payment_method_token)) {
+            $payment_data['paymentMethodToken'] = $payment_method_token;
+        }
 
 		if ( 'yes' === $this->settings['send_order_items'] ) {
 			$order_items = array();
