@@ -21,7 +21,7 @@ class Paynow_Settings_Manager {
     private const SETTINGS_PAGE_NAME = 'paynow-pl-settings';
     private const OPTION_NAME = 'paynow_global_settings_option';
     private const SECTIONS_DEFINITION = [
-        [
+        'paynow_production_config' => [
             'id' => 'paynow_production_config',
             'title' => 'Production environment config',
             'desc' => 'Klucze uwierzytelniające dostępne są w zakładce <i>Mój Biznes &gt; Paynow &gt; Ustawienia &gt; Sklepy i punkty płatności &gt; Dane uwierzytelniające</i> w bankowości internetowej mBanku.',
@@ -37,7 +37,8 @@ class Paynow_Settings_Manager {
                     'type' => 'text',
                 ],
             ],
-        ], [
+        ],
+        'paynow_sandbox_config' => [
             'id' => 'paynow_sandbox_config',
             'title' => 'Test environment config(sandbox)',
             'desc' => 'Klucze uwierzytelniające dla środowiska testowego znajdziesz w zakładce <i>Ustawienia &gt; Sklepy i punkty płatności &gt; Dane uwierzytelniające</i> w <a href="https://panel.sandbox.paynow.pl/auth/login" target="_blank">panelu środowiska testowego</a>.',
@@ -57,7 +58,8 @@ class Paynow_Settings_Manager {
                     'type' => 'text',
                 ],
             ]
-        ], [
+        ],
+        'paynow_leaselink_config' => [
             'id' => 'paynow_leaselink_config',
             'title' => 'Konfiguracja widgetu LeaseLink',
             'desc' => 'Nie masz jeszcze umowy z LeaseLink? Napisz do nas na <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a>, a odezwiemy się w ciągu 24h',
@@ -105,7 +107,8 @@ class Paynow_Settings_Manager {
                     'type' => 'textarea',
                 ]
             ]
-        ], [
+        ],
+        'paynow_help_section' => [
             'id' => 'paynow_help_section',
             'title' => 'Pomoc',
             'desc' => 'Jeśli masz jakiekolwiek pytania lub problemy, skontaktuj się z naszym wsparciem technicznym: <a href="mailto:support@paynow.pl">support@paynow.pl</a>.',
@@ -305,13 +308,14 @@ class Paynow_Settings_Manager {
 
     public function section_callback($args)
     {
-        if (empty($args['desc'])) {
+        $desc = $args['desc'] ?? (self::SECTIONS_DEFINITION[$args['id'] ?? '']['desc'] ?? null);
+        if (empty($desc)) {
             return;
         }
 
         printf(
             '<p>%s</p>',
-            $args['desc'] ?? ''
+            $desc
         );
     }
 }

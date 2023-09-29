@@ -9,7 +9,7 @@ class Leaselink_Widget {
 
     const FINANCIAL_OPERATION_NAME_MAP = [
         0 => 'Leasing',
-        2 => 'Pożyczka'
+        2 => 'Raty dla firm'
     ];
 
     const WIDGET_COLOR_SETTING_MAP = [

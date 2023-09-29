@@ -35,6 +35,37 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         );
     }
 
+    public function is_available()
+    {
+        if (!is_checkout() || !parent::is_available()) {
+            return parent::is_available();
+        }
+
+        $items = WC()->cart->get_cart_contents() ?? [];
+
+        if (empty($items)) {
+            return false;
+        }
+
+        $products = [];
+        foreach ($items as $item) {
+            $product = wc_get_product($item['product_id'] ?? false);
+            if ($product) {
+                $products[] = $product;
+            }
+        }
+
+        $partner_site = wc_pay_by_paynow()->leaselink()->client()->register_partner_site();
+        /** @var \Leaselink_Offer_For_Client_Response $response */
+        $response = wc_pay_by_paynow()->leaselink()->client()->get_offer_for_client($products, [], $partner_site);
+
+        if (!$response->is_success()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function validate_fields() {
         return true;
     }
