@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || exit();
 
 use Paynow\Client;
+use Paynow\Configuration;
 use Paynow\Environment;
 use Paynow\Exception\ConfigurationException;
 use Paynow\Exception\PaynowException;
@@ -43,7 +44,8 @@ class Paynow_Gateway {
 					$api_key,
 					$this->signature_key,
 					$is_sandbox ? Environment::SANDBOX : Environment::PRODUCTION,
-					'Wordpress-' . get_bloginfo( 'version' ) . '/WooCommerce-' . WC()->version . '/Plugin-' . wc_pay_by_paynow_pl_plugin_version()
+					'Wordpress-' . get_bloginfo( 'version' ) . '/WooCommerce-' . WC()->version . '/Plugin-' . wc_pay_by_paynow_pl_plugin_version(),
+                    Configuration::API_VERSION_V3
 				);
 			}
 		}
@@ -56,10 +58,11 @@ class Paynow_Gateway {
 	 * @param $return_url
 	 * @param $payment_method_id
 	 * @param $authorization_code
+	 * @param $payment_method_token
 	 * @return array|array[]|void
 	 * @throws ConfigurationException
 	 */
-	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null ) {
+	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null, $payment_method_token = null ) {
 
 		if ( ! $this->client ) {
 			return;
@@ -69,6 +72,7 @@ class Paynow_Gateway {
 
 		$currency     = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->get_order_currency() : $order->get_currency();
 		$order_id     = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
+		$customer_id  = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version( ) ? get_post_meta($order_id, '_customer_user', true) : $order->get_customer_id();
 		$billing_data = $order->get_address();
 		$payment_data = array(
 			'amount'      => WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ),
@@ -84,6 +88,10 @@ class Paynow_Gateway {
 			'continueUrl' => $return_url,
 		);
 
+		if (!empty($customer_id)){
+			$payment_data['buyer']['externalId'] = md5($customer_id.$this->signature_key);
+		}
+
 		$logger_context = array(
 			WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id,
 		);
@@ -95,6 +103,10 @@ class Paynow_Gateway {
 		if ( $is_blik ) {
 			$payment_data['authorizationCode'] = $authorization_code;
 		}
+
+        if (!empty($payment_method_token)) {
+            $payment_data['paymentMethodToken'] = $payment_method_token;
+        }
 
 		if ( 'yes' === $this->settings['send_order_items'] ) {
 			$order_items = array();
