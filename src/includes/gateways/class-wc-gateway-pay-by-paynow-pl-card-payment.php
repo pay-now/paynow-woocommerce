@@ -24,6 +24,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Card_Payment extends WC_Gateway_Pay_By_Paynow_
             $method_block = 'card';
             $notices      = $this->gateway->gdpr_notices();
             $instruments  = $card_payment_method->getSavedInstruments();
+            $remove_saved_instrument_action = WC_Gateway_Pay_By_Paynow_PL_Remove_Instrument_Handler::get_rest_api_remove_instrument_url();
             include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'card_payment.phtml';
         } else {
             parent::payment_fields();

@@ -19,4 +19,30 @@ jQuery( document ).ready(function () {
 		},
 		1000
 	);
+
+	jQuery(document).on('click', '.paynow-payment-card-menu .paynow-payment-card-menu-button', function (e) {
+		jQuery(e.currentTarget).siblings().toggleClass('--hidden');
+	});
+
+	jQuery(document).on('click', '[data-remove-saved-instrument]', function (e) {
+		const target = jQuery(e.currentTarget);
+		const savedInstrument = target.data('removeSavedInstrument');
+		const cardMethodOption = jQuery('#wrapper-' + savedInstrument);
+
+		cardMethodOption.addClass('loading');
+		jQuery.ajax(target.data('action'), {
+			method: 'POST', type: 'POST',
+			data: {
+				'savedInstrumentToken': savedInstrument,
+			},
+		}).success(function (data, textStatus, jqXHR) {
+			if (data.success === true) {
+				cardMethodOption.remove();
+			} else {
+				cardMethodOption.removeClass('loading');
+			}
+		}).error(function (jqXHR, textStatus, errorThrown) {
+			cardMethodOption.removeClass('loading');
+		});
+	});
 });

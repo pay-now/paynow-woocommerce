@@ -2,7 +2,7 @@
     <p><?php echo __( 'Select a saved card or enter new card details:', 'pay-by-paynow-pl' ); ?></p>
     <div class="paynow-payment-option-pbls">
 		<?php foreach ( $instruments as $instrument ):?>
-            <div class="paynow-payment-card-option">
+            <div class="paynow-payment-card-option" id="wrapper-<?php echo esc_attr( $instrument->getToken() ); ?>">
                 <input type="radio" name="paymentMethodToken" value="<?php echo esc_attr( $instrument->getToken() ); ?>" id="<?php echo esc_attr( $instrument->getToken() ); ?>" <?php echo $instrument->isExpired() ? 'disabled' : ''; ?>>
                 <label for="<?php echo esc_attr( $instrument->getToken() ); ?>">
                     <div class="paynow-payment-card-image">
@@ -18,6 +18,18 @@
                         <?php endif; ?>
                     </div>
                 </label>
+                <div class="paynow-payment-card-menu">
+                    <button class="paynow-payment-card-menu-button" type="button">
+                        <img src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/three-dots.svg'; ?>" alt="three dots icon">
+                    </button>
+                    <button
+                            class="paynow-payment-card-remove --hidden" type="button"
+                            data-remove-saved-instrument="<?php echo esc_attr( $instrument->getToken() ); ?>"
+                            data-action="<?php echo $remove_saved_instrument_action; ?>"
+                    >
+                        <?php echo __( 'Remove card', 'pay-by-paynow-pl' ); ?>
+                    </button>
+                </div>
             </div>
         <?php endforeach; ?>
         <div class="paynow-payment-card-option">
