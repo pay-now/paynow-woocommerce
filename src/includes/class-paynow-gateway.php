@@ -259,7 +259,13 @@ class Paynow_Gateway {
 	public function payment_methods( $force = false ): ?array {
 
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
-		if ( ! $this->client || ( ! $amount && ! $force ) ) {
+        
+        // when we force request for payment methods without $amount, then we should mock up amount
+        // to some default value, because getPaymentMethods() will return null when amount is empty  
+        if ( $force === true ) {
+            $amount = 250; 
+        }
+		if ( ! $this->client || ! $amount ) {
 			return null;
 		}
 
@@ -271,10 +277,11 @@ class Paynow_Gateway {
 				$payment_methods = WC()->session->get( $cache_key );
 			} else {
 				WC_Pay_By_Paynow_PL_Logger::info(
-					'Retrieving payment methods {currency={}, amount={}}',
+					'Retrieving payment methods {currency={}, amount={}, force={}}',
 					array(
 						$currency,
 						$amount,
+                        $force === true ? 1 : 0
 					)
 				);
 				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount )->getAll();
