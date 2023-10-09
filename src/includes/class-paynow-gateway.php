@@ -267,6 +267,7 @@ class Paynow_Gateway {
 		try {
 			$currency  = get_woocommerce_currency();
 			$cache_key = 'paynow_payment_methods_' . substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount;
+            $applePayEnabled = sanitize_text_field($_COOKIE['applePayEnabled'] ?? '0') === '1';
 			if ( ! is_null( WC()->session ) && ! empty( WC()->session->get( $cache_key ) ) ) {
 				$payment_methods = WC()->session->get( $cache_key );
 			} else {
@@ -277,7 +278,7 @@ class Paynow_Gateway {
 						$amount,
 					)
 				);
-				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount )->getAll();
+				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $applePayEnabled )->getAll();
 				if ( ! is_null( WC()->session ) ) {
 					WC()->session->set( $cache_key, $payment_methods );
 				}
