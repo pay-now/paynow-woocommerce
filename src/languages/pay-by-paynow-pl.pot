@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-11 10:23+0000\n"
+"POT-Creation-Date: 2023-10-16 11:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,6 +14,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.0; wp-5.2.3"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:14
+msgid "Accept Apple Pay payments with paynow.pl"
+msgstr ""
 
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:15
 msgid "Accept BLIK payments with paynow.pl"
@@ -60,6 +64,10 @@ msgstr ""
 #: includes/settings/pay-by-paynow-pl-settings.php:56
 #: includes/settings/pay-by-paynow-pl-settings.php:79
 msgid "Api Key"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:11
+msgid "Apple Pay"
 msgstr ""
 
 #. %s: Payment ID
@@ -165,19 +173,19 @@ msgid ""
 "href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
 msgstr ""
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:742
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:744
 msgid "Incorrect API key format (production)"
 msgstr ""
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:750
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:752
 msgid "Incorrect API key format (sandbox)"
 msgstr ""
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:746
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:748
 msgid "Incorrect API signature key format (production)"
 msgstr ""
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:754
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:756
 msgid "Incorrect API signature key format (sandbox)"
 msgstr ""
 
@@ -233,6 +241,10 @@ msgstr ""
 
 #: includes/settings/pay-by-paynow-pl-settings.php:38
 msgid "Payment validity time"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:13
+msgid "paynow.pl - Apple Pay payments"
 msgstr ""
 
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:14
@@ -299,10 +311,11 @@ msgstr ""
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr ""
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:13
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:12
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:12
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:13
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:12
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:12
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:12
 msgid "Secure and fast payments provided by paynow.pl"
 msgstr ""
 
@@ -354,13 +367,4 @@ msgstr ""
 #: pay-by-paynow-pl.php:26
 #, php-format
 msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
-msgstr ""
-
-msgid "Enter the BLIK code:"
-msgstr ""
-
-msgid "Choose bank:"
-msgstr ""
-
-msgid "Read more"
 msgstr ""

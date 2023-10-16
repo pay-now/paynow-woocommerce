@@ -73,6 +73,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/abstract/class-wc-gateway-pay-by-paynow-pl.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-notification-handler.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-status-handler.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php';
@@ -84,6 +85,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 			'WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment',
 			'WC_Gateway_Pay_By_Paynow_PL_Card_Payment',
 			'WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment',
+            'WC_Gateway_Pay_By_Paynow_PL_Apple_Pay_Payment'
 		);
 
 		if ( ! is_admin() ) {

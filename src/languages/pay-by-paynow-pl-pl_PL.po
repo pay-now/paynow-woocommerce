@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Pay by paynow.pl - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-09-13 09:04+0000\n"
+"PO-Revision-Date: 2023-10-16 11:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,6 +12,10 @@ msgstr ""
 "Language: pl_PL\n"
 "Project-Id-Version: Plugins - Pay by paynow.pl - Stable (latest release)\n"
 "Language-Team: Polski"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:14
+msgid "Accept Apple Pay payments with paynow.pl"
+msgstr "Przyjmuj płatności Apple Pay przez paynow.pl"
 
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:15
 msgid "Accept BLIK payments with paynow.pl"
@@ -23,7 +27,7 @@ msgstr "Przyjmuj płatności kartą przez paynow.pl"
 
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:14
 msgid "Accept Google Pay payments with paynow.pl"
-msgstr "Przyjmuj płatności Googe Pay przez paynow.pl"
+msgstr "Przyjmuj płatności Google Pay przez paynow.pl"
 
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:14
 msgid "Accept online transfer payments with paynow.pl"
@@ -68,6 +72,10 @@ msgstr ""
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:11
+msgid "Apple Pay"
+msgstr "Apple Pay"
+
 #. %s: Payment ID
 #: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:489
 #, php-format
@@ -97,9 +105,6 @@ msgstr "BLIK, szybkie przelewy"
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:11
 msgid "Card payment"
 msgstr "Płatność kartą"
-
-msgid "Choose bank:"
-msgstr "Wybierz bank:"
 
 #: includes/settings/pay-by-paynow-pl-settings.php:18
 msgid "Debug"
@@ -151,9 +156,6 @@ msgstr "Włączyć/wyłączyć"
 msgid "Enabled test mode"
 msgstr "Włącz tryb testowy"
 
-msgid "Enter the BLIK code:"
-msgstr "Podaj kod BLIK:"
-
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:11
 msgid "Google Pay"
 msgstr "Google Pay"
@@ -191,19 +193,19 @@ msgstr ""
 "wsparciem technicznym: <a href=\"mailto:support@paynow.pl\">support@paynow."
 "pl</a>."
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:742
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:744
 msgid "Incorrect API key format (production)"
 msgstr "Niepoprawny format klucza dostępu do API (produkcja)"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:750
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:752
 msgid "Incorrect API key format (sandbox)"
 msgstr "Niepoprawny format klucza dostępu do API (sandbox)"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:746
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:748
 msgid "Incorrect API signature key format (production)"
 msgstr "Niepoprawny format klucza obliczania podpisu (produkcja)"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:754
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:756
 msgid "Incorrect API signature key format (sandbox)"
 msgstr "Niepoprawny format klucza obliczania podpisu (sandbox)"
 
@@ -261,6 +263,10 @@ msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
 msgid "Payment validity time"
 msgstr "Czas ważności płatności"
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:13
+msgid "paynow.pl - Apple Pay payments"
+msgstr "paynow.pl - płatności Apple Pay"
+
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:14
 msgid "paynow.pl - BLIK payments"
 msgstr "paynow.pl - płatności BLIKIEM"
@@ -299,9 +305,6 @@ msgstr ""
 msgid "Production configuration"
 msgstr "Konfiguracja środowiska produkcyjnego"
 
-msgid "Read more"
-msgstr "Czytaj więcej"
-
 #: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:225
 msgid "Refund can't be processed. Please check logs for more information"
 msgstr ""
@@ -337,10 +340,11 @@ msgstr "Konfiguracja środowiska testowego(Sandbox)"
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:13
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:12
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:12
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:13
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:12
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:12
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:12
 msgid "Secure and fast payments provided by paynow.pl"
 msgstr "Obsługę szybkich i bezpiecznych płatności zapewnia paynow.pl"
 
