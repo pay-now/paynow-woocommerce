@@ -13,7 +13,7 @@ matrix:
 before_install:
   - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer self-update; fi
   - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer install; fi
-  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then git clone -b master https://github.com/WordPress/WordPress-Coding-Standards.git /tmp/WordPress-Coding-Standards; fi
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then git clone -b main https://github.com/WordPress/WordPress-Coding-Standards.git /tmp/WordPress-Coding-Standards; fi
   - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then ./vendor/bin/phpcs --config-set installed_paths /tmp/WordPress-Coding-Standards; fi
 
 script:
