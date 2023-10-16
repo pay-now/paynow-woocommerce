@@ -259,7 +259,7 @@ class Paynow_Gateway {
 	public function payment_methods( $force = false ): ?array {
 
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
-        
+
 		if ( ! $this->client ) {
 			return null;
 		}
@@ -276,14 +276,14 @@ class Paynow_Gateway {
 					array(
 						$currency,
 						$amount,
-						$force === true ? 1 : 0
+						true === $force ? 1 : 0
 					)
 				);
 				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount )->getAll();
-                // replace null value to string for caching
-                if ($payment_methods == null) {
-                    $payment_methods = 'null';
-                }
+				// replace null value to string for caching
+				if ($payment_methods == null) {
+					$payment_methods = 'null';
+				}
 				if ( ! is_null( WC()->session ) ) {
 					WC()->session->set( $cache_key, $payment_methods );
 				}
@@ -292,10 +292,10 @@ class Paynow_Gateway {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
 
-        // replace string 'null' into real null 
-        if ($payment_methods === 'null') {
-            $payment_methods = null;
-        }
+		// replace string 'null' into real null 
+		if ($payment_methods === 'null') {
+			$payment_methods = null;
+		}
 		return $payment_methods;
 	}
 
