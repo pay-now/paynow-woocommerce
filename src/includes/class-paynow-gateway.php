@@ -276,12 +276,12 @@ class Paynow_Gateway {
 					array(
 						$currency,
 						$amount,
-						true === $force ? 1 : 0
+						true === $force ? 1 : 0,
 					)
 				);
 				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount )->getAll();
 				// replace null value to string for caching
-				if ($payment_methods == null) {
+				if ( null === $payment_methods ) {
 					$payment_methods = 'null';
 				}
 				if ( ! is_null( WC()->session ) ) {
@@ -292,8 +292,8 @@ class Paynow_Gateway {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
 
-		// replace string 'null' into real null 
-		if ($payment_methods === 'null') {
+		// replace string 'null' into real null
+		if ( 'null' === $payment_methods ) {
 			$payment_methods = null;
 		}
 		return $payment_methods;
