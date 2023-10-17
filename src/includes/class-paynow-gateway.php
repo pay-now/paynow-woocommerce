@@ -267,7 +267,7 @@ class Paynow_Gateway {
 		$payment_methods = array();
 		try {
 			$currency  = get_woocommerce_currency();
-			$cache_key = 'paynow_payment_methods__' . md5(substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount);
+			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
 
 			$payment_methods = get_transient( $cache_key );
 			if ( false === $payment_methods ) {
@@ -284,7 +284,7 @@ class Paynow_Gateway {
 					$payment_methods = 'null';
 				}
 
-				set_transient($cache_key, $payment_methods, 3600);
+				set_transient( $cache_key, $payment_methods, 3600 );
 			}
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
