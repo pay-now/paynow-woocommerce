@@ -22,7 +22,10 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 		try {
 			$method_block = 'pbls';
 			$methods      = $this->get_only_payment_methods_for_type( Type::PBL );
-			$notices      = $this->gateway->gdpr_notices();
+            $idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+                WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
+            );
+			$notices      = $this->gateway->gdpr_notices( $idempotency_key );
 			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'pbl_payment.phtml';
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
