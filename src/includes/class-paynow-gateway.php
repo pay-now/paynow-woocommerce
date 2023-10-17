@@ -256,7 +256,7 @@ class Paynow_Gateway {
 	 *
 	 * @return PaymentMethod[]|null
 	 */
-	public function payment_methods( $force = false ): ?array {
+	public function payment_methods(): ?array {
 
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
 
@@ -276,7 +276,6 @@ class Paynow_Gateway {
 					array(
 						$currency,
 						$amount,
-						true === $force ? 1 : 0,
 					)
 				);
 				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount )->getAll();
