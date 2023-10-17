@@ -53,7 +53,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 */
 	public function plugins_loaded() {
 
-        load_plugin_textdomain( 'pay-by-paynow-pl', false, dirname( plugin_basename( __FILE__ ), 2 ) . '/languages' );
+		load_plugin_textdomain( 'pay-by-paynow-pl', false, dirname( plugin_basename( __FILE__ ), 2 ) . '/languages' );
 	}
 
 	/**
