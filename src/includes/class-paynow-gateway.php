@@ -293,7 +293,7 @@ class Paynow_Gateway {
                     WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
                 );
                 $current_user_id = get_current_user_id();
-                $buyer_external_id = $current_user_id > 0 ? WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id('', $this->signature_key) : null;
+                $buyer_external_id = $current_user_id > 0 ? WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id($current_user_id, $this->signature_key) : null;
 				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $idempotency_key, $buyer_external_id )->getAll();
 				if ( ! is_null( WC()->session ) ) {
 					WC()->session->set( $cache_key, $payment_methods );
@@ -305,6 +305,28 @@ class Paynow_Gateway {
 
 		return $payment_methods;
 	}
+
+    /**
+     * @param $token
+     * @return void
+     * @throws ConfigurationException
+     * @throws PaynowException
+     */
+    public function remove_saved_instrument($token): void {
+        $amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
+        $currency  = get_woocommerce_currency();
+        $cache_key = 'paynow_payment_methods_' . substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount;
+        if ( ! is_null( WC()->session ) ) {
+            WC()->session->set( $cache_key, null );
+        }
+
+        $idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+            WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
+        );
+        $buyer_external_id = WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id(get_current_user_id(), $this->signature_key);
+
+        (new Payment($this->client))->removeSavedInstrument($buyer_external_id, $token, $idempotency_key);
+    }
 
 	/**
 	 * @param int $order_id Order ID.

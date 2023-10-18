@@ -15,9 +15,16 @@ class WC_Gateway_Pay_By_Paynow_PL_Remove_Instrument_Handler extends WC_Gateway_P
 	public function remove_instrument( string $instrument ): WP_REST_Response {
 
 		$response = array(
-            'success' => true,
-            'token' => $instrument,
+            'success' => false,
         );
+
+        try {
+            $this->gateway->remove_saved_instrument($instrument);
+
+            $response['success'] = true;
+        } catch (Exception $e) {
+            $response['error'] = $e->getMessage();
+        }
 
 		return new WP_REST_Response( $response );
 	}
