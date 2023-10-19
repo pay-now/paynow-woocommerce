@@ -27,6 +27,7 @@ jQuery( document ).ready(function () {
 	jQuery(document).on('click', '[data-remove-saved-instrument]', function (e) {
 		const target = jQuery(e.currentTarget);
 		const savedInstrument = target.data('removeSavedInstrument');
+		const nonce = target.data('nonce');
 		const cardMethodOption = jQuery('#wrapper-' + savedInstrument);
 
 		cardMethodOption.addClass('loading');
@@ -34,6 +35,7 @@ jQuery( document ).ready(function () {
 			method: 'POST', type: 'POST',
 			data: {
 				'savedInstrumentToken': savedInstrument,
+				'_wpnonce': nonce,
 			},
 		}).success(function (data, textStatus, jqXHR) {
 			if (data.success === true) {

@@ -26,6 +26,7 @@
                             class="paynow-payment-card-remove --hidden" type="button"
                             data-remove-saved-instrument="<?php echo esc_attr( $instrument->getToken() ); ?>"
                             data-action="<?php echo $remove_saved_instrument_action; ?>"
+                            data-nonce="<?php echo wp_create_nonce( 'wp_rest' ); ?>"
                     >
                         <?php echo __( 'Remove card', 'pay-by-paynow-pl' ); ?>
                     </button>
