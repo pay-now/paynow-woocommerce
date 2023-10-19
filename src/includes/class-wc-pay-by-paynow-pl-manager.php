@@ -55,27 +55,27 @@ class WC_Pay_By_Paynow_Pl_Manager {
 
 		load_plugin_textdomain( 'pay-by-paynow-pl', false, WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'languages' );
 
-        $pluginMoFile = WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'languages/pay-by-paynow-pl-' . get_locale() . '.mo';
-        $pluginPoFile = WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'languages/pay-by-paynow-pl-' . get_locale() . '.po';
-        
-        $systemMoFile = WP_LANG_DIR . '/plugins/pay-by-paynow-pl-' . get_locale() . '.mo';
-        $systemPoFile = WP_LANG_DIR . '/plugins/pay-by-paynow-pl-' . get_locale() . '.po';
-        
-        if ( !is_writeable( $systemMoFile ) || !is_writeable( dirname( $systemMoFile ) ) || !is_writeable( $systemPoFile ) || !is_writeable( dirname( $systemPoFile ) )  ) {
-            return;
-        }
-        
-        if ( file_exists( $pluginMoFile ) && file_exists( $systemMoFile ) && md5_file( $systemMoFile ) != md5_file( $pluginMoFile ) ) {
-            copy( $systemMoFile, $systemMoFile . date( 'YmdHis' ) . '.bak' );
-            unlink( $systemMoFile );
-            copy( $pluginMoFile, $systemMoFile );
-        }
+		$pluginMoFile = WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'languages/pay-by-paynow-pl-' . get_locale() . '.mo';
+		$pluginPoFile = WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'languages/pay-by-paynow-pl-' . get_locale() . '.po';
 
-        if ( file_exists( $pluginPoFile ) && file_exists( $systemPoFile ) && md5_file( $systemPoFile ) != md5_file( $pluginPoFile ) ) {
-            copy( $systemPoFile, $systemPoFile . date( 'YmdHis' ) . '.bak' );
-            unlink( $systemPoFile );
-            copy( $pluginPoFile, $systemPoFile );
-        }
+		$systemMoFile = WP_LANG_DIR . '/plugins/pay-by-paynow-pl-' . get_locale() . '.mo';
+		$systemPoFile = WP_LANG_DIR . '/plugins/pay-by-paynow-pl-' . get_locale() . '.po';
+
+		if ( ! is_writeable( $systemMoFile ) || ! is_writeable( dirname( $systemMoFile ) ) || ! is_writeable( $systemPoFile ) || ! is_writeable( dirname( $systemPoFile ) ) ) {
+			return;
+		}
+
+		if ( file_exists( $pluginMoFile ) && file_exists( $systemMoFile ) && md5_file( $systemMoFile ) != md5_file( $pluginMoFile ) ) {
+		copy( $systemMoFile, $systemMoFile . date( 'YmdHis' ) . '.bak' );
+			unlink( $systemMoFile );
+			copy( $pluginMoFile, $systemMoFile );
+		}
+
+		if ( file_exists( $pluginPoFile ) && file_exists( $systemPoFile ) && md5_file( $systemPoFile ) != md5_file( $pluginPoFile ) ) {
+			copy( $systemPoFile, $systemPoFile . date( 'YmdHis' ) . '.bak' );
+			unlink( $systemPoFile );
+			copy( $pluginPoFile, $systemPoFile );
+		}
 	}
 
 	/**
