@@ -146,7 +146,7 @@ class Leaselink_Widget {
             $mapped_offers[] = [
                 'rates' => $offer['NumberOfRates'],
                 'entry_payment' => wc_price($offer['EntryNetPayment']) . ' (netto)',
-                'entry_payment_percent' => $offer['EntryPaymentPct'],
+                'entry_payment_percent' => $offer['InitialPaymentPct'],
                 'closing_payment' => wc_price($offer['ClosingNetPayment']) . ' (netto)',
                 'closing_payment_percent' => $offer['ClosingPaymentPct'],
                 'financial_operation_name' => self::FINANCIAL_OPERATION_NAME_MAP[$offer['FinancialOperationType']] ?? self::FINANCIAL_OPERATION_NAME_MAP[0],

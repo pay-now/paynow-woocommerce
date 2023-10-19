@@ -237,6 +237,9 @@
 	overflow: scroll;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
 }
 
 @media (min-width: 768px) {
@@ -253,6 +256,7 @@
 	justify-content: space-between;
 	padding: 15px 17px;
 	box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.15);
+	flex-shrink: 0;
 }
 
 .paynow-leaselink__calculator__header p {
@@ -279,12 +283,23 @@
 	.paynow-leaselink__calculator__header {
 		padding: 32px 28px;
 		background-color: #ffffff;
-		margin-bottom: 25px;
 	}
 
 	.paynow-leaselink__calculator__header p {
 		font-size: 26px;
 		line-height: 33px;
+	}
+}
+
+.paynow-leaselink__calculator__content {
+	flex-grow: 1;
+	overflow: auto;
+	min-height: 2em;
+}
+
+@media (min-width: 768px) {
+	.paynow-leaselink__calculator__content {
+		padding-top: 25px;
 	}
 }
 
@@ -487,7 +502,6 @@
 .paynow-leaselink__calculator__config__buttons-wrapper {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
 	margin-bottom: 20px;
 }
 
@@ -505,7 +519,7 @@
 }
 
 .paynow-leaselink__calculator__config__input:disabled+.paynow-leaselink__calculator__config__label {
-	opacity: 0.4;
+	display: none;
 }
 
 .paynow-leaselink__calculator__config__label {
@@ -522,7 +536,7 @@
 }
 
 .paynow-leaselink__calculator__config__buttons-wrapper .paynow-leaselink__calculator__config__label {
-	margin: 0;
+	margin: 0 8px 8px 0;
 }
 
 .paynow-leaselink__calculator__config__hr {
@@ -717,6 +731,7 @@
 	border-radius: 15px 15px 0 0;
 	box-shadow: 0 -3px 6px 0 rgba(0, 0, 0, 0.15);
 	padding: 9px 10px;
+	flex-shrink: 0;
 }
 
 .paynow-leaselink__calculator__summary__button-wrapper {

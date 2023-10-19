@@ -28,152 +28,154 @@
             </div>
         </div>
 
-        <div class="paynow-leaselink__calculator__products">
-            <p class="paynow-leaselink__calculator__products__title">Wybrany produkt</p>
-            <div class="paynow-leaselink__calculator__products__product-wrapper">
-                <?php foreach ($data['widget_products'] ?? [] as $product): ?>
-                    <div class="paynow-leaselink__calculator__products__product">
-                        <p class="paynow-leaselink__calculator__products__product__qty">1 x</p>
-                        <p class="paynow-leaselink__calculator__products__product__text">
-                            <span class="paynow-leaselink__calculator__products__product__title"><?php echo $product->get_title(); ?></span>
-                            <br class="paynow-leaselink__calculator__products__product__title-break"/>
-                            <span class="paynow-leaselink__calculator__products__product__price"><?php echo wc_price(wc_get_price_excluding_tax($product)); ?> (netto)</span>
+        <div class="paynow-leaselink__calculator__content">
+            <div class="paynow-leaselink__calculator__products">
+                <p class="paynow-leaselink__calculator__products__title">Wybrany produkt</p>
+                <div class="paynow-leaselink__calculator__products__product-wrapper">
+                    <?php foreach ($data['widget_products'] ?? [] as $product): ?>
+                        <div class="paynow-leaselink__calculator__products__product">
+                            <p class="paynow-leaselink__calculator__products__product__qty">1 x</p>
+                            <p class="paynow-leaselink__calculator__products__product__text">
+                                <span class="paynow-leaselink__calculator__products__product__title"><?php echo $product->get_title(); ?></span>
+                                <br class="paynow-leaselink__calculator__products__product__title-break"/>
+                                <span class="paynow-leaselink__calculator__products__product__price"><?php echo wc_price(wc_get_price_excluding_tax($product)); ?> (netto)</span>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="paynow-leaselink__calculator__products-summary-lg">
+                    <p class="paynow-leaselink__calculator__products-summary-lg__label">Razem (netto):</p>
+                    <p class="paynow-leaselink__calculator__products-summary-lg__price"><?php echo wc_price($data['widget_products_sum']); ?></p>
+                </div>
+            </div>
+
+            <div class="paynow-leaselink__calculator__products-summary">
+                <p class="paynow-leaselink__calculator__products-summary__label">Razem (netto):</p>
+                <p class="paynow-leaselink__calculator__products-summary__price"><?php echo wc_price($data['widget_products_sum']); ?></p>
+            </div>
+
+            <div class="paynow-leaselink__calculator__copy-lg">
+                <p>Przedstawione kalkulacje nie stanowią oferty w rozumieniu kodeksu cywilnego.</p>
+            </div>
+
+            <div class="paynow-leaselink__calculator__config">
+                <div class="paynow-leaselink__calculator__config__form">
+                    <p class="paynow-leaselink__calculator__config__title">Ile rat wybierasz?</p>
+                    <div class="paynow-leaselink__calculator__config__buttons-wrapper">
+                        <?php foreach ($data['rates'] ?? [] as $rate): ?>
+                            <div>
+                                <input class="paynow-leaselink__calculator__config__input" type="radio" id="rates-<?php echo $rate; ?>" name="rates" value="<?php echo $rate; ?>" <?php echo ($rate === $data['checked_rate'] ? 'checked' : ''); ?>>
+                                <label class="paynow-leaselink__calculator__config__label" for="rates-<?php echo $rate; ?>"><?php echo $rate; ?></label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <p class="paynow-leaselink__calculator__config__title">Jaką kwotę chcesz wpłacić na początek?</p>
+                    <div class="paynow-leaselink__calculator__config__buttons-wrapper">
+                        <?php foreach ($data['entry_payment_options'] ?? [] as $entry_payment): ?>
+                            <div>
+                                <input class="paynow-leaselink__calculator__config__input" type="radio" id="entry-payment-<?php echo $entry_payment; ?>" name="entry-payment" value="<?php echo $entry_payment; ?>" <?php echo ($entry_payment === $data['entry_net_payment_percent'] ? 'checked' : ''); ?>>
+                                <label class="paynow-leaselink__calculator__config__label" for="entry-payment-<?php echo $entry_payment; ?>"><?php echo $entry_payment; ?>%</label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <p class="paynow-leaselink__calculator__config__title">Jaką wysokość wykupu wybierasz?</p>
+                    <div class="paynow-leaselink__calculator__config__buttons-wrapper">
+                        <?php foreach ($data['closing_payment_options'] ?? [] as $closing_payment): ?>
+                            <div>
+                                <input class="paynow-leaselink__calculator__config__input" type="radio" id="closing-payment-<?php echo $closing_payment; ?>" name="closing-payment" value="<?php echo $closing_payment; ?>" <?php echo ($closing_payment === $data['closing_net_payment_percent'] ? 'checked' : ''); ?>>
+                                <label class="paynow-leaselink__calculator__config__label" for="closing-payment-<?php echo $closing_payment; ?>"><?php echo $closing_payment; ?>%</label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <hr class="paynow-leaselink__calculator__config__hr" />
+
+                <div class="paynow-leaselink__calculator__config__summary">
+                    <div class="paynow-leaselink__calculator__config__summary__box --entry-payment">
+                        <p class="paynow-leaselink__calculator__config__summary__title">Opłata początkowa:</p>
+                        <p class="paynow-leaselink__calculator__config__summary__value" data-entry-netto-payment><?php echo wc_price($data['entry_net_payment']); ?> (netto)</p>
+                    </div>
+
+                    <div class="paynow-leaselink__calculator__config__summary__box --closing-payment">
+                        <p class="paynow-leaselink__calculator__config__summary__title">Wykup:</p>
+                        <p class="paynow-leaselink__calculator__config__summary__value" data-closing-netto-payment><?php echo wc_price($data['closing_net_payment']); ?> (netto)</p>
+                    </div>
+
+                    <div class="--financial-product">
+                        <p class="paynow-leaselink__calculator__config__summary__title">Produkt finansowy:</p>
+                        <p class="paynow-leaselink__calculator__config__summary__value with-help">
+                            <span data-financial-product-name><?php echo $data['financial_product_name']; ?></span>
+                            <img class="paynow-leaselink__calculator__config__summary__tooltip" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tooltip.svg'; ?>" alt="tooltip icon" data-leaselink-calculator-help-open>
                         </p>
                     </div>
-                <?php endforeach; ?>
-            </div>
-            <div class="paynow-leaselink__calculator__products-summary-lg">
-                <p class="paynow-leaselink__calculator__products-summary-lg__label">Razem (netto):</p>
-                <p class="paynow-leaselink__calculator__products-summary-lg__price"><?php echo wc_price($data['widget_products_sum']); ?></p>
-            </div>
-        </div>
-
-        <div class="paynow-leaselink__calculator__products-summary">
-            <p class="paynow-leaselink__calculator__products-summary__label">Razem (netto):</p>
-            <p class="paynow-leaselink__calculator__products-summary__price"><?php echo wc_price($data['widget_products_sum']); ?></p>
-        </div>
-
-        <div class="paynow-leaselink__calculator__copy-lg">
-            <p>Przedstawione kalkulacje nie stanowią oferty w rozumieniu kodeksu cywilnego.</p>
-        </div>
-
-        <div class="paynow-leaselink__calculator__config">
-            <div class="paynow-leaselink__calculator__config__form">
-                <p class="paynow-leaselink__calculator__config__title">Ile rat wybierasz?</p>
-                <div class="paynow-leaselink__calculator__config__buttons-wrapper">
-                    <?php foreach ($data['rates'] ?? [] as $rate): ?>
-                        <div>
-                            <input class="paynow-leaselink__calculator__config__input" type="radio" id="rates-<?php echo $rate; ?>" name="rates" value="<?php echo $rate; ?>" <?php echo ($rate === $data['checked_rate'] ? 'checked' : ''); ?>>
-                            <label class="paynow-leaselink__calculator__config__label" for="rates-<?php echo $rate; ?>"><?php echo $rate; ?></label>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <p class="paynow-leaselink__calculator__config__title">Jaką kwotę chcesz wpłacić na początek?</p>
-                <div class="paynow-leaselink__calculator__config__buttons-wrapper">
-                    <?php foreach ($data['entry_payment_options'] ?? [] as $entry_payment): ?>
-                        <div>
-                            <input class="paynow-leaselink__calculator__config__input" type="radio" id="entry-payment-<?php echo $entry_payment; ?>" name="entry-payment" value="<?php echo $entry_payment; ?>" <?php echo ($entry_payment === $data['entry_net_payment_percent'] ? 'checked' : ''); ?>>
-                            <label class="paynow-leaselink__calculator__config__label" for="entry-payment-<?php echo $entry_payment; ?>"><?php echo $entry_payment; ?>%</label>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <p class="paynow-leaselink__calculator__config__title">Jaką wysokość wykupu wybierasz?</p>
-                <div class="paynow-leaselink__calculator__config__buttons-wrapper">
-                    <?php foreach ($data['closing_payment_options'] ?? [] as $closing_payment): ?>
-                        <div>
-                            <input class="paynow-leaselink__calculator__config__input" type="radio" id="closing-payment-<?php echo $closing_payment; ?>" name="closing-payment" value="<?php echo $closing_payment; ?>" <?php echo ($closing_payment === $data['closing_net_payment_percent'] ? 'checked' : ''); ?>>
-                            <label class="paynow-leaselink__calculator__config__label" for="closing-payment-<?php echo $closing_payment; ?>"><?php echo $closing_payment; ?>%</label>
-                        </div>
-                    <?php endforeach; ?>
                 </div>
             </div>
 
-            <hr class="paynow-leaselink__calculator__config__hr" />
-
-            <div class="paynow-leaselink__calculator__config__summary">
-                <div class="paynow-leaselink__calculator__config__summary__box --entry-payment">
-                    <p class="paynow-leaselink__calculator__config__summary__title">Opłata początkowa:</p>
-                    <p class="paynow-leaselink__calculator__config__summary__value" data-entry-netto-payment><?php echo wc_price($data['entry_net_payment']); ?> (netto)</p>
-                </div>
-
-                <div class="paynow-leaselink__calculator__config__summary__box --closing-payment">
-                    <p class="paynow-leaselink__calculator__config__summary__title">Wykup:</p>
-                    <p class="paynow-leaselink__calculator__config__summary__value" data-closing-netto-payment><?php echo wc_price($data['closing_net_payment']); ?> (netto)</p>
-                </div>
-
-                <div class="--financial-product">
-                    <p class="paynow-leaselink__calculator__config__summary__title">Produkt finansowy:</p>
-                    <p class="paynow-leaselink__calculator__config__summary__value with-help">
-                        <span data-financial-product-name><?php echo $data['financial_product_name']; ?></span>
-                        <img class="paynow-leaselink__calculator__config__summary__tooltip" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tooltip.svg'; ?>" alt="tooltip icon" data-leaselink-calculator-help-open>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="paynow-leaselink__calculator__help-background paynow-leaselink__calculator__help__hidden" data-leaselink-calculator-help>
-            <div class="paynow-leaselink__calculator__help <?php echo $data['help_tooltip_class']; ?>" data-leaselink-calculator-help-tooltip>
-                <div class="paynow-leaselink__calculator__help__exit-wrapper" data-leaselink-calculator-help-close>
-                    <img class="paynow-leaselink__calculator__help__exit" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/exit.svg'; ?>" alt="exit icon">
-                </div>
-                <div class="paynow-leaselink__calculator__help-header">
-                    <p class="paynow-leaselink__calculator__help-leasing">Leasing dla firm</p>
-                    <hr class="paynow-leaselink__calculator__help-hr">
-                    <p class="paynow-leaselink__calculator__help-loan">Raty dla firm</p>
-                </div>
-                <div class="paynow-leaselink__calculator__help-row --row-gray">
-                    <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
-                    <p class="paynow-leaselink__calculator__help-leasing">Każda rata jest w całości kosztem podatkowym</p>
-                    <hr class="paynow-leaselink__calculator__help-hr">
-                    <p class="paynow-leaselink__calculator__help-loan">Wprowadzisz w koszty firmy jak przy zakupach za gotówkę</p>
-                </div>
-                <div class="paynow-leaselink__calculator__help-row">
-                    <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
-                    <p class="paynow-leaselink__calculator__help-leasing">Na środki trwałe wraz z akcesoriami</p>
-                    <hr class="paynow-leaselink__calculator__help-hr">
-                    <p class="paynow-leaselink__calculator__help-loan">Na cały asortyment</p>
-                </div>
-                <div class="paynow-leaselink__calculator__help-row --row-gray">
-                    <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
-                    <p class="paynow-leaselink__calculator__help-leasing">Okres zależy od wybranej kategorii przedmiotu</p>
-                    <hr class="paynow-leaselink__calculator__help-hr">
-                    <p class="paynow-leaselink__calculator__help-loan">Krótsze okresy, niedostępne w leasingu</p>
-                </div>
-                <div class="paynow-leaselink__calculator__help-row">
-                    <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
-                    <p class="paynow-leaselink__calculator__help-leasing">Zostajesz właścicielem na koniec umowy (wykup)</p>
-                    <hr class="paynow-leaselink__calculator__help-hr">
-                    <p class="paynow-leaselink__calculator__help-loan">Od razu jesteś właścicielem</p>
-                </div>
-                <div class="paynow-leaselink__calculator__help-row --row-gray">
-                    <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
-                    <p class="paynow-leaselink__calculator__help-leasing">Wysokość wykupu zależy od wybranej kategorii przedmiotu oraz okresu finansowania</p>
-                    <hr class="paynow-leaselink__calculator__help-hr">
-                    <p class="paynow-leaselink__calculator__help-loan">Brak wykupu</p>
+            <div class="paynow-leaselink__calculator__help-background paynow-leaselink__calculator__help__hidden" data-leaselink-calculator-help>
+                <div class="paynow-leaselink__calculator__help <?php echo $data['help_tooltip_class']; ?>" data-leaselink-calculator-help-tooltip>
+                    <div class="paynow-leaselink__calculator__help__exit-wrapper" data-leaselink-calculator-help-close>
+                        <img class="paynow-leaselink__calculator__help__exit" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/exit.svg'; ?>" alt="exit icon">
+                    </div>
+                    <div class="paynow-leaselink__calculator__help-header">
+                        <p class="paynow-leaselink__calculator__help-leasing">Leasing dla firm</p>
+                        <hr class="paynow-leaselink__calculator__help-hr">
+                        <p class="paynow-leaselink__calculator__help-loan">Raty dla firm</p>
+                    </div>
+                    <div class="paynow-leaselink__calculator__help-row --row-gray">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <p class="paynow-leaselink__calculator__help-leasing">Każda rata jest w całości kosztem podatkowym</p>
+                        <hr class="paynow-leaselink__calculator__help-hr">
+                        <p class="paynow-leaselink__calculator__help-loan">Wprowadzisz w koszty firmy jak przy zakupach za gotówkę</p>
+                    </div>
+                    <div class="paynow-leaselink__calculator__help-row">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <p class="paynow-leaselink__calculator__help-leasing">Na środki trwałe wraz z akcesoriami</p>
+                        <hr class="paynow-leaselink__calculator__help-hr">
+                        <p class="paynow-leaselink__calculator__help-loan">Na cały asortyment</p>
+                    </div>
+                    <div class="paynow-leaselink__calculator__help-row --row-gray">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <p class="paynow-leaselink__calculator__help-leasing">Okres zależy od wybranej kategorii przedmiotu</p>
+                        <hr class="paynow-leaselink__calculator__help-hr">
+                        <p class="paynow-leaselink__calculator__help-loan">Krótsze okresy, niedostępne w leasingu</p>
+                    </div>
+                    <div class="paynow-leaselink__calculator__help-row">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <p class="paynow-leaselink__calculator__help-leasing">Zostajesz właścicielem na koniec umowy (wykup)</p>
+                        <hr class="paynow-leaselink__calculator__help-hr">
+                        <p class="paynow-leaselink__calculator__help-loan">Od razu jesteś właścicielem</p>
+                    </div>
+                    <div class="paynow-leaselink__calculator__help-row --row-gray">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <p class="paynow-leaselink__calculator__help-leasing">Wysokość wykupu zależy od wybranej kategorii przedmiotu oraz okresu finansowania</p>
+                        <hr class="paynow-leaselink__calculator__help-hr">
+                        <p class="paynow-leaselink__calculator__help-loan">Brak wykupu</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="paynow-leaselink__calculator__copy">
-            <p>Przedstawione kalkulacje nie stanowią<br/>oferty w rozumieniu kodeksu cywilnego.</p>
-        </div>
+            <div class="paynow-leaselink__calculator__copy">
+                <p>Przedstawione kalkulacje nie stanowią<br/>oferty w rozumieniu kodeksu cywilnego.</p>
+            </div>
 
-        <div class="paynow-leaselink__calculator__instruction">
-            <h4 class="paynow-leaselink__calculator__instruction__title">Jak skorzystać?</h4>
-            <ol class="paynow-leaselink__calculator__instruction__list">
-                <li class="paynow-leaselink__calculator__instruction__list__item">Dodaj produkty do koszyka.</li>
-                <li class="paynow-leaselink__calculator__instruction__list__item">Wybierz LeaseLink jako metodę płatności.</li>
-                <li class="paynow-leaselink__calculator__instruction__list__item">Złóż zamówienie, a przejdziesz na stronę leaselink.pl.</li>
-                <li class="paynow-leaselink__calculator__instruction__list__item">Podaj swoje podstawowe dane.</li>
-                <li class="paynow-leaselink__calculator__instruction__list__item">Decyzję poznasz po 2 minutach i zdalnie podpiszesz prostą umowę.</li>
-            </ol>
-        </div>
+            <div class="paynow-leaselink__calculator__instruction">
+                <h4 class="paynow-leaselink__calculator__instruction__title">Jak skorzystać?</h4>
+                <ol class="paynow-leaselink__calculator__instruction__list">
+                    <li class="paynow-leaselink__calculator__instruction__list__item">Dodaj produkty do koszyka.</li>
+                    <li class="paynow-leaselink__calculator__instruction__list__item">Wybierz LeaseLink jako metodę płatności.</li>
+                    <li class="paynow-leaselink__calculator__instruction__list__item">Złóż zamówienie, a przejdziesz na stronę leaselink.pl.</li>
+                    <li class="paynow-leaselink__calculator__instruction__list__item">Podaj swoje podstawowe dane.</li>
+                    <li class="paynow-leaselink__calculator__instruction__list__item">Decyzję poznasz po 2 minutach i zdalnie podpiszesz prostą umowę.</li>
+                </ol>
+            </div>
 
-        <div class="paynow-leaselink__calculator__rating">
-            <img class="paynow-leaselink__calculator__rating__image" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/widget-ratings.svg'; ?>" alt="widget ratings">
-            <img class="paynow-leaselink__calculator__rating__image-lg" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/widget-ratings-lg.svg'; ?>" alt="widget ratings">
+            <div class="paynow-leaselink__calculator__rating">
+                <img class="paynow-leaselink__calculator__rating__image" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/widget-ratings.svg'; ?>" alt="widget ratings">
+                <img class="paynow-leaselink__calculator__rating__image-lg" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/widget-ratings-lg.svg'; ?>" alt="widget ratings">
+            </div>
         </div>
 
         <div class="paynow-leaselink__calculator__summary">

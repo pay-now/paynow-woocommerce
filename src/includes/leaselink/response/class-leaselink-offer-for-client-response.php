@@ -15,7 +15,7 @@ class Leaselink_Offer_For_Client_Response extends Leaselink_Response {
     }
 
     public function get_available_entry_payment () {
-        $entry_payment = $this->get_options_from_offer_items('EntryPaymentPct');
+        $entry_payment = $this->get_options_from_offer_items('InitialPaymentPct');
         sort($entry_payment, SORT_NUMERIC);
 
         return $entry_payment;
@@ -53,7 +53,7 @@ class Leaselink_Offer_For_Client_Response extends Leaselink_Response {
     }
 
     public function get_first_offer_entry_net_payment_percent() {
-        return $this->get_from_result('OfferItems.0.EntryPaymentPct');
+        return $this->get_from_result('OfferItems.0.InitialPaymentPct');
     }
 
     public function get_first_offer_financial_operation_type() {
