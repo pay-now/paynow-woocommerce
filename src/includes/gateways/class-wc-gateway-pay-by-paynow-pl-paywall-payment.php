@@ -31,7 +31,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment extends WC_Gateway_Pay_By_Payn
 	}
 
 	private function generate_title(): string {
-		$payment_methods = $this->gateway->payment_methods( true );
+		$payment_methods = $this->gateway->payment_methods();
 		foreach ( $payment_methods ?? array() as $payment_method ) {
 			/** @var $payment_method PaymentMethod */
 			if ( Type::CARD === $payment_method->getType() && Status::ENABLED === $payment_method->getStatus() ) {
