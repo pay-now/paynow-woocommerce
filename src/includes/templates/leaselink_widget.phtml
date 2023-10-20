@@ -96,12 +96,12 @@
                 <div class="paynow-leaselink__calculator__config__summary">
                     <div class="paynow-leaselink__calculator__config__summary__box --entry-payment">
                         <p class="paynow-leaselink__calculator__config__summary__title">Opłata początkowa:</p>
-                        <p class="paynow-leaselink__calculator__config__summary__value" data-entry-netto-payment><?php echo wc_price($data['entry_net_payment']); ?> (netto)</p>
+                        <p class="paynow-leaselink__calculator__config__summary__value" data-entry-netto-payment><?php echo wc_price($data['entry_net_payment']); ?> (<?php echo ($data['is_netto'] ? 'netto' : 'brutto'); ?>)</p>
                     </div>
 
                     <div class="paynow-leaselink__calculator__config__summary__box --closing-payment">
                         <p class="paynow-leaselink__calculator__config__summary__title">Wykup:</p>
-                        <p class="paynow-leaselink__calculator__config__summary__value" data-closing-netto-payment><?php echo wc_price($data['closing_net_payment']); ?> (netto)</p>
+                        <p class="paynow-leaselink__calculator__config__summary__value" data-closing-netto-payment><?php echo wc_price($data['closing_net_payment']); ?> (<?php echo ($data['is_netto'] ? 'netto' : 'brutto'); ?>)</p>
                     </div>
 
                     <div class="--financial-product">
