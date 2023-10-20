@@ -80,6 +80,7 @@ jQuery( document ).ready(function () {
 			jQuery('[data-leaselink-calculator] [data-closing-netto-payment]').html(offer.closing_payment);
 			jQuery('[data-leaselink-calculator] [data-financial-product-name]').html(offer.financial_operation_name);
 			jQuery('[data-leaselink-calculator] [data-monthly-netto-payment]').html(offer.monthly_net_value);
+			jQuery('[data-leaselink-calculator] [data-monthly-payment-is-netto]').html(offer.is_netto ? 'netto' : 'brutto');
 
 			jQuery('[data-leaselink-calculator] input[name="entry-payment"]').each(function () {
 				const inputValue = parseFloat(jQuery(this).val());

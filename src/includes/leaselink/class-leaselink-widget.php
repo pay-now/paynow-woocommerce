@@ -109,6 +109,7 @@ class Leaselink_Widget {
             'closing_net_payment_percent' => $offer->get_first_offer_closing_net_payment_percent(),
             'financial_product_name' => self::FINANCIAL_OPERATION_NAME_MAP[$offer->get_first_offer_financial_operation_type()] ?? self::FINANCIAL_OPERATION_NAME_MAP[0],
             'help_tooltip_class' => $this->get_help_tooltip_class($offer->get_available_financial_operations()),
+            'is_netto' => $offer->get_first_offer_financial_operation_type() === 0,
             'offers' => $this->get_mapped_offer_items($offer),
         ];
     }
@@ -143,14 +144,16 @@ class Leaselink_Widget {
         $mapped_offers = [];
 
         foreach ($offer_items as $offer) {
+            $is_netto = $offer['FinancialOperationType'] === 0;
             $mapped_offers[] = [
                 'rates' => $offer['NumberOfRates'],
-                'entry_payment' => wc_price($offer['EntryNetPayment']) . ' (netto)',
+                'entry_payment' => wc_price($offer['EntryPayment']) . ' (' . ($is_netto ? 'netto' : 'brutto') . ')',
                 'entry_payment_percent' => $offer['InitialPaymentPct'],
-                'closing_payment' => wc_price($offer['ClosingNetPayment']) . ' (netto)',
+                'closing_payment' => wc_price($offer['ClosingPayment']) . ' (' . ($is_netto ? 'netto' : 'brutto') . ')',
                 'closing_payment_percent' => $offer['ClosingPaymentPct'],
                 'financial_operation_name' => self::FINANCIAL_OPERATION_NAME_MAP[$offer['FinancialOperationType']] ?? self::FINANCIAL_OPERATION_NAME_MAP[0],
-                'monthly_net_value' => wc_price($offer['MonthlyRateNetValue']),
+                'monthly_net_value' => wc_price($is_netto ? $offer['MonthlyRateNetValue'] : $offer['MonthlyRateGrossValue']),
+                'is_netto' => $is_netto,
             ];
         }
 

@@ -11,9 +11,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         $this->id = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'leaselink';
         $this->icon = 'https://leaselink.pl/app/themes/leaselink/images/logo_desktop.png';
         $this->title = __( 'Leaselink payment', 'pay-by-paynow-pl' );
-        $this->description = 'Platność za pomocą leaselink opis';
+        $this->description = 'Płatność za pomocą leaselink';
         $this->method_title = 'paynow.pl - Leaselink';
-        $this->method_description = 'Platność za pomocą leaselink opis metody';
+        $this->method_description = 'Płatność za pomocą leaselink';
         $this->enabled = $this->get_option( 'enabled' );
 
         // Method with all the options fields

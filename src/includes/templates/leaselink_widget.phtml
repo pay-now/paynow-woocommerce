@@ -192,7 +192,7 @@
                 </div>
             </div>
             <div>
-                <p class="paynow-leaselink__calculator__summary__label">Miesięcznie (netto):</p>
+                <p class="paynow-leaselink__calculator__summary__label">Miesięcznie (<span data-monthly-payment-is-netto><?php echo ($data['is_netto'] ? 'netto' : 'brutto'); ?></span>):</p>
                 <p class="paynow-leaselink__calculator__summary__price" data-monthly-netto-payment><?php echo wc_price($data['widget_net_value']) ?></p>
             </div>
         </div>

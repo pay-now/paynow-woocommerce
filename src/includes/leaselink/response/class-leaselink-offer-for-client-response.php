@@ -41,7 +41,7 @@ class Leaselink_Offer_For_Client_Response extends Leaselink_Response {
     }
 
     public function get_first_offer_closing_net_payment() {
-        return $this->get_from_result('OfferItems.0.ClosingNetPayment');
+        return $this->get_from_result('OfferItems.0.ClosingPayment');
     }
 
     public function get_first_offer_closing_net_payment_percent() {
@@ -49,7 +49,7 @@ class Leaselink_Offer_For_Client_Response extends Leaselink_Response {
     }
 
     public function get_first_offer_entry_net_payment() {
-        return $this->get_from_result('OfferItems.0.EntryNetPayment');
+        return $this->get_from_result('OfferItems.0.EntryPayment');
     }
 
     public function get_first_offer_entry_net_payment_percent() {
@@ -65,7 +65,11 @@ class Leaselink_Offer_For_Client_Response extends Leaselink_Response {
     }
 
     public function get_first_offer_monthly_rate_net_value() {
-        return $this->get_from_result('OfferItems.0.MonthlyRateNetValue');
+        if ($this->get_first_offer_financial_operation_type() === 0) {
+            return $this->get_from_result('OfferItems.0.MonthlyRateNetValue');
+        } else {
+            return $this->get_from_result('OfferItems.0.MonthlyRateGrossValue');
+        }
     }
 
     public function get_offer_items() {
