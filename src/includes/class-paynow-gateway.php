@@ -268,22 +268,23 @@ class Paynow_Gateway {
 	 *
 	 * @return PaymentMethod[]|null
 	 */
-	public function payment_methods( $force = false ): ?array {
+	public function payment_methods(): ?array {
 
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
-		if ( ! $this->client || ( ! $amount && ! $force ) ) {
+
+		if ( ! $this->client ) {
 			return null;
 		}
 
 		$payment_methods = array();
 		try {
 			$currency  = get_woocommerce_currency();
-			$cache_key = 'paynow_payment_methods_' . substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount;
-			if ( ! is_null( WC()->session ) && ! empty( WC()->session->get( $cache_key ) ) ) {
-				$payment_methods = WC()->session->get( $cache_key );
-			} else {
+			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
+
+			$payment_methods = get_transient( $cache_key );
+			if ( false === $payment_methods ) {
 				WC_Pay_By_Paynow_PL_Logger::info(
-					'Retrieving payment methods {currency={}, amount={}}',
+					'Retrieving payment methods {currency={}, amount={}, force={}}',
 					array(
 						$currency,
 						$amount,
@@ -295,14 +296,21 @@ class Paynow_Gateway {
                 $current_user_id = get_current_user_id();
                 $buyer_external_id = $current_user_id > 0 ? WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id($current_user_id, $this->signature_key) : null;
 				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $idempotency_key, $buyer_external_id )->getAll();
-				if ( ! is_null( WC()->session ) ) {
-					WC()->session->set( $cache_key, $payment_methods );
-				}
+				// replace null value to string for caching
+				if ( null === $payment_methods ) {
+					$payment_methods = 'null';
+                }
+
+				set_transient( $cache_key, $payment_methods, 3600 );
 			}
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
 
+		// replace string 'null' into real null
+		if ( 'null' === $payment_methods ) {
+			$payment_methods = null;
+		}
 		return $payment_methods;
 	}
 
@@ -315,10 +323,8 @@ class Paynow_Gateway {
     public function remove_saved_instrument($token): void {
         $amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
         $currency  = get_woocommerce_currency();
-        $cache_key = 'paynow_payment_methods_' . substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount;
-        if ( ! is_null( WC()->session ) ) {
-            WC()->session->set( $cache_key, null );
-        }
+        $cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
+        delete_transient( $cache_key );
 
         $idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
             WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
