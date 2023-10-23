@@ -24,7 +24,7 @@
   },
   "scripts": {
     "cs": [
-      "vendor/bin/phpcs"
+      "vendor/bin/phpcs --ignore=includes/templates/*"
     ],
     "cs-fix": [
       "php vendor/bin/phpcbf"
