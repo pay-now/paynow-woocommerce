@@ -108,9 +108,6 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 
         $woocommerce->cart->empty_cart();
 
-        $timestamp_to_check_status = (new DateTime())->add(new DateInterval('PT1H'))->getTimestamp();
-        as_schedule_single_action($timestamp_to_check_status, 'leaselink_process_order_status', [$order_id, 0]);
-
         return array(
             'result' => 'success',
             'redirect' => wc_pay_by_paynow()->leaselink()->client()->config()->get_url() . $response->get_client_offer_url(),

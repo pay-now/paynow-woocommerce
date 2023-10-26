@@ -242,6 +242,10 @@
 	flex-wrap: nowrap;
 }
 
+.paynow-leaselink__calculator * {
+	font-family: 'Poppins', sans-serif;
+}
+
 @media (min-width: 768px) {
 	.paynow-leaselink__calculator {
 		width: 630px;

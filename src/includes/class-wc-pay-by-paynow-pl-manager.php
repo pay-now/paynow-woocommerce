@@ -160,7 +160,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
         include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/leaselink/class-leaselink-client.php';
         include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/leaselink/class-leaselink-configuration.php';
         include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/leaselink/class-leaselink-http-client.php';
-        include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/leaselink/class-leaselink-order-status-processor.php';
+        include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/leaselink/class-leaselink-notification-api.php';
         include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/leaselink/class-leaselink-widget.php';
         include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-paynow-leaselink.php';
 

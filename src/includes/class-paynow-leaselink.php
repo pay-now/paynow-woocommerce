@@ -32,6 +32,7 @@ class Paynow_Leaselink {
         $this->settings_manager = $settings_manager;
         $this->client = new Leaselink_Client($settings_manager);
         $this->widget = new Leaselink_Widget($this->client, $settings_manager);
+        new Leaselink_Notification_Api($this->settings_manager);
 
         $this->add_filters_and_actions();
 	}
@@ -48,7 +49,6 @@ class Paynow_Leaselink {
         add_action('manage_shop_order_posts_custom_column', array($this, 'add_order_columns_content'));
         add_action('woocommerce_admin_order_data_after_billing_address', array($this, 'add_leaselink_data_to_order_page'));
         add_action('woocommerce_order_details_after_order_table', array($this, 'add_leaselink_data_to_client_order_page'));
-        add_action('leaselink_process_order_status', array($this, 'process_order_status'), 10, 2);
         add_action( 'wp_head', array($this, 'print_custom_styles'));
 
         if ($this->settings_manager->get_leaselink_widget_localization() !== Paynow_Settings_Manager::SETTING_WIDGET_LOCALIZATION_NONE) {
@@ -158,9 +158,5 @@ class Paynow_Leaselink {
 
     public function render_widget($products = null) {
         $this->widget->render($products);
-    }
-
-    public function process_order_status($order_id, $attempt) {
-        Leaselink_Order_Status_Processor::process($order_id, $attempt);
     }
 }
