@@ -20,7 +20,7 @@
                 </label>
                 <div class="paynow-payment-card-menu">
                     <button class="paynow-payment-card-menu-button" type="button">
-                        <img src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/three-dots.svg'; ?>" alt="three dots icon">
+                        <?php echo __( 'remove', 'pay-by-paynow-pl' ); ?>
                     </button>
                     <button
                             class="paynow-payment-card-remove --hidden" type="button"
@@ -36,9 +36,8 @@
         <div class="paynow-payment-card-option">
             <input type="radio" name="paymentMethodToken" value="" id="paymentMethodToken-default">
             <label for="paymentMethodToken-default">
-                <div class="paynow-payment-card-image --double">
-                    <img src="https://static.sandbox.paynow.pl/payment-method-icons/visa.png" alt="VISA">
-                    <img src="https://static.sandbox.paynow.pl/payment-method-icons/mastercard.png" alt="MASTERCARD">
+                <div class="paynow-payment-card-image">
+                    <img src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/card-default.svg'; ?>" alt="Card default icon">
                 </div>
                 <div class="paynow-payment-card-details">
                     <p class="paynow-payment-card-details-card-name"><?php echo __( 'Enter your new card details', 'pay-by-paynow-pl' ); ?></p>

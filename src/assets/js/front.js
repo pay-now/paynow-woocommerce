@@ -24,6 +24,12 @@ jQuery( document ).ready(function () {
 		jQuery(e.currentTarget).siblings().toggleClass('--hidden');
 	});
 
+	jQuery(document).on('click', function (e) {
+		if (!jQuery(e.target).is('[data-remove-saved-instrument]') && !jQuery(e.target).is('.paynow-payment-card-menu .paynow-payment-card-menu-button')) {
+			jQuery('[data-remove-saved-instrument]').addClass('--hidden')
+		}
+	});
+
 	jQuery(document).on('click', '[data-remove-saved-instrument]', function (e) {
 		const target = jQuery(e.currentTarget);
 		const savedInstrument = target.data('removeSavedInstrument');
