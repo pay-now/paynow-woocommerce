@@ -160,6 +160,7 @@
 	font-size: 22px;
 	line-height: 33px;
 	font-weight: 700;
+	text-transform: uppercase;
 }
 
 .paynow-leaselink .paynow-leaselink__title .woocommerce-Price-amount.amount {
@@ -766,6 +767,7 @@
 	padding: 10px 15px;
 	border: none;
 	cursor: pointer;
+	text-transform: uppercase;
 }
 
 .paynow-leaselink__calculator__summary__label {

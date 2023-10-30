@@ -62,9 +62,9 @@ class Paynow_Leaselink {
         foreach ($columns as $column_name => $column_info) {
             $new_columns[$column_name] = $column_info;
             if ('order_status' === $column_name) {
-                $new_columns['leaselink_status'] = 'Status leaselink';
-                $new_columns['leaselink_number'] = 'Numer wniosku leaselink';
-                $new_columns['leaselink_form'] = 'Forma wniosku leaselink';
+                $new_columns['leaselink_status'] = __('Leaselink status', 'pay-by-paynow-pl');
+                $new_columns['leaselink_number'] = __('Leaselink application number', 'pay-by-paynow-pl');
+                $new_columns['leaselink_form'] = __('Leaselink application form', 'pay-by-paynow-pl');
             }
         }
         return $new_columns;
@@ -95,7 +95,7 @@ class Paynow_Leaselink {
         $status = $order->get_meta('_leaselink_status');
         $form = $order->get_meta('_leaselink_form');
 
-        $data['payment_via'] .= '<br />Status: ' . $status . '<br />Number: ' . $number . '<br />Forma: ' . $form;
+        $data['payment_via'] .= '<br />' . __('Status:', 'pay-by-paynow-pl') . ' ' . $status . '<br />' . __('Number:', 'pay-by-paynow-pl') . ' ' . $number . '<br />' . __('Form:', 'pay-by-paynow-pl') . ' ' . $form;
 
         return $data;
     }
@@ -110,16 +110,20 @@ class Paynow_Leaselink {
         $status = $order->get_meta('_leaselink_status');
         $form = $order->get_meta('_leaselink_form');
 
-        printf('<h3>Dane Leaselink</h3>
+        printf('<h3>%s</h3>
         <div>
             <p>
-                Numer: %s <br/>
-                Status: %s <br/>
-                Forma: %s
+                %s %s <br/>
+                %s %s <br/>
+                %s %s
             </p>
         </div>',
+            __('Leaselink data', 'pay-by-paynow-pl'),
+            __('Number:', 'pay-by-paynow-pl'),
             $number,
+            __('Status:', 'pay-by-paynow-pl'),
             $status,
+            __('Form:', 'pay-by-paynow-pl'),
             $form
         );
     }
@@ -134,14 +138,18 @@ class Paynow_Leaselink {
         $status = $order->get_meta('_leaselink_status');
         $form = $order->get_meta('_leaselink_form');
 
-        printf('<h2 class="woocommerce-column__title">Dane Leaselink</h2>
+        printf('<h2 class="woocommerce-column__title">%s</h2>
             <address>
-                Numer: %s <br/>
-                Status: %s <br/>
-                Forma: %s
+                %s %s <br/>
+                %s %s <br/>
+                %s %s
             </address>',
+            __('Leaselink data', 'pay-by-paynow-pl'),
+            __('Number:', 'pay-by-paynow-pl'),
             $number,
+            __('Status:', 'pay-by-paynow-pl'),
             $status,
+            __('Form:', 'pay-by-paynow-pl'),
             $form
         );
     }

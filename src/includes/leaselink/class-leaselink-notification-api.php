@@ -35,12 +35,20 @@ class Leaselink_Notification_Api {
 
     public function process(WP_REST_Request $request)
     {
+        $logger_context = [
+            'service' => 'Leaselink notification api',
+            'request' => $request->get_params(),
+        ];
+        WC_Pay_By_Paynow_PL_Logger::info('Processing notification', $logger_context);
+
         $result = $request->get_param('Result');
         if (empty($result) || empty($result['TransactionId'] ?? null)) {
+            WC_Pay_By_Paynow_PL_Logger::error('Invalid body - transaction id not found.', $logger_context);
             return new WP_Error( 'no_transaction_id', 'Invalid body - transaction id not found.', array( 'status' => 404 ) );
         }
 
         $transaction_id = $result['TransactionId'];
+        $logger_context['transaction_id'] = $transaction_id;
         $orders = wc_get_orders([
             'meta_key' => '_leaselink_number',
             'meta_value' => $transaction_id,
@@ -48,10 +56,12 @@ class Leaselink_Notification_Api {
         ]);
 
         if (empty($orders) || empty($orders[0])) {
+            WC_Pay_By_Paynow_PL_Logger::error('Invalid transaction id - cannot get order by transaction id.', $logger_context);
             return new WP_Error( 'no_order', 'Invalid transaction id - cannot get order by transaction id.', array( 'status' => 404 ) );
         }
 
         $order = $orders[0];
+        $logger_context['order'] = $order->get_id();
 
         if (!empty($result['StatusName'])) {
             $order->update_meta_data('_leaselink_status', $result['StatusName']);
@@ -64,20 +74,24 @@ class Leaselink_Notification_Api {
             $order->set_billing_company($result['InvoiceVatIdentificationNumber'] ?? '');
             $order->set_billing_city($result['InvoiceVatAddressCity'] ?? '');
             $order->set_billing_postcode($result['InvoiceVatAddressZipCode'] ?? '');
-            $order->set_billing_address_1($result['InvoiceVatAddressStreetName'] ?? '');
-            $order->set_billing_address_2($result['InvoiceVatAddressStreetNumber'] ?? '');
+            $order->set_billing_address_1(($result['InvoiceVatAddressStreetName'] ?? '') . ' ' . ($result['InvoiceVatAddressStreetNumber'] ?? '') . ' ' . ($result['InvoiceVatAddressLocationNumber'] ?? ''));
+            $order->set_billing_address_2('');
             $order->save();
         }
 
-        switch ($result['StatusName']) {
+        switch (($result['StatusName'] ?? null)) {
             case 'CANCELLED':
                 $order->update_status('cancelled');
                 break;
             case 'SIGN_CONTRACT':
             case 'SEND_ASSET':
                 $order->payment_complete();
-                $order->reduce_order_stock();
+                wc_reduce_stock_levels($order->get_id());
                 break;
         }
+
+        WC_Pay_By_Paynow_PL_Logger::info('Notification processed successfully', $logger_context);
+
+        return new WP_REST_Response();
     }
 }

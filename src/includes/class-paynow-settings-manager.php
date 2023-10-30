@@ -40,100 +40,100 @@ class Paynow_Settings_Manager {
         return [
             'paynow_production_config' => [
                 'id' => 'paynow_production_config',
-                'title' => 'Production environment config',
-                'desc' => 'Klucze uwierzytelniające dostępne są w zakładce <i>Mój Biznes &gt; Paynow &gt; Ustawienia &gt; Sklepy i punkty płatności &gt; Dane uwierzytelniające</i> w bankowości internetowej mBanku.',
+                'title' => __('Production configuration', 'pay-by-paynow-pl'),
+                'desc' => __('Production authentication keys are available in <i>My Business > Paynow > Settings > Shops and payment points > Authentication data</i> in mBank\'s online banking.', 'pay-by-paynow-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
                 'fields' => [
                     [
                         'id' => 'production_api_key',
-                        'title' => 'Production api key',
+                        'title' => __('Api Key', 'pay-by-paynow-pl'),
                         'type' => 'text',
                     ], [
                         'id' => 'production_signature_key',
-                        'title' => 'Production signature key',
+                        'title' => __('Signature Key', 'pay-by-paynow-pl'),
                         'type' => 'text',
                     ],
                 ],
             ],
             'paynow_sandbox_config' => [
                 'id' => 'paynow_sandbox_config',
-                'title' => 'Test environment config(sandbox)',
-                'desc' => 'Klucze uwierzytelniające dla środowiska testowego znajdziesz w zakładce <i>Ustawienia &gt; Sklepy i punkty płatności &gt; Dane uwierzytelniające</i> w <a href="https://panel.sandbox.paynow.pl/auth/login" target="_blank">panelu środowiska testowego</a>.',
+                'title' => __('Sandbox configuration', 'pay-by-paynow-pl'),
+                'desc' => __('Sandbox authentication keys can be found in <i>Settings > Shops and poses > Authentication data</i> in <a href="https://panel.sandbox.paynow.pl/auth/login" target="_blank">the Paynow Sandbox panel</a>.', 'pay-by-paynow-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
                 'fields' => [
                     [
                         'id' => 'is_sandbox',
-                        'title' => 'Test mode (Sandbox)',
+                        'title' => __('Test mode (Sandbox)', 'pay-by-paynow-pl'),
                         'type' => 'checkbox',
                     ], [
                         'id' => 'sandbox_api_key',
-                        'title' => 'Sandbox api key',
+                        'title' => __('Api Key', 'pay-by-paynow-pl'),
                         'type' => 'text',
                     ], [
                         'id' => 'sandbox_signature_key',
-                        'title' => 'Sandbox signature key',
+                        'title' => __('Signature Key', 'pay-by-paynow-pl'),
                         'type' => 'text',
                     ],
                 ]
             ],
             'paynow_leaselink_config' => [
                 'id' => 'paynow_leaselink_config',
-                'title' => 'Konfiguracja widgetu LeaseLink',
-                'desc' => 'Nie masz jeszcze umowy z LeaseLink? Napisz do nas na <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a>, a odezwiemy się w ciągu 24h',
+                'title' => __('LeaseLink widget configuration', 'pay-by-paynow-pl'),
+                'desc' => __('Don\'t have a contract with LeaseLink yet? Write to us at <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a> and we will contact you within 24 hours', 'pay-by-paynow-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
                 'fields' => [
                     [
                         'id' => 'll_is_sandbox',
-                        'title' => 'Test mode (Sandbox)',
+                        'title' => __('Test mode (Sandbox)', 'pay-by-paynow-pl'),
                         'type' => 'checkbox',
                     ], [
                         'id' => 'll_sandbox_api_key',
-                        'title' => 'Sandbox api key',
+                        'title' => __('Sandbox api key', 'pay-by-paynow-pl'),
                         'type' => 'text',
                     ], [
                         'id' => 'll_production_api_key',
-                        'title' => 'Production api key',
+                        'title' => __('Production api key', 'pay-by-paynow-pl'),
                         'type' => 'text',
                     ], [
                         'id' => 'll_notification_url',
-                        'title' => 'Notification url',
+                        'title' => __('Notification url', 'pay-by-paynow-pl'),
                         'type' => 'constant',
                         'value' => $this->notification_url,
                     ], [
                         'id' => 'll_widget_location',
-                        'title' => 'Lokalizacja widgetu LeaseLink',
+                        'title' => __('LeaseLink widget location', 'pay-by-paynow-pl'),
                         'type' => 'select',
                         'options' => [
-                            self::SETTING_WIDGET_LOCALIZATION_NONE => 'Nie wyświetlaj',
-                            self::SETTING_WIDGET_LOCALIZATION_ADD_TO_CART => 'Pod przyciskiem "Dodaj do koszyka"',
-                            self::SETTING_WIDGET_LOCALIZATION_UNDER_TITLE => 'Pod tytułem produktu',
-                            self::SETTING_WIDGET_LOCALIZATION_UNDER_CONTENT => 'Pod treścią produktu',
+                            self::SETTING_WIDGET_LOCALIZATION_NONE => __('Do not display', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_ADD_TO_CART => __('Under the "Add to cart" button', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_UNDER_TITLE => __('Under the product title', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_UNDER_CONTENT => __('Below the product content', 'pay-by-paynow-pl'),
                         ],
                     ], [
                         'id' => 'll_widget_show_rate',
-                        'title' => 'Prezentacja wysokości raty',
+                        'title' => __('Presentation of the installment amount', 'pay-by-paynow-pl'),
                         'type' => 'checkbox',
                     ], [
                         'id' => 'll_widget_color',
-                        'title' => 'Kolorystyka widgetu LeaseLink',
+                        'title' => __('LeaseLink widget colors', 'pay-by-paynow-pl'),
                         'type' => 'select',
                         'options' => [
-                            self::SETTING_WIDGET_COLOR_BLACK => 'Czarny',
-                            self::SETTING_WIDGET_COLOR_WHITE => 'Biały',
-                            self::SETTING_WIDGET_COLOR_BLACK_GHOST => 'Czarny przezroczysty',
-                            self::SETTING_WIDGET_COLOR_WHITE_GHOST => 'Biały przezroczysty',
+                            self::SETTING_WIDGET_COLOR_BLACK => __('Black', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_COLOR_WHITE => __('White', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_COLOR_BLACK_GHOST => __('Black transparent', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_COLOR_WHITE_GHOST => __('White transparent', 'pay-by-paynow-pl'),
                         ]
                     ], [
                         'id' => 'll_custom_css',
-                        'title' => 'Dodatkowy CSS',
+                        'title' => __('Additional CSS', 'pay-by-paynow-pl'),
                         'type' => 'textarea',
                     ]
                 ]
             ],
             'paynow_help_section' => [
                 'id' => 'paynow_help_section',
-                'title' => 'Pomoc',
-                'desc' => 'Jeśli masz jakiekolwiek pytania lub problemy, skontaktuj się z naszym wsparciem technicznym: <a href="mailto:support@paynow.pl">support@paynow.pl</a>.',
+                'title' => __('Support', 'pay-by-paynow-pl'),
+                'desc' => __('If you have any questions or issues, please contact our support at <a href="mailto:support@paynow.pl">support@paynow.pl</a>', 'pay-by-paynow-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
             ]
         ];

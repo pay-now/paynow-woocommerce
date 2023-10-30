@@ -11,9 +11,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         $this->id = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'leaselink';
         $this->icon = 'https://leaselink.pl/app/themes/leaselink/images/logo_desktop.png';
         $this->title = __( 'Leaselink payment', 'pay-by-paynow-pl' );
-        $this->description = 'Płatność za pomocą leaselink';
-        $this->method_title = 'paynow.pl - Leaselink';
-        $this->method_description = 'Płatność za pomocą leaselink';
+        $this->description = __('Payment by leaselink', 'pay-by-paynow-pl');
+        $this->method_title = __('paynow.pl - Leaselink', 'pay-by-paynow-pl');
+        $this->method_description = __('Payment by leaselink', 'pay-by-paynow-pl');
         $this->enabled = $this->get_option( 'enabled' );
 
         // Method with all the options fields
@@ -26,8 +26,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
     public function init_form_fields() {
         $this->form_fields = array(
             'enabled' => array(
-                'title'       => 'Enable/Disable',
-                'label'       => 'Enable Leaselink Gateway',
+                'title'       => __( 'Enable/Disable', 'pay-by-paynow-pl' ),
+                'label'       => __( 'Enable Leaselink Gateway', 'pay-by-paynow-pl' ),
                 'type'        => 'checkbox',
                 'description' => '',
                 'default'     => 'no'
@@ -94,7 +94,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         $response = wc_pay_by_paynow()->leaselink()->client()->get_offer_for_client($products, [], $partner_site);
 
         if (!$response->is_success()) {
-            throw new Exception('Cannot get offer for client. Please use other payment option.');
+            throw new Exception(__('Cannot get offer for client. Please use other payment option.', 'pay-by-paynow-pl' ));
         }
 
         /** @var \Leaselink_Process_Client_Decision_Response $decision */
@@ -102,7 +102,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 
         $order->update_meta_data('_leaselink_status', $decision->get_transaction_status());
         $order->update_meta_data('_leaselink_number', $response->get_calculation_id());
-        $order->update_meta_data('_leaselink_form', $response->get_first_offer_financial_operation_type() === 0 ? 'Leasing' : 'Pożyczka');
+        $order->update_meta_data('_leaselink_form', $response->get_first_offer_financial_operation_type() === 0 ? __('Leasing', 'pay-by-paynow-pl' ) : __('Loan', 'pay-by-paynow-pl' ));
 
         $order->save();
 
