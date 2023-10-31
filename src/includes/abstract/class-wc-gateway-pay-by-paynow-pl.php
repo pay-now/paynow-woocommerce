@@ -133,7 +133,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	public function payment_fields() {
 
-		include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'payment_processor_info.phtml';
+		include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'payment_processor_info.php';
 	}
 
 	public function process_payment( $order_id ): array {
@@ -727,14 +727,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		if ( ! empty( $payment_methods ) && is_array( $payment_methods ) ) {
 			return array_values(
-                array_filter(
-                    $payment_methods,
-                    function ( $payment_method ) use ( $type ) {
+				array_filter(
+					$payment_methods,
+					function ( $payment_method ) use ( $type ) {
 
-                        return $type === $payment_method->getType();
-                    }
-                )
-            );
+						return $type === $payment_method->getType();
+					}
+				)
+			);
 		}
 
 		return array();
