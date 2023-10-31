@@ -2,7 +2,7 @@
   "name": "pay-now/paynow-woocommerce",
   "description": "paynow.pl plugin for WooCommerce",
   "license": "GPLv3",
-  "version": "2.4.27",
+  "version": "2.4.29",
   "authors": [
     {
       "name": "mElements S.A.",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "cs": [
-      "vendor/bin/phpcs"
+      "vendor/bin/phpcs --ignore=includes/templates/*"
     ],
     "cs-fix": [
       "php vendor/bin/phpcbf"

@@ -62,7 +62,7 @@ function wc_pay_by_paynow_pl_gateway_content_thankyou( $order_id ) {
 					)
 				);
 
-			include 'templates/' . WC_Gateway_Pay_By_Paynow_PL_Blik_Payment::BLIK_CONFIRM_TEMPLATE_NAME . '.phtml';
+			include 'templates/' . WC_Gateway_Pay_By_Paynow_PL_Blik_Payment::BLIK_CONFIRM_TEMPLATE_NAME . '.php';
 			wp_enqueue_script( 'paynow-confirm-blik', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'js/confirm-blik.js', array( 'jquery' ), wc_pay_by_paynow_pl_plugin_version(), true );
 		}
 	}
