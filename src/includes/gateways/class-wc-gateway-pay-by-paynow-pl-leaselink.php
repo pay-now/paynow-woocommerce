@@ -10,8 +10,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 	public function __construct() {
         $this->id = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'leaselink';
         $this->icon = 'https://leaselink.pl/app/themes/leaselink/images/logo_desktop.png';
-        $this->title = __( 'Leaselink payment', 'pay-by-paynow-pl' );
-        $this->description = __('Payment by leaselink', 'pay-by-paynow-pl');
+        $this->title = __( 'Leasing and Installments for Companies', 'pay-by-paynow-pl' );
+        $this->description = __('online 24/7, decision in 5 minutes', 'pay-by-paynow-pl');
         $this->method_title = __('paynow.pl - Leaselink', 'pay-by-paynow-pl');
         $this->method_description = __('Payment by leaselink', 'pay-by-paynow-pl');
         $this->enabled = $this->get_option( 'enabled' );
@@ -78,6 +78,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         $products = [];
 
         foreach ($order_items as $order_item) {
+            $product = $order_item->get_product();
             $products[] = [
                 'qty' => $order_item->get_quantity(),
                 'net_price' => $order->get_item_total($order_item),
@@ -85,7 +86,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
                 'tax_code' => $order_item->get_tax_class(),
                 'tax' => $order_item->get_tax_class(),
                 'name' => $order_item->get_name(),
-                'category' => 'kategoria123',
+                'categories' => WC_Pay_By_Paynow_PL_Helper::get_product_categories( $product->get_id() ),
             ];
         }
 
@@ -103,6 +104,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         $order->update_meta_data('_leaselink_status', $decision->get_transaction_status());
         $order->update_meta_data('_leaselink_number', $response->get_calculation_id());
         $order->update_meta_data('_leaselink_form', $response->get_first_offer_financial_operation_type() === 0 ? __('Leasing', 'pay-by-paynow-pl' ) : __('Loan', 'pay-by-paynow-pl' ));
+
+        $order->update_status('on-hold');
 
         $order->save();
 

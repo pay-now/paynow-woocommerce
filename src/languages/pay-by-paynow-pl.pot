@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-29 23:49+0000\n"
+"POT-Creation-Date: 2023-11-06 11:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Buyout"
 msgstr ""
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:97
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:98
 msgid "Cannot get offer for client. Please use other payment option."
 msgstr ""
 
@@ -302,10 +302,6 @@ msgstr ""
 msgid "Leaselink data"
 msgstr ""
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:13
-msgid "Leaselink payment"
-msgstr ""
-
 #: includes/class-paynow-leaselink.php:65
 msgid "Leaselink status"
 msgstr ""
@@ -323,8 +319,12 @@ msgid "LeaseLink widget location"
 msgstr ""
 
 #: includes/leaselink/class-leaselink-widget.php:40
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:105
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:106
 msgid "Leasing"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:13
+msgid "Leasing and Installments for Companies"
 msgstr ""
 
 #: includes/templates/leaselink_widget.phtml:25
@@ -335,7 +335,7 @@ msgstr ""
 msgid "Leasing for companies"
 msgstr ""
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:105
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:106
 msgid "Loan"
 msgstr ""
 
@@ -376,6 +376,10 @@ msgstr ""
 msgid "Number:"
 msgstr ""
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:14
+msgid "online 24/7, decision in 5 minutes"
+msgstr ""
+
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:11
 msgid "Online transfer payment"
 msgstr ""
@@ -388,7 +392,6 @@ msgstr ""
 msgid "Pay by paynow.pl"
 msgstr ""
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:14
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:16
 msgid "Payment by leaselink"
 msgstr ""

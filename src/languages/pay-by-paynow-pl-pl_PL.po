@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2023-10-30 00:15+0000\n"
+"PO-Revision-Date: 2023-11-06 11:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl_PL\n"
@@ -124,7 +124,7 @@ msgstr "Płatność BLIKIEM"
 msgid "Buyout"
 msgstr "Wykup"
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:97
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:98
 msgid "Cannot get offer for client. Please use other payment option."
 msgstr ""
 "Nie można uzyskać oferty dla klienta. Proszę skorzystać z innej opcji "
@@ -344,10 +344,6 @@ msgstr "Numer wniosku leaselink"
 msgid "Leaselink data"
 msgstr "Dane Leaselink"
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:13
-msgid "Leaselink payment"
-msgstr "Płatność leaselink"
-
 #: includes/class-paynow-leaselink.php:65
 msgid "Leaselink status"
 msgstr "Status leaselink"
@@ -365,9 +361,13 @@ msgid "LeaseLink widget location"
 msgstr "Lokalizacja widgetu LeaseLink"
 
 #: includes/leaselink/class-leaselink-widget.php:40
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:105
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:106
 msgid "Leasing"
 msgstr "Leasing"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:13
+msgid "Leasing and Installments for Companies"
+msgstr "Leasing i Raty dla Firm"
 
 #: includes/templates/leaselink_widget.phtml:25
 msgid "Leasing and installments for companies 24/7"
@@ -377,7 +377,7 @@ msgstr "Leasing i raty dla firm 24/7"
 msgid "Leasing for companies"
 msgstr "Leasing dla firm"
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:105
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:106
 msgid "Loan"
 msgstr "Pożyczka"
 
@@ -418,6 +418,10 @@ msgstr "Adres powiadomień"
 msgid "Number:"
 msgstr "Numer:"
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:14
+msgid "online 24/7, decision in 5 minutes"
+msgstr "online 24/7, decyzja w 5 minut"
+
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:11
 msgid "Online transfer payment"
 msgstr "Płatność szybkim przelewem"
@@ -431,7 +435,6 @@ msgstr "Zamówienie numer: "
 msgid "Pay by paynow.pl"
 msgstr "Zapłać z paynow.pl"
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:14
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:16
 msgid "Payment by leaselink"
 msgstr "Płatność za pomocą leaselink"

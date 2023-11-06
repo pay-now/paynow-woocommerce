@@ -41,13 +41,12 @@ class Leaselink_Notification_Api {
         ];
         WC_Pay_By_Paynow_PL_Logger::info('Processing notification', $logger_context);
 
-        $result = $request->get_param('Result');
-        if (empty($result) || empty($result['TransactionId'] ?? null)) {
+        $transaction_id = $request->get_param('TransactionId');
+        if (empty($transaction_id)) {
             WC_Pay_By_Paynow_PL_Logger::error('Invalid body - transaction id not found.', $logger_context);
             return new WP_Error( 'no_transaction_id', 'Invalid body - transaction id not found.', array( 'status' => 404 ) );
         }
 
-        $transaction_id = $result['TransactionId'];
         $logger_context['transaction_id'] = $transaction_id;
         $orders = wc_get_orders([
             'meta_key' => '_leaselink_number',
@@ -63,23 +62,24 @@ class Leaselink_Notification_Api {
         $order = $orders[0];
         $logger_context['order'] = $order->get_id();
 
-        if (!empty($result['StatusName'])) {
-            $order->update_meta_data('_leaselink_status', $result['StatusName']);
+        $status = $request->get_param('StatusName');
+        if (!empty($status)) {
+            $order->update_meta_data('_leaselink_status', $status);
             $order->save();
         }
 
-        if (!empty($result['InvoiceVatCompanyName'] ?? null)) {
-            $order->set_billing_first_name($result['InvoiceVatCompanyName']);
+        if (!empty($request->get_param('InvoiceVatCompanyName'))) {
+            $order->set_billing_first_name($request->get_param('InvoiceVatCompanyName'));
             $order->set_billing_last_name('');
-            $order->set_billing_company($result['InvoiceVatIdentificationNumber'] ?? '');
-            $order->set_billing_city($result['InvoiceVatAddressCity'] ?? '');
-            $order->set_billing_postcode($result['InvoiceVatAddressZipCode'] ?? '');
-            $order->set_billing_address_1(($result['InvoiceVatAddressStreetName'] ?? '') . ' ' . ($result['InvoiceVatAddressStreetNumber'] ?? '') . ' ' . ($result['InvoiceVatAddressLocationNumber'] ?? ''));
+            $order->set_billing_company($request->get_param('InvoiceVatIdentificationNumber') ?? '');
+            $order->set_billing_city($request->get_param('InvoiceVatAddressCity') ?? '');
+            $order->set_billing_postcode($request->get_param('InvoiceVatAddressZipCode') ?? '');
+            $order->set_billing_address_1(($request->get_param('InvoiceVatAddressStreetName') ?? '') . ' ' . ($request->get_param('InvoiceVatAddressStreetNumber') ?? '') . ' ' . ($request->get_param('InvoiceVatAddressLocationNumber') ?? ''));
             $order->set_billing_address_2('');
             $order->save();
         }
 
-        switch (($result['StatusName'] ?? null)) {
+        switch ($status) {
             case 'CANCELLED':
                 $order->update_status('cancelled');
                 break;

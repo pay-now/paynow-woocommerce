@@ -52,13 +52,15 @@ class Leaselink_Offer_For_Client_Request extends Leaselink_Request {
         $quantity,
         $name,
         $category_level_1,
+        $category_level_2,
+        $category_level_3,
         $net_price,
         $net_value,
         $gross_price,
         $gross_value,
         $tax_value
     ) {
-        $this->add_to_data_array('RequestItems', [
+        $item = [
             'TaxCode' => $tax_code,
             'Tax'=> $tax,
             'Quantity'=> $quantity,
@@ -69,7 +71,17 @@ class Leaselink_Offer_For_Client_Request extends Leaselink_Request {
             'GrossPrice'=> $gross_price,
             'GrossValue'=> $gross_value,
             'TaxValue'=> $tax_value
-        ]);
+        ];
+
+        if (!empty($category_level_2)) {
+            $item['CategoryLevel2'] = $category_level_2;
+        }
+
+        if (!empty($category_level_3)) {
+            $item['CategoryLevel3'] = $category_level_3;
+        }
+
+        $this->add_to_data_array('RequestItems', $item);
     }
 
     public function add_requestor_by_nip(string $nip, string $name) {
