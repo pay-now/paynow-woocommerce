@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-06 11:50+0000\n"
+"POT-Creation-Date: 2023-11-07 15:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -316,6 +316,14 @@ msgstr ""
 
 #: includes/class-paynow-settings-manager.php:104
 msgid "LeaseLink widget location"
+msgstr ""
+
+#: includes/leaselink/class-leaselink-notification-api.php:89
+#, php-format
+msgid ""
+"LeaseLink – The contract has been signed. Issue an invoice and send it to <a "
+"href=\"mailto:partner@leaselink.pl\">partner@leaselink.pl</a>, providing the "
+"process number: %s"
 msgstr ""
 
 #: includes/leaselink/class-leaselink-widget.php:40

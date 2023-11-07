@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2023-11-06 11:51+0000\n"
+"PO-Revision-Date: 2023-11-07 15:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl_PL\n"
@@ -359,6 +359,17 @@ msgstr "Konfiguracja widgetu LeaseLink"
 #: includes/class-paynow-settings-manager.php:104
 msgid "LeaseLink widget location"
 msgstr "Lokalizacja widgetu LeaseLink"
+
+#: includes/leaselink/class-leaselink-notification-api.php:89
+#, php-format
+msgid ""
+"LeaseLink – The contract has been signed. Issue an invoice and send it to <a "
+"href=\"mailto:partner@leaselink.pl\">partner@leaselink.pl</a>, providing the "
+"process number: %s"
+msgstr ""
+"LeaseLink – Umowa została podpisana. Wystaw fakturę i wyślij na <a "
+"href=\"mailto:partner@leaselink.pl\">partner@leaselink.pl</a> podając nr "
+"procesu: %s"
 
 #: includes/leaselink/class-leaselink-widget.php:40
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:106

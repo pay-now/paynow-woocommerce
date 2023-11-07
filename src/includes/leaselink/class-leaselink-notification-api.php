@@ -26,7 +26,7 @@ class Leaselink_Notification_Api {
             self::NAMESPACE,
             self::PATH . md5($this->setting_manager->get_leaselink_api_key()),
             array(
-                'methods' => WP_REST_Server::READABLE,
+                'methods' => WP_REST_Server::CREATABLE,
                 'callback' => array($this, 'process'),
                 'permission_callback' => '__return_true',
             )
@@ -84,6 +84,10 @@ class Leaselink_Notification_Api {
                 $order->update_status('cancelled');
                 break;
             case 'SIGN_CONTRACT':
+                $order->payment_complete();
+                wc_reduce_stock_levels($order->get_id());
+                $order->add_order_note(sprintf(__('LeaseLink – The contract has been signed. Issue an invoice and send it to <a href="mailto:partner@leaselink.pl">partner@leaselink.pl</a>, providing the process number: %s', 'pay-by-paynow-pl'), $transaction_id));
+                break;
             case 'SEND_ASSET':
                 $order->payment_complete();
                 wc_reduce_stock_levels($order->get_id());
