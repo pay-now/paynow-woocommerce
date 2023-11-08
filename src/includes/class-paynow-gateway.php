@@ -108,13 +108,15 @@ class Paynow_Gateway {
 				);
 			}
 
-			$order_items = array_filter(
-				$order_items,
-				function ( $item ) {
+			$order_items = array_values(
+                array_filter(
+                    $order_items,
+                    function ( $item ) {
 
-					return ! empty( $item['category'] );
-				}
-			);
+                        return ! empty( $item['category'] );
+                    }
+                )
+            );
 
 			if ( ! empty( $order_items ) ) {
 				$payment_data['orderItems'] = $order_items;
