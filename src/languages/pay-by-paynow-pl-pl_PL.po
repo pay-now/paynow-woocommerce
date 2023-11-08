@@ -248,6 +248,18 @@ msgstr "paynow.pl - płatności Google Pay"
 msgid "Google Pay"
 msgstr "Google Pay"
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:14
+msgid "Accept Apple Pay payments with paynow.pl"
+msgstr "Przyjmuj płatności Apple Pay przez paynow.pl"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:13
+msgid "paynow.pl - Apple Pay payments"
+msgstr "paynow.pl - płatności Apple Pay"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php:11
+msgid "Apple Pay"
+msgstr "Apple Pay"
+
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:14
 msgid "Accept card payments with paynow.pl"
 msgstr "Przyjmuj płatności kartą przez paynow.pl"
