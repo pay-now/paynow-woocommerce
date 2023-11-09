@@ -92,7 +92,11 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 
         $partner_site = wc_pay_by_paynow()->leaselink()->client()->register_partner_site();
         /** @var \Leaselink_Offer_For_Client_Response $response */
-        $response = wc_pay_by_paynow()->leaselink()->client()->get_offer_for_client($products, [], $partner_site);
+        $response = wc_pay_by_paynow()->leaselink()->client()->get_offer_for_client($products, [
+            'save_data_email' => $order->get_billing_email(),
+            'save_data_phone' => $order->get_billing_phone(),
+            'simulation' => false,
+        ], $partner_site);
 
         if (!$response->is_success()) {
             throw new Exception(__('Cannot get offer for client. Please use other payment option.', 'pay-by-paynow-pl' ));
