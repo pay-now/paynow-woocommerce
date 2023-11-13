@@ -155,6 +155,15 @@ class Paynow_Gateway {
 
 			return $payment_data;
 		} catch ( PaynowException $exception ) {
+            $errors = [];
+
+            foreach ($exception->getErrors() as $e) {
+                $errors[] = [
+                    'message' => $e->getMessage(),
+                    'type' => $e->getType(),
+                ];
+            }
+
 			WC_Pay_By_Paynow_PL_Logger::error(
 				'Authorization failed',
 				array_merge(
@@ -163,7 +172,7 @@ class Paynow_Gateway {
 						'service' => 'Payment',
 						'action'  => 'authorize',
 						'message' => $exception->getMessage(),
-						'errors'  => $exception->getErrors(),
+						'errors'  => $errors,
 					)
 				)
 			);
