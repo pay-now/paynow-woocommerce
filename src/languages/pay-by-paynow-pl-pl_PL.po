@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2023-11-07 15:59+0000\n"
+"PO-Revision-Date: 2023-11-12 17:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl_PL\n"
@@ -44,12 +44,16 @@ msgstr ""
 msgid "Add products to cart."
 msgstr "Dodaj produkty do koszyka."
 
-#: includes/class-paynow-settings-manager.php:128
+#: includes/class-paynow-settings-manager.php:170
 msgid "Additional CSS"
 msgstr "Dodatkowy CSS"
 
+#: includes/class-paynow-settings-manager.php:88
+msgid "Additional options"
+msgstr "Dodatkowe opcje"
+
 #. %s: Payment ID
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:495
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:481
 #, php-format
 #| msgid ""
 #| "Error occurred during the payment process and the payment could not be "
@@ -61,7 +65,7 @@ msgstr ""
 "Podczas płatności wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie - %s."
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:177
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:163
 #| msgid ""
 #| "Error occurred during the payment process and the payment could not be "
 #| "completed."
@@ -73,20 +77,20 @@ msgstr ""
 "ponownie."
 
 #. %s: Error message
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:262
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:248
 #, php-format
 msgid "An error occurred during the refund process - %s"
 msgstr ""
 "Podczas zwrotu wystąpił błąd. Skontaktuj się z obsługą sklepu lub spróbuj "
 "ponownie - %s."
 
-#: includes/class-paynow-settings-manager.php:49
-#: includes/class-paynow-settings-manager.php:70
+#: includes/class-paynow-settings-manager.php:56
+#: includes/class-paynow-settings-manager.php:77
 msgid "Api Key"
 msgstr "Klucz dostępu do API"
 
 #. %s: Payment ID
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:484
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:470
 #, php-format
 msgid "Awaiting payment authorization - %s."
 msgstr "Płatność oczekuje na autoryzację - %s."
@@ -95,23 +99,23 @@ msgstr "Płatność oczekuje na autoryzację - %s."
 msgid "Back to the store"
 msgstr "Wróć do sklepu"
 
-#: includes/class-paynow-settings-manager.php:110
+#: includes/class-paynow-settings-manager.php:152
 msgid "Below the product content"
 msgstr "Pod treścią produktu"
 
-#: includes/class-paynow-settings-manager.php:121
+#: includes/class-paynow-settings-manager.php:163
 msgid "Black"
 msgstr "Czarny"
 
-#: includes/class-paynow-settings-manager.php:123
+#: includes/class-paynow-settings-manager.php:165
 msgid "Black transparent"
 msgstr "Czarny przezroczysty"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:174
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:160
 msgid "BLIK code already used"
 msgstr "Kod BLIK został już wykorzystany"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:171
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:157
 msgid "BLIK code has expired"
 msgstr "Kod BLIK wygasł"
 
@@ -124,7 +128,7 @@ msgstr "Płatność BLIKIEM"
 msgid "Buyout"
 msgstr "Wykup"
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:98
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:102
 msgid "Cannot get offer for client. Please use other payment option."
 msgstr ""
 "Nie można uzyskać oferty dla klienta. Proszę skorzystać z innej opcji "
@@ -150,11 +154,11 @@ msgstr "Potwierdź płatność BLIKIEM w aplikacji bankowej"
 msgid "Confirm the payment using the app on your phone."
 msgstr "Potwierdź płatność w swojej aplikacji bankowej."
 
-#: includes/settings/pay-by-paynow-pl-settings.php:18
+#: includes/class-paynow-settings-manager.php:93
 msgid "Debug"
 msgstr "Debugowanie"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:40
+#: includes/class-paynow-settings-manager.php:110
 #| msgid ""
 #| "Determines how long it will be possible to pay for the order from the "
 #| "moment the payment link is generated. Value expressed in seconds. The "
@@ -168,11 +172,11 @@ msgstr ""
 "linku do płatności. Wartość wyrażona w sekundach. Wartość musi zawierać się "
 "w przedziale od 60 do 86400 sekund."
 
-#: includes/class-paynow-settings-manager.php:107
+#: includes/class-paynow-settings-manager.php:149
 msgid "Do not display"
 msgstr "Nie wyświetlaj"
 
-#: includes/class-paynow-settings-manager.php:82
+#: includes/class-paynow-settings-manager.php:124
 msgid ""
 "Don't have a contract with LeaseLink yet? Write to us at <a href=\"mailto:"
 "integracje@leaselink.pl\">integracje@leaselink.pl</a> and we will contact "
@@ -194,11 +198,11 @@ msgstr "Włącz bramkę"
 msgid "Enable Leaselink Gateway"
 msgstr "Włącz płatność Leaselink"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:19
+#: includes/class-paynow-settings-manager.php:94
 msgid "Enable logs"
 msgstr "Włącz logi"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:27
+#: includes/class-paynow-settings-manager.php:100
 #| msgid ""
 #| "Enable sending ordered products information like name, categories, "
 #| "quantity and unit price"
@@ -209,7 +213,7 @@ msgstr ""
 "Włącz wysyłkę informacji o zamówionych produktach (nazwa, kategorie, ilość "
 "oraz cena jednostkowa)"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:33
+#: includes/class-paynow-settings-manager.php:105
 msgid "Enable to limit the validity of the payment."
 msgstr "Włącz ograniczenie czasu ważności płatności."
 
@@ -272,7 +276,7 @@ msgstr "https://github.com/pay-now/paynow-woocommerce"
 msgid "https://www.paynow.pl"
 msgstr "https://www.paynow.pl"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:15
+#: includes/class-paynow-settings-manager.php:45
 msgid ""
 "If you do not have an account in the Paynow system yet, <a href=\"https:"
 "//paynow.pl/boarding\" target=\"_blank\">register in the Production</a> or "
@@ -288,8 +292,7 @@ msgstr ""
 "instrukcje znajdziesz <a href=\"https://github.com/pay-now/paynow-"
 "woocommerce/blob/master/README.md\" target=\"_blank\">tutaj</a>."
 
-#: includes/class-paynow-settings-manager.php:136
-#: includes/settings/pay-by-paynow-pl-settings.php:47
+#: includes/class-paynow-settings-manager.php:118
 msgid ""
 "If you have any questions or issues, please contact our support at <a "
 "href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
@@ -298,25 +301,21 @@ msgstr ""
 "wsparciem technicznym: <a href=\"mailto:support@paynow.pl\">support@paynow."
 "pl</a>."
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:737
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:723
 msgid "Incorrect API key format (production)"
 msgstr "Niepoprawny format klucza dostępu do API (produkcja)"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:745
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:731
 msgid "Incorrect API key format (sandbox)"
 msgstr "Niepoprawny format klucza dostępu do API (sandbox)"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:741
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:727
 msgid "Incorrect API signature key format (production)"
 msgstr "Niepoprawny format klucza obliczania podpisu (produkcja)"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:749
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:735
 msgid "Incorrect API signature key format (sandbox)"
 msgstr "Niepoprawny format klucza obliczania podpisu (sandbox)"
-
-#: includes/settings/pay-by-paynow-pl-settings.php:13
-msgid "Informations"
-msgstr "Informacje"
 
 #: includes/templates/leaselink_widget.phtml:98
 msgid "Initial charge"
@@ -348,15 +347,15 @@ msgstr "Dane Leaselink"
 msgid "Leaselink status"
 msgstr "Status leaselink"
 
-#: includes/class-paynow-settings-manager.php:118
+#: includes/class-paynow-settings-manager.php:160
 msgid "LeaseLink widget colors"
 msgstr "Kolorystyka widgetu LeaseLink"
 
-#: includes/class-paynow-settings-manager.php:81
+#: includes/class-paynow-settings-manager.php:123
 msgid "LeaseLink widget configuration"
 msgstr "Konfiguracja widgetu LeaseLink"
 
-#: includes/class-paynow-settings-manager.php:104
+#: includes/class-paynow-settings-manager.php:146
 msgid "LeaseLink widget location"
 msgstr "Lokalizacja widgetu LeaseLink"
 
@@ -372,7 +371,7 @@ msgstr ""
 "procesu: %s"
 
 #: includes/leaselink/class-leaselink-widget.php:40
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:106
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:110
 msgid "Leasing"
 msgstr "Leasing"
 
@@ -388,7 +387,7 @@ msgstr "Leasing i raty dla firm 24/7"
 msgid "Leasing for companies"
 msgstr "Leasing dla firm"
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:106
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:110
 msgid "Loan"
 msgstr "Pożyczka"
 
@@ -410,7 +409,7 @@ msgid "net"
 msgstr "netto"
 
 #. %s: Payment ID
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:680
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:666
 #, php-format
 msgid "New payment created for order - %s."
 msgstr "Utworzono nową płatność dla zamówienia - %s."
@@ -419,7 +418,7 @@ msgstr "Utworzono nową płatność dla zamówienia - %s."
 msgid "No buyout"
 msgstr "Brak wykupu"
 
-#: includes/class-paynow-settings-manager.php:99
+#: includes/class-paynow-settings-manager.php:141
 msgid "Notification url"
 msgstr "Adres powiadomień"
 
@@ -437,7 +436,7 @@ msgstr "online 24/7, decyzja w 5 minut"
 msgid "Online transfer payment"
 msgstr "Płatność szybkim przelewem"
 
-#: includes/class-paynow-gateway.php:77
+#: includes/class-paynow-gateway.php:76
 msgid "Order No: "
 msgstr "Zamówienie numer: "
 
@@ -451,36 +450,40 @@ msgid "Payment by leaselink"
 msgstr "Płatność za pomocą leaselink"
 
 #. %s: Payment ID
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:503
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:489
 #, php-format
 msgid "Payment has been abandoned - %s."
 msgstr "Płatność została porzucona przez kupującego - %s"
 
 #. %s: Payment ID
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:697
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:683
 #, php-format
 msgid "Payment has been authorized by the buyer - %s."
 msgstr "Płatność została zatwierdzona przez kupującego - %s."
 
 #. %s: Payment ID
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:499
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:485
 #, php-format
 msgid "Payment has been expired - %s."
 msgstr "Płatność utraciła ważność - %s"
 
 #. %s: Payment ID
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:488
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:474
 #, php-format
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr "Płatność nie została zatwierdzona przez kupującego - %s."
 
-#: includes/settings/pay-by-paynow-pl-settings.php:38
+#: includes/class-paynow-settings-manager.php:109
 msgid "Payment validity time"
 msgstr "Czas ważności płatności"
 
-#: includes/class-paynow-settings-manager.php:196
-#: includes/class-paynow-settings-manager.php:197
-#: includes/class-paynow-settings-manager.php:212
+#: includes/class-paynow-settings-manager.php:44
+msgid "Paynow information"
+msgstr "Informacje Paynow"
+
+#: includes/class-paynow-settings-manager.php:254
+#: includes/class-paynow-settings-manager.php:255
+#: includes/class-paynow-settings-manager.php:270
 msgid "Paynow settings"
 msgstr "Ustawienia Paynow"
 
@@ -518,15 +521,15 @@ msgstr "Aby przejść do płatności dokonaj wyboru banku z listy poniżej"
 msgid "Please enter correct BLIK code"
 msgstr "Podaj kod BLIK"
 
-#: includes/class-paynow-settings-manager.php:114
+#: includes/class-paynow-settings-manager.php:156
 msgid "Presentation of the installment amount"
 msgstr "Prezentacja wysokości raty"
 
-#: includes/class-paynow-settings-manager.php:95
+#: includes/class-paynow-settings-manager.php:137
 msgid "Production api key"
 msgstr "Produkcyjny klucz dostępu do API"
 
-#: includes/class-paynow-settings-manager.php:44
+#: includes/class-paynow-settings-manager.php:51
 msgid ""
 "Production authentication keys are available in <i>My Business > Paynow > "
 "Settings > Shops and payment points > Authentication data</i> in mBank's "
@@ -536,7 +539,7 @@ msgstr ""
 "Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające</i> w "
 "bankowości internetowej mBanku."
 
-#: includes/class-paynow-settings-manager.php:43
+#: includes/class-paynow-settings-manager.php:50
 msgid "Production configuration"
 msgstr "Konfiguracja środowiska produkcyjnego"
 
@@ -549,27 +552,27 @@ msgstr "Podaj swoje podstawowe dane."
 msgid "Read more"
 msgstr "Czytaj więcej"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:220
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:206
 msgid "Refund can't be processed. Please check logs for more information"
 msgstr ""
 "Zwrot nie może zostać zlecony. Sprawdź logi aby uzyskać więcej informacji."
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:272
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:258
 msgid "Refund process failed. Please check logs for more information"
 msgstr ""
 "Nie udało się zlecić zwrotu. Sprawdź logi aby uzyskać więcej informacji."
 
 #. %s: Payment ID
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:251
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:237
 #, php-format
 msgid "Refund request processed correctly - %s"
 msgstr "Żądanie zwrotu środków zostało przetworzone poprawnie - %s"
 
-#: includes/class-paynow-settings-manager.php:91
+#: includes/class-paynow-settings-manager.php:133
 msgid "Sandbox api key"
 msgstr "Testowy klucz dostępu do API"
 
-#: includes/class-paynow-settings-manager.php:61
+#: includes/class-paynow-settings-manager.php:68
 msgid ""
 "Sandbox authentication keys can be found in <i>Settings > Shops and poses > "
 "Authentication data</i> in <a href=\"https://panel.sandbox.paynow."
@@ -580,11 +583,11 @@ msgstr ""
 "href=\\\"https://panel.sandbox.paynow.pl/auth/login\\\" "
 "target=\\\"_blank\\\">panelu środowiska testowego</a>."
 
-#: includes/class-paynow-settings-manager.php:60
+#: includes/class-paynow-settings-manager.php:67
 msgid "Sandbox configuration"
 msgstr "Konfiguracja środowiska testowego(Sandbox)"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:21
+#: includes/class-paynow-settings-manager.php:95
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr "Zapisz komunikaty logów w dzienniku stanu systemu WooCommerce."
 
@@ -604,7 +607,7 @@ msgstr "Wybierz LeaseLink jako metodę płatności."
 msgid "Selected product"
 msgstr "Wybrany produkt"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:26
+#: includes/class-paynow-settings-manager.php:99
 msgid "Send order items"
 msgstr "Wysyłaj informację o produktach"
 
@@ -612,8 +615,8 @@ msgstr "Wysyłaj informację o produktach"
 msgid "Shorter terms, not available on leasing"
 msgstr "Krótsze okresy, niedostępne w leasingu"
 
-#: includes/class-paynow-settings-manager.php:53
-#: includes/class-paynow-settings-manager.php:74
+#: includes/class-paynow-settings-manager.php:60
+#: includes/class-paynow-settings-manager.php:81
 msgid "Signature Key"
 msgstr "Klucz obliczania podpisu"
 
@@ -632,8 +635,7 @@ msgstr ""
 msgid "Status:"
 msgstr "Status:"
 
-#: includes/class-paynow-settings-manager.php:135
-#: includes/settings/pay-by-paynow-pl-settings.php:45
+#: includes/class-paynow-settings-manager.php:117
 msgid "Support"
 msgstr "Pomoc"
 
@@ -641,8 +643,8 @@ msgstr "Pomoc"
 msgid "Take a lease from"
 msgstr "Weź leasing od"
 
-#: includes/class-paynow-settings-manager.php:66
-#: includes/class-paynow-settings-manager.php:87
+#: includes/class-paynow-settings-manager.php:73
+#: includes/class-paynow-settings-manager.php:129
 msgid "Test mode (Sandbox)"
 msgstr "Tryb testowy (Sandbox)"
 
@@ -678,21 +680,21 @@ msgstr ""
 msgid "Total (net):"
 msgstr "Razem (netto):"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:436
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:422
 msgid "Transaction confirmed, but order already paid. Transaction ID: "
 msgstr ""
 "Transakcja potwierdzona, ale zamówienie zostało już opłacone. Identyfikator "
 "transakcji:"
 
-#: includes/class-paynow-settings-manager.php:108
+#: includes/class-paynow-settings-manager.php:150
 msgid "Under the \"Add to cart\" button"
 msgstr "Pod przyciskiem \"Dodaj do koszyka\""
 
-#: includes/class-paynow-settings-manager.php:109
+#: includes/class-paynow-settings-manager.php:151
 msgid "Under the product title"
 msgstr "Pod tytułem produktu"
 
-#: includes/settings/pay-by-paynow-pl-settings.php:32
+#: includes/class-paynow-settings-manager.php:104
 msgid "Use payment validity time"
 msgstr "Czas ważności płatności"
 
@@ -700,15 +702,15 @@ msgstr "Czas ważności płatności"
 msgid "What buyout amount do you choose?"
 msgstr "Jaką wysokość wykupu wybierasz?"
 
-#: includes/class-paynow-settings-manager.php:122
+#: includes/class-paynow-settings-manager.php:164
 msgid "White"
 msgstr "Biały"
 
-#: includes/class-paynow-settings-manager.php:124
+#: includes/class-paynow-settings-manager.php:166
 msgid "White transparent"
 msgstr "Biały przezroczysty"
 
-#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:168
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:154
 msgid "Wrong BLIK code"
 msgstr "Błędny kod BLIK"
 

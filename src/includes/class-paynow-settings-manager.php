@@ -31,6 +31,7 @@ class Paynow_Settings_Manager {
 	public function __construct() {
         $this->options = get_option(self::OPTION_NAME, []);
 
+        add_filter('woocommerce_screen_ids', array($this, 'add_current_page_as_woocommerce_page'));
         add_action('admin_menu', array($this, 'add_plugin_settings_page'));
         add_action('admin_init', array($this, 'register_fields'));
 	}
@@ -38,6 +39,12 @@ class Paynow_Settings_Manager {
     public function get_sections_definition()
     {
         return [
+            'paynow_information' => [
+                'id' => 'paynow_information',
+                'title' => __('Paynow information', 'pay-by-paynow-pl'),
+                'desc' => __( 'If you do not have an account in the Paynow system yet, <a href="https://paynow.pl/boarding" target="_blank">register in the Production</a> or <a href="https://panel.sandbox.paynow.pl/auth/register" target="_blank">Sandbox environment</a>.<br /> If you have any problem with configuration, please find the manual <a href="https://github.com/pay-now/paynow-woocommerce/blob/master/README.EN.md" target="_blank">here</a>.', 'pay-by-paynow-pl' ),
+                'page' => self::SETTINGS_PAGE_NAME,
+            ],
             'paynow_production_config' => [
                 'id' => 'paynow_production_config',
                 'title' => __('Production configuration', 'pay-by-paynow-pl'),
@@ -75,6 +82,41 @@ class Paynow_Settings_Manager {
                         'type' => 'text',
                     ],
                 ]
+            ],
+            'paynow_additional_options' => [
+                'id' => 'paynow_additional_options',
+                'title' => __('Additional options', 'pay-by-paynow-pl'),
+                'page' => self::SETTINGS_PAGE_NAME,
+                'fields' => [
+                    [
+                        'id' => 'debug_logs',
+                        'title' => __( 'Debug', 'pay-by-paynow-pl' ),
+                        'label' => __( 'Enable logs', 'pay-by-paynow-pl' ),
+                        'tip' => __( 'Save debug messages to the WooCommerce System Status log.', 'pay-by-paynow-pl' ),
+                        'type' => 'checkbox',
+                    ], [
+                        'id' => 'send_order_items',
+                        'title' => __( 'Send order items', 'pay-by-paynow-pl' ),
+                        'label' => __( 'Enable sending ordered products information: name, categories, quantity and unit price', 'pay-by-paynow-pl' ),
+                        'type' => 'checkbox',
+                    ], [
+                        'id' => 'use_payment_validity_time_flag',
+                        'title' => __( 'Use payment validity time', 'pay-by-paynow-pl' ),
+                        'label' => __( 'Enable to limit the validity of the payment.', 'pay-by-paynow-pl' ),
+                        'type' => 'checkbox',
+                    ], [
+                        'id' => 'payment_validity_time',
+                        'title' => __( 'Payment validity time', 'pay-by-paynow-pl' ),
+                        'tip' => __( 'Determines how long it will be possible to pay for the order from the moment the payment link is generated. Value expressed in seconds. The value must be between 60 and 86400 seconds.', 'pay-by-paynow-pl' ),
+                        'type' => 'number',
+                    ],
+                ],
+            ],
+            'paynow_help_section' => [
+                'id' => 'paynow_help_section',
+                'title' => __('Support', 'pay-by-paynow-pl'),
+                'desc' => __('If you have any questions or issues, please contact our support at <a href="mailto:support@paynow.pl">support@paynow.pl</a>', 'pay-by-paynow-pl'),
+                'page' => self::SETTINGS_PAGE_NAME,
             ],
             'paynow_leaselink_config' => [
                 'id' => 'paynow_leaselink_config',
@@ -130,12 +172,6 @@ class Paynow_Settings_Manager {
                     ]
                 ]
             ],
-            'paynow_help_section' => [
-                'id' => 'paynow_help_section',
-                'title' => __('Support', 'pay-by-paynow-pl'),
-                'desc' => __('If you have any questions or issues, please contact our support at <a href="mailto:support@paynow.pl">support@paynow.pl</a>', 'pay-by-paynow-pl'),
-                'page' => self::SETTINGS_PAGE_NAME,
-            ]
         ];
     }
 
@@ -147,6 +183,21 @@ class Paynow_Settings_Manager {
     public function get_signature_key()
     {
         return $this->is_sandbox() ? ($this->options['sandbox_signature_key'] ?? '') : ($this->options['production_signature_key'] ?? '');
+    }
+
+    public function get_send_order_items()
+    {
+        return $this->options['send_order_items'] ?? false;
+    }
+
+    public function get_use_payment_validity_time_flag()
+    {
+        return $this->options['use_payment_validity_time_flag'] ?? false;
+    }
+
+    public function get_payment_validity_time()
+    {
+        return $this->options['payment_validity_time'] ?? 86400;
     }
 
     public function is_sandbox()
@@ -189,6 +240,13 @@ class Paynow_Settings_Manager {
         $this->notification_url = $url;
     }
 
+    public function add_current_page_as_woocommerce_page($screen_ids)
+    {
+        $screen_ids[] = 'woocommerce_page_' . self::SETTINGS_PAGE_NAME;
+
+        return $screen_ids;
+    }
+
     public function add_plugin_settings_page() {
 
         add_submenu_page(
@@ -208,7 +266,7 @@ class Paynow_Settings_Manager {
     public function create_paynow_admin_settings_page()
     {
         ?>
-        <div class="wrap">
+        <div class="wrap woocommerce">
             <h2><?php esc_html_e('Paynow settings', 'pay-by-paynow-pl') ?></h2>
             <?php settings_errors(); ?>
 
@@ -240,6 +298,11 @@ class Paynow_Settings_Manager {
             );
 
             foreach ($section['fields'] ?? [] as $field) {
+                if (!empty($field['tip'] ?? null)) {
+                    $field['title'] .= sprintf('<span class="woocommerce-help-tip" tabindex="0" aria-label="%s" data-tip="%s"></span>', $field['tip'], $field['tip']);
+                    $field['label_for'] = $field['id'];
+                }
+
                 add_settings_field(
                     $field['id'],
                     $field['title'],
@@ -315,15 +378,34 @@ class Paynow_Settings_Manager {
                     $options
                 );
                 break;
-            default:
+            case 'checkbox':
+                $label_start = '';
+                $label_end = '';
+
+                if (!empty($args['label'] ?? null)) {
+                    $label_start = sprintf('<label for="%s">', $id);
+                    $label_end = sprintf(' %s</label>', $args['label']);
+                }
+
                 printf(
-                    '<input class="regular-text" type="%s" id="%s" name="%s[%s]" value="%s" %s />',
-                    $type,
+                    '%s<input class="regular-text" type="checkbox" id="%s" name="%s[%s]" value="%s" %s /> %s',
+                    $label_start,
                     $id,
                     self::OPTION_NAME,
                     $id,
                     $value,
-                    $type === 'checkbox' && $value ? 'checked' : ''
+                    $value ? 'checked' : '',
+                    $label_end
+                );
+                break;
+            default:
+                printf(
+                    '<input class="regular-text" type="%s" id="%s" name="%s[%s]" value="%s" />',
+                    $type,
+                    $id,
+                    self::OPTION_NAME,
+                    $id,
+                    $value
                 );
         }
     }

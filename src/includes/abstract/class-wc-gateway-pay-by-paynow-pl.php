@@ -53,7 +53,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$this->icon = 'https://static.paynow.pl/payment-method-icons/' . $this->payment_method_id . '.png';
 		}
 
-		$this->gateway           = new Paynow_Gateway( $this->settings );
+		$this->gateway           = new Paynow_Gateway();
 		$this->locking_mechanism = new WC_Pay_By_Paynow_PL_Locking_Mechanism();
 	}
 
@@ -63,20 +63,6 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			'products',
 			'refunds',
 		);
-	}
-
-	public function init_settings() {
-
-		parent::init_settings();
-		$options = get_option( $this->get_api_option_key_name(), null );
-
-		$this->settings = array_merge( $this->settings, ! empty( $options ) ? $options : array() );
-
-		if ( is_array( $options ) && in_array( 'enabled', $options, true ) ) {
-			$this->enabled = $options['enabled'];
-		} else {
-			$this->enabled = ! empty( $this->settings['enabled'] ) && 'yes' === $this->settings['enabled'] ? 'yes' : 'no';
-		}
 	}
 
 	public function process_admin_options() {

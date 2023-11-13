@@ -41,7 +41,7 @@ class Leaselink_Client {
             $register_partner_response->get_partner_name(),
             $register_partner_response->get_partner_user_guid(),
             $register_partner_response->get_partner_user_name(),
-            '00001',
+            !empty($data['customer_external_document']) ? $data['customer_external_document'] : '00001',
             !empty($data['save_data_email']) ? $data['save_data_email'] : '',
             !empty($data['save_data_phone']) ? $data['save_data_phone'] : '',
             array_key_exists('full_recalculation', $data) ? $data['full_recalculation'] : true,

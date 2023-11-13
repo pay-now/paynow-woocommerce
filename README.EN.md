@@ -1,16 +1,17 @@
 [**Wersja polska**][ext0]
 
-# Paynow WooCommerce Plugin
+# Paynow & Leaselink WooCommerce Plugin
 
-The Paynow plugin adds quick bank transfers and BLIK payments to a WooCommerce shop.
+The Paynow & Leaselink plugin adds quick bank transfers, BLIK payments, payment via Leaselink and Leaselink widget to a WooCommerce shop.
 
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
+- [Leaselink configuration](#leaselink-configuration)
 - [Supported functions](#supported-functions)
-- [FAQ](#FAQ)
+- [FAQ](#faq)
 - [Sandbox](#sandbox)
 - [Support](#support)
 - [License](#license)
@@ -44,22 +45,51 @@ See also [instructional video][ext12].
 
 ## Configuration
 
-1. Go to the WooCommerce administration page
-2. Go to `Settings > Payments`
-3. Search and select `Paynow` and click `Manage`
-
-![Configuration step 3][ext7]
-
-4. Production credential keys can be found in the tab `My business > Paynow > Settings > Shops and poses > Authentication data` in the mBank's online banking.
+1. Go to `Woocommerce > Paynow settings` in the administration panel
+2. Production credential keys can be found in the tab `My business > Paynow > Settings > Shops and poses > Authentication data` in the mBank's online banking.
 
    Sandbox credential keys can be found in `Settings > Shops and poses > Authentication data` in the [sandbox panel][ext11].
 
 ![Configuration step 4a][ext8]
 ![Configuration step 4b][ext13]
 
-5. Depending on the environment you want to connect to go to the `Production configuration` section or the `Sandbox configuration` section and type `Api Key` and `Signature Key` in the proper fields.
+3. Depending on the environment you want to connect to go to the `Production configuration` section or the `Sandbox configuration` section and type `Api Key` and `Signature Key` in the proper fields.
 
 ![Configuration step 5][ext9]
+
+4. Go to `Woocommerce > Settings > Payments`
+5. Search and select `Paynow` and click `Manage`
+
+![Configuration step 3][ext7]
+
+6. In the payment list or single payment view, you can enable or disable a specific method
+
+## Leaselink configuration
+
+1. Go to `Woocommerce > Paynow settings` in the administration panel
+2. Depending on the environment you want to connect to, enter the `api key` in the `LeaseLink widget configuration` section. If you do not have the key, write to [integracje@leaselink.pl](mailto:integracje@leaselink.pl) and we will contact you within 24 hours
+
+![Konfiguracja Leaselink krok 2][ext14]
+
+3. For Leaselink payments to work properly, please send the notification address, visible in your Paynow settings, to your Leaselink account manager
+
+![Konfiguracja Leaselink krok 3][ext15]
+
+4. Complete the remaining settings as you wish
+5. To embed the widget anywhere on the page, use the `wc_pay_by_paynow_leaselink_render_widget` function like this:
+
+```php
+// the plugin will try to get the product id from the global post object
+wc_pay_by_paynow_leaselink_render_widget();
+
+// or
+// the plugin will split the string by a comma and display a widget for products with given id numbers
+wc_pay_by_paynow_leaselink_render_widget('12,15,18');
+
+// or
+// the plugin will display a widget for products with given id numbers
+wc_pay_by_paynow_leaselink_render_widget([12, 15, 18]);
+```
 
 ## Supported functions
 1. Add payment methods
@@ -67,8 +97,10 @@ See also [instructional video][ext12].
 - Fast transfer payment
 - Card payment
 - Google Pay payment
+- Leaselink payment
 2. Add support for full and partial refunds
 3. Add support for re-payment
+4. Add a Leaselink calculation widget
 
 ## FAQ
 
@@ -110,3 +142,5 @@ GPL license. For more information, see the LICENSE file.
 [ext11]: https://panel.sandbox.paynow.pl/merchant/payments
 [ext12]: https://paynow.wistia.com/medias/g62mlym13x
 [ext13]: instruction/step6b.png
+[ext14]: instruction/step_ll_1_EN.png
+[ext15]: instruction/step_ll_3_EN.png

@@ -32,8 +32,8 @@ class WC_Pay_By_Paynow_PL_Logger {
 				}
 			}
 
-			$settings = get_option( 'woocommerce_pay_by_paynow_pl_settings' );
-			if ( empty( $settings ) || isset( $settings['debug_logs'] ) && 'yes' !== $settings['debug_logs'] ) {
+			$settings = get_option( 'paynow_global_settings_option' );
+			if ( empty( $settings ) || isset( $settings['debug_logs'] ) && !$settings['debug_logs'] ) {
 				return;
 			}
 

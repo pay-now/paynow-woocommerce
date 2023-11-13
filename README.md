@@ -1,21 +1,22 @@
 [**English version**][ext0]
 
-# Wtyczka Paynow dla WooCommerce
+# Wtyczka Paynow & Leaselink dla WooCommerce
 
-Wtyczka Paynow dodaje szybkie płatności i płatności BLIK do sklepu WooCommerce.
+Wtyczka Paynow & Leaselink dodaje szybkie płatności, płatności BLIK, płatność za pomocą Leaselink oraz obsługę widgetu Leaselink do sklepu WooCommerce.
 
 ## Spis treści
 
 - [Wymagania](#wymagania)
 - [Instalacja](#instalacja)
 - [Konfiguracja](#konfiguracja)
-- [Wspierane funkcjonalności](#wspierane-funkcjonalnośc)
-- [FAQ](#FAQ)
+- [Konfiguracja Leaselink](#konfiguracja-leaselink)
+- [Wspierane funkcjonalności](#funkcje)
+- [FAQ](#faq)
 - [Sandbox](#sandbox)
 - [Wsparcie](#wsparcie)
 - [Licencja](#licencja)
 
-## Wymgania
+## Wymagania
 
 - PHP od wersji 7.1
 - WooCommerce w wersji 2.2 lub wyższej
@@ -44,23 +45,52 @@ Zobacz również [filmik instruktażowy][ext12].
 
 ## Konfiguracja
 
-1. Przejdź do zakładki `WooCommerce` w panelu administracyjnym
-2. Przejdź do `Ustawienia > Płatności`
-3. Na liście dostępnych metod płatności znajdź `Paynow` i kliknij `Zarządzaj`
+1. Przejdź do zakładki `WooCommerce > Ustawienia Paynow` w panelu administracyjnym
+2. Produkcyjne klucze dostępu znajdziesz w zakładce `Mój biznes > Paynow > Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w bankowości internetowej mBanku.
+
+Klucze dla środowiska testowego znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w [panelu środowiska testowego][ext11].
+
+![Konfiguracja krok 2a][ext8]
+
+![Konfiguracja krok 2b][ext13]
+
+3. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja środowiska produkcyjnego` lub `Konfiguracja środowiska testowego(Sandbox)` podaj `Klucz dostępu do API` i `Klucz obliczania podpisu`.
+
+![Konfiguracja krok 3][ext9]
+
+4. Przejdź do `Woocommerce > Ustawienia > Płatności`
+5. Na liście dostępnych metod płatności znajdź `Paynow` i kliknij `Zarządzaj`
 
 ![Konfiguracja krok 3][ext7]
 
-4. Produkcyjne klucze dostępu znajdziesz w zakładce `Mój biznes > Paynow > Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w bankowości internetowej mBanku.
+6. Na widoku listy płatności bądź pojedynczej płatności możesz włączyć lub wyłączyć konkretną metodę
 
-   Klucze dla środowiska testowego znajdziesz w zakładce `Ustawienia > Sklepy i punkty płatności > Dane uwierzytelniające` w [panelu środowiska testowego][ext11].
+## Konfiguracja Leaselink
 
-![Konfiguracja krok 4a][ext8]
+1. Przejdź do zakładki `WooCommerce > Ustawienia Paynow` w panelu administracyjnym
+2. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja widgetu LeaseLink` podaj `Klucz dostępu do API`. Jeśli nie posiadasz klucza napisz na [integracje@leaselink.pl](mailto:integracje@leaselink.pl), a odezwiemy się w ciągu 24h
 
-![Konfiguracja krok 4b][ext13]
+![Konfiguracja Leaselink krok 2][ext14]
 
-5. W zależności od środowiska, z którym chesz się połaczyć w sekcji `Konfiguracja środowiska produkcyjnego` lub `Konfiguracja środowiska testowego(Sandbox)` podaj `Klucz dostępu do API` i `Klucz obliczania podpisu`.
+3. Aby płatności Leaselink działały poprawnie, wyślij adres powiadomień, widoczny w ustawieniach Paynow, swojemu opiekunowi Leaselink
 
-![Konfiguracja krok 5][ext9]
+![Konfiguracja Leaselink krok 3][ext15]
+
+4. Pozostałe ustawienia uzupełnij wedle woli
+5. Aby osadzić widget w dowolnym miejscu strony należy użyć funkcji `wc_pay_by_paynow_leaselink_render_widget` w taki sposób:
+
+```php
+// wtyczka spróbuje pobrać id produktu z globalnego obiektu post
+wc_pay_by_paynow_leaselink_render_widget();
+
+// lub
+// wtyczka rozbije ciąg znaków za pomocą przecinka i wyświetli widget dla produktów o podanych numerach id
+wc_pay_by_paynow_leaselink_render_widget('12,15,18');
+
+// lub
+// wtyczka wyświetli widget dla produktów o podanych numerach id
+wc_pay_by_paynow_leaselink_render_widget([12, 15, 18]);
+```
 
 ## Funkcje
 1. Dodaje metody płatności
@@ -68,8 +98,10 @@ Zobacz również [filmik instruktażowy][ext12].
 - Płatność szybkim przelewem
 - Płatność kartą płątniczą
 - Płatność Google Pay
+- Płatność Leaselink
 2. Umożliwia zwroty częściowe lub całościowe
 3. Umożliwia ponowienie płatności
+4. Dodaje widget kalkulacyjny Leaselink
 
 ## FAQ
 
@@ -112,3 +144,5 @@ Licencja GPL. Szczegółowe informacje znajdziesz w pliku LICENSE.
 [ext11]: https://panel.sandbox.paynow.pl/merchant/payments
 [ext12]: https://paynow.wistia.com/medias/g62mlym13x
 [ext13]: instruction/step6b.png
+[ext14]: instruction/step_ll_1.png
+[ext15]: instruction/step_ll_3.png

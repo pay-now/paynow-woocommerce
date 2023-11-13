@@ -93,6 +93,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         $partner_site = wc_pay_by_paynow()->leaselink()->client()->register_partner_site();
         /** @var \Leaselink_Offer_For_Client_Response $response */
         $response = wc_pay_by_paynow()->leaselink()->client()->get_offer_for_client($products, [
+            'customer_external_document' => sprintf('%s', $order->get_id()),
+            'save_in_process' => true,
             'save_data_email' => $order->get_billing_email(),
             'save_data_phone' => $order->get_billing_phone(),
             'simulation' => false,

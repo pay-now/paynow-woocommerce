@@ -19,7 +19,7 @@ use Paynow\Service\ShopConfiguration;
  */
 class Paynow_Gateway {
 
-	protected $settings;
+	protected $settings_manager;
 
 	protected $client;
 
@@ -30,19 +30,18 @@ class Paynow_Gateway {
 	 */
 	protected $signature_key;
 
-	public function __construct( array $settings ) {
+	public function __construct() {
 
-		$this->settings = $settings;
-        $settings_manager = wc_pay_by_paynow()->settings();
-		if ( !empty($settings_manager->get_api_key()) && !empty($settings_manager->get_signature_key()) ) {
-			$api_key             = $settings_manager->get_api_key();
-			$this->signature_key = $settings_manager->get_signature_key();
+        $this->settings_manager = wc_pay_by_paynow()->settings();
+		if ( !empty($this->settings_manager->get_api_key()) && !empty($this->settings_manager->get_signature_key()) ) {
+			$api_key             = $this->settings_manager->get_api_key();
+			$this->signature_key = $this->settings_manager->get_signature_key();
 
 			if ( $api_key && $this->signature_key ) {
 				$this->client = new Client(
 					$api_key,
 					$this->signature_key,
-					$settings_manager->is_sandbox() ? Environment::SANDBOX : Environment::PRODUCTION,
+					$this->settings_manager->is_sandbox() ? Environment::SANDBOX : Environment::PRODUCTION,
 					'Wordpress-' . get_bloginfo( 'version' ) . '/WooCommerce-' . WC()->version . '/Plugin-' . wc_pay_by_paynow_pl_plugin_version()
 				);
 			}
@@ -96,7 +95,7 @@ class Paynow_Gateway {
 			$payment_data['authorizationCode'] = $authorization_code;
 		}
 
-		if ( 'yes' === $this->settings['send_order_items'] ) {
+		if ( $this->settings_manager->get_send_order_items() ) {
 			$order_items = array();
 			foreach ( $order->get_items() as $item ) {
 				$product       = $item->get_product();
@@ -121,8 +120,8 @@ class Paynow_Gateway {
 			}
 		}
 
-		if ( 'yes' === $this->settings['use_payment_validity_time_flag'] ) {
-			$payment_data['validityTime'] = $this->settings['payment_validity_time'];
+		if ( $this->settings_manager->get_use_payment_validity_time_flag() ) {
+			$payment_data['validityTime'] = $this->settings_manager->get_payment_validity_time();
 		}
 
 		$idempotency_key = substr( uniqid( $order_id, true ), 0, 45 );
