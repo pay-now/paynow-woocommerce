@@ -39,6 +39,7 @@ class Leaselink_Notification_Api {
             'service' => 'Leaselink notification api',
             'params' => $request->get_params(),
             'body' => $request->get_body(),
+            'headers' => $request->get_headers(),
         ];
         WC_Pay_By_Paynow_PL_Logger::info('Processing notification', $logger_context);
 
