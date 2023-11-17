@@ -11,6 +11,14 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: Plugins - Pay by paynow.pl - Stable (latest release)\n"
 
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:228
+msgid "A data validation error occurred. Check the correctness of the entered data"
+msgstr "Wystąpił błąd walidacji danych. Sprawdź poprawność wpisanych danych"
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:225
+msgid "Invalid email address entered. Check the correctness of the entered data"
+msgstr "Podano nieprawidłowy adres e-mail. Sprawdź poprawność wpisanych danych"
+
 #: includes/templates/pbl_payment.php:4
 msgid "Choose bank:"
 msgstr "Wybierz bank:"
