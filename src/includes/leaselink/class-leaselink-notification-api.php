@@ -12,6 +12,10 @@ class Leaselink_Notification_Api {
 
     private $setting_manager;
 
+    private $request = null;
+    private $body = [];
+    private $is_json = true;
+
     public function __construct(Paynow_Settings_Manager $settings_manager) {
         $this->setting_manager = $settings_manager;
 
@@ -35,15 +39,21 @@ class Leaselink_Notification_Api {
 
     public function process(WP_REST_Request $request)
     {
+        $this->request = $request;
+        $this->is_json = $request->is_json_content_type();
+        if (!$this->is_json) {
+            $this->body = json_decode($request->get_body(), true);
+        }
+
         $logger_context = [
             'service' => 'Leaselink notification api',
             'params' => $request->get_params(),
             'body' => $request->get_body(),
-            'headers' => $request->get_headers(),
+            'is_json' => $this->is_json,
         ];
         WC_Pay_By_Paynow_PL_Logger::info('Processing notification', $logger_context);
 
-        $transaction_id = $request->get_param('TransactionId');
+        $transaction_id = $this->get_param_from_request('TransactionId');
         if (empty($transaction_id)) {
             WC_Pay_By_Paynow_PL_Logger::error('Invalid body - transaction id not found.', $logger_context);
             return new WP_Error( 'no_transaction_id', 'Invalid body - transaction id not found.', array( 'status' => 404 ) );
@@ -64,19 +74,19 @@ class Leaselink_Notification_Api {
         $order = $orders[0];
         $logger_context['order'] = $order->get_id();
 
-        $status = $request->get_param('StatusName');
+        $status = $this->get_param_from_request('StatusName');
         if (!empty($status)) {
             $order->update_meta_data('_leaselink_status', $status);
             $order->save();
         }
 
-        if (!empty($request->get_param('InvoiceVatCompanyName'))) {
-            $order->set_billing_first_name($request->get_param('InvoiceVatCompanyName'));
+        if (!empty($this->get_param_from_request('InvoiceVatCompanyName'))) {
+            $order->set_billing_first_name($this->get_param_from_request('InvoiceVatCompanyName'));
             $order->set_billing_last_name('');
-            $order->set_billing_company($request->get_param('InvoiceVatIdentificationNumber') ?? '');
-            $order->set_billing_city($request->get_param('InvoiceVatAddressCity') ?? '');
-            $order->set_billing_postcode($request->get_param('InvoiceVatAddressZipCode') ?? '');
-            $order->set_billing_address_1(($request->get_param('InvoiceVatAddressStreetName') ?? '') . ' ' . ($request->get_param('InvoiceVatAddressStreetNumber') ?? '') . ' ' . ($request->get_param('InvoiceVatAddressLocationNumber') ?? ''));
+            $order->set_billing_company($this->get_param_from_request('InvoiceVatIdentificationNumber') ?? '');
+            $order->set_billing_city($this->get_param_from_request('InvoiceVatAddressCity') ?? '');
+            $order->set_billing_postcode($this->get_param_from_request('InvoiceVatAddressZipCode') ?? '');
+            $order->set_billing_address_1(($this->get_param_from_request('InvoiceVatAddressStreetName') ?? '') . ' ' . ($this->get_param_from_request('InvoiceVatAddressStreetNumber') ?? '') . ' ' . ($this->get_param_from_request('InvoiceVatAddressLocationNumber') ?? ''));
             $order->set_billing_address_2('');
             $order->save();
         }
@@ -99,5 +109,14 @@ class Leaselink_Notification_Api {
         WC_Pay_By_Paynow_PL_Logger::info('Notification processed successfully', $logger_context);
 
         return new WP_REST_Response();
+    }
+
+    private function get_param_from_request(string $param)
+    {
+        if (empty($this->request)) {
+            return null;
+        }
+
+        return $this->is_json ? $this->request->get_param($param) : ($this->body[$param] ?? '');
     }
 }
