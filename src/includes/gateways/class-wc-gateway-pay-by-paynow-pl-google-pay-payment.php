@@ -22,6 +22,15 @@ class WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment extends WC_Gateway_Pay_By_P
 	 * @return bool
 	 */
 	public function is_available(): bool {
-		return $this->is_payment_method_available( Type::GOOGLE_PAY );
+        $is_digital_wallets_enabled = false;
+
+        foreach ( WC()->payment_gateways()->payment_gateways() as $payment_gateway ) {
+            if ( get_class( $payment_gateway ) === WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment::class && 'yes' === $payment_gateway->enabled ) {
+                $is_digital_wallets_enabled = true;
+                break;
+            }
+        }
+
+		return $this->is_payment_method_available( Type::GOOGLE_PAY ) && $is_digital_wallets_enabled;
 	}
 }

@@ -236,6 +236,18 @@ msgstr ""
 msgid "Online transfer payment"
 msgstr ""
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:14
+msgid "Accept Digital wallets payments with paynow.pl"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:13
+msgid "paynow.pl - Digital wallets payments"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:11
+msgid "Digital wallets"
+msgstr ""
+
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:14
 msgid "Accept Google Pay payments with paynow.pl"
 msgstr ""
@@ -281,6 +293,7 @@ msgid "paynow.pl - BLIK payments"
 msgstr ""
 
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:13
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:12
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:12
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:12
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:12
