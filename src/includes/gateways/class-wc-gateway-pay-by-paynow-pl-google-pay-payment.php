@@ -22,7 +22,6 @@ class WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment extends WC_Gateway_Pay_By_P
 	 * @return bool
 	 */
 	public function is_available(): bool {
-
 		return $this->is_payment_method_available( Type::GOOGLE_PAY ) &&
             WC_Pay_By_Paynow_PL_Helper::is_payment_method_available(WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment::class);
 	}
