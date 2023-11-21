@@ -22,15 +22,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Apple_Pay_Payment extends WC_Gateway_Pay_By_Pa
 	 * @return bool
 	 */
 	public function is_available(): bool {
-        $is_digital_wallets_enabled = false;
 
-        foreach ( WC()->payment_gateways()->payment_gateways() as $payment_gateway ) {
-            if ( get_class( $payment_gateway ) === WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment::class && 'yes' === $payment_gateway->enabled ) {
-                $is_digital_wallets_enabled = true;
-                break;
-            }
-        }
-
-		return $this->is_payment_method_available( Type::APPLE_PAY ) && $is_digital_wallets_enabled;
+		return $this->is_payment_method_available( Type::APPLE_PAY ) &&
+            WC_Pay_By_Paynow_PL_Helper::is_payment_method_available(WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment::class);
 	}
 }
