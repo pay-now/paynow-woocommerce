@@ -154,7 +154,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	public static function is_paynow_order( $order ): bool {
 
 		if ( self::is_old_wc_version() ) {
-			$payment_method = $order->get_meta( '_payment_method', true );
+            $payment_method = get_post_meta( $order->id, '_payment_method', true );
 		} else {
 			$payment_method = $order->get_payment_method();
 		}
