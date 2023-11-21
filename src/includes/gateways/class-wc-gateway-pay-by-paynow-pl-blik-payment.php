@@ -11,7 +11,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_
 		$this->id                 = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik';
 		$this->title              = __( 'BLIK payment', 'pay-by-paynow-pl' );
 		$this->description        = __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' );
-		$this->method_title       = __( 'paynow.pl - BLIK payments', 'pay-by-paynow-pl' );
+		$this->method_title       = __( 'LeaseLink - BLIK payments', 'pay-by-paynow-pl' );
 		$this->method_description = __( 'Accept BLIK payments with paynow.pl', 'pay-by-paynow-pl' );
 		$this->payment_method_id  = 2007;
 		parent::__construct();

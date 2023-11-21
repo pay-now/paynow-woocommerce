@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Pay by paynow.pl
+ * Plugin Name: LeaseLink - Leasing and Installments for Companies
  * Plugin URI: https://github.com/pay-now/paynow-woocommerce
- * Description: Accepts secure BLIK, credit cards payments and fast online transfers by paynow.pl
+ * Description: offer your business clients Leasing and Company Installments as payment
  * Version: 2.4.22
  * Requires PHP: 7.1
- * Author: mElements S.A.
- * Author URI: https://www.paynow.pl
+ * Author: LeaseLink Sp. z o.o.
+ * Author URI: https://leaselink.pl/
  * License: GPLv3
  * Text Domain: pay-by-paynow-pl
  * Domain Path: /languages

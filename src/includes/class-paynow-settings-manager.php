@@ -39,6 +39,60 @@ class Paynow_Settings_Manager {
     public function get_sections_definition()
     {
         return [
+            'paynow_leaselink_config' => [
+                'id' => 'paynow_leaselink_config',
+                'title' => __('LeaseLink widget configuration', 'pay-by-paynow-pl'),
+                'desc' => __('Don\'t have a contract with LeaseLink yet? Write to us at <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a> and we will contact you within 24 hours', 'pay-by-paynow-pl'),
+                'page' => self::SETTINGS_PAGE_NAME,
+                'fields' => [
+                    [
+                        'id' => 'll_is_sandbox',
+                        'title' => __('Test mode (Sandbox)', 'pay-by-paynow-pl'),
+                        'type' => 'checkbox',
+                    ], [
+                        'id' => 'll_sandbox_api_key',
+                        'title' => __('Sandbox api key', 'pay-by-paynow-pl'),
+                        'type' => 'text',
+                    ], [
+                        'id' => 'll_production_api_key',
+                        'title' => __('Production api key', 'pay-by-paynow-pl'),
+                        'type' => 'text',
+                    ], [
+                        'id' => 'll_notification_url',
+                        'title' => __('Notification url', 'pay-by-paynow-pl'),
+                        'type' => 'constant',
+                        'value' => $this->notification_url,
+                    ], [
+                        'id' => 'll_widget_location',
+                        'title' => __('LeaseLink widget location', 'pay-by-paynow-pl'),
+                        'type' => 'select',
+                        'options' => [
+                            self::SETTING_WIDGET_LOCALIZATION_NONE => __('Do not display', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_ADD_TO_CART => __('Under the "Add to cart" button', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_UNDER_TITLE => __('Under the product title', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_UNDER_CONTENT => __('Below the product content', 'pay-by-paynow-pl'),
+                        ],
+                    ], [
+                        'id' => 'll_widget_show_rate',
+                        'title' => __('Presentation of the installment amount', 'pay-by-paynow-pl'),
+                        'type' => 'checkbox',
+                    ], [
+                        'id' => 'll_widget_color',
+                        'title' => __('LeaseLink widget colors', 'pay-by-paynow-pl'),
+                        'type' => 'select',
+                        'options' => [
+                            self::SETTING_WIDGET_COLOR_BLACK => __('Black', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_COLOR_WHITE => __('White', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_COLOR_BLACK_GHOST => __('Black transparent', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_COLOR_WHITE_GHOST => __('White transparent', 'pay-by-paynow-pl'),
+                        ]
+                    ], [
+                        'id' => 'll_custom_css',
+                        'title' => __('Additional CSS', 'pay-by-paynow-pl'),
+                        'type' => 'textarea',
+                    ]
+                ]
+            ],
             'paynow_information' => [
                 'id' => 'paynow_information',
                 'title' => __('Paynow information', 'pay-by-paynow-pl'),
@@ -115,62 +169,8 @@ class Paynow_Settings_Manager {
             'paynow_help_section' => [
                 'id' => 'paynow_help_section',
                 'title' => __('Support', 'pay-by-paynow-pl'),
-                'desc' => __('If you have any questions or issues, please contact our support at <a href="mailto:support@paynow.pl">support@paynow.pl</a>', 'pay-by-paynow-pl'),
+                'desc' => __('If you have any questions or issues, please contact our support at <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a>', 'pay-by-paynow-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
-            ],
-            'paynow_leaselink_config' => [
-                'id' => 'paynow_leaselink_config',
-                'title' => __('LeaseLink widget configuration', 'pay-by-paynow-pl'),
-                'desc' => __('Don\'t have a contract with LeaseLink yet? Write to us at <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a> and we will contact you within 24 hours', 'pay-by-paynow-pl'),
-                'page' => self::SETTINGS_PAGE_NAME,
-                'fields' => [
-                    [
-                        'id' => 'll_is_sandbox',
-                        'title' => __('Test mode (Sandbox)', 'pay-by-paynow-pl'),
-                        'type' => 'checkbox',
-                    ], [
-                        'id' => 'll_sandbox_api_key',
-                        'title' => __('Sandbox api key', 'pay-by-paynow-pl'),
-                        'type' => 'text',
-                    ], [
-                        'id' => 'll_production_api_key',
-                        'title' => __('Production api key', 'pay-by-paynow-pl'),
-                        'type' => 'text',
-                    ], [
-                        'id' => 'll_notification_url',
-                        'title' => __('Notification url', 'pay-by-paynow-pl'),
-                        'type' => 'constant',
-                        'value' => $this->notification_url,
-                    ], [
-                        'id' => 'll_widget_location',
-                        'title' => __('LeaseLink widget location', 'pay-by-paynow-pl'),
-                        'type' => 'select',
-                        'options' => [
-                            self::SETTING_WIDGET_LOCALIZATION_NONE => __('Do not display', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_LOCALIZATION_ADD_TO_CART => __('Under the "Add to cart" button', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_LOCALIZATION_UNDER_TITLE => __('Under the product title', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_LOCALIZATION_UNDER_CONTENT => __('Below the product content', 'pay-by-paynow-pl'),
-                        ],
-                    ], [
-                        'id' => 'll_widget_show_rate',
-                        'title' => __('Presentation of the installment amount', 'pay-by-paynow-pl'),
-                        'type' => 'checkbox',
-                    ], [
-                        'id' => 'll_widget_color',
-                        'title' => __('LeaseLink widget colors', 'pay-by-paynow-pl'),
-                        'type' => 'select',
-                        'options' => [
-                            self::SETTING_WIDGET_COLOR_BLACK => __('Black', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_COLOR_WHITE => __('White', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_COLOR_BLACK_GHOST => __('Black transparent', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_COLOR_WHITE_GHOST => __('White transparent', 'pay-by-paynow-pl'),
-                        ]
-                    ], [
-                        'id' => 'll_custom_css',
-                        'title' => __('Additional CSS', 'pay-by-paynow-pl'),
-                        'type' => 'textarea',
-                    ]
-                ]
             ],
         ];
     }
@@ -251,8 +251,8 @@ class Paynow_Settings_Manager {
 
         add_submenu_page(
             'woocommerce',
-            __('Paynow settings', 'pay-by-paynow-pl'),
-            __('Paynow settings', 'pay-by-paynow-pl'),
+            __('LeaseLink settings', 'pay-by-paynow-pl'),
+            __('LeaseLink settings', 'pay-by-paynow-pl'),
             'manage_options',
             self::SETTINGS_PAGE_NAME,
             [$this, 'create_paynow_admin_settings_page'],
@@ -267,7 +267,7 @@ class Paynow_Settings_Manager {
     {
         ?>
         <div class="wrap woocommerce">
-            <h2><?php esc_html_e('Paynow settings', 'pay-by-paynow-pl') ?></h2>
+            <h2><?php esc_html_e('LeaseLink settings', 'pay-by-paynow-pl') ?></h2>
             <?php settings_errors(); ?>
 
             <form method="post" action="options.php">

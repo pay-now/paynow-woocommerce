@@ -1,8 +1,8 @@
 [**English version**][ext0]
 
-# Wtyczka Paynow & Leaselink dla WooCommerce
+# Wtyczka Leaselink dla WooCommerce
 
-Wtyczka Paynow & Leaselink dodaje szybkie płatności, płatności BLIK, płatność za pomocą Leaselink oraz obsługę widgetu Leaselink do sklepu WooCommerce.
+Wtyczka Leaselink dodaje szybkie płatności, płatności BLIK, płatność za pomocą Leaselink oraz obsługę widgetu Leaselink do sklepu WooCommerce.
 
 ## Spis treści
 

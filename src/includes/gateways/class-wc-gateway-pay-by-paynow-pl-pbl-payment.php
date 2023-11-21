@@ -10,7 +10,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 		$this->id                 = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl';
 		$this->title              = __( 'Online transfer payment', 'pay-by-paynow-pl' );
 		$this->description        = __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' );
-		$this->method_title       = __( 'paynow.pl - Online payments', 'pay-by-paynow-pl' );
+		$this->method_title       = __( 'LeaseLink - Online payments', 'pay-by-paynow-pl' );
 		$this->method_description = __( 'Accept online transfer payments with paynow.pl', 'pay-by-paynow-pl' );
 		$this->icon               = 'https://static.paynow.pl/brand/paynow_logo_black.png';
 		$this->has_fields         = true;

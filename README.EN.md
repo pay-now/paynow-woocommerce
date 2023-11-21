@@ -1,8 +1,8 @@
 [**Wersja polska**][ext0]
 
-# Paynow & Leaselink WooCommerce Plugin
+# Leaselink WooCommerce Plugin
 
-The Paynow & Leaselink plugin adds quick bank transfers, BLIK payments, payment via Leaselink and Leaselink widget to a WooCommerce shop.
+The Leaselink plugin adds quick bank transfers, BLIK payments, payment via Leaselink and Leaselink widget to a WooCommerce shop.
 
 ## Table of Contents
 

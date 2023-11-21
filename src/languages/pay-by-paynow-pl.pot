@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 17:40+0000\n"
+"POT-Creation-Date: 2023-11-21 11:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -31,21 +31,15 @@ msgstr ""
 msgid "Accept online transfer payments with paynow.pl"
 msgstr ""
 
-#. Description of the plugin
-msgid ""
-"Accepts secure BLIK, credit cards payments and fast online transfers by "
-"paynow.pl"
-msgstr ""
-
 #: includes/templates/leaselink_widget.phtml:167
 msgid "Add products to cart."
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:170
+#: includes/class-paynow-settings-manager.php:91
 msgid "Additional CSS"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:88
+#: includes/class-paynow-settings-manager.php:142
 msgid "Additional options"
 msgstr ""
 
@@ -69,8 +63,8 @@ msgstr ""
 msgid "An error occurred during the refund process - %s"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:56
-#: includes/class-paynow-settings-manager.php:77
+#: includes/class-paynow-settings-manager.php:110
+#: includes/class-paynow-settings-manager.php:131
 msgid "Api Key"
 msgstr ""
 
@@ -84,15 +78,15 @@ msgstr ""
 msgid "Back to the store"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:152
+#: includes/class-paynow-settings-manager.php:73
 msgid "Below the product content"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:163
+#: includes/class-paynow-settings-manager.php:84
 msgid "Black"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:165
+#: includes/class-paynow-settings-manager.php:86
 msgid "Black transparent"
 msgstr ""
 
@@ -112,7 +106,7 @@ msgstr ""
 msgid "Buyout"
 msgstr ""
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:102
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:104
 msgid "Cannot get offer for client. Please use other payment option."
 msgstr ""
 
@@ -136,22 +130,22 @@ msgstr ""
 msgid "Confirm the payment using the app on your phone."
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:93
+#: includes/class-paynow-settings-manager.php:147
 msgid "Debug"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:110
+#: includes/class-paynow-settings-manager.php:164
 msgid ""
 "Determines how long it will be possible to pay for the order from the moment "
 "the payment link is generated. Value expressed in seconds. The value must be "
 "between 60 and 86400 seconds."
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:149
+#: includes/class-paynow-settings-manager.php:70
 msgid "Do not display"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:124
+#: includes/class-paynow-settings-manager.php:45
 msgid ""
 "Don't have a contract with LeaseLink yet? Write to us at <a href=\"mailto:"
 "integracje@leaselink.pl\">integracje@leaselink.pl</a> and we will contact "
@@ -170,17 +164,17 @@ msgstr ""
 msgid "Enable Leaselink Gateway"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:94
+#: includes/class-paynow-settings-manager.php:148
 msgid "Enable logs"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:100
+#: includes/class-paynow-settings-manager.php:154
 msgid ""
 "Enable sending ordered products information: name, categories, quantity and "
 "unit price"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:105
+#: includes/class-paynow-settings-manager.php:159
 msgid "Enable to limit the validity of the payment."
 msgstr ""
 
@@ -240,10 +234,10 @@ msgid "https://github.com/pay-now/paynow-woocommerce"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://www.paynow.pl"
+msgid "https://leaselink.pl/"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:45
+#: includes/class-paynow-settings-manager.php:99
 msgid ""
 "If you do not have an account in the Paynow system yet, <a href=\"https:"
 "//paynow.pl/boarding\" target=\"_blank\">register in the Production</a> or "
@@ -253,10 +247,10 @@ msgid ""
 "woocommerce/blob/master/README.EN.md\" target=\"_blank\">here</a>."
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:118
+#: includes/class-paynow-settings-manager.php:172
 msgid ""
 "If you have any questions or issues, please contact our support at <a "
-"href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
+"href=\"mailto:integracje@leaselink.pl\">integracje@leaselink.pl</a>"
 msgstr ""
 
 #: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:723
@@ -288,6 +282,26 @@ msgstr ""
 msgid "Lease now"
 msgstr ""
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:14
+msgid "LeaseLink - BLIK payments"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:13
+msgid "LeaseLink - Card payments"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:13
+msgid "LeaseLink - Google Pay payments"
+msgstr ""
+
+#. Name of the plugin
+msgid "LeaseLink - Leasing and Installments for Companies"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:13
+msgid "LeaseLink - Online payments"
+msgstr ""
+
 #: includes/class-paynow-leaselink.php:67
 msgid "Leaselink application form"
 msgstr ""
@@ -301,23 +315,33 @@ msgstr ""
 msgid "Leaselink data"
 msgstr ""
 
+#: includes/class-paynow-settings-manager.php:254
+#: includes/class-paynow-settings-manager.php:255
+#: includes/class-paynow-settings-manager.php:270
+msgid "LeaseLink settings"
+msgstr ""
+
+#. Author of the plugin
+msgid "LeaseLink Sp. z o.o."
+msgstr ""
+
 #: includes/class-paynow-leaselink.php:65
 msgid "Leaselink status"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:160
+#: includes/class-paynow-settings-manager.php:81
 msgid "LeaseLink widget colors"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:123
+#: includes/class-paynow-settings-manager.php:44
 msgid "LeaseLink widget configuration"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:146
+#: includes/class-paynow-settings-manager.php:67
 msgid "LeaseLink widget location"
 msgstr ""
 
-#: includes/leaselink/class-leaselink-notification-api.php:89
+#: includes/leaselink/class-leaselink-notification-api.php:101
 #, php-format
 msgid ""
 "LeaseLink – The contract has been signed. Issue an invoice and send it to <a "
@@ -326,11 +350,12 @@ msgid ""
 msgstr ""
 
 #: includes/leaselink/class-leaselink-widget.php:40
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:110
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:112
 msgid "Leasing"
 msgstr ""
 
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:13
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:15
 msgid "Leasing and Installments for Companies"
 msgstr ""
 
@@ -342,12 +367,8 @@ msgstr ""
 msgid "Leasing for companies"
 msgstr ""
 
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:110
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:112
 msgid "Loan"
-msgstr ""
-
-#. Author of the plugin
-msgid "mElements S.A."
 msgstr ""
 
 #: includes/templates/leaselink_widget.phtml:195
@@ -373,7 +394,7 @@ msgstr ""
 msgid "No buyout"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:141
+#: includes/class-paynow-settings-manager.php:62
 msgid "Notification url"
 msgstr ""
 
@@ -383,7 +404,12 @@ msgstr ""
 msgid "Number:"
 msgstr ""
 
+#. Description of the plugin
+msgid "offer your business clients Leasing and Company Installments as payment"
+msgstr ""
+
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:14
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:16
 msgid "online 24/7, decision in 5 minutes"
 msgstr ""
 
@@ -393,14 +419,6 @@ msgstr ""
 
 #: includes/class-paynow-gateway.php:76
 msgid "Order No: "
-msgstr ""
-
-#. Name of the plugin
-msgid "Pay by paynow.pl"
-msgstr ""
-
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:16
-msgid "Payment by leaselink"
 msgstr ""
 
 #. %s: Payment ID
@@ -427,38 +445,12 @@ msgstr ""
 msgid "Payment has not been authorized by the buyer - %s."
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:109
+#: includes/class-paynow-settings-manager.php:163
 msgid "Payment validity time"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:44
+#: includes/class-paynow-settings-manager.php:98
 msgid "Paynow information"
-msgstr ""
-
-#: includes/class-paynow-settings-manager.php:254
-#: includes/class-paynow-settings-manager.php:255
-#: includes/class-paynow-settings-manager.php:270
-msgid "Paynow settings"
-msgstr ""
-
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:14
-msgid "paynow.pl - BLIK payments"
-msgstr ""
-
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:13
-msgid "paynow.pl - Card payments"
-msgstr ""
-
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:13
-msgid "paynow.pl - Google Pay payments"
-msgstr ""
-
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php:15
-msgid "paynow.pl - Leaselink"
-msgstr ""
-
-#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:13
-msgid "paynow.pl - Online payments"
 msgstr ""
 
 #: includes/templates/leaselink_widget.phtml:169
@@ -473,22 +465,22 @@ msgstr ""
 msgid "Please enter correct BLIK code"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:156
+#: includes/class-paynow-settings-manager.php:77
 msgid "Presentation of the installment amount"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:137
+#: includes/class-paynow-settings-manager.php:58
 msgid "Production api key"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:51
+#: includes/class-paynow-settings-manager.php:105
 msgid ""
 "Production authentication keys are available in <i>My Business > Paynow > "
 "Settings > Shops and payment points > Authentication data</i> in mBank's "
 "online banking."
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:50
+#: includes/class-paynow-settings-manager.php:104
 msgid "Production configuration"
 msgstr ""
 
@@ -515,22 +507,22 @@ msgstr ""
 msgid "Refund request processed correctly - %s"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:133
+#: includes/class-paynow-settings-manager.php:54
 msgid "Sandbox api key"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:68
+#: includes/class-paynow-settings-manager.php:122
 msgid ""
 "Sandbox authentication keys can be found in <i>Settings > Shops and poses > "
 "Authentication data</i> in <a href=\"https://panel.sandbox.paynow."
 "pl/auth/login\" target=\"_blank\">the Paynow Sandbox panel</a>."
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:67
+#: includes/class-paynow-settings-manager.php:121
 msgid "Sandbox configuration"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:95
+#: includes/class-paynow-settings-manager.php:149
 msgid "Save debug messages to the WooCommerce System Status log."
 msgstr ""
 
@@ -550,7 +542,7 @@ msgstr ""
 msgid "Selected product"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:99
+#: includes/class-paynow-settings-manager.php:153
 msgid "Send order items"
 msgstr ""
 
@@ -558,8 +550,8 @@ msgstr ""
 msgid "Shorter terms, not available on leasing"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:60
-#: includes/class-paynow-settings-manager.php:81
+#: includes/class-paynow-settings-manager.php:114
+#: includes/class-paynow-settings-manager.php:135
 msgid "Signature Key"
 msgstr ""
 
@@ -576,7 +568,7 @@ msgstr ""
 msgid "Status:"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:117
+#: includes/class-paynow-settings-manager.php:171
 msgid "Support"
 msgstr ""
 
@@ -584,8 +576,8 @@ msgstr ""
 msgid "Take a lease from"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:73
-#: includes/class-paynow-settings-manager.php:129
+#: includes/class-paynow-settings-manager.php:50
+#: includes/class-paynow-settings-manager.php:127
 msgid "Test mode (Sandbox)"
 msgstr ""
 
@@ -620,15 +612,15 @@ msgstr ""
 msgid "Transaction confirmed, but order already paid. Transaction ID: "
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:150
+#: includes/class-paynow-settings-manager.php:71
 msgid "Under the \"Add to cart\" button"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:151
+#: includes/class-paynow-settings-manager.php:72
 msgid "Under the product title"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:104
+#: includes/class-paynow-settings-manager.php:158
 msgid "Use payment validity time"
 msgstr ""
 
@@ -636,11 +628,11 @@ msgstr ""
 msgid "What buyout amount do you choose?"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:164
+#: includes/class-paynow-settings-manager.php:85
 msgid "White"
 msgstr ""
 
-#: includes/class-paynow-settings-manager.php:166
+#: includes/class-paynow-settings-manager.php:87
 msgid "White transparent"
 msgstr ""
 

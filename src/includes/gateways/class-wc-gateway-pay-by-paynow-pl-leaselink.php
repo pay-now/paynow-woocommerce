@@ -12,8 +12,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         $this->icon = 'https://leaselink.pl/app/themes/leaselink/images/logo_desktop.png';
         $this->title = __( 'Leasing and Installments for Companies', 'pay-by-paynow-pl' );
         $this->description = __('online 24/7, decision in 5 minutes', 'pay-by-paynow-pl');
-        $this->method_title = __('paynow.pl - Leaselink', 'pay-by-paynow-pl');
-        $this->method_description = __('Payment by leaselink', 'pay-by-paynow-pl');
+        $this->method_title = __( 'Leasing and Installments for Companies', 'pay-by-paynow-pl' );
+        $this->method_description = __('online 24/7, decision in 5 minutes', 'pay-by-paynow-pl');
         $this->enabled = $this->get_option( 'enabled' );
 
         // Method with all the options fields

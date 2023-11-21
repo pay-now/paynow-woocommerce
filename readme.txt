@@ -1,4 +1,4 @@
-=== Pay by paynow.pl ===
+=== LeaseLink - Leasing and Installments for Companies ===
 Tags: payment, payment gateway, paynow, woocommerce, płatności, payments, bramka płatności
 Tested up to: 6.2
 Requires PHP: 7.1
