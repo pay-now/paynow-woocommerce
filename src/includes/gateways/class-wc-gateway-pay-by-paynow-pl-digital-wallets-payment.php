@@ -15,7 +15,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 		parent::__construct();
 	}
 
-    public function is_available(): bool {
-        return false;
-    }
+	public function is_available(): bool {
+		return false;
+	}
 }
