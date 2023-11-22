@@ -184,10 +184,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			return $response;
 		}
 
-		add_post_meta( $order_id, '_transaction_id', $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], true );
+        if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+            add_post_meta( $order_id, '_transaction_id', $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], true );
+        } else {
+            $order->add_meta_data( '_transaction_id', $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], true );
+        }
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
-			update_post_meta( $order_id, '_transaction_id', $payment_data [ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ] );
+            update_post_meta( $order_id, '_transaction_id', $payment_data [ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ] );
 		} else {
 			$order->set_transaction_id( $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ] );
 		}
@@ -475,8 +479,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			);
 		}
 
-		$order->add_meta_data( self::ORDER_META_STATUS_FIELD_NAME, $status, true );
-		$order->add_meta_data( self::ORDER_META_MODIFIED_AT_KEY, $modified_at, true );
+        if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+            $order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id($order);
+            add_post_meta( $order_id, self::ORDER_META_STATUS_FIELD_NAME, $status, true );
+            add_post_meta( $order_id, self::ORDER_META_MODIFIED_AT_KEY, $modified_at, true );
+        } else {
+            $order->add_meta_data( self::ORDER_META_STATUS_FIELD_NAME, $status, true );
+            $order->add_meta_data( self::ORDER_META_MODIFIED_AT_KEY, $modified_at, true );
+        }
 
 		WC_Pay_By_Paynow_PL_Logger::info( 'Order status transition is correct.', $context );
 
@@ -537,13 +547,13 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 		$history[ $history_key ] = (int) $history[ $history_key ] + 1;
 
-		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
-			$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
-			update_post_meta( $order_id, self::ORDER_META_NOTIFICATION_HISTORY, $history );
-		} else {
-			$order->add_meta_data( self::ORDER_META_NOTIFICATION_HISTORY, $history, true );
-			$order->save();
-		}
+        if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+            $order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
+            update_post_meta( $order_id, self::ORDER_META_NOTIFICATION_HISTORY, $history );
+        } else {
+            $order->add_meta_data( self::ORDER_META_NOTIFICATION_HISTORY, $history, true );
+            $order->save();
+        }
 
 		$context['statusCounter'] = $history[ $history_key ];
 
@@ -669,16 +679,16 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 */
 	private function process_new_status( WC_Order $order, string $payment_id, $context ) {
 
-		$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
 		if ( ! empty( $order->get_transaction_id() ) && ! ( $order->get_transaction_id() === $payment_id ) ) {
 			WC_Pay_By_Paynow_PL_Logger::info( 'The order has already a payment. Attaching new payment.', $context );
 		}
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
-			update_post_meta( $order_id, '_transaction_id', $payment_id );
+            $order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
+            update_post_meta( $order_id, '_transaction_id', $payment_id );
 		} else {
 			$order->set_transaction_id( $payment_id );
-			$order->save();
+            $order->save();
 		}
 
 		/* translators: %s: Payment ID */
