@@ -161,4 +161,20 @@ class WC_Pay_By_Paynow_PL_Helper {
 
 		return strpos( $payment_method, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) !== false;
 	}
+
+    /**
+     * @param $payment_method_class
+     *
+     * @return bool
+     */
+    public static function is_payment_method_available( $payment_method_class ): bool {
+
+        foreach ( WC()->payment_gateways()->payment_gateways() as $payment_gateway ) {
+            if ( get_class( $payment_gateway ) === $payment_method_class && 'yes' === $payment_gateway->enabled ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
