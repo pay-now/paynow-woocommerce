@@ -165,8 +165,10 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		);
 		if ( isset( $payment_data['errors'] ) ) {
 			$error_type = null;
+            $message = null;
 			if ( isset( $payment_data['errors'] [0] ) && $payment_data['errors'][0] instanceof \Paynow\Exception\Error ) {
 				$error_type = $payment_data['errors'][0]->getType();
+                $message = $payment_data['errors'][0]->getMessage();
 			}
 			switch ( $error_type ) {
 				case 'AUTHORIZATION_CODE_INVALID':
@@ -178,6 +180,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				case 'AUTHORIZATION_CODE_USED':
 					wc_add_notice( __( 'BLIK code already used', 'pay-by-paynow-pl' ), 'error' );
 					break;
+                case 'VALIDATION_ERROR':
+                    wc_add_notice( $this->get_validation_errors_message( $message ), 'error' );
+                    break;
 				default:
 					wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
 			}
@@ -218,6 +223,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		return $response;
 	}
+
+    protected function get_validation_errors_message( $message = '' ) {
+        if ( strpos( $message, 'buyer.email' ) !== false ) {
+            return __( 'Invalid email address entered. Check the correctness of the entered data', 'pay-by-paynow-pl' );
+        }
+
+        return __( 'A data validation error occurred. Check the correctness of the entered data', 'pay-by-paynow-pl' );
+    }
 
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 
