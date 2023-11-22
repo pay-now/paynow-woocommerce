@@ -281,7 +281,7 @@ class Paynow_Gateway {
 			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
 
 			$apple_pay_enabled = sanitize_text_field( wp_unslash( $_COOKIE['applePayEnabled'] ?? '0' ) ) === '1';
-			$payment_methods = get_transient( $cache_key );
+			$payment_methods   = get_transient( $cache_key );
 			if ( false === $payment_methods ) {
 				WC_Pay_By_Paynow_PL_Logger::info(
 					'Retrieving payment methods {currency={}, amount={}, force={}}',
