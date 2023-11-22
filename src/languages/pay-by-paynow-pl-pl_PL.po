@@ -11,6 +11,14 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: Plugins - Pay by paynow.pl - Stable (latest release)\n"
 
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:228
+msgid "A data validation error occurred. Check the correctness of the entered data"
+msgstr "Wystąpił błąd walidacji danych. Sprawdź poprawność wpisanych danych"
+
+#: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:225
+msgid "Invalid email address entered. Check the correctness of the entered data"
+msgstr "Podano nieprawidłowy adres e-mail. Sprawdź poprawność wpisanych danych"
+
 #: includes/templates/pbl_payment.php:4
 msgid "Choose bank:"
 msgstr "Wybierz bank:"
@@ -236,6 +244,18 @@ msgstr "paynow.pl - płatności przelewem internetowym"
 msgid "Online transfer payment"
 msgstr "Płatność szybkim przelewem"
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:14
+msgid "Accept Digital wallets payments with paynow.pl"
+msgstr "Przyjmuj płatności portfelami cyfrowymi przez paynow.pl"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:13
+msgid "paynow.pl - Digital wallets payments"
+msgstr "paynow.pl - płatności portfelami cyfrowymi"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:11
+msgid "Digital wallets"
+msgstr "Portfele cyfrowe"
+
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:14
 msgid "Accept Google Pay payments with paynow.pl"
 msgstr "Przyjmuj płatności Googe Pay przez paynow.pl"
@@ -281,6 +301,7 @@ msgid "paynow.pl - BLIK payments"
 msgstr "paynow.pl - płatności BLIKIEM"
 
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php:13
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:12
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php:12
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php:12
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:12
