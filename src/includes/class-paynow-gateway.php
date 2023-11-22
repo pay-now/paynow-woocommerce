@@ -109,14 +109,14 @@ class Paynow_Gateway {
 			}
 
 			$order_items = array_values(
-                array_filter(
-                    $order_items,
-                    function ( $item ) {
+				array_filter(
+					$order_items,
+					function ( $item ) {
 
-                        return ! empty( $item['category'] );
-                    }
-                )
-            );
+						return ! empty( $item['category'] );
+					}
+				)
+			);
 
 			if ( ! empty( $order_items ) ) {
 				$payment_data['orderItems'] = $order_items;
@@ -155,13 +155,13 @@ class Paynow_Gateway {
 
 			return $payment_data;
 		} catch ( PaynowException $exception ) {
-			$errors = [];
+			$errors = array();
 
-			foreach ($exception->getErrors() as $e) {
-				$errors[] = [
+			foreach ( $exception->getErrors() as $e ) {
+				$errors[] = array(
 					'message' => $e->getMessage(),
-					'type' => $e->getType(),
-				];
+					'type'    => $e->getType(),
+				);
 			}
 
 			WC_Pay_By_Paynow_PL_Logger::error(
@@ -280,7 +280,7 @@ class Paynow_Gateway {
 			$currency  = get_woocommerce_currency();
 			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
 
-			$applePayEnabled = sanitize_text_field( $_COOKIE['applePayEnabled'] ?? '0' ) === '1';
+			$apple_pay_enabled = sanitize_text_field( wp_unslash( $_COOKIE['applePayEnabled'] ?? '0' ) ) === '1';
 			$payment_methods = get_transient( $cache_key );
 			if ( false === $payment_methods ) {
 				WC_Pay_By_Paynow_PL_Logger::info(
@@ -290,7 +290,7 @@ class Paynow_Gateway {
 						$amount,
 					)
 				);
-				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $applePayEnabled )->getAll();
+				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $apple_pay_enabled )->getAll();
 				// replace null value to string for caching
 				if ( null === $payment_methods ) {
 					$payment_methods = 'null';

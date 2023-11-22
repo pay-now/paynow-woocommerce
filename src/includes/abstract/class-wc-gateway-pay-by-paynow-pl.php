@@ -165,10 +165,10 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		);
 		if ( isset( $payment_data['errors'] ) ) {
 			$error_type = null;
-			$message = null;
+			$message    = null;
 			if ( isset( $payment_data['errors'] [0] ) && $payment_data['errors'][0] instanceof \Paynow\Exception\Error ) {
 				$error_type = $payment_data['errors'][0]->getType();
-				$message = $payment_data['errors'][0]->getMessage();
+				$message    = $payment_data['errors'][0]->getMessage();
 			}
 			switch ( $error_type ) {
 				case 'AUTHORIZATION_CODE_INVALID':
@@ -493,7 +493,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
-			$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id($order);
+			$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
 			add_post_meta( $order_id, self::ORDER_META_STATUS_FIELD_NAME, $status, true );
 			add_post_meta( $order_id, self::ORDER_META_MODIFIED_AT_KEY, $modified_at, true );
 		} else {
