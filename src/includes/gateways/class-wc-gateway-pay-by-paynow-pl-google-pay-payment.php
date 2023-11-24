@@ -14,6 +14,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment extends WC_Gateway_Pay_By_P
 		$this->method_description = __( 'Accept Google Pay payments with paynow.pl', 'pay-by-paynow-pl' );
 		$this->payment_method_id  = 2003;
 		parent::__construct();
+
+		$this->enabled = 'yes';
 	}
 
 	/**

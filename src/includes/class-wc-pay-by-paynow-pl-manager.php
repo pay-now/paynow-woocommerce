@@ -129,7 +129,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	public function declare_hpos_compatibility() {
 
 		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE, true );
 		}
 	}
 
