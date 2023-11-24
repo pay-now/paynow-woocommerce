@@ -14,6 +14,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Apple_Pay_Payment extends WC_Gateway_Pay_By_Pa
 		$this->method_description = __( 'Accept Apple Pay payments with paynow.pl', 'pay-by-paynow-pl' );
 		$this->payment_method_id  = 2004;
 		parent::__construct();
+
+		$this->enabled = 'yes';
 	}
 
 	/**
