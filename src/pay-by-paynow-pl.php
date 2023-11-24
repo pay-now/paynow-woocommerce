@@ -33,6 +33,7 @@ if ( version_compare( PHP_VERSION, '7.1', '<' ) ) {
 	return;
 }
 
+define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE', __FILE__ );
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH', plugin_dir_url( __FILE__ ) . 'assets/' );
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH', 'includes/templates/' );
