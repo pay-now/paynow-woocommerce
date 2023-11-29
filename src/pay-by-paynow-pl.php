@@ -3,7 +3,7 @@
  * Plugin Name: Pay by paynow.pl
  * Plugin URI: https://github.com/pay-now/paynow-woocommerce
  * Description: Accepts secure BLIK, credit cards payments and fast online transfers by paynow.pl
- * Version: 2.4.29
+ * Version: 2.4.32
  * Requires PHP: 7.1
  * Author: mElements S.A.
  * Author URI: https://www.paynow.pl
@@ -33,6 +33,7 @@ if ( version_compare( PHP_VERSION, '7.1', '<' ) ) {
 	return;
 }
 
+define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE', __FILE__ );
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH', plugin_dir_url( __FILE__ ) . 'assets/' );
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH', 'includes/templates/' );

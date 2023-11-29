@@ -120,12 +120,14 @@ class Paynow_Gateway {
 				);
 			}
 
-			$order_items = array_filter(
-				$order_items,
-				function ( $item ) {
+			$order_items = array_values(
+				array_filter(
+					$order_items,
+					function ( $item ) {
 
-					return ! empty( $item['category'] );
-				}
+						return ! empty( $item['category'] );
+					}
+				)
 			);
 
 			if ( ! empty( $order_items ) ) {
@@ -165,6 +167,15 @@ class Paynow_Gateway {
 
 			return $payment_data;
 		} catch ( PaynowException $exception ) {
+			$errors = array();
+
+			foreach ( $exception->getErrors() as $e ) {
+				$errors[] = array(
+					'message' => $e->getMessage(),
+					'type'    => $e->getType(),
+				);
+			}
+
 			WC_Pay_By_Paynow_PL_Logger::error(
 				'Authorization failed',
 				array_merge(
@@ -173,7 +184,7 @@ class Paynow_Gateway {
 						'service' => 'Payment',
 						'action'  => 'authorize',
 						'message' => $exception->getMessage(),
-						'errors'  => $exception->getErrors(),
+						'errors'  => $errors,
 					)
 				)
 			);
@@ -281,7 +292,8 @@ class Paynow_Gateway {
 			$currency  = get_woocommerce_currency();
 			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
 
-			$payment_methods = get_transient( $cache_key );
+			$apple_pay_enabled = sanitize_text_field( wp_unslash( $_COOKIE['applePayEnabled'] ?? '0' ) ) === '1';
+			$payment_methods   = get_transient( $cache_key );
 			if ( false === $payment_methods ) {
 				WC_Pay_By_Paynow_PL_Logger::info(
 					'Retrieving payment methods {currency={}, amount={}, force={}}',
@@ -290,16 +302,16 @@ class Paynow_Gateway {
 						$amount,
 					)
 				);
-                $idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
-                    WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
-                );
-                $current_user_id = get_current_user_id();
-                $buyer_external_id = $current_user_id > 0 ? WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id($current_user_id, $this->signature_key) : null;
-				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $idempotency_key, $buyer_external_id )->getAll();
+				$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+					WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
+				);
+				$current_user_id = get_current_user_id();
+				$buyer_external_id = $current_user_id > 0 ? WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id($current_user_id, $this->signature_key) : null;
+				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $apple_pay_enabled, $idempotency_key, $buyer_external_id )->getAll();
 				// replace null value to string for caching
 				if ( null === $payment_methods ) {
 					$payment_methods = 'null';
-                }
+				}
 
 				set_transient( $cache_key, $payment_methods, 3600 );
 			}

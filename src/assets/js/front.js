@@ -20,6 +20,8 @@ jQuery( document ).ready(function () {
 		1000
 	);
 
+	addApplePayEnabledToCookie();
+
 	jQuery(document).on('click', '.paynow-payment-card-menu .paynow-payment-card-menu-button', function (e) {
 		jQuery(e.currentTarget).siblings().toggleClass('--hidden');
 	});
@@ -54,3 +56,13 @@ jQuery( document ).ready(function () {
 		});
 	});
 });
+
+function addApplePayEnabledToCookie() {
+	let applePayEnabled = false;
+
+	if (window.ApplePaySession) {
+		applePayEnabled = window.ApplePaySession.canMakePayments();
+	}
+
+	document.cookie = 'applePayEnabled=' + (applePayEnabled ? '1' : '0');
+}
