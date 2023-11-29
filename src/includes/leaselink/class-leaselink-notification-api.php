@@ -98,7 +98,7 @@ class Leaselink_Notification_Api {
             case 'SIGN_CONTRACT':
                 $order->payment_complete();
                 wc_reduce_stock_levels($order->get_id());
-                $order->add_order_note(sprintf(__('LeaseLink – The contract has been signed. Issue an invoice and send it to <a href="mailto:partner@leaselink.pl">partner@leaselink.pl</a>, providing the process number: %s', 'pay-by-paynow-pl'), $transaction_id));
+                $order->add_order_note(sprintf(__('LeaseLink – The contract has been signed. Issue an invoice and send it to <a href="mailto:partner@leaselink.pl">partner@leaselink.pl</a>, providing the process number: %s', 'leaselink-plugin-pl'), $transaction_id));
                 break;
             case 'SEND_ASSET':
                 $order->payment_complete();

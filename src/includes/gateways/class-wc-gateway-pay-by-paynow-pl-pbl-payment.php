@@ -8,17 +8,17 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 
 	public function __construct() {
 		$this->id                 = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl';
-		$this->title              = __( 'Online transfer payment', 'pay-by-paynow-pl' );
-		$this->description        = __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' );
-		$this->method_title       = __( 'LeaseLink - Online payments', 'pay-by-paynow-pl' );
-		$this->method_description = __( 'Accept online transfer payments with paynow.pl', 'pay-by-paynow-pl' );
+		$this->title              = __( 'Online transfer payment', 'leaselink-plugin-pl' );
+		$this->description        = __( 'Secure and fast payments provided by paynow.pl', 'leaselink-plugin-pl' );
+		$this->method_title       = __( 'LeaseLink - Online payments', 'leaselink-plugin-pl' );
+		$this->method_description = __( 'Accept online transfer payments with paynow.pl', 'leaselink-plugin-pl' );
 		$this->icon               = 'https://static.paynow.pl/brand/paynow_logo_black.png';
 		$this->has_fields         = true;
 		parent::__construct();
 	}
 
 	public function payment_fields() {
-		echo  esc_html( __( 'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ) );
+		echo  esc_html( __( 'You will be redirected to payment provider page.', 'leaselink-plugin-pl' ) );
 		try {
 			$method_block = 'pbls';
 			$methods      = $this->get_only_payment_methods_for_type( Type::PBL );
@@ -32,7 +32,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 	public function validate_fields(): bool {
 		$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
 		if ( empty( $payment_method_id ) ) {
-			wc_add_notice( __( 'Please choose bank from the list below to make the payment', 'pay-by-paynow-pl' ), 'error' );
+			wc_add_notice( __( 'Please choose bank from the list below to make the payment', 'leaselink-plugin-pl' ), 'error' );
 
 			return false;
 		}

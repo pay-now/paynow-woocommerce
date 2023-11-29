@@ -151,16 +151,16 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			}
 			switch ( $error_type ) {
 				case 'AUTHORIZATION_CODE_INVALID':
-					wc_add_notice( __( 'Wrong BLIK code', 'pay-by-paynow-pl' ), 'error' );
+					wc_add_notice( __( 'Wrong BLIK code', 'leaselink-plugin-pl' ), 'error' );
 					break;
 				case 'AUTHORIZATION_CODE_EXPIRED':
-					wc_add_notice( __( 'BLIK code has expired', 'pay-by-paynow-pl' ), 'error' );
+					wc_add_notice( __( 'BLIK code has expired', 'leaselink-plugin-pl' ), 'error' );
 					break;
 				case 'AUTHORIZATION_CODE_USED':
-					wc_add_notice( __( 'BLIK code already used', 'pay-by-paynow-pl' ), 'error' );
+					wc_add_notice( __( 'BLIK code already used', 'leaselink-plugin-pl' ), 'error' );
 					break;
 				default:
-					wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
+					wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'leaselink-plugin-pl' ), 'error' );
 			}
 			return $response;
 		}
@@ -203,7 +203,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		$refund_amount = WC_Pay_By_Paynow_PL_Helper::get_amount( $amount );
 		if ( ! $this->check_can_make_refund( $order, $refund_amount ) ) {
-			return new WP_Error( 'error', __( 'Refund can\'t be processed. Please check logs for more information', 'pay-by-paynow-pl' ) );
+			return new WP_Error( 'error', __( 'Refund can\'t be processed. Please check logs for more information', 'leaselink-plugin-pl' ) );
 		}
 
 		WC_Pay_By_Paynow_PL_Logger::debug(
@@ -234,7 +234,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 			if ( ! empty( $refund_data->getRefundId() ) ) {
 				/* translators: %s: Payment ID */
-				$order->add_order_note( sprintf( __( 'Refund request processed correctly - %s', 'pay-by-paynow-pl' ), $refund_data->getRefundId() ) );
+				$order->add_order_note( sprintf( __( 'Refund request processed correctly - %s', 'leaselink-plugin-pl' ), $refund_data->getRefundId() ) );
 
 				return true;
 			}
@@ -245,7 +245,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			if ( $errors ) {
 				foreach ( $errors as $error ) {
 					/* translators: %s: Error message */
-					$order->add_order_note( sprintf( __( 'An error occurred during the refund process - %s', 'pay-by-paynow-pl' ), $error->getMessage() ) );
+					$order->add_order_note( sprintf( __( 'An error occurred during the refund process - %s', 'leaselink-plugin-pl' ), $error->getMessage() ) );
 					WC_Pay_By_Paynow_PL_Logger::error(
 						$error->getType() . ' - ' . $error->getMessage() . ' {orderId={}, paymentId={}, amount={}}',
 						array(
@@ -255,7 +255,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 						)
 					);
 
-					return new WP_Error( 'error', __( 'Refund process failed. Please check logs for more information', 'pay-by-paynow-pl' ) );
+					return new WP_Error( 'error', __( 'Refund process failed. Please check logs for more information', 'leaselink-plugin-pl' ) );
 				}
 			}
 		}
@@ -419,7 +419,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		if ( $order_processed ) {
 			if ( $is_confirmed && ! ( $order_payment_id === $payment_id ) ) {
-				$order->add_order_note( __( 'Transaction confirmed, but order already paid. Transaction ID: ', 'pay-by-paynow-pl' ) . $payment_id );
+				$order->add_order_note( __( 'Transaction confirmed, but order already paid. Transaction ID: ', 'leaselink-plugin-pl' ) . $payment_id );
 			}
 			$this->locking_mechanism->delete( $external_id );
 			throw new WC_Pay_By_Paynow_Pl_Notification_Stop_Processing_Exception( 'Skipped processing. Order has paid status.', $context );
@@ -467,26 +467,26 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				break;
 			case Status::STATUS_PENDING:
 				/* translators: %s: Payment ID */
-				$order->update_status( 'pending', sprintf( __( 'Awaiting payment authorization - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				$order->update_status( 'pending', sprintf( __( 'Awaiting payment authorization - %s.', 'leaselink-plugin-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_REJECTED:
 				/* translators: %s: Payment ID */
-				$order->update_status( 'failed', sprintf( __( 'Payment has not been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				$order->update_status( 'failed', sprintf( __( 'Payment has not been authorized by the buyer - %s.', 'leaselink-plugin-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_CONFIRMED:
 				$this->process_confirm_status( $order, $payment_id, $context );
 				break;
 			case Status::STATUS_ERROR:
 				/* translators: %s: Payment ID */
-				$order->update_status( 'failed', sprintf( __( 'An error occurred during the payment process and the payment could not be completed - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				$order->update_status( 'failed', sprintf( __( 'An error occurred during the payment process and the payment could not be completed - %s.', 'leaselink-plugin-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_EXPIRED:
 				/* translators: %s: Payment ID */
-				$order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				$order->update_status( 'failed', sprintf( __( 'Payment has been expired - %s.', 'leaselink-plugin-pl' ), $order->get_transaction_id() ) );
 				break;
 			case Status::STATUS_ABANDONED:
 				/* translators: %s: Payment ID */
-				$order->update_status( 'pending', sprintf( __( 'Payment has been abandoned - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+				$order->update_status( 'pending', sprintf( __( 'Payment has been abandoned - %s.', 'leaselink-plugin-pl' ), $order->get_transaction_id() ) );
 				break;
 		}
 		$order->save();
@@ -663,7 +663,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 
 		/* translators: %s: Payment ID */
-		$order->update_status( 'pending', sprintf( __( 'New payment created for order - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+		$order->update_status( 'pending', sprintf( __( 'New payment created for order - %s.', 'leaselink-plugin-pl' ), $order->get_transaction_id() ) );
 	}
 
 	/**
@@ -680,7 +680,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 		$order->payment_complete( $payment_id );
 		/* translators: %s: Payment ID */
-		$order->add_order_note( sprintf( __( 'Payment has been authorized by the buyer - %s.', 'pay-by-paynow-pl' ), $order->get_transaction_id() ) );
+		$order->add_order_note( sprintf( __( 'Payment has been authorized by the buyer - %s.', 'leaselink-plugin-pl' ), $order->get_transaction_id() ) );
 	}
 
 	private function get_api_option_key_name(): string {
@@ -720,19 +720,19 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	public function validate_production_api_key_field( $key, $value ) {
-		return self::api_credentials_validator( $value, __( 'Incorrect API key format (production)', 'pay-by-paynow-pl' ) );
+		return self::api_credentials_validator( $value, __( 'Incorrect API key format (production)', 'leaselink-plugin-pl' ) );
 	}
 
 	public function validate_production_signature_key_field( $key, $value ) {
-		return self::api_credentials_validator( $value, __( 'Incorrect API signature key format (production)', 'pay-by-paynow-pl' ) );
+		return self::api_credentials_validator( $value, __( 'Incorrect API signature key format (production)', 'leaselink-plugin-pl' ) );
 	}
 
 	public function validate_sandbox_api_key_field( $key, $value ) {
-		return self::api_credentials_validator( $value, __( 'Incorrect API key format (sandbox)', 'pay-by-paynow-pl' ) );
+		return self::api_credentials_validator( $value, __( 'Incorrect API key format (sandbox)', 'leaselink-plugin-pl' ) );
 	}
 
 	public function validate_sandbox_signature_key_field( $key, $value ) {
-		return self::api_credentials_validator( $value, __( 'Incorrect API signature key format (sandbox)', 'pay-by-paynow-pl' ) );
+		return self::api_credentials_validator( $value, __( 'Incorrect API signature key format (sandbox)', 'leaselink-plugin-pl' ) );
 	}
 
 	private static function api_credentials_validator( $value, $message ) {

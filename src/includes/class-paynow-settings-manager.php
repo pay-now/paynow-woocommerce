@@ -41,135 +41,135 @@ class Paynow_Settings_Manager {
         return [
             'paynow_leaselink_config' => [
                 'id' => 'paynow_leaselink_config',
-                'title' => __('LeaseLink widget configuration', 'pay-by-paynow-pl'),
-                'desc' => __('Don\'t have a contract with LeaseLink yet? Write to us at <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a> and we will contact you within 24 hours', 'pay-by-paynow-pl'),
+                'title' => __('LeaseLink widget configuration', 'leaselink-plugin-pl'),
+                'desc' => __('Don\'t have a contract with LeaseLink yet? Write to us at <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a> and we will contact you within 24 hours', 'leaselink-plugin-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
                 'fields' => [
                     [
                         'id' => 'll_is_sandbox',
-                        'title' => __('Test mode (Sandbox)', 'pay-by-paynow-pl'),
+                        'title' => __('Test mode (Sandbox)', 'leaselink-plugin-pl'),
                         'type' => 'checkbox',
                     ], [
                         'id' => 'll_sandbox_api_key',
-                        'title' => __('Sandbox api key', 'pay-by-paynow-pl'),
+                        'title' => __('Sandbox api key', 'leaselink-plugin-pl'),
                         'type' => 'text',
                     ], [
                         'id' => 'll_production_api_key',
-                        'title' => __('Production api key', 'pay-by-paynow-pl'),
+                        'title' => __('Production api key', 'leaselink-plugin-pl'),
                         'type' => 'text',
                     ], [
                         'id' => 'll_notification_url',
-                        'title' => __('Notification url', 'pay-by-paynow-pl'),
+                        'title' => __('Notification url', 'leaselink-plugin-pl'),
                         'type' => 'constant',
                         'value' => $this->notification_url,
                     ], [
                         'id' => 'll_widget_location',
-                        'title' => __('LeaseLink widget location', 'pay-by-paynow-pl'),
+                        'title' => __('LeaseLink widget location', 'leaselink-plugin-pl'),
                         'type' => 'select',
                         'options' => [
-                            self::SETTING_WIDGET_LOCALIZATION_NONE => __('Do not display', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_LOCALIZATION_ADD_TO_CART => __('Under the "Add to cart" button', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_LOCALIZATION_UNDER_TITLE => __('Under the product title', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_LOCALIZATION_UNDER_CONTENT => __('Below the product content', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_NONE => __('Do not display', 'leaselink-plugin-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_ADD_TO_CART => __('Under the "Add to cart" button', 'leaselink-plugin-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_UNDER_TITLE => __('Under the product title', 'leaselink-plugin-pl'),
+                            self::SETTING_WIDGET_LOCALIZATION_UNDER_CONTENT => __('Below the product content', 'leaselink-plugin-pl'),
                         ],
                     ], [
                         'id' => 'll_widget_show_rate',
-                        'title' => __('Presentation of the installment amount', 'pay-by-paynow-pl'),
+                        'title' => __('Presentation of the installment amount', 'leaselink-plugin-pl'),
                         'type' => 'checkbox',
                     ], [
                         'id' => 'll_widget_color',
-                        'title' => __('LeaseLink widget colors', 'pay-by-paynow-pl'),
+                        'title' => __('LeaseLink widget colors', 'leaselink-plugin-pl'),
                         'type' => 'select',
                         'options' => [
-                            self::SETTING_WIDGET_COLOR_BLACK => __('Black', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_COLOR_WHITE => __('White', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_COLOR_BLACK_GHOST => __('Black transparent', 'pay-by-paynow-pl'),
-                            self::SETTING_WIDGET_COLOR_WHITE_GHOST => __('White transparent', 'pay-by-paynow-pl'),
+                            self::SETTING_WIDGET_COLOR_BLACK => __('Black', 'leaselink-plugin-pl'),
+                            self::SETTING_WIDGET_COLOR_WHITE => __('White', 'leaselink-plugin-pl'),
+                            self::SETTING_WIDGET_COLOR_BLACK_GHOST => __('Black transparent', 'leaselink-plugin-pl'),
+                            self::SETTING_WIDGET_COLOR_WHITE_GHOST => __('White transparent', 'leaselink-plugin-pl'),
                         ]
                     ], [
                         'id' => 'll_custom_css',
-                        'title' => __('Additional CSS', 'pay-by-paynow-pl'),
+                        'title' => __('Additional CSS', 'leaselink-plugin-pl'),
                         'type' => 'textarea',
                     ]
                 ]
             ],
             'paynow_information' => [
                 'id' => 'paynow_information',
-                'title' => __('Paynow information', 'pay-by-paynow-pl'),
-                'desc' => __( 'If you do not have an account in the Paynow system yet, <a href="https://paynow.pl/boarding" target="_blank">register in the Production</a> or <a href="https://panel.sandbox.paynow.pl/auth/register" target="_blank">Sandbox environment</a>.<br /> If you have any problem with configuration, please find the manual <a href="https://github.com/pay-now/paynow-woocommerce/blob/master/README.EN.md" target="_blank">here</a>.', 'pay-by-paynow-pl' ),
+                'title' => __('Paynow information', 'leaselink-plugin-pl'),
+                'desc' => __( 'If you do not have an account in the Paynow system yet, <a href="https://paynow.pl/boarding" target="_blank">register in the Production</a> or <a href="https://panel.sandbox.paynow.pl/auth/register" target="_blank">Sandbox environment</a>.<br /> If you have any problem with configuration, please find the manual <a href="https://github.com/pay-now/paynow-woocommerce/blob/master/README.EN.md" target="_blank">here</a>.', 'leaselink-plugin-pl' ),
                 'page' => self::SETTINGS_PAGE_NAME,
             ],
             'paynow_production_config' => [
                 'id' => 'paynow_production_config',
-                'title' => __('Production configuration', 'pay-by-paynow-pl'),
-                'desc' => __('Production authentication keys are available in <i>My Business > Paynow > Settings > Shops and payment points > Authentication data</i> in mBank\'s online banking.', 'pay-by-paynow-pl'),
+                'title' => __('Production configuration', 'leaselink-plugin-pl'),
+                'desc' => __('Production authentication keys are available in <i>My Business > Paynow > Settings > Shops and payment points > Authentication data</i> in mBank\'s online banking.', 'leaselink-plugin-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
                 'fields' => [
                     [
                         'id' => 'production_api_key',
-                        'title' => __('Api Key', 'pay-by-paynow-pl'),
+                        'title' => __('Api Key', 'leaselink-plugin-pl'),
                         'type' => 'text',
                     ], [
                         'id' => 'production_signature_key',
-                        'title' => __('Signature Key', 'pay-by-paynow-pl'),
+                        'title' => __('Signature Key', 'leaselink-plugin-pl'),
                         'type' => 'text',
                     ],
                 ],
             ],
             'paynow_sandbox_config' => [
                 'id' => 'paynow_sandbox_config',
-                'title' => __('Sandbox configuration', 'pay-by-paynow-pl'),
-                'desc' => __('Sandbox authentication keys can be found in <i>Settings > Shops and poses > Authentication data</i> in <a href="https://panel.sandbox.paynow.pl/auth/login" target="_blank">the Paynow Sandbox panel</a>.', 'pay-by-paynow-pl'),
+                'title' => __('Sandbox configuration', 'leaselink-plugin-pl'),
+                'desc' => __('Sandbox authentication keys can be found in <i>Settings > Shops and poses > Authentication data</i> in <a href="https://panel.sandbox.paynow.pl/auth/login" target="_blank">the Paynow Sandbox panel</a>.', 'leaselink-plugin-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
                 'fields' => [
                     [
                         'id' => 'is_sandbox',
-                        'title' => __('Test mode (Sandbox)', 'pay-by-paynow-pl'),
+                        'title' => __('Test mode (Sandbox)', 'leaselink-plugin-pl'),
                         'type' => 'checkbox',
                     ], [
                         'id' => 'sandbox_api_key',
-                        'title' => __('Api Key', 'pay-by-paynow-pl'),
+                        'title' => __('Api Key', 'leaselink-plugin-pl'),
                         'type' => 'text',
                     ], [
                         'id' => 'sandbox_signature_key',
-                        'title' => __('Signature Key', 'pay-by-paynow-pl'),
+                        'title' => __('Signature Key', 'leaselink-plugin-pl'),
                         'type' => 'text',
                     ],
                 ]
             ],
             'paynow_additional_options' => [
                 'id' => 'paynow_additional_options',
-                'title' => __('Additional options', 'pay-by-paynow-pl'),
+                'title' => __('Additional options', 'leaselink-plugin-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
                 'fields' => [
                     [
                         'id' => 'debug_logs',
-                        'title' => __( 'Debug', 'pay-by-paynow-pl' ),
-                        'label' => __( 'Enable logs', 'pay-by-paynow-pl' ),
-                        'tip' => __( 'Save debug messages to the WooCommerce System Status log.', 'pay-by-paynow-pl' ),
+                        'title' => __( 'Debug', 'leaselink-plugin-pl' ),
+                        'label' => __( 'Enable logs', 'leaselink-plugin-pl' ),
+                        'tip' => __( 'Save debug messages to the WooCommerce System Status log.', 'leaselink-plugin-pl' ),
                         'type' => 'checkbox',
                     ], [
                         'id' => 'send_order_items',
-                        'title' => __( 'Send order items', 'pay-by-paynow-pl' ),
-                        'label' => __( 'Enable sending ordered products information: name, categories, quantity and unit price', 'pay-by-paynow-pl' ),
+                        'title' => __( 'Send order items', 'leaselink-plugin-pl' ),
+                        'label' => __( 'Enable sending ordered products information: name, categories, quantity and unit price', 'leaselink-plugin-pl' ),
                         'type' => 'checkbox',
                     ], [
                         'id' => 'use_payment_validity_time_flag',
-                        'title' => __( 'Use payment validity time', 'pay-by-paynow-pl' ),
-                        'label' => __( 'Enable to limit the validity of the payment.', 'pay-by-paynow-pl' ),
+                        'title' => __( 'Use payment validity time', 'leaselink-plugin-pl' ),
+                        'label' => __( 'Enable to limit the validity of the payment.', 'leaselink-plugin-pl' ),
                         'type' => 'checkbox',
                     ], [
                         'id' => 'payment_validity_time',
-                        'title' => __( 'Payment validity time', 'pay-by-paynow-pl' ),
-                        'tip' => __( 'Determines how long it will be possible to pay for the order from the moment the payment link is generated. Value expressed in seconds. The value must be between 60 and 86400 seconds.', 'pay-by-paynow-pl' ),
+                        'title' => __( 'Payment validity time', 'leaselink-plugin-pl' ),
+                        'tip' => __( 'Determines how long it will be possible to pay for the order from the moment the payment link is generated. Value expressed in seconds. The value must be between 60 and 86400 seconds.', 'leaselink-plugin-pl' ),
                         'type' => 'number',
                     ],
                 ],
             ],
             'paynow_help_section' => [
                 'id' => 'paynow_help_section',
-                'title' => __('Support', 'pay-by-paynow-pl'),
-                'desc' => __('If you have any questions or issues, please contact our support at <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a>', 'pay-by-paynow-pl'),
+                'title' => __('Support', 'leaselink-plugin-pl'),
+                'desc' => __('If you have any questions or issues, please contact our support at <a href="mailto:integracje@leaselink.pl">integracje@leaselink.pl</a>', 'leaselink-plugin-pl'),
                 'page' => self::SETTINGS_PAGE_NAME,
             ],
         ];
@@ -251,8 +251,8 @@ class Paynow_Settings_Manager {
 
         add_submenu_page(
             'woocommerce',
-            __('LeaseLink settings', 'pay-by-paynow-pl'),
-            __('LeaseLink settings', 'pay-by-paynow-pl'),
+            __('LeaseLink settings', 'leaselink-plugin-pl'),
+            __('LeaseLink settings', 'leaselink-plugin-pl'),
             'manage_options',
             self::SETTINGS_PAGE_NAME,
             [$this, 'create_paynow_admin_settings_page'],
@@ -267,7 +267,7 @@ class Paynow_Settings_Manager {
     {
         ?>
         <div class="wrap woocommerce">
-            <h2><?php esc_html_e('LeaseLink settings', 'pay-by-paynow-pl') ?></h2>
+            <h2><?php esc_html_e('LeaseLink settings', 'leaselink-plugin-pl') ?></h2>
             <?php settings_errors(); ?>
 
             <form method="post" action="options.php">

@@ -8,7 +8,7 @@
  * Author: LeaseLink Sp. z o.o.
  * Author URI: https://leaselink.pl/
  * License: GPLv3
- * Text Domain: pay-by-paynow-pl
+ * Text Domain: leaselink-plugin-pl
  * Domain Path: /languages
  * Tested up to: 6.2
  * WC tested up to: 7.7.0
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit();
  */
 function wc_pay_by_paynow_pl_php_version_notice() {
 	/* translators: %s: PHP version */
-	$message = sprintf( __( 'Your PHP version is %s but Pay by paynow.pl requires version 7.1+.', 'pay-by-paynow-pl' ), PHP_VERSION );
+	$message = sprintf( __( 'Your PHP version is %s but LeaseLink - Leasing and Installments for Companies requires version 7.1+.', 'leaselink-plugin-pl' ), PHP_VERSION );
 	echo '<div class="notice notice-error"><p style="font-size: 16px">' . esc_html( $message ) . '</p></div>';
 }
 

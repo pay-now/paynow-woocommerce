@@ -100,7 +100,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 
 		if ( self::get_amount( $amount ) < self::get_minimum_amount() ) {
 			/* translators: %1: Order total amount */
-			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'pay-by-paynow-pl' ), wc_price( self::get_minimum_amount() / 100 ) ) );
+			throw new PaynowException( sprintf( __( 'Sorry, the minimum allowed order total is %1$s to use this payment method.', 'leaselink-plugin-pl' ), wc_price( self::get_minimum_amount() / 100 ) ) );
 		}
 	}
 

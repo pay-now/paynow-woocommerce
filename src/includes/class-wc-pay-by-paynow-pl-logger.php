@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit();
 
 class WC_Pay_By_Paynow_PL_Logger {
 
-	const WC_LOG_FILENAME = 'pay-by-paynow-pl';
+	const WC_LOG_FILENAME = 'leaselink-plugin-pl';
 	const DEBUG           = 'debug';
 	const INFO            = 'info';
 	const WARNING         = 'warning';

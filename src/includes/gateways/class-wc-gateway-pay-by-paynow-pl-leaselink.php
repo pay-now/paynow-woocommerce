@@ -10,10 +10,10 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 	public function __construct() {
         $this->id = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'leaselink';
         $this->icon = 'https://leaselink.pl/app/themes/leaselink/images/logo_desktop.png';
-        $this->title = __( 'Leasing and Installments for Companies', 'pay-by-paynow-pl' );
-        $this->description = __('online 24/7, decision in 5 minutes', 'pay-by-paynow-pl');
-        $this->method_title = __( 'Leasing and Installments for Companies', 'pay-by-paynow-pl' );
-        $this->method_description = __('online 24/7, decision in 5 minutes', 'pay-by-paynow-pl');
+        $this->title = __( 'Leasing and Installments for Companies', 'leaselink-plugin-pl' );
+        $this->description = __('online 24/7, decision in 5 minutes', 'leaselink-plugin-pl');
+        $this->method_title = __( 'Leasing and Installments for Companies', 'leaselink-plugin-pl' );
+        $this->method_description = __('online 24/7, decision in 5 minutes', 'leaselink-plugin-pl');
         $this->enabled = $this->get_option( 'enabled' );
 
         // Method with all the options fields
@@ -26,8 +26,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
     public function init_form_fields() {
         $this->form_fields = array(
             'enabled' => array(
-                'title'       => __( 'Enable/Disable', 'pay-by-paynow-pl' ),
-                'label'       => __( 'Enable Leaselink Gateway', 'pay-by-paynow-pl' ),
+                'title'       => __( 'Enable/Disable', 'leaselink-plugin-pl' ),
+                'label'       => __( 'Enable Leaselink Gateway', 'leaselink-plugin-pl' ),
                 'type'        => 'checkbox',
                 'description' => '',
                 'default'     => 'no'
@@ -101,7 +101,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         ], $partner_site);
 
         if (!$response->is_success()) {
-            throw new Exception(__('Cannot get offer for client. Please use other payment option.', 'pay-by-paynow-pl' ));
+            throw new Exception(__('Cannot get offer for client. Please use other payment option.', 'leaselink-plugin-pl' ));
         }
 
         /** @var \Leaselink_Process_Client_Decision_Response $decision */
@@ -109,7 +109,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 
         $order->update_meta_data('_leaselink_status', $decision->get_transaction_status());
         $order->update_meta_data('_leaselink_number', $response->get_calculation_id());
-        $order->update_meta_data('_leaselink_form', $response->get_first_offer_financial_operation_type() === 0 ? __('Leasing', 'pay-by-paynow-pl' ) : __('Loan', 'pay-by-paynow-pl' ));
+        $order->update_meta_data('_leaselink_form', $response->get_first_offer_financial_operation_type() === 0 ? __('Leasing', 'leaselink-plugin-pl' ) : __('Loan', 'leaselink-plugin-pl' ));
 
         $order->update_status('on-hold');
 

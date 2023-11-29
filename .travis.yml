@@ -27,7 +27,7 @@ deploy:
   provider: releases
   api_key:
     secure: j9fCkylP/xtSCuCSJY+0QMJSwrgEqSfw7bbgsHFU7U/kyrpgEd9W3gOC1eSBEGDvaAidtGyGGuV+eFL2ce+5/cQmR9PS9EtY/WPSREUzEgnoNemTrMIb3Z9I+Eam7juLbbCicTMQdh69OdkrtwmQ4/dw3i6CNaDqqWpMpoZ+XKehKwg4fsZYpZnd3TG7QqzyCp5Ku0VU4fHFpu9IJGJnpRwBnwt23gEEiXwogr74pGZGTBaKY42w7osnjAHm1kZwFh8N0xmXjlcplwbcoV3KnjpjXmw+Y3/TNMBaitfP/z2Qf0SWwHQVt7rAfW5SONMNVflVob70ZK9inx/iuGlIxffrwcflXNiAXhExFM+v8M94y+Wd765nXEZbd0EG+ZLIvRPCrP6BLERmmejFyk2D2eCJ52IJtLUo1iw6GaqkGvPzqUI6Hfwc9Pjzw2ASXPjIDpXd3/2IA8IDwjEIMTLZ7y8Fs+3d+JdZNsDu6XxDAqDC1XsKi0Zz8vl5NrMzDCYiIYCAc2lF3U7x/ZtKDJiIehHophI/f5ycx1YZ2MSLjsaj/OEdLtQEUcDVKa0GBfpvXkO9ka2+fSlNC6Xp7A8IG+/vIMg55dl2rBU0B7Sx9XYRmXlcXJS2cafyJj8lAlMPfXVE+tfHG0V8hSJ24KPI4HqQ6RYCbswNe5MNZxufgrk=
-  file: "./dist/pay-by-paynow-pl.zip"
+  file: "./dist/leaselink-plugin-pl.zip"
   skip_cleanup: true
   on:
     repo: pay-now/paynow-woocommerce

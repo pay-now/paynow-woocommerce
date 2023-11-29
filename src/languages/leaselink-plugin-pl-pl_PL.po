@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Paynow Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 13:03+0000\n"
-"PO-Revision-Date: 2023-11-21 11:32+0000\n"
+"PO-Revision-Date: 2023-11-29 11:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polski\n"
 "Language: pl_PL\n"
@@ -730,5 +730,7 @@ msgstr "Decyzję poznasz po 2 minutach i zdalnie podpiszesz prostą umowę."
 #. %s: PHP version
 #: pay-by-paynow-pl.php:26
 #, php-format
-msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
+msgid ""
+"Your PHP version is %s but LeaseLink - Leasing and Installments for "
+"Companies requires version 7.1+."
 msgstr "Wymagana jest wersja PHP w wersji 7.1+, twoja wersja to %s."

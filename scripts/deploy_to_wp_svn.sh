@@ -15,7 +15,7 @@ if [[ -z "$WP_ORG_PASSWORD" ]]; then
 	exit 1
 fi
 
-PLUGIN="pay-by-paynow-pl"
+PLUGIN="leaselink-plugin-pl"
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 PLUGIN_BUILDS_PATH="$PROJECT_ROOT/dist/"
 PLUGIN_BUILD_CONFIG_PATH="$PROJECT_ROOT"

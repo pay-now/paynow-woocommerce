@@ -73,7 +73,7 @@ class Paynow_Gateway {
 			'amount'      => WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ),
 			'currency'    => strtoupper( $currency ),
 			'externalId'  => $order_id,
-			'description' => __( 'Order No: ', 'pay-by-paynow-pl' ) . $order->get_order_number(),
+			'description' => __( 'Order No: ', 'leaselink-plugin-pl' ) . $order->get_order_number(),
 			'buyer'       => array(
 				'email'     => $billing_data['email'],
 				'firstName' => $billing_data['first_name'],

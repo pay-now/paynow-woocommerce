@@ -70,7 +70,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 */
 	public function plugins_loaded() {
 
-		load_plugin_textdomain( 'pay-by-paynow-pl', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages' );
+		load_plugin_textdomain( 'leaselink-plugin-pl', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages' );
 	}
 
 	/**

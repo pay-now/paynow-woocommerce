@@ -9,10 +9,10 @@ class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_
 
 	public function __construct() {
 		$this->id                 = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik';
-		$this->title              = __( 'BLIK payment', 'pay-by-paynow-pl' );
-		$this->description        = __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' );
-		$this->method_title       = __( 'LeaseLink - BLIK payments', 'pay-by-paynow-pl' );
-		$this->method_description = __( 'Accept BLIK payments with paynow.pl', 'pay-by-paynow-pl' );
+		$this->title              = __( 'BLIK payment', 'leaselink-plugin-pl' );
+		$this->description        = __( 'Secure and fast payments provided by paynow.pl', 'leaselink-plugin-pl' );
+		$this->method_title       = __( 'LeaseLink - BLIK payments', 'leaselink-plugin-pl' );
+		$this->method_description = __( 'Accept BLIK payments with paynow.pl', 'leaselink-plugin-pl' );
 		$this->payment_method_id  = 2007;
 		parent::__construct();
 	}
@@ -36,7 +36,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_
 		$blik_payment_methods       = $this->get_only_payment_methods_for_type( Type::BLIK );
 		if ( $blik_payment_methods && $this->isWhiteLabelEnabled( $blik_payment_methods ) &&
 			( empty( $payment_authorization_code ) || strlen( $payment_authorization_code ) !== 6 ) ) {
-			wc_add_notice( __( 'Please enter correct BLIK code', 'pay-by-paynow-pl' ), 'error' );
+			wc_add_notice( __( 'Please enter correct BLIK code', 'leaselink-plugin-pl' ), 'error' );
 
 			return false;
 		}

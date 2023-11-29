@@ -37,8 +37,8 @@ class Leaselink_Widget {
 
     public static function get_financial_operation_name_map() {
         return [
-            0 => __('Leasing', 'pay-by-paynow-pl'),
-            2 => __('Installments for companies', 'pay-by-paynow-pl')
+            0 => __('Leasing', 'leaselink-plugin-pl'),
+            2 => __('Installments for companies', 'leaselink-plugin-pl')
         ];
     }
 
@@ -149,9 +149,9 @@ class Leaselink_Widget {
             $is_netto = $offer['FinancialOperationType'] === 0;
             $mapped_offers[] = [
                 'rates' => $offer['NumberOfRates'],
-                'entry_payment' => wc_price($offer['EntryPayment']) . ' (' . ($is_netto ? __('net', 'pay-by-paynow-pl') : __('gross', 'pay-by-paynow-pl')) . ')',
+                'entry_payment' => wc_price($offer['EntryPayment']) . ' (' . ($is_netto ? __('net', 'leaselink-plugin-pl') : __('gross', 'leaselink-plugin-pl')) . ')',
                 'entry_payment_percent' => $offer['InitialPaymentPct'],
-                'closing_payment' => wc_price($offer['ClosingPayment']) . ' (' . ($is_netto ? __('net', 'pay-by-paynow-pl') : __('gross', 'pay-by-paynow-pl')) . ')',
+                'closing_payment' => wc_price($offer['ClosingPayment']) . ' (' . ($is_netto ? __('net', 'leaselink-plugin-pl') : __('gross', 'leaselink-plugin-pl')) . ')',
                 'closing_payment_percent' => $offer['ClosingPaymentPct'],
                 'financial_operation_name' => self::get_financial_operation_name_map()[$offer['FinancialOperationType']] ?? self::get_financial_operation_name_map()[0],
                 'monthly_net_value' => wc_price($is_netto ? $offer['MonthlyRateNetValue'] : $offer['MonthlyRateGrossValue']),

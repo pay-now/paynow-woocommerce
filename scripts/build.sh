@@ -8,15 +8,15 @@ composer install --no-dev --optimize-autoloader
 
 echo "Preparing target directory"
 mkdir dist
-mkdir dist/pay-by-paynow-pl
+mkdir dist/leaselink-plugin-pl
 
 echo "Copying sources"
 cp -R assets dist
-cp -R vendor dist/pay-by-paynow-pl
-cp -R src/* dist/pay-by-paynow-pl
-cp -f readme.txt dist/pay-by-paynow-pl/
-cp -f LICENSE dist/pay-by-paynow-pl/license.txt
+cp -R vendor dist/leaselink-plugin-pl
+cp -R src/* dist/leaselink-plugin-pl
+cp -f readme.txt dist/leaselink-plugin-pl/
+cp -f LICENSE dist/leaselink-plugin-pl/license.txt
 
 echo "Preparing zip"
 cd dist
-zip -r pay-by-paynow-pl.zip pay-by-paynow-pl
+zip -r leaselink-plugin-pl.zip leaselink-plugin-pl

@@ -23,7 +23,7 @@
     <arg name="parallel" value="8"/>
 
     <config name="minimum_supported_wp_version" value="4.9"/>
-    <config name="text_domain" value="pay-by-paynow-pl"/>
+    <config name="text_domain" value="leaselink-plugin-pl"/>
     <config name="prefixes" value="wc_gateway_pay_by_paynow_pl"/>
 
     <rule ref="WordPress-Core"/>

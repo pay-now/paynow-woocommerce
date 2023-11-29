@@ -62,9 +62,9 @@ class Paynow_Leaselink {
         foreach ($columns as $column_name => $column_info) {
             $new_columns[$column_name] = $column_info;
             if ('order_status' === $column_name) {
-                $new_columns['leaselink_status'] = __('Leaselink status', 'pay-by-paynow-pl');
-                $new_columns['leaselink_number'] = __('Leaselink application number', 'pay-by-paynow-pl');
-                $new_columns['leaselink_form'] = __('Leaselink application form', 'pay-by-paynow-pl');
+                $new_columns['leaselink_status'] = __('Leaselink status', 'leaselink-plugin-pl');
+                $new_columns['leaselink_number'] = __('Leaselink application number', 'leaselink-plugin-pl');
+                $new_columns['leaselink_form'] = __('Leaselink application form', 'leaselink-plugin-pl');
             }
         }
         return $new_columns;
@@ -95,7 +95,7 @@ class Paynow_Leaselink {
         $status = $order->get_meta('_leaselink_status');
         $form = $order->get_meta('_leaselink_form');
 
-        $data['payment_via'] .= '<br />' . __('Status:', 'pay-by-paynow-pl') . ' ' . $status . '<br />' . __('Number:', 'pay-by-paynow-pl') . ' ' . $number . '<br />' . __('Form:', 'pay-by-paynow-pl') . ' ' . $form;
+        $data['payment_via'] .= '<br />' . __('Status:', 'leaselink-plugin-pl') . ' ' . $status . '<br />' . __('Number:', 'leaselink-plugin-pl') . ' ' . $number . '<br />' . __('Form:', 'leaselink-plugin-pl') . ' ' . $form;
 
         return $data;
     }
@@ -118,12 +118,12 @@ class Paynow_Leaselink {
                 %s %s
             </p>
         </div>',
-            __('Leaselink data', 'pay-by-paynow-pl'),
-            __('Number:', 'pay-by-paynow-pl'),
+            __('Leaselink data', 'leaselink-plugin-pl'),
+            __('Number:', 'leaselink-plugin-pl'),
             $number,
-            __('Status:', 'pay-by-paynow-pl'),
+            __('Status:', 'leaselink-plugin-pl'),
             $status,
-            __('Form:', 'pay-by-paynow-pl'),
+            __('Form:', 'leaselink-plugin-pl'),
             $form
         );
     }
@@ -144,12 +144,12 @@ class Paynow_Leaselink {
                 %s %s <br/>
                 %s %s
             </address>',
-            __('Leaselink data', 'pay-by-paynow-pl'),
-            __('Number:', 'pay-by-paynow-pl'),
+            __('Leaselink data', 'leaselink-plugin-pl'),
+            __('Number:', 'leaselink-plugin-pl'),
             $number,
-            __('Status:', 'pay-by-paynow-pl'),
+            __('Status:', 'leaselink-plugin-pl'),
             $status,
-            __('Form:', 'pay-by-paynow-pl'),
+            __('Form:', 'leaselink-plugin-pl'),
             $form
         );
     }
