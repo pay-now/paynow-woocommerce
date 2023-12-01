@@ -9,7 +9,7 @@
                         <img src="<?php echo esc_attr( $instrument->getImage() ); ?>" alt="<?php echo esc_attr( $instrument->getBrand() ); ?>">
                     </div>
                     <div class="paynow-payment-card-details">
-                        <?php if ($instrument->isExpired()): ?>
+                        <?php if ( $instrument->isExpired() ): ?>
                             <p class="paynow-payment-card-details-card-name paynow-expired"><?php echo __( 'Card:', 'pay-by-paynow-pl' ); ?> <?php echo esc_attr( $instrument->getName() ); ?></p>
                             <p class="paynow-payment-card-details-expiration paynow-expired"><?php echo __( 'Expired:', 'pay-by-paynow-pl' ); ?> <?php echo esc_attr( $instrument->getExpirationDate() ); ?></p>
                         <?php else: ?>
@@ -27,10 +27,12 @@
                             data-remove-saved-instrument="<?php echo esc_attr( $instrument->getToken() ); ?>"
                             data-action="<?php echo $remove_saved_instrument_action; ?>"
                             data-nonce="<?php echo wp_create_nonce( 'wp_rest' ); ?>"
+                            data-error-message="<?php echo __( 'An error occurred while deleting the saved card.', 'pay-by-paynow-pl' ); ?>"
                     >
                         <?php echo __( 'Remove card', 'pay-by-paynow-pl' ); ?>
                     </button>
                 </div>
+                <span class="paynow-payment-card-error"></span>
             </div>
         <?php endforeach; ?>
         <div class="paynow-payment-card-option">
@@ -46,5 +48,5 @@
             </label>
         </div>
     </div>
-	<?php include( 'data_processing_info.phtml' ); ?>
+	<?php include( 'data_processing_info.php' ); ?>
 <?php endif; ?>

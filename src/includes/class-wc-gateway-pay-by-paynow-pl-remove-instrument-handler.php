@@ -15,16 +15,26 @@ class WC_Gateway_Pay_By_Paynow_PL_Remove_Instrument_Handler extends WC_Gateway_P
 	public function remove_instrument( string $instrument ): WP_REST_Response {
 
 		$response = array(
-            'success' => false,
-        );
+			'success' => false,
+		);
 
-        try {
-            $this->gateway->remove_saved_instrument($instrument);
+		try {
+			$success = $this->gateway->remove_saved_instrument( $instrument );
 
-            $response['success'] = true;
-        } catch (Exception $e) {
-            $response['error'] = $e->getMessage();
-        }
+			$response['success'] = $success;
+		} catch (Exception $e) {
+			$response['error'] = __( 'An error occurred while deleting the saved card.', 'pay-by-paynow-pl' );
+
+			WC_Pay_By_Paynow_PL_Logger::error(
+				'Remove saved instrument failed',
+				array(
+					'service' => 'Remove instrument handler',
+					'action'  => 'remove_saved_instrument',
+					'message' => $e->getMessage(),
+					'trace'   => $e->getTraceAsString(),
+				)
+			);
+		}
 
 		return new WP_REST_Response( $response );
 	}

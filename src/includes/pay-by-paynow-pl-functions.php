@@ -21,7 +21,7 @@ function wc_pay_by_paynow_pl_gateway_check_status( $data ): WP_REST_Response {
 
 function wc_pay_by_paynow_pl_gateway_remove_saved_instrument( $data ): WP_REST_Response {
 
-    return ( new WC_Gateway_Pay_By_Paynow_PL_Remove_Instrument_Handler() )->remove_instrument( $data['savedInstrumentToken'] ?? '' );
+	return ( new WC_Gateway_Pay_By_Paynow_PL_Remove_Instrument_Handler() )->remove_instrument( $data['savedInstrumentToken'] ?? '' );
 }
 
 function wc_pay_by_paynow_pl_gateway_rest_init() {
@@ -36,15 +36,15 @@ function wc_pay_by_paynow_pl_gateway_rest_init() {
 		)
 	);
 
-    register_rest_route(
-        'paynow',
-        'instrument-remove',
-        array(
-            'methods'             => WP_REST_Server::EDITABLE,
-            'callback'            => 'wc_pay_by_paynow_pl_gateway_remove_saved_instrument',
-            'permission_callback' => '__return_true',
-        )
-    );
+	register_rest_route(
+		'paynow',
+		'instrument-remove',
+		array(
+			'methods'             => WP_REST_Server::EDITABLE,
+			'callback'            => 'wc_pay_by_paynow_pl_gateway_remove_saved_instrument',
+			'permission_callback' => '__return_true',
+		)
+	);
 }
 
 function wc_pay_by_paynow_pl_gateway_content_thankyou( $order_id ) {

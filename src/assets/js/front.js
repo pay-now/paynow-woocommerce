@@ -36,6 +36,7 @@ jQuery( document ).ready(function () {
 		const target = jQuery(e.currentTarget);
 		const savedInstrument = target.data('removeSavedInstrument');
 		const nonce = target.data('nonce');
+		const errorMessage = target.data('errorMessage');
 		const cardMethodOption = jQuery('#wrapper-' + savedInstrument);
 
 		cardMethodOption.addClass('loading');
@@ -50,9 +51,11 @@ jQuery( document ).ready(function () {
 				cardMethodOption.remove();
 			} else {
 				cardMethodOption.removeClass('loading');
+				showRemoveSavedInstrumentErrorMessage(savedInstrument, errorMessage);
 			}
 		}).error(function (jqXHR, textStatus, errorThrown) {
 			cardMethodOption.removeClass('loading');
+			showRemoveSavedInstrumentErrorMessage(savedInstrument, errorMessage);
 		});
 	});
 });
@@ -65,4 +68,14 @@ function addApplePayEnabledToCookie() {
 	}
 
 	document.cookie = 'applePayEnabled=' + (applePayEnabled ? '1' : '0');
+}
+
+function showRemoveSavedInstrumentErrorMessage(savedInstrument, errorMessage) {
+	const errorMessageWrapper = jQuery('#wrapper-' + savedInstrument + ' .paynow-payment-card-error');
+
+	errorMessageWrapper.text(errorMessage);
+
+	setTimeout(() => {
+		errorMessageWrapper.text('');
+	}, 5000)
 }
