@@ -26,8 +26,6 @@ class Paynow_Settings_Manager {
      */
     private $options;
 
-    private $notification_url = '';
-
 	public function __construct() {
         $this->options = get_option(self::OPTION_NAME, []);
 
@@ -61,7 +59,7 @@ class Paynow_Settings_Manager {
                         'id' => 'll_notification_url',
                         'title' => __('Notification url', 'leaselink-plugin-pl'),
                         'type' => 'constant',
-                        'value' => $this->notification_url,
+                        'value' => apply_filters( 'leaselink_plugin_notification_url', '-' ),
                     ], [
                         'id' => 'll_widget_location',
                         'title' => __('LeaseLink widget location', 'leaselink-plugin-pl'),
@@ -233,11 +231,6 @@ class Paynow_Settings_Manager {
     public function get_leaselink_custom_css()
     {
         return $this->options['ll_custom_css'] ?? null;
-    }
-
-    public function set_notification_url(string $url)
-    {
-        $this->notification_url = $url;
     }
 
     public function add_current_page_as_woocommerce_page($screen_ids)

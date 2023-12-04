@@ -20,9 +20,8 @@ class Leaselink_Notification_Api {
         $this->setting_manager = $settings_manager;
 
         add_action( 'rest_api_init', array($this, 'register_route') );
-
-        $this->setting_manager->set_notification_url(get_rest_url() . self::NAMESPACE . '/' . self::PATH . md5($this->setting_manager->get_leaselink_api_key()));
-    }
+		add_filter( 'leaselink_plugin_notification_url', array($this, 'set_notification_url') );
+	}
 
     public function register_route()
     {
@@ -36,6 +35,11 @@ class Leaselink_Notification_Api {
             )
         );
     }
+
+	public function set_notification_url()
+	{
+		return (get_rest_url() . self::NAMESPACE . '/' . self::PATH . md5($this->setting_manager->get_leaselink_api_key()));
+	}
 
     public function process(WP_REST_Request $request)
     {
