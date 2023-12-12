@@ -162,6 +162,9 @@ class Paynow_Gateway {
 				WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $redirect_url,
 			);
 
+			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ) );
+			delete_transient( $cache_key );
+
 			WC_Pay_By_Paynow_PL_Logger::debug( 'Retrieved authorization response', array_merge( $logger_context, $payment_data ) );
 
 			return $payment_data;
