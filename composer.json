@@ -2,7 +2,7 @@
   "name": "pay-now/paynow-woocommerce",
   "description": "paynow.pl plugin for WooCommerce",
   "license": "GPLv3",
-  "version": "2.4.22",
+  "version": "2.4.32",
   "authors": [
     {
       "name": "mElements S.A.",
@@ -13,7 +13,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=7.1",
-    "pay-now/paynow-php-sdk": "^2.2",
+    "pay-now/paynow-php-sdk": "^2.2.2",
     "nyholm/psr7": "^1.2",
     "php-http/curl-client": "^2.1",
     "ext-json": "*",
@@ -26,7 +26,7 @@
   },
   "scripts": {
     "cs": [
-      "vendor/bin/phpcs"
+      "vendor/bin/phpcs --ignore=includes/templates/*"
     ],
     "cs-fix": [
       "php vendor/bin/phpcbf"

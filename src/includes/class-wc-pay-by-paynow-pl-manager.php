@@ -60,6 +60,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		add_action( 'rest_api_init', 'wc_pay_by_paynow_pl_gateway_rest_status_init' );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wc_pay_by_paynow_pl_gateway_front_resources' ) );
 		add_action( 'woocommerce_before_thankyou', 'wc_pay_by_paynow_pl_gateway_content_thankyou', 10, 1 );
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 
         $this->setup_settings_manager();
         $this->setup_leaselink();
@@ -70,7 +71,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 */
 	public function plugins_loaded() {
 
-		load_plugin_textdomain( 'leaselink-plugin-pl', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages' );
+		load_plugin_textdomain( 'leaselink-plugin-pl', false, WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'languages' );
 	}
 
 	/**
@@ -90,21 +91,37 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/abstract/class-wc-gateway-pay-by-paynow-pl.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-notification-handler.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-status-handler.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-leaselink.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-paywall-payment.php';
+
+		$payment_gateways = array(
+			'WC_Gateway_Pay_By_Paynow_PL_Blik_Payment',
+			'WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment',
+			'WC_Gateway_Pay_By_Paynow_PL_Card_Payment',
+			'WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment',
+			'WC_Gateway_Pay_By_Paynow_PL_Leaselink',
+		);
+
+		if ( ! is_admin() ) {
+			$payment_gateways = array_merge(
+				$payment_gateways,
+				array(
+					'WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment',
+					'WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment',
+					'WC_Gateway_Pay_By_Paynow_PL_Apple_Pay_Payment',
+				)
+			);
+		}
 
 		$this->payment_gateways = apply_filters(
 			'wc_pay_by_paynow_pl_payment_gateways',
-			array(
-				'WC_Gateway_Pay_By_Paynow_PL_Blik_Payment',
-				'WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment',
-				'WC_Gateway_Pay_By_Paynow_PL_Card_Payment',
-				'WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment',
-                'WC_Gateway_Pay_By_Paynow_PL_Leaselink',
-			)
+			$payment_gateways
 		);
 	}
 
@@ -123,6 +140,16 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	public function enqueue_admin_scripts() {
 
 		wp_enqueue_script( 'settings', WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'js/settings.js', array( 'jquery' ), wc_pay_by_paynow_pl_plugin_version(), true );
+	}
+
+	/**
+	 * Declare High-Performance Order Storage support by plugin
+	 */
+	public function declare_hpos_compatibility() {
+
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE, true );
+		}
 	}
 
 	/**

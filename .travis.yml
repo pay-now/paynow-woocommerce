@@ -13,7 +13,7 @@ matrix:
 before_install:
   - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer self-update; fi
   - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then composer install; fi
-  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then git clone -b master https://github.com/WordPress/WordPress-Coding-Standards.git /tmp/WordPress-Coding-Standards; fi
+  - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then git clone -b 2.3.0 https://github.com/WordPress/WordPress-Coding-Standards.git /tmp/WordPress-Coding-Standards; fi
   - if [[ "$PHP_CODE_SNIFF" == "1" ]]; then ./vendor/bin/phpcs --config-set installed_paths /tmp/WordPress-Coding-Standards; fi
 
 script:
@@ -26,7 +26,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: j9fCkylP/xtSCuCSJY+0QMJSwrgEqSfw7bbgsHFU7U/kyrpgEd9W3gOC1eSBEGDvaAidtGyGGuV+eFL2ce+5/cQmR9PS9EtY/WPSREUzEgnoNemTrMIb3Z9I+Eam7juLbbCicTMQdh69OdkrtwmQ4/dw3i6CNaDqqWpMpoZ+XKehKwg4fsZYpZnd3TG7QqzyCp5Ku0VU4fHFpu9IJGJnpRwBnwt23gEEiXwogr74pGZGTBaKY42w7osnjAHm1kZwFh8N0xmXjlcplwbcoV3KnjpjXmw+Y3/TNMBaitfP/z2Qf0SWwHQVt7rAfW5SONMNVflVob70ZK9inx/iuGlIxffrwcflXNiAXhExFM+v8M94y+Wd765nXEZbd0EG+ZLIvRPCrP6BLERmmejFyk2D2eCJ52IJtLUo1iw6GaqkGvPzqUI6Hfwc9Pjzw2ASXPjIDpXd3/2IA8IDwjEIMTLZ7y8Fs+3d+JdZNsDu6XxDAqDC1XsKi0Zz8vl5NrMzDCYiIYCAc2lF3U7x/ZtKDJiIehHophI/f5ycx1YZ2MSLjsaj/OEdLtQEUcDVKa0GBfpvXkO9ka2+fSlNC6Xp7A8IG+/vIMg55dl2rBU0B7Sx9XYRmXlcXJS2cafyJj8lAlMPfXVE+tfHG0V8hSJ24KPI4HqQ6RYCbswNe5MNZxufgrk=
+    secure: "GzvytV4YOaW+UFfjUKduhvrwQOHTs1QYrKYAbKPOQOxmlZXn1K26kaVjSLMfbIt2R0LDhDLJ95CEREdqs1y3E3TDBWN+8AezZnWjpNHiv459pM1YS3oacXBibG+Zf8rRUbhDupip8fYTuZ453cUFFZn7fyJvvIFyjrH3ZybEPxXqg8nhyF7y1+Q9uM8M6j1brFzYTKHy6TdXsC8DserP5W0HdVeQwQcUwkjyTEHe1Fz5pXUoEDfQe3oouS4G0FVI5L3MlpMgetC+JS73pCM4uigm/vNzT+03h2TfbYxg2NWKwmRQHzJxB1H+QHqY/CoSpC2wp1ff19YleYLlp0fBYvDqo9S+nCqdWuvAv1GaFa8F6DHZS8nmSwyBmoKJNz6YOv5K5wy4eNLYfc49KnTcZdEO9WZfyp8Na/qWKWXYEnBL9uc/5YRoy36IW9dMh3WfwiFmb3GzjS0s+1G3xfjSWx6f5J5RcjfUFPBcrQ0UaxzI4tPnvn2QDdXedme9X9T5tbeZ74iSKRUvkBY6hpz/YPz2x7LSu53qGdngcsHUNVXWHfIwPvgswBIA3xQwUuNPgSvwb/4z/M5H4J8lTBwwOkV0a2ynanZ+S60c6iJt1138Ym0+YDZs5HYVvDD+uuHC0I5Yu6CaPKqiNCHVvK4GhuDHm4/pNAn1btQlb8BvW7Y="
   file: "./dist/leaselink-plugin-pl.zip"
   skip_cleanup: true
   on:

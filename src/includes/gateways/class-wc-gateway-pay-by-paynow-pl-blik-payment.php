@@ -22,7 +22,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_
 		if ( $blik_payment_methods && $this->isWhiteLabelEnabled( $blik_payment_methods ) ) {
 			$method_block = 'blik';
 			$notices      = $this->gateway->gdpr_notices();
-			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'blik_payment.phtml';
+			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'blik_payment.php';
 		} else {
 			parent::payment_fields();
 		}

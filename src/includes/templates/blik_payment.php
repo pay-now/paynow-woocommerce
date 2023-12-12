@@ -9,5 +9,5 @@
                    placeholder="___ ___">
         </div>
     </div>
-    <?php include('data_processing_info.phtml'); ?>
+    <?php include('data_processing_info.php'); ?>
 </div>

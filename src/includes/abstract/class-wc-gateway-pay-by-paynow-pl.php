@@ -15,7 +15,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	const ORDER_META_MODIFIED_AT_KEY      = '_pay_by_paynow_pl_modified_at';
 	const ORDER_META_NOTIFICATION_HISTORY = '_pay_by_paynow_pl_notification_history';
 
-	protected $payment_method_id;
+	protected $payment_method_id = null;
+
+	protected $show_payment_methods = true;
 
 	protected $payment_gateway_options
 		= array(
@@ -105,7 +107,6 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				$plugin_settings[ $key ] = $value;
 			}
 		}
-
 		return update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $plugin_settings ), 'yes' );
 	}
 
@@ -116,7 +117,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	public function payment_fields() {
 
-		include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'payment_processor_info.phtml';
+		include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'payment_processor_info.php';
 	}
 
 	public function process_payment( $order_id ): array {
@@ -131,7 +132,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			return $response;
 		}
 
-		$payment_method = filter_input( INPUT_POST, 'payment_method' );
+		$payment_method     = filter_input( INPUT_POST, 'payment_method' );
+		$payment_method_id  = null;
+		$authorization_code = null;
 		if ( self::PAYNOW_PAYMENT_GETAWAY[ self::PBL_PAYMENT ] === $payment_method ) {
 			$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
 		} elseif ( self::PAYNOW_PAYMENT_GETAWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
@@ -141,13 +144,15 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$payment_data = $this->gateway->payment_request(
 			$order,
 			$this->get_return_url( $order ),
-			isset( $payment_method_id ) && empty( $payment_method_id ) ? intval( $payment_method_id ) : $this->payment_method_id,
-			$authorization_code ?? null
+			! empty( $payment_method_id ) ? intval( $payment_method_id ) : $this->payment_method_id,
+			$authorization_code
 		);
 		if ( isset( $payment_data['errors'] ) ) {
 			$error_type = null;
+			$message    = null;
 			if ( isset( $payment_data['errors'] [0] ) && $payment_data['errors'][0] instanceof \Paynow\Exception\Error ) {
 				$error_type = $payment_data['errors'][0]->getType();
+				$message    = $payment_data['errors'][0]->getMessage();
 			}
 			switch ( $error_type ) {
 				case 'AUTHORIZATION_CODE_INVALID':
@@ -159,13 +164,20 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				case 'AUTHORIZATION_CODE_USED':
 					wc_add_notice( __( 'BLIK code already used', 'leaselink-plugin-pl' ), 'error' );
 					break;
+				case 'VALIDATION_ERROR':
+					wc_add_notice( $this->get_validation_errors_message( $message ), 'error' );
+					break;
 				default:
 					wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'leaselink-plugin-pl' ), 'error' );
 			}
 			return $response;
 		}
 
-		add_post_meta( $order_id, '_transaction_id', $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], true );
+		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+			add_post_meta( $order_id, '_transaction_id', $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], true );
+		} else {
+			$order->add_meta_data( '_transaction_id', $payment_data[ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ], true );
+		}
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
 			update_post_meta( $order_id, '_transaction_id', $payment_data [ WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME ] );
@@ -194,6 +206,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		}
 
 		return $response;
+	}
+
+	protected function get_validation_errors_message( $message = '' ) {
+		if ( strpos( $message, 'buyer.email' ) !== false ) {
+			return __( 'Invalid email address entered. Check the correctness of the entered data', 'pay-by-paynow-pl' );
+		}
+
+		return __( 'A data validation error occurred. Check the correctness of the entered data', 'pay-by-paynow-pl' );
 	}
 
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
@@ -345,7 +365,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 		if ( ! is_admin() && parent::is_available() ) {
 			$payment_method = $this->get_only_payment_methods_for_type( $type );
-			return ! empty( $payment_method ) && reset( $payment_method )->isEnabled();
+			return ! empty( $payment_method ) && reset( $payment_method )->isEnabled() && $this->show_payment_methods;
 		}
 
 		return parent::is_available();
@@ -456,8 +476,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			);
 		}
 
-		$order->add_meta_data( self::ORDER_META_STATUS_FIELD_NAME, $status, true );
-		$order->add_meta_data( self::ORDER_META_MODIFIED_AT_KEY, $modified_at, true );
+		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+			$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
+			add_post_meta( $order_id, self::ORDER_META_STATUS_FIELD_NAME, $status, true );
+			add_post_meta( $order_id, self::ORDER_META_MODIFIED_AT_KEY, $modified_at, true );
+		} else {
+			$order->add_meta_data( self::ORDER_META_STATUS_FIELD_NAME, $status, true );
+			$order->add_meta_data( self::ORDER_META_MODIFIED_AT_KEY, $modified_at, true );
+		}
 
 		WC_Pay_By_Paynow_PL_Logger::info( 'Order status transition is correct.', $context );
 
@@ -650,12 +676,12 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 */
 	private function process_new_status( WC_Order $order, string $payment_id, $context ) {
 
-		$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
 		if ( ! empty( $order->get_transaction_id() ) && ! ( $order->get_transaction_id() === $payment_id ) ) {
 			WC_Pay_By_Paynow_PL_Logger::info( 'The order has already a payment. Attaching new payment.', $context );
 		}
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+			$order_id = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
 			update_post_meta( $order_id, '_transaction_id', $payment_id );
 		} else {
 			$order->set_transaction_id( $payment_id );
@@ -707,12 +733,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$payment_methods = $this->gateway->payment_methods();
 
 		if ( ! empty( $payment_methods ) && is_array( $payment_methods ) ) {
-			return array_filter(
-				$payment_methods,
-				function ( $payment_method ) use ( $type ) {
+			return array_values(
+				array_filter(
+					$payment_methods,
+					function ( $payment_method ) use ( $type ) {
 
-					return $type === $payment_method->getType();
-				}
+						return $type === $payment_method->getType();
+					}
+				)
 			);
 		}
 

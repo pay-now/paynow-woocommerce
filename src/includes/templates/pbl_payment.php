@@ -18,6 +18,6 @@ if ( ! empty( $methods ) ) {
 		?>
     </div>
 	<?php
-    include( 'data_processing_info.phtml' );
+    include( 'data_processing_info.php' );
 }
 ?>

@@ -23,7 +23,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 			$method_block = 'pbls';
 			$methods      = $this->get_only_payment_methods_for_type( Type::PBL );
 			$notices      = $this->gateway->gdpr_notices();
-			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'pbl_payment.phtml';
+			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'pbl_payment.php';
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
@@ -55,7 +55,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 				}
 			);
 
-			return parent::is_available() && ! empty( $filtered_payment_methods );
+			return parent::is_available() && ! empty( $filtered_payment_methods ) && $this->show_payment_methods;
 		}
 
 		return parent::is_available();

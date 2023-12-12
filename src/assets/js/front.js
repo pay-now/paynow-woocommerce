@@ -97,6 +97,8 @@ jQuery( document ).ready(function () {
 		1000
 	);
 
+	addApplePayEnabledToCookie();
+
 	jQuery('[data-leaselink-calculator-help-open]').on('click', leaselink.helpTooltip.show);
 	jQuery('[data-leaselink-calculator-help-close]').on('click', leaselink.helpTooltip.hide);
 
@@ -128,3 +130,13 @@ jQuery( document ).ready(function () {
 
 	leaselink.onWidgetConfigurationChange();
 });
+
+function addApplePayEnabledToCookie() {
+	let applePayEnabled = false;
+
+	if (window.ApplePaySession) {
+		applePayEnabled = window.ApplePaySession.canMakePayments();
+	}
+
+	document.cookie = 'applePayEnabled=' + (applePayEnabled ? '1' : '0');
+}
