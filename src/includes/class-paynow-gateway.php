@@ -87,7 +87,7 @@ class Paynow_Gateway {
 			'continueUrl' => $return_url,
 		);
 
-		if ( !empty( $customer_id ) ){
+		if ( ! empty( $customer_id ) ) {
 			$payment_data['buyer']['externalId'] = WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id( $customer_id, $this->signature_key );
 		}
 
@@ -103,7 +103,7 @@ class Paynow_Gateway {
 			$payment_data['authorizationCode'] = $authorization_code;
 		}
 
-		if ( !empty( $payment_method_token ) ) {
+		if ( ! empty( $payment_method_token ) ) {
 			$payment_data['paymentMethodToken'] = $payment_method_token;
 		}
 
@@ -304,12 +304,12 @@ class Paynow_Gateway {
 						$amount,
 					)
 				);
-				$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+				$idempotency_key   = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
 					WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
 				);
-				$current_user_id = get_current_user_id();
+				$current_user_id   = get_current_user_id();
 				$buyer_external_id = $current_user_id > 0 ? WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id( $current_user_id, $this->signature_key ) : null;
-				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $apple_pay_enabled, $idempotency_key, $buyer_external_id )->getAll();
+				$payment_methods   = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $apple_pay_enabled, $idempotency_key, $buyer_external_id )->getAll();
 				// replace null value to string for caching
 				if ( null === $payment_methods ) {
 					$payment_methods = 'null';
@@ -342,7 +342,7 @@ class Paynow_Gateway {
 			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
 			delete_transient( $cache_key );
 
-			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+			$idempotency_key   = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
 				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
 			);
 			$buyer_external_id = WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id( get_current_user_id(), $this->signature_key );
@@ -381,7 +381,7 @@ class Paynow_Gateway {
 			$payment = new Payment( $this->client );
 
 			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key( $order_id );
-			$response = $payment->status( $payment_id, $idempotency_key );
+			$response        = $payment->status( $payment_id, $idempotency_key );
 			return $response->getStatus() ?? null;
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error(

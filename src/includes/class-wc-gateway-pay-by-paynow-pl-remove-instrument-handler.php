@@ -22,7 +22,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Remove_Instrument_Handler extends WC_Gateway_P
 			$success = $this->gateway->remove_saved_instrument( $instrument );
 
 			$response['success'] = $success;
-		} catch (Exception $e) {
+		} catch ( Exception $e ) {
 			$response['error'] = __( 'An error occurred while deleting the saved card.', 'pay-by-paynow-pl' );
 
 			WC_Pay_By_Paynow_PL_Logger::error(

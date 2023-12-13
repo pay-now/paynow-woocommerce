@@ -35,6 +35,6 @@ class WC_Pay_By_Paynow_PL_Keys_Generator {
 	 */
 	public static function generate_buyer_external_id( $customer_id, $signature_key ): string {
 
-		return md5($customer_id.$signature_key );
+		return md5( $customer_id . $signature_key );
 	}
 }

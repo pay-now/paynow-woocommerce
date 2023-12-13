@@ -159,7 +159,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		} elseif ( self::PAYNOW_PAYMENT_GATEWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
 			$authorization_code = preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
 		} elseif ( self::PAYNOW_PAYMENT_GATEWAY[ self::CARD_PAYMENT ] === $payment_method ) {
-			$payment_method_token = filter_input(INPUT_POST, 'paymentMethodToken', FILTER_SANITIZE_STRING);
+			$payment_method_token = filter_input( INPUT_POST, 'paymentMethodToken', FILTER_SANITIZE_STRING );
 		}
 
 		$payment_data = $this->gateway->payment_request(
@@ -167,7 +167,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$this->get_return_url( $order ),
 			! empty( $payment_method_id ) ? intval( $payment_method_id ) : $this->payment_method_id,
 			$authorization_code,
-			!empty( $payment_method_token ) ? $payment_method_token : null
+			! empty( $payment_method_token ) ? $payment_method_token : null
 		);
 		if ( isset( $payment_data['errors'] ) ) {
 			$error_type = null;
