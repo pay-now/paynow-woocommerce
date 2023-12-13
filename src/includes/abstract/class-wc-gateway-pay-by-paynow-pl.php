@@ -28,10 +28,13 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	public const PBL_PAYMENT = 1;
 
-	public const PAYNOW_PAYMENT_GETAWAY
+	public const CARD_PAYMENT = 2;
+
+	public const PAYNOW_PAYMENT_GATEWAY
 		= array(
 			self::BLIK_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik',
 			self::PBL_PAYMENT  => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl',
+			self::CARD_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'card',
 		);
 
 	/**
@@ -151,17 +154,20 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$payment_method     = filter_input( INPUT_POST, 'payment_method' );
 		$payment_method_id  = null;
 		$authorization_code = null;
-		if ( self::PAYNOW_PAYMENT_GETAWAY[ self::PBL_PAYMENT ] === $payment_method ) {
+		if ( self::PAYNOW_PAYMENT_GATEWAY[ self::PBL_PAYMENT ] === $payment_method ) {
 			$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
-		} elseif ( self::PAYNOW_PAYMENT_GETAWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
+		} elseif ( self::PAYNOW_PAYMENT_GATEWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
 			$authorization_code = preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
+		} elseif ( self::PAYNOW_PAYMENT_GATEWAY[ self::CARD_PAYMENT ] === $payment_method ) {
+			$payment_method_token = filter_input(INPUT_POST, 'paymentMethodToken', FILTER_SANITIZE_STRING);
 		}
 
 		$payment_data = $this->gateway->payment_request(
 			$order,
 			$this->get_return_url( $order ),
 			! empty( $payment_method_id ) ? intval( $payment_method_id ) : $this->payment_method_id,
-			$authorization_code
+			$authorization_code,
+			!empty( $payment_method_token ) ? $payment_method_token : null
 		);
 		if ( isset( $payment_data['errors'] ) ) {
 			$error_type = null;

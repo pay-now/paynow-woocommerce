@@ -374,3 +374,41 @@ msgstr ""
 #. Plugin Name of the plugin
 msgid "Pay by paynow.pl"
 msgstr ""
+
+#: includes/templates/card_payment.php:13
+#: includes/templates/card_payment.php:16
+msgid "Card:"
+msgstr ""
+
+#: includes/templates/card_payment.php:43
+msgid "Enter your new card details"
+msgstr ""
+
+#: includes/templates/card_payment.php:14
+msgid "Expired:"
+msgstr ""
+
+#: includes/templates/card_payment.php:17
+msgid "Expires:"
+msgstr ""
+
+#: includes/templates/card_payment.php:23
+msgid "remove"
+msgstr ""
+
+#: includes/templates/card_payment.php:31
+msgid "Remove card"
+msgstr ""
+
+#: includes/templates/card_payment.php:2
+msgid "Select a saved card or enter new card details:"
+msgstr ""
+
+#: includes/templates/card_payment.php:44
+msgid "You can save it in the next step"
+msgstr ""
+
+#: includes/class-wc-gateway-pay-by-paynow-pl-remove-instrument-handler.php:26
+#: includes/templates/card_payment.php:30
+msgid "An error occurred while deleting the saved card."
+msgstr ""

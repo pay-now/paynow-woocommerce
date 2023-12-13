@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || exit();
 
 use Paynow\Client;
+use Paynow\Configuration;
 use Paynow\Environment;
 use Paynow\Exception\ConfigurationException;
 use Paynow\Exception\PaynowException;
@@ -56,10 +57,11 @@ class Paynow_Gateway {
 	 * @param $return_url
 	 * @param $payment_method_id
 	 * @param $authorization_code
+	 * @param $payment_method_token
 	 * @return array|array[]|void
 	 * @throws ConfigurationException
 	 */
-	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null ) {
+	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null, $payment_method_token = null ) {
 
 		if ( ! $this->client ) {
 			return;
@@ -69,6 +71,7 @@ class Paynow_Gateway {
 
 		$currency     = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->get_order_currency() : $order->get_currency();
 		$order_id     = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
+		$customer_id  = get_current_user_id() > 0 ? get_current_user_id() : null;
 		$billing_data = $order->get_address();
 		$payment_data = array(
 			'amount'      => WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ),
@@ -84,6 +87,10 @@ class Paynow_Gateway {
 			'continueUrl' => $return_url,
 		);
 
+		if ( !empty( $customer_id ) ){
+			$payment_data['buyer']['externalId'] = WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id( $customer_id, $this->signature_key );
+		}
+
 		$logger_context = array(
 			WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id,
 		);
@@ -94,6 +101,10 @@ class Paynow_Gateway {
 		$is_blik = ! empty( $authorization_code );
 		if ( $is_blik ) {
 			$payment_data['authorizationCode'] = $authorization_code;
+		}
+
+		if ( !empty( $payment_method_token ) ) {
+			$payment_data['paymentMethodToken'] = $payment_method_token;
 		}
 
 		if ( 'yes' === $this->settings['send_order_items'] ) {
@@ -127,7 +138,7 @@ class Paynow_Gateway {
 			$payment_data['validityTime'] = $this->settings['payment_validity_time'];
 		}
 
-		$idempotency_key = substr( uniqid( $order_id, true ), 0, 45 );
+		$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key( $order_id );
 		$payment         = new Payment( $this->client );
 
 		try {
@@ -150,6 +161,9 @@ class Paynow_Gateway {
 				WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_PAYMENT_ID_FIELD_NAME   => $api_response_object->getPaymentId(),
 				WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $redirect_url,
 			);
+
+			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ) );
+			delete_transient( $cache_key );
 
 			WC_Pay_By_Paynow_PL_Logger::debug( 'Retrieved authorization response', array_merge( $logger_context, $payment_data ) );
 
@@ -290,7 +304,12 @@ class Paynow_Gateway {
 						$amount,
 					)
 				);
-				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $apple_pay_enabled )->getAll();
+				$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+					WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
+				);
+				$current_user_id = get_current_user_id();
+				$buyer_external_id = $current_user_id > 0 ? WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id( $current_user_id, $this->signature_key ) : null;
+				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $apple_pay_enabled, $idempotency_key, $buyer_external_id )->getAll();
 				// replace null value to string for caching
 				if ( null === $payment_methods ) {
 					$payment_methods = 'null';
@@ -310,6 +329,42 @@ class Paynow_Gateway {
 	}
 
 	/**
+	 * @param $token
+	 * @return bool
+	 * @throws ConfigurationException
+	 * @throws PaynowException
+	 */
+	public function remove_saved_instrument( $token ): bool {
+		try {
+			$amount    = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
+			$currency  = get_woocommerce_currency();
+			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
+			delete_transient( $cache_key );
+
+			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
+			);
+			$buyer_external_id = WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id( get_current_user_id(), $this->signature_key );
+
+			( new Payment( $this->client ) )->removeSavedInstrument( $buyer_external_id, $token, $idempotency_key );
+
+			return true;
+		} catch ( PaynowException $exception ) {
+			WC_Pay_By_Paynow_PL_Logger::error(
+				'Remove saved instrument failed',
+				array(
+					'service' => 'Payment',
+					'action'  => 'removeSavedInstrument',
+					'message' => $exception->getMessage(),
+					'trace'   => $exception->getTraceAsString(),
+				)
+			);
+
+			return false;
+		}
+	}
+
+	/**
 	 * @param int $order_id Order ID.
 	 * @param string $payment_id Payment ID.
 	 *
@@ -324,7 +379,8 @@ class Paynow_Gateway {
 		try {
 			$payment = new Payment( $this->client );
 
-			$response = $payment->status( $payment_id );
+			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key( $order_id );
+			$response = $payment->status( $payment_id, $idempotency_key );
 			return $response->getStatus() ?? null;
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error(
@@ -342,9 +398,10 @@ class Paynow_Gateway {
 	/**
 	 * Return GDPR notices
 	 *
+	 * @param string $idempotency_key
 	 * @return array|null
 	 */
-	public function gdpr_notices(): ?array {
+	public function gdpr_notices( string $idempotency_key ): ?array {
 
 		$notices = array();
 		$locale  = $this->get_locale();
@@ -354,7 +411,7 @@ class Paynow_Gateway {
 				$notices = WC()->session->get( $cache_key );
 			} else {
 				WC_Pay_By_Paynow_PL_Logger::info( 'Retrieving GDPR notices' );
-				$notices = ( new Paynow\Service\DataProcessing( $this->client ) )->getNotices( $locale )->getAll();
+				$notices = ( new Paynow\Service\DataProcessing( $this->client ) )->getNotices( $locale, $idempotency_key )->getAll();
 				if ( ! is_null( WC()->session ) ) {
 					WC()->session->set( $cache_key, $notices );
 				}
