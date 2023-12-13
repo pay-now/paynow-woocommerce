@@ -20,8 +20,11 @@ class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_
 	public function payment_fields() {
 		$blik_payment_methods = $this->get_only_payment_methods_for_type( Type::BLIK );
 		if ( $blik_payment_methods && $this->isWhiteLabelEnabled( $blik_payment_methods ) ) {
-			$method_block = 'blik';
-			$notices      = $this->gateway->gdpr_notices();
+			$method_block    = 'blik';
+			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
+			);
+			$notices         = $this->gateway->gdpr_notices( $idempotency_key );
 			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'blik_payment.php';
 		} else {
 			parent::payment_fields();
