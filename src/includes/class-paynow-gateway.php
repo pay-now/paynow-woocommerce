@@ -322,7 +322,8 @@ class Paynow_Gateway {
 		}
 
 		// replace string 'null' into real null
-		if ( 'null' === $payment_methods ) {
+		// and false in case when get_transient returns false and then an exception will be thrown
+		if ( 'null' === $payment_methods || false === $payment_methods ) {
 			$payment_methods = null;
 		}
 		return $payment_methods;
