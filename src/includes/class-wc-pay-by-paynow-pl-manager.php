@@ -60,7 +60,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		add_action( 'rest_api_init', 'wc_pay_by_paynow_pl_gateway_rest_status_init' );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wc_pay_by_paynow_pl_gateway_front_resources' ) );
 		add_action( 'woocommerce_before_thankyou', 'wc_pay_by_paynow_pl_gateway_content_thankyou', 10, 1 );
-		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+		// add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 
         $this->setup_settings_manager();
         $this->setup_leaselink();

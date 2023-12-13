@@ -9,19 +9,19 @@ class Leaselink_Widget {
 
     const WIDGET_COLOR_SETTING_MAP = [
         Paynow_Settings_Manager::SETTING_WIDGET_COLOR_BLACK => [
-            'image' => 'arrow-purple.svg',
+            'image' => 'arrow-purple.png',
             'class' => 'paynow-leaselink__color-black',
         ],
         Paynow_Settings_Manager::SETTING_WIDGET_COLOR_WHITE => [
-            'image' => 'arrow-purple.svg',
+            'image' => 'arrow-purple.png',
             'class' => 'paynow-leaselink__color-white',
         ],
         Paynow_Settings_Manager::SETTING_WIDGET_COLOR_BLACK_GHOST => [
-            'image' => 'arrow-black.svg',
+            'image' => 'arrow-black.png',
             'class' => 'paynow-leaselink__color-black-ghost',
         ],
         Paynow_Settings_Manager::SETTING_WIDGET_COLOR_WHITE_GHOST => [
-            'image' => 'arrow-white.svg',
+            'image' => 'arrow-white.png',
             'class' => 'paynow-leaselink__color-white-ghost',
         ]
     ];
@@ -60,7 +60,7 @@ class Leaselink_Widget {
         $data = $this->prepare_data_from_offer($offer, $products);
         $data = array_merge($data, self::WIDGET_COLOR_SETTING_MAP[$this->setting_manager->get_leaselink_widget_color()]);
 
-        include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'leaselink_widget.phtml';
+        include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'leaselink_widget.php';
     }
 
     private function get_products_ids_as_array($products) {

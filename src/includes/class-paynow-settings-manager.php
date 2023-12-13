@@ -161,7 +161,12 @@ class Paynow_Settings_Manager {
                         'title' => __( 'Payment validity time', 'leaselink-plugin-pl' ),
                         'tip' => __( 'Determines how long it will be possible to pay for the order from the moment the payment link is generated. Value expressed in seconds. The value must be between 60 and 86400 seconds.', 'leaselink-plugin-pl' ),
                         'type' => 'number',
-                    ],
+                    ], [
+                        'id' => 'show_payment_methods',
+                        'title' => __( 'Show payment methods', 'leaselink-plugin-pl' ),
+						'label' => __( 'Enable to show payment methods on the checkout page.', 'leaselink-plugin-pl' ),
+                        'type' => 'checkbox'
+					]
                 ],
             ],
             'paynow_help_section' => [
@@ -196,6 +201,11 @@ class Paynow_Settings_Manager {
     public function get_payment_validity_time()
     {
         return $this->options['payment_validity_time'] ?? 86400;
+    }
+
+    public function get_show_payment_methods()
+	{
+        return $this->options['show_payment_methods'] ?? true;
     }
 
     public function is_sandbox()

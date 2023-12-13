@@ -21,10 +21,10 @@
     </script>
     <div class="paynow-leaselink__calculator">
         <div class="paynow-leaselink__calculator__header">
-            <img class="paynow-leaselink__calculator__header__logo" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/ll-logo.svg'; ?>" alt="ll logo">
+            <img class="paynow-leaselink__calculator__header__logo" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/ll-logo.png'; ?>" alt="ll logo">
             <p><?php echo __('Leasing and installments for companies 24/7', 'leaselink-plugin-pl') ?></p>
             <div class="paynow-leaselink__calculator__header__exit-wrapper" data-leaselink-calculator-close>
-                <img class="paynow-leaselink__calculator__header__exit" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/exit.svg'; ?>" alt="exit icon">
+                <img class="paynow-leaselink__calculator__header__exit" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/exit.png'; ?>" alt="exit icon">
             </div>
         </div>
 
@@ -108,7 +108,7 @@
                         <p class="paynow-leaselink__calculator__config__summary__title"><?php echo __('Financial product:', 'leaselink-plugin-pl') ?></p>
                         <p class="paynow-leaselink__calculator__config__summary__value with-help">
                             <span data-financial-product-name><?php echo $data['financial_product_name']; ?></span>
-                            <img class="paynow-leaselink__calculator__config__summary__tooltip" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tooltip.svg'; ?>" alt="tooltip icon" data-leaselink-calculator-help-open>
+                            <img class="paynow-leaselink__calculator__config__summary__tooltip" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tooltip.png'; ?>" alt="tooltip icon" data-leaselink-calculator-help-open>
                         </p>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
             <div class="paynow-leaselink__calculator__help-background paynow-leaselink__calculator__help__hidden" data-leaselink-calculator-help>
                 <div class="paynow-leaselink__calculator__help <?php echo $data['help_tooltip_class']; ?>" data-leaselink-calculator-help-tooltip>
                     <div class="paynow-leaselink__calculator__help__exit-wrapper" data-leaselink-calculator-help-close>
-                        <img class="paynow-leaselink__calculator__help__exit" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/exit.svg'; ?>" alt="exit icon">
+                        <img class="paynow-leaselink__calculator__help__exit" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/exit.png'; ?>" alt="exit icon">
                     </div>
                     <div class="paynow-leaselink__calculator__help-header">
                         <p class="paynow-leaselink__calculator__help-leasing"><?php echo __('Leasing for companies', 'leaselink-plugin-pl') ?></p>
@@ -125,31 +125,31 @@
                         <p class="paynow-leaselink__calculator__help-loan"><?php echo __('Installments for companies', 'leaselink-plugin-pl') ?></p>
                     </div>
                     <div class="paynow-leaselink__calculator__help-row --row-gray">
-                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.png'; ?>" alt="tick icon">
                         <p class="paynow-leaselink__calculator__help-leasing"><?php echo __('Each installment is entirely tax deductible', 'leaselink-plugin-pl') ?></p>
                         <hr class="paynow-leaselink__calculator__help-hr">
                         <p class="paynow-leaselink__calculator__help-loan"><?php echo __('You will enter the company\'s costs as with cash purchases', 'leaselink-plugin-pl') ?></p>
                     </div>
                     <div class="paynow-leaselink__calculator__help-row">
-                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.png'; ?>" alt="tick icon">
                         <p class="paynow-leaselink__calculator__help-leasing"><?php echo __('For fixed assets and accessories', 'leaselink-plugin-pl') ?></p>
                         <hr class="paynow-leaselink__calculator__help-hr">
                         <p class="paynow-leaselink__calculator__help-loan"><?php echo __('For the entire range', 'leaselink-plugin-pl') ?></p>
                     </div>
                     <div class="paynow-leaselink__calculator__help-row --row-gray">
-                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.png'; ?>" alt="tick icon">
                         <p class="paynow-leaselink__calculator__help-leasing"><?php echo __('The period depends on the selected item category', 'leaselink-plugin-pl') ?></p>
                         <hr class="paynow-leaselink__calculator__help-hr">
                         <p class="paynow-leaselink__calculator__help-loan"><?php echo __('Shorter terms, not available on leasing', 'leaselink-plugin-pl') ?></p>
                     </div>
                     <div class="paynow-leaselink__calculator__help-row">
-                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.png'; ?>" alt="tick icon">
                         <p class="paynow-leaselink__calculator__help-leasing"><?php echo __('You become the owner at the end of the contract (buyout)', 'leaselink-plugin-pl') ?></p>
                         <hr class="paynow-leaselink__calculator__help-hr">
                         <p class="paynow-leaselink__calculator__help-loan"><?php echo __('You own it right away', 'leaselink-plugin-pl') ?></p>
                     </div>
                     <div class="paynow-leaselink__calculator__help-row --row-gray">
-                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.svg'; ?>" alt="tick icon">
+                        <img class="paynow-leaselink__calculator__help__tick" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/tick.png'; ?>" alt="tick icon">
                         <p class="paynow-leaselink__calculator__help-leasing"><?php echo __('The buyout amount depends on the selected item category and the financing period', 'leaselink-plugin-pl') ?></p>
                         <hr class="paynow-leaselink__calculator__help-hr">
                         <p class="paynow-leaselink__calculator__help-loan"><?php echo __('No buyout', 'leaselink-plugin-pl') ?></p>
@@ -173,8 +173,8 @@
             </div>
 
             <div class="paynow-leaselink__calculator__rating">
-                <img class="paynow-leaselink__calculator__rating__image" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/widget-ratings.svg'; ?>" alt="widget ratings">
-                <img class="paynow-leaselink__calculator__rating__image-lg" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/widget-ratings-lg.svg'; ?>" alt="widget ratings">
+                <img class="paynow-leaselink__calculator__rating__image" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/widget-ratings.png'; ?>" alt="widget ratings">
+                <img class="paynow-leaselink__calculator__rating__image-lg" src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/widget-ratings-lg.png'; ?>" alt="widget ratings">
             </div>
         </div>
 
@@ -184,7 +184,7 @@
                     <div class="paynow-leaselink__calculator__summary__arrow-wrapper">
                         <img
                             class="paynow-leaselink__calculator__summary__arrow"
-                            src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/arrow-purple.svg'; ?>"
+                            src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/arrow-purple.png'; ?>"
                             alt="Arrow"
                         >
                     </div>

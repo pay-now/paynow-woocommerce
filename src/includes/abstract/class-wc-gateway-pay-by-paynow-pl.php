@@ -55,8 +55,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$this->icon = 'https://static.paynow.pl/payment-method-icons/' . $this->payment_method_id . '.png';
 		}
 
-		$this->gateway           = new Paynow_Gateway();
-		$this->locking_mechanism = new WC_Pay_By_Paynow_PL_Locking_Mechanism();
+		$this->gateway           	= new Paynow_Gateway();
+		$this->locking_mechanism 	= new WC_Pay_By_Paynow_PL_Locking_Mechanism();
+		$this->show_payment_methods = wc_pay_by_paynow()->settings()->get_show_payment_methods();
 	}
 
 	public function init_supports() {
