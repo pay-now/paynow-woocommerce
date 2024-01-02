@@ -165,6 +165,10 @@
 	text-transform: uppercase;
 }
 
+.paynow-leaselink .paynow-leaselink__image {
+	width: 15px;
+}
+
 .paynow-leaselink .paynow-leaselink__title .woocommerce-Price-amount.amount {
 	font-size: 22px;
 	line-height: 33px;
@@ -278,6 +282,14 @@
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+}
+
+.paynow-leaselink__calculator__header__exit {
+	width: 40px;
+}
+
+.paynow-leaselink__calculator__header__logo {
+	width: 147px;
 }
 
 @media (max-width: 767px) {
@@ -578,6 +590,7 @@
 }
 
 .paynow-leaselink__calculator__config__summary__tooltip {
+	width: 20px;
 	cursor: pointer;
 	margin-left: 10px;
 }
@@ -708,7 +721,6 @@
 }
 
 .paynow-leaselink__calculator__rating {
-	padding: 41px 0;
 	background-color: #f0f0f0;
 	display: flex;
 	justify-content: center;
@@ -716,6 +728,10 @@
 }
 
 @media (max-width: 767px) {
+	.paynow-leaselink__calculator__rating {
+		padding: 41px 40px;
+	}
+
 	.paynow-leaselink__calculator__rating__image-lg {
 		display: none;
 	}
@@ -757,6 +773,7 @@
 }
 
 .paynow-leaselink__calculator__summary__arrow {
+	width: 15px;
 	transform: rotate(180deg);
 }
 
