@@ -305,6 +305,7 @@
 	}
 
 	.paynow-leaselink__calculator__header p {
+		margin-left: 16px;
 		font-size: 26px;
 		line-height: 33px;
 	}

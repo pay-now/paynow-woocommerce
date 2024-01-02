@@ -71,7 +71,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 */
 	public function plugins_loaded() {
 
-		load_plugin_textdomain( 'leaselink-plugin-pl', false, WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'languages' );
+		load_plugin_textdomain( 'leaselink-plugin-pl', false, 'leaselink-plugin-pl/languages' );
 	}
 
 	/**
