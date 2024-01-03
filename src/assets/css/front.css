@@ -985,4 +985,5 @@
 .--only-leasing .paynow-leaselink__calculator__help__tick {
 	display: inline-block;
 	margin-right: 16px;
+	width: 15px;
 }
