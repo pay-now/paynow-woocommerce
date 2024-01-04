@@ -58,10 +58,11 @@ class Paynow_Gateway {
 	 * @param $payment_method_id
 	 * @param $authorization_code
 	 * @param $payment_method_token
+	 * @param $payment_method_fingerprint
 	 * @return array|array[]|void
 	 * @throws ConfigurationException
 	 */
-	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null, $payment_method_token = null ) {
+	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null, $payment_method_token = null, $payment_method_fingerprint = null ) {
 
 		if ( ! $this->client ) {
 			return;
@@ -105,6 +106,10 @@ class Paynow_Gateway {
 
 		if ( ! empty( $payment_method_token ) ) {
 			$payment_data['paymentMethodToken'] = $payment_method_token;
+		}
+
+		if ( ! empty( $payment_method_fingerprint ) ) {
+			$payment_data['buyer']['deviceFingerprint'] = $payment_method_fingerprint;
 		}
 
 		if ( 'yes' === $this->settings['send_order_items'] ) {
