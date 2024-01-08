@@ -15,6 +15,7 @@ cp -R assets dist
 cp -R vendor dist/pay-by-paynow-pl
 cp -R src/* dist/pay-by-paynow-pl
 cp -f readme.txt dist/pay-by-paynow-pl/
+cp -f changelog.txt dist/pay-by-paynow-pl/
 cp -f LICENSE dist/pay-by-paynow-pl/license.txt
 
 echo "Preparing zip"
