@@ -1,5 +1,6 @@
 <?php if ( !empty( $instruments ) ): ?>
     <p><?php echo __( 'Select a saved card or enter new card details:', 'pay-by-paynow-pl' ); ?></p>
+    <input type="hidden" name="paymentMethodFingerprint" id="payment-method-fingerprint" value="">
     <div class="paynow-payment-option-pbls">
 		<?php foreach ( $instruments as $instrument ):?>
             <div class="paynow-payment-card-option" id="wrapper-<?php echo esc_attr( $instrument->getToken() ); ?>">

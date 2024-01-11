@@ -21,6 +21,11 @@ jQuery( document ).ready(function () {
 	);
 
 	addApplePayEnabledToCookie();
+	addFingerprintToCardPayment();
+
+	jQuery('body').on('updated_checkout', function () {
+		addFingerprintToCardPayment();
+	});
 
 	jQuery(document).on('click', '.paynow-payment-card-menu .paynow-payment-card-menu-button', function (e) {
 		jQuery(e.currentTarget).siblings().toggleClass('--hidden');
@@ -68,6 +73,27 @@ function addApplePayEnabledToCookie() {
 	}
 
 	document.cookie = 'applePayEnabled=' + (applePayEnabled ? '1' : '0');
+}
+
+function addFingerprintToCardPayment() {
+	const input = jQuery('#payment-method-fingerprint');
+
+	if (!input.length) {
+		return;
+	}
+
+	try {
+		const fpPromise = import('https://static.paynow.pl/scripts/PyG5QjFDUI.min.js')
+			.then(FingerprintJS => FingerprintJS.load())
+
+		fpPromise
+			.then(fp => fp.get())
+			.then(result => {
+				input.val(result.visitorId);
+			})
+	} catch (e) {
+		console.error('Cannot get fingerprint');
+	}
 }
 
 function showRemoveSavedInstrumentErrorMessage(savedInstrument, errorMessage) {
