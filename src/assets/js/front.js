@@ -1,21 +1,7 @@
 jQuery( document ).ready(function () {
 	setTimeout(
 		function () {
-			jQuery( '.paynow-data-processing-info-less .expand' ).on(
-				'click',
-				function () {
-					let $target = jQuery( jQuery( this ).data( 'target' ) );
-					if ( ! $target.hasClass( 'show' )) {
-						$target.slideDown();
-						$target.addClass( 'show' );
-						jQuery( this ).text( jQuery( this ).data( 'expanded-text' ) );
-					} else {
-						$target.slideUp();
-						$target.removeClass( 'show' );
-						jQuery( this ).text( jQuery( this ).data( 'collapsed-text' ) );
-					}
-				}
-			);
+			jQuery( '.paynow-data-processing-info-less .expand' ).off( 'click', toggleProcessingInfo ).on( 'click', toggleProcessingInfo );
 		},
 		1000
 	);
@@ -25,6 +11,10 @@ jQuery( document ).ready(function () {
 
 	jQuery('body').on('updated_checkout', function () {
 		addFingerprintToCardPayment();
+	});
+
+	jQuery( 'body' ).on( 'updated_checkout', function () {
+		jQuery( '.paynow-data-processing-info-less .expand' ).off( 'click', toggleProcessingInfo ).on( 'click', toggleProcessingInfo );
 	});
 
 	jQuery(document).on('click', '.paynow-payment-card-menu .paynow-payment-card-menu-button', function (e) {
@@ -104,4 +94,17 @@ function showRemoveSavedInstrumentErrorMessage(savedInstrument, errorMessage) {
 	setTimeout(() => {
 		errorMessageWrapper.text('');
 	}, 5000)
+}
+
+function toggleProcessingInfo() {
+	let $target = jQuery( jQuery( this ).data( 'target' ) );
+	if ( ! $target.hasClass( 'show' )) {
+		$target.slideDown();
+		$target.addClass( 'show' );
+		jQuery( this ).text( jQuery( this ).data( 'expanded-text' ) );
+	} else {
+		$target.slideUp();
+		$target.removeClass( 'show' );
+		jQuery( this ).text( jQuery( this ).data( 'collapsed-text' ) );
+	}
 }
