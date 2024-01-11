@@ -159,7 +159,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		} elseif ( self::PAYNOW_PAYMENT_GATEWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
 			$authorization_code = preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
 		} elseif ( self::PAYNOW_PAYMENT_GATEWAY[ self::CARD_PAYMENT ] === $payment_method ) {
-			$payment_method_token 		= filter_input( INPUT_POST, 'paymentMethodToken', FILTER_SANITIZE_STRING );
+			$payment_method_token       = filter_input( INPUT_POST, 'paymentMethodToken', FILTER_SANITIZE_STRING );
 			$payment_method_fingerprint = filter_input( INPUT_POST, 'paymentMethodFingerprint', FILTER_SANITIZE_STRING );
 		}
 
