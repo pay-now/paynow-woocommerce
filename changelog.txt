@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 2.5.1 (2024-01-11) =
+
+- We have added new security features to the payment system
+- We have fixed processing info collapsing script
+- We have added changelog to plugin repository
+- We have changed the appearance of the selected online payment method
+
 = 2.5.0 (2023-12-13) =
 
 - We have added support for the latest SDK version

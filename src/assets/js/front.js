@@ -9,12 +9,9 @@ jQuery( document ).ready(function () {
 	addApplePayEnabledToCookie();
 	addFingerprintToCardPayment();
 
-	jQuery('body').on('updated_checkout', function () {
-		addFingerprintToCardPayment();
-	});
-
 	jQuery( 'body' ).on( 'updated_checkout', function () {
 		jQuery( '.paynow-data-processing-info-less .expand' ).off( 'click', toggleProcessingInfo ).on( 'click', toggleProcessingInfo );
+		addFingerprintToCardPayment();
 	});
 
 	jQuery(document).on('click', '.paynow-payment-card-menu .paynow-payment-card-menu-button', function (e) {
