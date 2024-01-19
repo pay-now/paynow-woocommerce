@@ -59,7 +59,7 @@ class Leaselink_Client {
             $categories = explode(', ', $categories);
             $request->add_requested_item(
                 is_array($product) ? $product['tax_code'] : $product->get_tax_class(),
-                is_array($product) ? $product['tax'] : $product->get_tax_class(),
+                is_array($product) ? $product['tax'] : WC_Pay_By_Paynow_PL_Helper::get_product_tax_rate($product),
                 $quantity,
                 is_array($product) ? $product['name'] : $product->get_title(),
                 $categories[0] ?? '',

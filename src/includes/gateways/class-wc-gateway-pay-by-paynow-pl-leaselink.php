@@ -84,7 +84,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
                 'net_price' => $order->get_item_total($order_item),
                 'gross_price' => $order->get_item_total($order_item, true),
                 'tax_code' => $order_item->get_tax_class(),
-                'tax' => $order_item->get_tax_class(),
+                'tax' => WC_Pay_By_Paynow_PL_Helper::get_product_tax_rate( $product ),
                 'name' => $order_item->get_name(),
                 'categories' => WC_Pay_By_Paynow_PL_Helper::get_product_categories( $product->get_id() ),
             ];
@@ -94,7 +94,6 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         /** @var \Leaselink_Offer_For_Client_Response $response */
         $response = wc_pay_by_paynow()->leaselink()->client()->get_offer_for_client($products, [
             'customer_external_document' => sprintf('%s', $order->get_id()),
-            'save_in_process' => true,
             'save_data_email' => $order->get_billing_email(),
             'save_data_phone' => $order->get_billing_phone(),
             'simulation' => false,

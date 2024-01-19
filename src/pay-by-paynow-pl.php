@@ -3,7 +3,7 @@
  * Plugin Name: LeaseLink - Leasing and Installments for Companies
  * Plugin URI: https://github.com/pay-now/paynow-woocommerce
  * Description: offer your business clients Leasing and Company Installments as payment
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires PHP: 7.1
  * Author: LeaseLink Sp. z o.o.
  * Author URI: https://leaselink.pl/

@@ -126,6 +126,22 @@ class WC_Pay_By_Paynow_PL_Helper {
 	}
 
 	/**
+	 * Return tax rate for product
+	 *
+	 * @param $product
+	 *
+	 * @return mixed
+	 */
+	public static function get_product_tax_rate( $product ) {
+
+		$tax = new WC_Tax();
+		$rates = $tax->get_rates($product->get_tax_class());
+		$rate = array_shift($rates);
+
+		return $rate['rate'] ?? '';
+	}
+
+	/**
 	 * @return float
 	 */
 	public static function get_payment_amount(): float {
