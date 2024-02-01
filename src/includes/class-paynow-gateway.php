@@ -290,7 +290,7 @@ class Paynow_Gateway {
 
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
 
-		if ( ! $this->client ) {
+		if ( ! $this->client || did_action('wp_loaded') === 0 ) {
 			return null;
 		}
 
