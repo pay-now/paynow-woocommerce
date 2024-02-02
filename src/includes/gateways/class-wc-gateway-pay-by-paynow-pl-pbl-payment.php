@@ -33,7 +33,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 	}
 
 	public function validate_fields(): bool {
-		$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
+		$payment_method_id = $this->get_payment_method_id_from_posted_data();
 		if ( empty( $payment_method_id ) ) {
 			wc_add_notice( __( 'Please choose bank from the list below to make the payment', 'pay-by-paynow-pl' ), 'error' );
 

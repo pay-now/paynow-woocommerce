@@ -39,14 +39,15 @@
 	vertical-align: middle;
 }
 
-.payment_method_pay_by_paynow_pl_blik input[type=text] {
+.payment_method_pay_by_paynow_pl_blik input[type=text],
+.paynow-blik-white-label #paynow_blik_code {
 	letter-spacing: 5px;
 	font-weight: bold;
 	max-width: 100%;
 	min-width: 110px;
 }
 
-.payment_method_pay_by_paynow_pl_blik .paynow-blik-white-label label {
+.paynow-blik-white-label label {
 	margin-top: 5px;
 }
 

@@ -1,16 +1,10 @@
 jQuery( document ).ready(function () {
-	setTimeout(
-		function () {
-			jQuery( '.paynow-data-processing-info-less .expand' ).off( 'click', toggleProcessingInfo ).on( 'click', toggleProcessingInfo );
-		},
-		1000
-	);
-
 	addApplePayEnabledToCookie();
 	addFingerprintToCardPayment();
 
+	jQuery( 'body' ).on('click', '.paynow-data-processing-info-less .expand', toggleProcessingInfo);
+
 	jQuery( 'body' ).on( 'updated_checkout', function () {
-		jQuery( '.paynow-data-processing-info-less .expand' ).off( 'click', toggleProcessingInfo ).on( 'click', toggleProcessingInfo );
 		addFingerprintToCardPayment();
 	});
 
