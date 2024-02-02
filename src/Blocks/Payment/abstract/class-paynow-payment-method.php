@@ -22,8 +22,8 @@ class PaynowPaymentMethod extends AbstractPaymentMethodType {
 	public function initialize() {
 		$payment_methods = WC()->payment_gateways()->payment_gateways();
 
-		foreach ($payment_methods as $key => $gateway) {
-			if ($key === $this->name) {
+		foreach ( $payment_methods as $key => $gateway ) {
+			if ( $key === $this->name ) {
 				$this->payment_method = $gateway;
 				break;
 			}
@@ -36,14 +36,14 @@ class PaynowPaymentMethod extends AbstractPaymentMethodType {
 	 * @return boolean
 	 */
 	public function is_active() {
-		return 'yes' === ($this->payment_method ? $this->payment_method->enabled : 'no');
+		return 'yes' === ( $this->payment_method ? $this->payment_method->enabled : 'no' );
 	}
 
 	/**
 	 * @return false|string|null
 	 */
 	protected function get_payment_fields() {
-		if (empty($this->payment_method)) {
+		if ( empty( $this->payment_method ) ) {
 			return null;
 		}
 
@@ -58,7 +58,7 @@ class PaynowPaymentMethod extends AbstractPaymentMethodType {
 	 * @return bool
 	 */
 	protected function is_available() {
-		if (empty($this->payment_method)) {
+		if ( empty( $this->payment_method ) ) {
 			return false;
 		}
 

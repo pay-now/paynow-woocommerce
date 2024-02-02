@@ -27,11 +27,11 @@ class PaynowBlikPayment extends PaynowPaymentMethod {
 		$version      = wc_pay_by_paynow_pl_plugin_version();
 		$path         = plugins_url( 'build/paynow-blik-block.js', __FILE__ );
 		$handle       = 'paynow-blik-checkout-block';
-		$dependencies = [ 'wp-hooks' ];
+		$dependencies = array( 'wp-hooks' );
 
 		wp_register_script( $handle, $path, $dependencies, $version, true );
 
-		return [ 'paynow-blik-checkout-block' ];
+		return array( 'paynow-blik-checkout-block' );
 	}
 
 	/**
@@ -40,12 +40,12 @@ class PaynowBlikPayment extends PaynowPaymentMethod {
 	 * @return array
 	 */
 	public function get_payment_method_data() {
-		return [
+		return array(
 			'title'       => __( 'BLIK payment', 'pay-by-paynow-pl' ),
 			'description' => __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' ),
 			'iconurl'     => 'https://static.paynow.pl/payment-method-icons/2007.png',
 			'available'   => $this->is_available(),
-			'fields'	  => $this->get_payment_fields(),
-		];
+			'fields'      => $this->get_payment_fields(),
+		);
 	}
 }

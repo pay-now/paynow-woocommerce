@@ -148,14 +148,14 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	 */
 	public function register_payment_block() {
 		if ( class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/abstract/PaynowPaymentMethod.php';
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/PaynowApplePayPayment.php';
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/PaynowBlikPayment.php';
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/PaynowCardPayment.php';
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/PaynowDigitalWalletsPayment.php';
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/PaynowGooglePayPayment.php';
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/PaynowPaywallPayment.php';
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/PaynowPblPayment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/abstract/class-paynow-payment-method.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-apple-pay-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-blik-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-card-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-digital-wallets-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-google-pay-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-paywall-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-pbl-payment.php';
 
 			add_action(
 				'woocommerce_blocks_payment_method_type_registration',

@@ -796,7 +796,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	protected function get_authorization_code_from_posted_data() {
-		return filter_input( INPUT_POST, 'authorizationCode' ) ?? filter_var( $_POST['authorizationcode'] ?? null );
+		return filter_input( INPUT_POST, 'authorizationCode' ) ?? filter_var( wp_unslash( $_POST['authorizationcode'] ?? '' ) );
 	}
 
 	protected function get_payment_method_from_posted_data() {
@@ -804,14 +804,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	protected function get_payment_method_id_from_posted_data() {
-		return filter_input( INPUT_POST, 'paymentMethodId' ) ?? filter_var( $_POST['paymentmethodid'] ?? null);
+		return filter_input( INPUT_POST, 'paymentMethodId' ) ?? filter_var( wp_unslash( $_POST['paymentmethodid'] ?? '') );
 	}
 
 	protected function get_payment_method_token_from_posted_data() {
-		return filter_input( INPUT_POST, 'paymentMethodToken', FILTER_SANITIZE_STRING ) ?? filter_var(  $_POST['paymentmethodtoken'], FILTER_SANITIZE_STRING );
+		return filter_input( INPUT_POST, 'paymentMethodToken', FILTER_SANITIZE_STRING ) ?? filter_var( wp_unslash( $_POST['paymentmethodtoken'] ?? ''), FILTER_SANITIZE_STRING );
 	}
 
 	protected function get_payment_method_fingerprint_from_posted_data() {
-		return filter_input( INPUT_POST, 'paymentMethodFingerprint', FILTER_SANITIZE_STRING ) ?? filter_var( $_POST['paymentmethodfingerprint'], FILTER_SANITIZE_STRING );
+		return filter_input( INPUT_POST, 'paymentMethodFingerprint', FILTER_SANITIZE_STRING ) ?? filter_var( wp_unslash( $_POST['paymentmethodfingerprint'] ?? ''), FILTER_SANITIZE_STRING );
 	}
 }
