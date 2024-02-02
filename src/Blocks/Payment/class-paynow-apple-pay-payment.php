@@ -8,9 +8,9 @@
 namespace PayByPaynowPl\Blocks\Payments;
 
 /**
- * Class PaynowApplePayPayment
+ * Class Paynow_Apple_Pay_Payment
  */
-class PaynowApplePayPayment extends PaynowPaymentMethod {
+class Paynow_Apple_Pay_Payment extends Paynow_Payment_Method {
 	/**
 	 * Payment method name. Matches gateway ID.
 	 *

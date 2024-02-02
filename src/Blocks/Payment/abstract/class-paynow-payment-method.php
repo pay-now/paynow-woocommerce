@@ -7,7 +7,7 @@ use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodTyp
 /**
  * Class PaynowPaymentMethod
  */
-class PaynowPaymentMethod extends AbstractPaymentMethodType {
+class Paynow_Payment_Method extends AbstractPaymentMethodType {
 
 	/**
 	 * @var null|WC_Gateway_Pay_By_Paynow_PL

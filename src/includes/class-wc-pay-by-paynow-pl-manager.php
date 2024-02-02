@@ -2,13 +2,13 @@
 
 defined( 'ABSPATH' ) || exit();
 
-use PayByPaynowPl\Blocks\Payments\PaynowApplePayPayment;
-use PayByPaynowPl\Blocks\Payments\PaynowBlikPayment;
-use PayByPaynowPl\Blocks\Payments\PaynowCardPayment;
-use PayByPaynowPl\Blocks\Payments\PaynowDigitalWalletsPayment;
-use PayByPaynowPl\Blocks\Payments\PaynowGooglePayPayment;
-use PayByPaynowPl\Blocks\Payments\PaynowPaywallPayment;
-use PayByPaynowPl\Blocks\Payments\PaynowPblPayment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Apple_Pay_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Blik_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Card_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Digital_Wallets_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Google_Pay_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Paywall_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Pbl_Payment;
 
 /**
  * Class WC_Pay_By_Paynow_Pl_Manager
@@ -160,13 +160,13 @@ class WC_Pay_By_Paynow_Pl_Manager {
 			add_action(
 				'woocommerce_blocks_payment_method_type_registration',
 				function ( $registry ) {
-					$registry->register( new PaynowApplePayPayment() );
-					$registry->register( new PaynowBlikPayment() );
-					$registry->register( new PaynowCardPayment() );
-					$registry->register( new PaynowDigitalWalletsPayment() );
-					$registry->register( new PaynowGooglePayPayment() );
-					$registry->register( new PaynowPaywallPayment() );
-					$registry->register( new PaynowPblPayment() );
+					$registry->register( new Paynow_Apple_Pay_Payment() );
+					$registry->register( new Paynow_Blik_Payment() );
+					$registry->register( new Paynow_Card_Payment() );
+					$registry->register( new Paynow_Digital_Wallets_Payment() );
+					$registry->register( new Paynow_Google_Pay_Payment() );
+					$registry->register( new Paynow_Paywall_Payment() );
+					$registry->register( new Paynow_Pbl_Payment() );
 				}
 			);
 		}

@@ -10,7 +10,7 @@ namespace PayByPaynowPl\Blocks\Payments;
 /**
  * Class PaynowGooglePayPayment
  */
-class PaynowGooglePayPayment extends PaynowPaymentMethod {
+class Paynow_Google_Pay_Payment extends Paynow_Payment_Method {
 	/**
 	 * Payment method name. Matches gateway ID.
 	 *
