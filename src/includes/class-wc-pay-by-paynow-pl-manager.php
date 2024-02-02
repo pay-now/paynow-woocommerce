@@ -2,6 +2,14 @@
 
 defined( 'ABSPATH' ) || exit();
 
+use PayByPaynowPl\Blocks\Payments\Paynow_Apple_Pay_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Blik_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Card_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Digital_Wallets_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Google_Pay_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Paywall_Payment;
+use PayByPaynowPl\Blocks\Payments\Paynow_Pbl_Payment;
+
 /**
  * Class WC_Pay_By_Paynow_Pl_Manager
  */
@@ -47,6 +55,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wc_pay_by_paynow_pl_gateway_front_resources' ) );
 		add_action( 'woocommerce_before_thankyou', 'wc_pay_by_paynow_pl_gateway_content_thankyou', 10, 1 );
 		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+		add_action( 'woocommerce_blocks_loaded', array( $this, 'register_payment_block' ) );
 	}
 
 	/**
@@ -131,6 +140,35 @@ class WC_Pay_By_Paynow_Pl_Manager {
 
 		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE, true );
+		}
+	}
+
+	/**
+	 * Register payment blocks
+	 */
+	public function register_payment_block() {
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/abstract/class-paynow-payment-method.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-apple-pay-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-blik-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-card-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-digital-wallets-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-google-pay-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-paywall-payment.php';
+			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-pbl-payment.php';
+
+			add_action(
+				'woocommerce_blocks_payment_method_type_registration',
+				function ( $registry ) {
+					$registry->register( new Paynow_Apple_Pay_Payment() );
+					$registry->register( new Paynow_Blik_Payment() );
+					$registry->register( new Paynow_Card_Payment() );
+					$registry->register( new Paynow_Digital_Wallets_Payment() );
+					$registry->register( new Paynow_Google_Pay_Payment() );
+					$registry->register( new Paynow_Paywall_Payment() );
+					$registry->register( new Paynow_Pbl_Payment() );
+				}
+			);
 		}
 	}
 

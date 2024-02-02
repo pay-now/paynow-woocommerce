@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 2.5.2 (2024-02-02) =
+
+- We have added support for woocommerce blocks
+
 = 2.5.1 (2024-01-11) =
 
 - We have added new security features to the payment system

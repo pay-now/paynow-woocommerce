@@ -35,7 +35,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_
 	 * @return bool
 	 */
 	public function validate_fields(): bool {
-		$payment_authorization_code = preg_replace( '/\s+/', '', filter_input( INPUT_POST, 'authorizationCode' ) );
+		$payment_authorization_code = preg_replace( '/\s+/', '', $this->get_authorization_code_from_posted_data() );
 		$blik_payment_methods       = $this->get_only_payment_methods_for_type( Type::BLIK );
 		if ( $blik_payment_methods && $this->isWhiteLabelEnabled( $blik_payment_methods ) &&
 			( empty( $payment_authorization_code ) || strlen( $payment_authorization_code ) !== 6 ) ) {
