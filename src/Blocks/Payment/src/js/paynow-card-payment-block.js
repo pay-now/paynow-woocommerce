@@ -39,8 +39,9 @@ const Content = props => {
 
             if (paymentMethodTokenInputValue) {
                 data.paymentMethodToken = paymentMethodTokenInputValue;
-                data.paymentMethodFingerprint = paymentMethodFingerprint
             }
+
+            data.paymentMethodFingerprint = paymentMethodFingerprint
 
             return {
                 type: emitResponse.responseTypes.SUCCESS,
