@@ -20,7 +20,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Card_Payment extends WC_Gateway_Pay_By_Paynow_
 	public function payment_fields() {
 		$card_payment_methods = $this->get_only_payment_methods_for_type( Type::CARD );
 		$card_payment_method  = $card_payment_methods[0] ?? null;
-		if ( $card_payment_method && ! empty( $card_payment_method->getSavedInstruments() ) ) {
+		if ( $card_payment_method ) {
 			$method_block                   = 'card';
 			$idempotency_key                = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
 				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
