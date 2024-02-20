@@ -1,6 +1,6 @@
+<input type="hidden" name="paymentMethodFingerprint" id="payment-method-fingerprint" value="">
 <?php if ( !empty( $instruments ) ): ?>
     <p><?php echo __( 'Select a saved card or enter new card details:', 'pay-by-paynow-pl' ); ?></p>
-    <input type="hidden" name="paymentMethodFingerprint" id="payment-method-fingerprint" value="">
     <div class="paynow-payment-option-pbls">
 		<?php foreach ( $instruments as $instrument ):?>
             <div class="paynow-payment-card-option" id="wrapper-<?php echo esc_attr( $instrument->getToken() ); ?>">
@@ -50,4 +50,9 @@
         </div>
     </div>
 	<?php include( 'data_processing_info.php' ); ?>
+<?php else: ?>
+    <p><?php echo __(  'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ); ?></p>
+    <div class="paynow-data-processing-info">
+        <p><?php echo __(  'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' ); ?></p>
+    </div>
 <?php endif; ?>
