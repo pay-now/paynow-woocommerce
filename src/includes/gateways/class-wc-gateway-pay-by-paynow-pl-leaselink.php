@@ -96,7 +96,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
             'customer_external_document' => sprintf('%s', $order->get_id()),
             'save_data_email' => $order->get_billing_email(),
             'save_data_phone' => $order->get_billing_phone(),
-            'simulation' => false,
+            'simulation' => true,
         ], $partner_site);
 
         if (!$response->is_success()) {
