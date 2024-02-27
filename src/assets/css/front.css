@@ -526,7 +526,7 @@
 }
 
 .paynow-leaselink__calculator__config__input {
-	display: none;
+	display: none !important;
 }
 
 .paynow-leaselink__calculator__config__input:checked+.paynow-leaselink__calculator__config__label {
@@ -539,7 +539,7 @@
 }
 
 .paynow-leaselink__calculator__config__input:disabled+.paynow-leaselink__calculator__config__label {
-	display: none;
+	display: none !important;
 }
 
 .paynow-leaselink__calculator__config__label {

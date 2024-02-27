@@ -21,6 +21,37 @@ const leaselink = {
 		}
 	},
 
+	attachListeners: function () {
+		jQuery('[data-leaselink-calculator-help-open]').on('click', leaselink.helpTooltip.show);
+		jQuery('[data-leaselink-calculator-help-close]').on('click', leaselink.helpTooltip.hide);
+
+		jQuery('[data-leaselink-widget-button]').on('click', leaselink.calculator.show);
+		jQuery('[data-leaselink-calculator-close]').on('click', leaselink.calculator.hide);
+
+		jQuery('[data-leaselink-calculator]').on(
+			'click',
+			function (ev) {
+				if (jQuery(ev.target).is('[data-leaselink-calculator]')) {
+					leaselink.calculator.hide();
+					leaselink.helpTooltip.hide();
+				}
+			}
+		);
+
+		jQuery('[data-leaselink-calculator-help]').on(
+			'click',
+			function (ev) {
+				if (jQuery(ev.target).is('[data-leaselink-calculator-help]')) {
+					leaselink.helpTooltip.hide();
+				}
+			}
+		);
+
+		jQuery(
+			'.paynow-leaselink__calculator input[type=radio][name="rates"], .paynow-leaselink__calculator input[type=radio][name="entry-payment"], .paynow-leaselink__calculator input[type=radio][name="closing-payment"]'
+		).change(leaselink.onWidgetConfigurationChange);
+	},
+
 	onWidgetConfigurationChange: function () {
 		const numberOfRates = parseInt(jQuery('[data-leaselink-calculator] input[name="rates"]:checked').val());
 		const offersFilteredByRates = window.leaselink_offers_json.filter((offer) => offer.rates === numberOfRates);
@@ -72,6 +103,19 @@ const leaselink = {
 				jQuery(this).prop("checked", false);
 			}
 		});
+	},
+
+	refreshWidget: function () {
+		const productId = jQuery('input.variation_id').val();
+		const ajaxUrl = woocommerce_params ? woocommerce_params.wc_ajax_url.replace('%%endpoint%%', 'get_leaselink_widget') : null;
+
+		jQuery.post(ajaxUrl, { product_id: productId }).done(function (res) {
+			jQuery('[data-leaselink-calculator]').remove();
+			jQuery('.paynow-leaselink').replaceWith(res.html);
+
+			leaselink.attachListeners();
+			leaselink.onWidgetConfigurationChange();
+		});
 	}
 }
 
@@ -99,36 +143,10 @@ jQuery( document ).ready(function () {
 
 	addApplePayEnabledToCookie();
 
-	jQuery('[data-leaselink-calculator-help-open]').on('click', leaselink.helpTooltip.show);
-	jQuery('[data-leaselink-calculator-help-close]').on('click', leaselink.helpTooltip.hide);
-
-	jQuery('[data-leaselink-widget-button]').on('click', leaselink.calculator.show);
-	jQuery('[data-leaselink-calculator-close]').on('click', leaselink.calculator.hide);
-
-	jQuery('[data-leaselink-calculator]').on(
-		'click',
-		function (ev) {
-			if (jQuery(ev.target).is('[data-leaselink-calculator]')) {
-				leaselink.calculator.hide();
-				leaselink.helpTooltip.hide();
-			}
-		}
-	);
-
-	jQuery('[data-leaselink-calculator-help]').on(
-		'click',
-		function (ev) {
-			if (jQuery(ev.target).is('[data-leaselink-calculator-help]')) {
-				leaselink.helpTooltip.hide();
-			}
-		}
-	);
-
-	jQuery(
-		'.paynow-leaselink__calculator input[type=radio][name="rates"], .paynow-leaselink__calculator input[type=radio][name="entry-payment"], .paynow-leaselink__calculator input[type=radio][name="closing-payment"]'
-	).change(leaselink.onWidgetConfigurationChange);
-
+	leaselink.attachListeners();
 	leaselink.onWidgetConfigurationChange();
+
+	jQuery('form.variations_form').on('woocommerce_variation_has_changed', leaselink.refreshWidget);
 });
 
 function addApplePayEnabledToCookie() {

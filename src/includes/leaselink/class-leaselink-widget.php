@@ -46,7 +46,7 @@ class Leaselink_Widget {
         $products_ids = $this->get_products_ids_as_array($products);
         $products = $this->get_products($products_ids);
 
-        if (empty($products) || !$this->can_render()) {
+        if (empty($products) || !$this->can_render($products)) {
             return;
         }
 
@@ -162,9 +162,15 @@ class Leaselink_Widget {
         return $mapped_offers;
     }
 
-    private function can_render() {
+    private function can_render($products) {
         if (!function_exists('WC')) {
             return false;
+        }
+
+        foreach ($products as $product) {
+            if ($product->get_type() === 'grouped') {
+                return false;
+            }
         }
 
         $paymentMethods = WC()->payment_gateways()->get_available_payment_gateways() ?? [];

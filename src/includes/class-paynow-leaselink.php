@@ -55,6 +55,8 @@ class Paynow_Leaselink {
             $localization = self::WIDGET_LOCALIZATION_SETTINGS_MAP[$this->settings_manager->get_leaselink_widget_localization()] ?? [];
             add_action($localization['hook'] ?? 'woocommerce_after_add_to_cart_form', 'wc_pay_by_paynow_leaselink_render_widget', $localization['priority'] ?? 10);
         }
+
+		add_action('wc_ajax_get_leaselink_widget', array($this, 'ajax_get_widget'));
     }
 
     public function add_order_columns($columns) {
@@ -167,4 +169,16 @@ class Paynow_Leaselink {
     public function render_widget($products = null) {
         $this->widget->render($products);
     }
+
+	public function ajax_get_widget() {
+		$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : null;
+
+		ob_start();
+		$this->render_widget($product_id);
+		$widget = ob_get_clean();
+
+		wp_send_json([
+			'html' => $widget,
+		]);
+	}
 }
