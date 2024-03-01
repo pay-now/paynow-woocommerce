@@ -2,6 +2,8 @@
 
 defined( 'ABSPATH' ) || exit();
 
+use Paynow\Util\ClientExternalIdCalculator;
+
 /**
  * Provides static methods as helpers.
  */
@@ -35,6 +37,6 @@ class WC_Pay_By_Paynow_PL_Keys_Generator {
 	 */
 	public static function generate_buyer_external_id( $customer_id, $signature_key ): string {
 
-		return \Paynow\Util\ClientExternalIdCalculator::calculate( "$customer_id" );
+		return ClientExternalIdCalculator::calculate( "$customer_id", $signature_key );
 	}
 }
