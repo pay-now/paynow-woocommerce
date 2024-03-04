@@ -10,7 +10,7 @@
  * License: GPLv3
  * Text Domain: leaselink-plugin-pl
  * Domain Path: /languages
- * Tested up to: 6.2
+ * Tested up to: 6.4
  * WC tested up to: 7.7.0
  *
  * @package Paynow
@@ -40,5 +40,6 @@ define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH', 'includes/templates/' );
 define( 'WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX', 'pay_by_paynow_pl_' );
 
 // include main plugin file.
+require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/pay-by-paynow-pl-functions.php';
 require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'vendor/autoload.php';
 require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-manager.php';

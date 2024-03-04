@@ -15,6 +15,7 @@ cp -R assets dist
 cp -R vendor dist/leaselink-plugin-pl
 cp -R src/* dist/leaselink-plugin-pl
 cp -f readme.txt dist/leaselink-plugin-pl/
+cp -f changelog.txt dist/leaselink-plugin-pl/
 cp -f LICENSE dist/leaselink-plugin-pl/license.txt
 
 echo "Preparing zip"

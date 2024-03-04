@@ -1,0 +1,44 @@
+== Changelog ==
+
+= 2.5.3 (2024-02-20) =
+
+- We have fixed payment security feature
+
+= 2.5.2 (2024-02-02) =
+
+- We have added support for woocommerce blocks
+
+= 2.5.1 (2024-01-11) =
+
+- We have added new security features to the payment system
+- We have fixed processing info collapsing script
+- We have added changelog to plugin repository
+- We have changed the appearance of the selected online payment method
+
+= 2.5.0 (2023-12-13) =
+
+- We have added support for the latest SDK version
+- We have added new payment features
+- We have fixed a bug related to page editing in Elementor
+- We have fixed a wrong typing error in the function fetching payment methods from the Paynow API
+
+= 2.4.32 (2023-11-24) =
+
+- We improved the WooCommerce HPOS compatibility declaration
+- We set digital wallets to be active by default
+
+= 2.4.31 (2023-11-22) =
+
+- We added WooCommerce HPOS support
+- We added a general payment method for digital wallets
+- We added additional error logging and additional handling of validation errors when processing payments
+
+= 2.4.30 (2023-11-08) =
+
+- We improved payment methods display system
+- We have fixed an error in sending product data to paynow when there were products without a category in the cart
+
+= 2.4.29 (2023-10-24) =
+
+- We removed the translation overriding mechanism from GlotPress
+- We uploaded the latest translations downloaded from GlotPress
