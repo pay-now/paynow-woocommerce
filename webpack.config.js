@@ -28,6 +28,7 @@ const requestToHandle = (request) => {
 module.exports = {
     ...defaultConfig,
     entry: {
+        'leaselink-block': '/src/Blocks/Payment/src/js/leaselink-payment-block.js',
         'paynow-apple-pay-block': '/src/Blocks/Payment/src/js/paynow-apple-pay-payment-block.js',
         'paynow-blik-block': '/src/Blocks/Payment/src/js/paynow-blik-payment-block.js',
         'paynow-card-block': '/src/Blocks/Payment/src/js/paynow-card-payment-block.js',

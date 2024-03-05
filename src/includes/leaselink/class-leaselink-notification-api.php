@@ -16,7 +16,7 @@ class Leaselink_Notification_Api {
     private $body = [];
     private $is_json = true;
 
-    public function __construct(Paynow_Settings_Manager $settings_manager) {
+    public function __construct(Leaselink_Settings_Manager $settings_manager) {
         $this->setting_manager = $settings_manager;
 
         add_action( 'rest_api_init', array($this, 'register_route') );
@@ -55,11 +55,11 @@ class Leaselink_Notification_Api {
             'body' => $request->get_body(),
             'is_json' => $this->is_json,
         ];
-        WC_Pay_By_Paynow_PL_Logger::info('Processing notification', $logger_context);
+        WC_Leaselink_Plugin_PL_Logger::info('Processing notification', $logger_context);
 
         $transaction_id = $this->get_param_from_request('TransactionId');
         if (empty($transaction_id)) {
-            WC_Pay_By_Paynow_PL_Logger::error('Invalid body - transaction id not found.', $logger_context);
+            WC_Leaselink_Plugin_PL_Logger::error('Invalid body - transaction id not found.', $logger_context);
             return new WP_Error( 'no_transaction_id', 'Invalid body - transaction id not found.', array( 'status' => 404 ) );
         }
 
@@ -71,7 +71,7 @@ class Leaselink_Notification_Api {
         ]);
 
         if (empty($orders) || empty($orders[0])) {
-            WC_Pay_By_Paynow_PL_Logger::error('Invalid transaction id - cannot get order by transaction id.', $logger_context);
+            WC_Leaselink_Plugin_PL_Logger::error('Invalid transaction id - cannot get order by transaction id.', $logger_context);
             return new WP_Error( 'no_order', 'Invalid transaction id - cannot get order by transaction id.', array( 'status' => 404 ) );
         }
 
@@ -79,7 +79,7 @@ class Leaselink_Notification_Api {
         $logger_context['order'] = $order->get_id();
 
         $status = $this->get_param_from_request('StatusName');
-        if (!empty($status)) {
+        if (!empty($status) && strtolower($status) !== 'unknown') {
             $order->update_meta_data('_leaselink_status', $status);
             $order->save();
         }
@@ -110,7 +110,7 @@ class Leaselink_Notification_Api {
                 break;
         }
 
-        WC_Pay_By_Paynow_PL_Logger::info('Notification processed successfully', $logger_context);
+        WC_Leaselink_Plugin_PL_Logger::info('Notification processed successfully', $logger_context);
 
         return new WP_REST_Response();
     }

@@ -11,7 +11,7 @@ class Leaselink_Client {
 
     private $http;
 
-    public function __construct(Paynow_Settings_Manager $settings_manager) {
+    public function __construct(Leaselink_Settings_Manager $settings_manager) {
         $this->config = new Leaselink_Configuration($settings_manager->leaselink_is_sandbox(), $settings_manager->get_leaselink_api_key());
         $this->http = new Leaselink_HTTP_Client($this->config);
     }
@@ -55,11 +55,11 @@ class Leaselink_Client {
             $quantity = is_array($product) ? $product['qty'] : 1;
             $net_price = is_array($product) ? $product['net_price'] : wc_get_price_excluding_tax($product);
             $gross_price = is_array($product) ? $product['gross_price'] : wc_get_price_including_tax($product);
-            $categories = is_array($product) ? $product['categories'] : WC_Pay_By_Paynow_PL_Helper::get_product_categories( $product->get_type() === 'variation' ? $product->get_parent_id() : $product->get_id() );
+            $categories = is_array($product) ? $product['categories'] : WC_Leaselink_Plugin_PL_Helper::get_product_categories( $product->get_type() === 'variation' ? $product->get_parent_id() : $product->get_id() );
             $categories = explode(', ', $categories);
             $request->add_requested_item(
                 is_array($product) ? $product['tax_code'] : $product->get_tax_class(),
-                is_array($product) ? $product['tax'] : WC_Pay_By_Paynow_PL_Helper::get_product_tax_rate($product),
+                is_array($product) ? $product['tax'] : WC_Leaselink_Plugin_PL_Helper::get_product_tax_rate($product),
                 $quantity,
                 is_array($product) ? $product['name'] : $product->get_title(),
                 $categories[0] ?? '',

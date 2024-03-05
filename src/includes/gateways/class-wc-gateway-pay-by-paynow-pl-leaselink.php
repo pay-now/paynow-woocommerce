@@ -8,7 +8,7 @@ if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
 
 class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 	public function __construct() {
-        $this->id = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'leaselink';
+        $this->id = WC_LEASELINK_PLUGIN_PREFIX . 'leaselink';
         $this->icon = 'https://leaselink.pl/app/themes/leaselink/images/logo_desktop.png';
         $this->title = __( 'Leasing and Installments for Companies', 'leaselink-plugin-pl' );
         $this->description = __('online 24/7, decision in 5 minutes', 'leaselink-plugin-pl');
@@ -55,9 +55,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
             }
         }
 
-        $partner_site = wc_pay_by_paynow()->leaselink()->client()->register_partner_site();
+        $partner_site = wc_leaselink_plugin()->leaselink()->client()->register_partner_site();
         /** @var \Leaselink_Offer_For_Client_Response $response */
-        $response = wc_pay_by_paynow()->leaselink()->client()->get_offer_for_client($products, [], $partner_site);
+        $response = wc_leaselink_plugin()->leaselink()->client()->get_offer_for_client($products, [], $partner_site);
 
         if (!$response->is_success()) {
             return false;
@@ -84,15 +84,15 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
                 'net_price' => $order->get_item_total($order_item),
                 'gross_price' => $order->get_item_total($order_item, true),
                 'tax_code' => $order_item->get_tax_class(),
-                'tax' => WC_Pay_By_Paynow_PL_Helper::get_product_tax_rate( $product ),
+                'tax' => WC_Leaselink_Plugin_PL_Helper::get_product_tax_rate( $product ),
                 'name' => $order_item->get_name(),
-                'categories' => WC_Pay_By_Paynow_PL_Helper::get_product_categories( $product->get_id() ),
+                'categories' => WC_Leaselink_Plugin_PL_Helper::get_product_categories( $product->get_id() ),
             ];
         }
 
-        $partner_site = wc_pay_by_paynow()->leaselink()->client()->register_partner_site();
+        $partner_site = wc_leaselink_plugin()->leaselink()->client()->register_partner_site();
         /** @var \Leaselink_Offer_For_Client_Response $response */
-        $response = wc_pay_by_paynow()->leaselink()->client()->get_offer_for_client($products, [
+        $response = wc_leaselink_plugin()->leaselink()->client()->get_offer_for_client($products, [
             'customer_external_document' => sprintf('%s', $order->get_id()),
             'save_data_email' => $order->get_billing_email(),
             'save_data_phone' => $order->get_billing_phone(),
@@ -104,9 +104,10 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
         }
 
         /** @var \Leaselink_Process_Client_Decision_Response $decision */
-        $decision = wc_pay_by_paynow()->leaselink()->client()->process_client_decision($response->get_calculation_id(), $partner_site->get_token());
+        $decision = wc_leaselink_plugin()->leaselink()->client()->process_client_decision($response->get_calculation_id(), $partner_site->get_token());
 
-        $order->update_meta_data('_leaselink_status', $decision->get_transaction_status());
+		$status = $decision->get_transaction_status();
+        $order->update_meta_data('_leaselink_status', strtolower($status) === 'unknown' ? '-' : $status);
         $order->update_meta_data('_leaselink_number', $response->get_calculation_id());
         $order->update_meta_data('_leaselink_form', $response->get_first_offer_financial_operation_type() === 0 ? __('Leasing', 'leaselink-plugin-pl' ) : __('Loan', 'leaselink-plugin-pl' ));
 
@@ -118,7 +119,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
 
         return array(
             'result' => 'success',
-            'redirect' => wc_pay_by_paynow()->leaselink()->client()->config()->get_url() . $response->get_client_offer_url(),
+            'redirect' => wc_leaselink_plugin()->leaselink()->client()->config()->get_url() . $response->get_client_offer_url(),
         );
     }
 }

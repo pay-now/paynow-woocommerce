@@ -1,6 +1,6 @@
 <div class="paynow-confirm-blik">
     <h2><?php echo __( 'Confirm BLIK payment', 'leaselink-plugin-pl' ); ?></h2>
-    <img src="<?php echo WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/blik-confirm.png'; ?>"
+    <img src="<?php echo WC_LEASELINK_PLUGIN_ASSETS_PATH . 'images/blik-confirm.png'; ?>"
          alt="<?php echo __( 'Confirm the payment using the app on your phone.', 'leaselink-plugin-pl' ); ?>">
 </div>
 <script>
