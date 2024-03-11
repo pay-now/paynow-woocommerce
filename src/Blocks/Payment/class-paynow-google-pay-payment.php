@@ -8,15 +8,15 @@
 namespace PayByPaynowPl\Blocks\Payments;
 
 /**
- * Class PaynowDigitalWalletsPayment
+ * Class PaynowGooglePayPayment
  */
-class PaynowDigitalWalletsPayment extends PaynowPaymentMethod {
+class Paynow_Google_Pay_Payment extends Paynow_Payment_Method {
 	/**
 	 * Payment method name. Matches gateway ID.
 	 *
 	 * @var string
 	 */
-	protected $name = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'digital_wallets';
+	protected $name = WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'google_pay';
 
 	/**
 	 * Loads the payment method scripts.
@@ -25,13 +25,13 @@ class PaynowDigitalWalletsPayment extends PaynowPaymentMethod {
 	 */
 	public function get_payment_method_script_handles() {
 		$version      = wc_pay_by_paynow_pl_plugin_version();
-		$path         = plugins_url( 'build/paynow-digital-wallets-block.js', __FILE__ );
-		$handle       = 'paynow-digital-wallets-checkout-block';
-		$dependencies = [ 'wp-hooks' ];
+		$path         = plugins_url( 'build/paynow-google-pay-block.js', __FILE__ );
+		$handle       = 'paynow-google-pay-checkout-block';
+		$dependencies = array( 'wp-hooks' );
 
 		wp_register_script( $handle, $path, $dependencies, $version, true );
 
-		return [ 'paynow-digital-wallets-checkout-block' ];
+		return array( 'paynow-google-pay-checkout-block' );
 	}
 
 	/**
@@ -40,10 +40,11 @@ class PaynowDigitalWalletsPayment extends PaynowPaymentMethod {
 	 * @return array
 	 */
 	public function get_payment_method_data() {
-		return [
-			'title'       => __( 'Digital wallets', 'pay-by-paynow-pl' ),
+		return array(
+			'title'       => __( 'Google Pay', 'pay-by-paynow-pl' ),
 			'description' => __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' ),
+			'iconurl'     => 'https://static.paynow.pl/payment-method-icons/2003.png',
 			'available'   => $this->is_available(),
-		];
+		);
 	}
 }
