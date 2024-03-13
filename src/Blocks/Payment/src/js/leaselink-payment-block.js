@@ -3,7 +3,7 @@ const { getSetting } = wc.wcSettings;
 const { registerPaymentMethod } = wc.wcBlocksRegistry;
 
 // Data
-const settings = getSetting('pay_by_paynow_pl_leaselink_data', {});
+const settings = getSetting('leaselink_pay_by_paynow_pl_leaselink_data', {});
 const title = decodeEntities(settings.title || 'Leaselink');
 const description = decodeEntities(settings.description || '');
 const available = decodeEntities(settings.available || false);
@@ -25,7 +25,7 @@ const Label = props => {
  * Leaselink method config.
  */
 const LeaselinkOptions = {
-    name: 'pay_by_paynow_pl_leaselink',
+    name: 'leaselink_pay_by_paynow_pl_leaselink',
     label: <Label />,
     content: <Content />,
     edit: <Content />,

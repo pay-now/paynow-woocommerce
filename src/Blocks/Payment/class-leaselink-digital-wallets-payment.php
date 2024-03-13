@@ -26,12 +26,12 @@ class Leaselink_Digital_Wallets_Payment extends Leaselink_Payment_Method {
 	public function get_payment_method_script_handles() {
 		$version      = wc_leaselink_plugin_version();
 		$path         = plugins_url( 'build/paynow-digital-wallets-block.js', __FILE__ );
-		$handle       = 'paynow-digital-wallets-checkout-block';
+		$handle       = 'leaselink-paynow-digital-wallets-checkout-block';
 		$dependencies = array( 'wp-hooks' );
 
 		wp_register_script( $handle, $path, $dependencies, $version, true );
 
-		return array( 'paynow-digital-wallets-checkout-block' );
+		return array( $handle );
 	}
 
 	/**

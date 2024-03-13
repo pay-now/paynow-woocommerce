@@ -4,7 +4,7 @@ const { registerPaymentMethod } = wc.wcBlocksRegistry;
 const { useEffect } = wp.element;
 
 // Data
-const settings = getSetting('pay_by_paynow_pl_pbl_data', {});
+const settings = getSetting('leaselink_pay_by_paynow_pl_pbl_data', {});
 const title = decodeEntities(settings.title || 'Pbl');
 const description = decodeEntities(settings.description || '');
 const iconUrl = settings.iconurl;
@@ -60,7 +60,7 @@ const Label = props => {
  * Paynow Pbl method config.
  */
 const PaynowPblOptions = {
-    name: 'pay_by_paynow_pl_pbl',
+    name: 'leaselink_pay_by_paynow_pl_pbl',
     label: <Label />,
     content: <Content />,
     edit: <Content />,

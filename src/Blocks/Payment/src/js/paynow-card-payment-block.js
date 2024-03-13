@@ -4,7 +4,7 @@ const { registerPaymentMethod } = wc.wcBlocksRegistry;
 const { useEffect } = wp.element;
 
 // Data
-const settings = getSetting('pay_by_paynow_pl_card_data', {});
+const settings = getSetting('leaselink_pay_by_paynow_pl_card_data', {});
 const title = decodeEntities(settings.title || 'Card');
 const iconUrl = settings.iconurl;
 const available = decodeEntities(settings.available || false);
@@ -71,7 +71,7 @@ const Label = props => {
  * Paynow Card method config.
  */
 const PaynowCardOptions = {
-    name: 'pay_by_paynow_pl_card',
+    name: 'leaselink_pay_by_paynow_pl_card',
     label: <Label />,
     content: <Content />,
     edit: <Content />,

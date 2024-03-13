@@ -4,7 +4,7 @@ const { registerPaymentMethod } = wc.wcBlocksRegistry;
 const { useEffect } = wp.element;
 
 // Data
-const settings = getSetting('pay_by_paynow_pl_blik_data', {});
+const settings = getSetting('leaselink_pay_by_paynow_pl_blik_data', {});
 const title = decodeEntities(settings.title || 'BLIK');
 const iconUrl = settings.iconurl;
 const available = decodeEntities(settings.available || false);
@@ -59,7 +59,7 @@ const Label = props => {
  * Paynow BLIK method config.
  */
 const PaynowBlikOptions = {
-    name: 'pay_by_paynow_pl_blik',
+    name: 'leaselink_pay_by_paynow_pl_blik',
     label: <Label />,
     content: <Content />,
     edit: <Content />,

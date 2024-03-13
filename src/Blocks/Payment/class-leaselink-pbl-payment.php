@@ -26,12 +26,12 @@ class Leaselink_Pbl_Payment extends Leaselink_Payment_Method {
 	public function get_payment_method_script_handles() {
 		$version      = wc_leaselink_plugin_version();
 		$path         = plugins_url( 'build/paynow-pbl-block.js', __FILE__ );
-		$handle       = 'paynow-pbl-checkout-block';
+		$handle       = 'leaselink-paynow-pbl-checkout-block';
 		$dependencies = array( 'wp-hooks' );
 
 		wp_register_script( $handle, $path, $dependencies, $version, true );
 
-		return array( 'paynow-pbl-checkout-block' );
+		return array( $handle );
 	}
 
 	/**

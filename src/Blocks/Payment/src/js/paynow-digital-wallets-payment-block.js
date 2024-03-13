@@ -3,7 +3,7 @@ const { getSetting } = wc.wcSettings;
 const { registerPaymentMethod } = wc.wcBlocksRegistry;
 
 // Data
-const settings = getSetting('pay_by_paynow_pl_digital_wallets_data', {});
+const settings = getSetting('leaselink_pay_by_paynow_pl_digital_wallets_data', {});
 const title = decodeEntities(settings.title || 'Digital wallets');
 const description = decodeEntities(settings.description || '');
 const available = decodeEntities(settings.available || false);
@@ -25,7 +25,7 @@ const Label = props => {
  * Paynow Digital wallets method config.
  */
 const PaynowDigitalWalletsOptions = {
-    name: 'pay_by_paynow_pl_digital_wallets',
+    name: 'leaselink_pay_by_paynow_pl_digital_wallets',
     label: <Label />,
     content: <Content />,
     edit: <Content />,

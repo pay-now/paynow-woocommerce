@@ -3,7 +3,7 @@ const { getSetting } = wc.wcSettings;
 const { registerPaymentMethod } = wc.wcBlocksRegistry;
 
 // Data
-const settings = getSetting('pay_by_paynow_pl_paywall_data', {});
+const settings = getSetting('leaselink_pay_by_paynow_pl_paywall_data', {});
 const title = decodeEntities(settings.title || 'Paywall');
 const description = decodeEntities(settings.description || '');
 const iconUrl = settings.iconurl;
@@ -27,7 +27,7 @@ const Label = props => {
  * Paynow Paywall method config.
  */
 const PaynowPaywallOptions = {
-    name: 'pay_by_paynow_pl_paywall',
+    name: 'leaselink_pay_by_paynow_pl_paywall',
     label: <Label />,
     content: <Content />,
     edit: <Content />,

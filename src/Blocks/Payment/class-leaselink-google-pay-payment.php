@@ -26,12 +26,12 @@ class Leaselink_Google_Pay_Payment extends Leaselink_Payment_Method {
 	public function get_payment_method_script_handles() {
 		$version      = wc_leaselink_plugin_version();
 		$path         = plugins_url( 'build/paynow-google-pay-block.js', __FILE__ );
-		$handle       = 'paynow-google-pay-checkout-block';
+		$handle       = 'leaselink-paynow-google-pay-checkout-block';
 		$dependencies = array( 'wp-hooks' );
 
 		wp_register_script( $handle, $path, $dependencies, $version, true );
 
-		return array( 'paynow-google-pay-checkout-block' );
+		return array( $handle );
 	}
 
 	/**

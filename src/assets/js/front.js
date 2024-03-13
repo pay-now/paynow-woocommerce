@@ -53,6 +53,10 @@ const leaselink = {
 	},
 
 	onWidgetConfigurationChange: function () {
+		if (!window.leaselink_offers_json) {
+			return;
+		}
+
 		const numberOfRates = parseInt(jQuery('[data-leaselink-calculator] input[name="rates"]:checked').val());
 		const offersFilteredByRates = window.leaselink_offers_json.filter((offer) => offer.rates === numberOfRates);
 		const availableEntryPayments = offersFilteredByRates.map((offer) => offer.entry_payment_percent).filter((entry, index, array) => array.indexOf(entry) === index);

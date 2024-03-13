@@ -3,7 +3,7 @@ const { getSetting } = wc.wcSettings;
 const { registerPaymentMethod } = wc.wcBlocksRegistry;
 
 // Data
-const settings = getSetting('pay_by_paynow_pl_apple_pay_data', {});
+const settings = getSetting('leaselink_pay_by_paynow_pl_apple_pay_data', {});
 const title = decodeEntities(settings.title || 'Apple Pay');
 const description = decodeEntities(settings.description || '');
 const iconUrl = settings.iconurl;
@@ -27,7 +27,7 @@ const Label = props => {
  * Paynow Apple Pay method config.
  */
 const PaynowApplePayOptions = {
-    name: 'pay_by_paynow_pl_apple_pay',
+    name: 'leaselink_pay_by_paynow_pl_apple_pay',
     label: <Label />,
     content: <Content />,
     edit: <Content />,

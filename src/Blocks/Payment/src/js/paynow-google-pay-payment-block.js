@@ -3,7 +3,7 @@ const { getSetting } = wc.wcSettings;
 const { registerPaymentMethod } = wc.wcBlocksRegistry;
 
 // Data
-const settings = getSetting('pay_by_paynow_pl_google_pay_data', {});
+const settings = getSetting('leaselink_pay_by_paynow_pl_google_pay_data', {});
 const title = decodeEntities(settings.title || 'Google Pay');
 const description = decodeEntities(settings.description || '');
 const iconUrl = settings.iconurl;
@@ -27,7 +27,7 @@ const Label = props => {
  * Paynow Google Pay method config.
  */
 const PaynowGooglePayOptions = {
-    name: 'pay_by_paynow_pl_google_pay',
+    name: 'leaselink_pay_by_paynow_pl_google_pay',
     label: <Label />,
     content: <Content />,
     edit: <Content />,

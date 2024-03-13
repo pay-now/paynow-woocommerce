@@ -31,7 +31,7 @@ class Leaselink_Payment extends Leaselink_Payment_Method {
 
 		wp_register_script( $handle, $path, $dependencies, $version, true );
 
-		return array( 'leaselink-checkout-block' );
+		return array( $handle );
 	}
 
 	/**
