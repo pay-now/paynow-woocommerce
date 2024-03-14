@@ -86,7 +86,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Leaselink extends WC_Payment_Gateway {
                 'tax_code' => $order_item->get_tax_class(),
                 'tax' => WC_Leaselink_Plugin_PL_Helper::get_product_tax_rate( $product ),
                 'name' => $order_item->get_name(),
-                'categories' => WC_Leaselink_Plugin_PL_Helper::get_product_categories( $product->get_id() ),
+                'categories' => WC_Leaselink_Plugin_PL_Helper::get_product_categories( $product ),
             ];
         }
 

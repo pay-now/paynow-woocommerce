@@ -55,7 +55,7 @@ class Leaselink_Client {
             $quantity = is_array($product) ? $product['qty'] : 1;
             $net_price = is_array($product) ? $product['net_price'] : wc_get_price_excluding_tax($product);
             $gross_price = is_array($product) ? $product['gross_price'] : wc_get_price_including_tax($product);
-            $categories = is_array($product) ? $product['categories'] : WC_Leaselink_Plugin_PL_Helper::get_product_categories( $product->get_type() === 'variation' ? $product->get_parent_id() : $product->get_id() );
+            $categories = is_array($product) ? $product['categories'] : WC_Leaselink_Plugin_PL_Helper::get_product_categories( $product );
             $categories = explode(', ', $categories);
             $request->add_requested_item(
                 is_array($product) ? $product['tax_code'] : $product->get_tax_class(),

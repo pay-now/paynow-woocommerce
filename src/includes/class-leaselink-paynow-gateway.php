@@ -115,7 +115,7 @@ class Leaselink_Paynow_Gateway {
 				$product       = $item->get_product();
 				$order_items[] = array(
 					'name'     => $product->get_title(),
-					'category' => WC_Leaselink_Plugin_PL_Helper::get_product_categories( $product->get_id() ),
+					'category' => WC_Leaselink_Plugin_PL_Helper::get_product_categories( $product ),
 					'quantity' => $item->get_quantity(),
 					'price'    => WC_Leaselink_Plugin_PL_Helper::get_amount( WC_Leaselink_Plugin_PL_Helper::is_old_wc_version() ? wc_price( wc_get_price_including_tax( $product ) ) : $product->get_price_including_tax() ),
 				);

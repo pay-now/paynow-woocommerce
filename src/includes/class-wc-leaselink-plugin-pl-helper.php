@@ -107,13 +107,13 @@ class WC_Leaselink_Plugin_PL_Helper {
 	/**
 	 * Returns list of product categories
 	 *
-	 * @param $product_id
+	 * @param $product
 	 *
 	 * @return string|null
 	 */
-	public static function get_product_categories( $product_id ): ?string {
+	public static function get_product_categories( $product ): ?string {
 
-		$terms = get_the_terms( $product_id, 'product_cat' );
+		$terms = get_the_terms( $product->get_type() === 'variation' ? $product->get_parent_id() : $product->get_id(), 'product_cat' );
 
 		$categories = array();
 		if ( ! empty( $terms ) ) {
