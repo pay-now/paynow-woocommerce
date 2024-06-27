@@ -99,7 +99,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 			'WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment',
 		);
 
-		if ( ! is_admin() || is_admin() && isset ( $_GET['page'] ) && 'wc-settings' !== $_GET['page'] ) {
+		if ( ! is_admin() || is_admin() && isset( $_GET['page'] ) && 'wc-settings' !== $_GET['page'] ) {
 			$payment_gateways = array_merge(
 				$payment_gateways,
 				array(
