@@ -98,7 +98,36 @@ class Paynow_Gateway {
 
 		if ( ! empty( $payment_method_id ) ) {
 			$payment_data['paymentMethodId'] = $payment_method_id;
+
+			if (WC_Gateway_Pay_By_Paynow_PL_Paypo_Payment::PAYPO_ID === $payment_method_id) {
+				$payment_data['buyer']['address'] = [
+					'billing' => [
+						'street' => $order->get_billing_address_1(),
+						'houseNumber' => $order->get_billing_address_2(),
+						'apartmentNumber' => '',
+						'zipcode' => $order->get_billing_postcode(),
+						'city' => $order->get_billing_city(),
+						'county' => $order->get_billing_state(),
+						'country' => $order->get_billing_country(),
+					]
+				];
+
+				if ($order->has_shipping_address()) {
+					$payment_data['buyer']['address']['shipping'] = [
+						'street' => $order->get_shipping_address_1(),
+						'houseNumber' => $order->get_shipping_address_2(),
+						'apartmentNumber' => '',
+						'zipcode' => $order->get_shipping_postcode(),
+						'city' => $order->get_shipping_city(),
+						'county' => $order->get_shipping_state(),
+						'country' => $order->get_shipping_country(),
+					];
+				} else {
+					$payment_data['buyer']['address']['shipping'] = $payment_data['buyer']['address']['billing'];
+				}
+			}
 		}
+
 		$is_blik = ! empty( $authorization_code );
 		if ( $is_blik ) {
 			$payment_data['authorizationCode'] = $authorization_code;

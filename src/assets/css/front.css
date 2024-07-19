@@ -33,7 +33,8 @@
 .payment_method_pay_by_paynow_pl_blik > label > img,
 .payment_method_pay_by_paynow_pl_google_pay > label > img,
 .payment_method_pay_by_paynow_pl_apple_pay > label > img,
-.payment_method_pay_by_paynow_pl_paywall > label > img {
+.payment_method_pay_by_paynow_pl_paywall > label > img,
+.payment_method_pay_by_paynow_pl_paypo > label > img {
 	max-height: 2rem;
 	max-width: 3rem;
 	vertical-align: middle;

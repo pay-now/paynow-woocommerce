@@ -244,6 +244,14 @@ msgstr "paynow.pl - płatności przelewem internetowym"
 msgid "Online transfer payment"
 msgstr "Płatność szybkim przelewem"
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paypo-payment.php:12
+msgid "paynow.pl - PayPo payments"
+msgstr "paynow.pl - płatności PayPo"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paypo-payment.php:10
+msgid "PayPo - buy now, pay later"
+msgstr "PayPo - kup teraz, zapłać później"
+
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:14
 msgid "Accept Digital wallets payments with paynow.pl"
 msgstr "Przyjmuj płatności portfelami cyfrowymi przez paynow.pl"

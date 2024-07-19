@@ -244,6 +244,14 @@ msgstr ""
 msgid "Online transfer payment"
 msgstr ""
 
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paypo-payment.php:12
+msgid "paynow.pl - PayPo payments"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paypo-payment.php:10
+msgid "PayPo - buy now, pay later"
+msgstr ""
+
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:14
 msgid "Accept Digital wallets payments with paynow.pl"
 msgstr ""
