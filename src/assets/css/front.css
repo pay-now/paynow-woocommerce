@@ -40,6 +40,10 @@
 	vertical-align: middle;
 }
 
+.wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option label[for="radio-control-wc-payment-method-options-pay_by_paynow_pl_paypo"] .wc-block-components-radio-control__label img {
+	max-height: 18px;
+}
+
 .payment_method_pay_by_paynow_pl_blik input[type=text],
 .paynow-blik-white-label #paynow_blik_code {
 	letter-spacing: 5px;
