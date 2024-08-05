@@ -18,7 +18,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Card_Payment extends WC_Gateway_Pay_By_Paynow_
 	}
 
 	public function payment_fields() {
-		$card_payment_methods = $this->get_only_payment_methods_for_type( Type::CARD );
+		$card_payment_methods = $this->get_only_payment_methods_for_type( [Type::CARD] );
 		$card_payment_method  = $card_payment_methods[0] ?? null;
 		if ( $card_payment_method ) {
 			$method_block                   = 'card';
@@ -40,6 +40,6 @@ class WC_Gateway_Pay_By_Paynow_PL_Card_Payment extends WC_Gateway_Pay_By_Paynow_
 	 * @return bool
 	 */
 	public function is_available(): bool {
-		return $this->is_payment_method_available( Type::CARD );
+		return $this->is_payment_method_available( [Type::CARD] );
 	}
 }

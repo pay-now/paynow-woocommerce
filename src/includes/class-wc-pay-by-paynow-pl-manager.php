@@ -84,11 +84,9 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-notification-handler.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-status-handler.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-remove-instrument-handler.php';
-		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php';
-		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-paywall-payment.php';
 
@@ -104,8 +102,6 @@ class WC_Pay_By_Paynow_Pl_Manager {
 				$payment_gateways,
 				array(
 					'WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment',
-					'WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment',
-					'WC_Gateway_Pay_By_Paynow_PL_Apple_Pay_Payment',
 				)
 			);
 		}

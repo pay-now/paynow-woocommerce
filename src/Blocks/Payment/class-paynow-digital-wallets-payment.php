@@ -44,6 +44,7 @@ class Paynow_Digital_Wallets_Payment extends Paynow_Payment_Method {
 			'title'       => __( 'Digital wallets', 'pay-by-paynow-pl' ),
 			'description' => __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' ),
 			'available'   => $this->is_available(),
+			'fields'      => $this->get_payment_fields(),
 		);
 	}
 }
