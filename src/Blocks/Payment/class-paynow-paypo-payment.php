@@ -41,7 +41,7 @@ class Paynow_PayPo_Payment extends Paynow_Payment_Method {
 	 */
 	public function get_payment_method_data() {
 		return array(
-			'title'       => __( 'buy now, pay later', 'pay-by-paynow-pl' ),
+			'title'       => __( 'Buy now, pay later', 'pay-by-paynow-pl' ),
 			'description' => __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' ),
 			'iconurl'     => 'https://static.paynow.pl/payment-method-icons/3000.png',
 			'available'   => $this->is_available(),

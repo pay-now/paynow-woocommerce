@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Plugins - Pay by paynow.pl - Stable (latest release)\n"
 
 #: Blocks/Payment/class-paynow-paypo-payment.php:44
-msgid "buy now, pay later"
-msgstr "kup teraz, zapłać później"
+msgid "Buy now, pay later"
+msgstr "Kup teraz, zapłać później"
 
 #: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:228
 msgid "A data validation error occurred. Check the correctness of the entered data"

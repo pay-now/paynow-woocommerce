@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Plugins - Pay by paynow.pl - Stable (latest release)\n"
 
 #: Blocks/Payment/class-paynow-paypo-payment.php:44
-msgid "buy now, pay later"
+msgid "Buy now, pay later"
 msgstr ""
 
 #: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:228
