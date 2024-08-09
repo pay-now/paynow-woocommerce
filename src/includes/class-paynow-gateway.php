@@ -115,7 +115,7 @@ class Paynow_Gateway {
 				$payment_data['buyer']['address']['shipping'] = $payment_data['buyer']['address']['billing'];
 			}
 		} catch (Throwable $e) {
-			//
+			WC_Pay_By_Paynow_PL_Logger::error('Cannot add addresses to payment data', ['msg' => $e->getMessage()]);
 		}
 
 		if ( ! empty( $customer_id ) ) {
