@@ -28,11 +28,9 @@ const requestToHandle = (request) => {
 module.exports = {
     ...defaultConfig,
     entry: {
-        'paynow-apple-pay-block': '/src/Blocks/Payment/src/js/paynow-apple-pay-payment-block.js',
         'paynow-blik-block': '/src/Blocks/Payment/src/js/paynow-blik-payment-block.js',
         'paynow-card-block': '/src/Blocks/Payment/src/js/paynow-card-payment-block.js',
         'paynow-digital-wallets-block': '/src/Blocks/Payment/src/js/paynow-digital-wallets-payment-block.js',
-        'paynow-google-pay-block': '/src/Blocks/Payment/src/js/paynow-google-pay-payment-block.js',
         'paynow-paypo-block': '/src/Blocks/Payment/src/js/paynow-paypo-payment-block.js',
         'paynow-paywall-block': '/src/Blocks/Payment/src/js/paynow-paywall-payment-block.js',
         'paynow-pbl-block': '/src/Blocks/Payment/src/js/paynow-pbl-payment-block.js',

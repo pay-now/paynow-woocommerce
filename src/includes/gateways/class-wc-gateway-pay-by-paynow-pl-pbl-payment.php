@@ -21,7 +21,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 		echo  esc_html( __( 'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ) );
 		try {
 			$method_block    = 'pbls';
-			$methods         = $this->get_only_payment_methods_for_type( Type::PBL );
+			$methods         = $this->get_only_payment_methods_for_type( [Type::PBL] );
 			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
 				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
 			);
@@ -50,7 +50,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 	 */
 	public function is_available(): bool {
 		if ( ! is_admin() ) {
-			$payment_methods          = $this->get_only_payment_methods_for_type( Type::PBL );
+			$payment_methods          = $this->get_only_payment_methods_for_type( [Type::PBL] );
 			$filtered_payment_methods = array_filter(
 				$payment_methods,
 				function ( $payment_method ) {

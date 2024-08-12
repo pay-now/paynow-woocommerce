@@ -2,11 +2,9 @@
 
 defined( 'ABSPATH' ) || exit();
 
-use PayByPaynowPl\Blocks\Payments\Paynow_Apple_Pay_Payment;
 use PayByPaynowPl\Blocks\Payments\Paynow_Blik_Payment;
 use PayByPaynowPl\Blocks\Payments\Paynow_Card_Payment;
 use PayByPaynowPl\Blocks\Payments\Paynow_Digital_Wallets_Payment;
-use PayByPaynowPl\Blocks\Payments\Paynow_Google_Pay_Payment;
 use PayByPaynowPl\Blocks\Payments\Paynow_PayPo_Payment;
 use PayByPaynowPl\Blocks\Payments\Paynow_Paywall_Payment;
 use PayByPaynowPl\Blocks\Payments\Paynow_Pbl_Payment;
@@ -85,11 +83,9 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-notification-handler.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-status-handler.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-gateway-pay-by-paynow-pl-remove-instrument-handler.php';
-		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-apple-pay-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php';
-		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-google-pay-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-paypo-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-paywall-payment.php';
@@ -107,8 +103,6 @@ class WC_Pay_By_Paynow_Pl_Manager {
 				$payment_gateways,
 				array(
 					'WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment',
-					'WC_Gateway_Pay_By_Paynow_PL_Google_Pay_Payment',
-					'WC_Gateway_Pay_By_Paynow_PL_Apple_Pay_Payment',
 				)
 			);
 		}
@@ -152,11 +146,9 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	public function register_payment_block() {
 		if ( class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
 			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/abstract/class-paynow-payment-method.php';
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-apple-pay-payment.php';
 			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-blik-payment.php';
 			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-card-payment.php';
 			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-digital-wallets-payment.php';
-			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-google-pay-payment.php';
 			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-paypo-payment.php';
 			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-paywall-payment.php';
 			require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . '/Blocks/Payment/class-paynow-pbl-payment.php';
@@ -164,11 +156,9 @@ class WC_Pay_By_Paynow_Pl_Manager {
 			add_action(
 				'woocommerce_blocks_payment_method_type_registration',
 				function ( $registry ) {
-					$registry->register( new Paynow_Apple_Pay_Payment() );
 					$registry->register( new Paynow_Blik_Payment() );
 					$registry->register( new Paynow_Card_Payment() );
 					$registry->register( new Paynow_Digital_Wallets_Payment() );
-					$registry->register( new Paynow_Google_Pay_Payment() );
 					$registry->register( new Paynow_PayPo_Payment() );
 					$registry->register( new Paynow_Paywall_Payment() );
 					$registry->register( new Paynow_Pbl_Payment() );
