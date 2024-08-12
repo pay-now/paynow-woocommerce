@@ -98,7 +98,7 @@ class Paynow_Gateway {
 					'city'            => $order->get_billing_city(),
 					'county'          => $order->get_billing_state(),
 					'country'         => $order->get_billing_country(),
-				)
+				),
 			);
 
 			if ( $order->has_shipping_address() ) {
