@@ -89,33 +89,33 @@ class Paynow_Gateway {
 		);
 
 		try {
-			$payment_data['buyer']['address'] = [
-				'billing' => [
-					'street' => $order->get_billing_address_1(),
-					'houseNumber' => $order->get_billing_address_2(),
+			$payment_data['buyer']['address'] = array(
+				'billing' => array(
+					'street'          => $order->get_billing_address_1(),
+					'houseNumber'     => $order->get_billing_address_2(),
 					'apartmentNumber' => '',
-					'zipcode' => $order->get_billing_postcode(),
-					'city' => $order->get_billing_city(),
-					'county' => $order->get_billing_state(),
-					'country' => $order->get_billing_country(),
-				]
-			];
+					'zipcode'         => $order->get_billing_postcode(),
+					'city'            => $order->get_billing_city(),
+					'county'          => $order->get_billing_state(),
+					'country'         => $order->get_billing_country(),
+				)
+			);
 
-			if ($order->has_shipping_address()) {
-				$payment_data['buyer']['address']['shipping'] = [
-					'street' => $order->get_shipping_address_1(),
-					'houseNumber' => $order->get_shipping_address_2(),
+			if ( $order->has_shipping_address() ) {
+				$payment_data['buyer']['address']['shipping'] = array(
+					'street'          => $order->get_shipping_address_1(),
+					'houseNumber'     => $order->get_shipping_address_2(),
 					'apartmentNumber' => '',
-					'zipcode' => $order->get_shipping_postcode(),
-					'city' => $order->get_shipping_city(),
-					'county' => $order->get_shipping_state(),
-					'country' => $order->get_shipping_country(),
-				];
+					'zipcode'         => $order->get_shipping_postcode(),
+					'city'            => $order->get_shipping_city(),
+					'county'          => $order->get_shipping_state(),
+					'country'         => $order->get_shipping_country(),
+				);
 			} else {
 				$payment_data['buyer']['address']['shipping'] = $payment_data['buyer']['address']['billing'];
 			}
-		} catch (Throwable $e) {
-			WC_Pay_By_Paynow_PL_Logger::error('Cannot add addresses to payment data', ['msg' => $e->getMessage()]);
+		} catch ( Throwable $e ) {
+			WC_Pay_By_Paynow_PL_Logger::error( 'Cannot add addresses to payment data', array( 'msg' => $e->getMessage() ) );
 		}
 
 		if ( ! empty( $customer_id ) ) {

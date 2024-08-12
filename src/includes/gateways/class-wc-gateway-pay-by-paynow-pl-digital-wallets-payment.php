@@ -19,7 +19,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 		echo  esc_html( __( 'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ) );
 		try {
 			$method_block    = 'digital-wallets';
-			$methods         = $this->get_only_payment_methods_for_type( [Type::APPLE_PAY, Type::GOOGLE_PAY] );
+			$methods         = $this->get_only_payment_methods_for_type( array( Type::APPLE_PAY, Type::GOOGLE_PAY ) );
 			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
 				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
 			);
@@ -31,24 +31,28 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 	}
 
 	public function is_available(): bool {
-		$payments = $this->get_only_payment_methods_for_type( [Type::APPLE_PAY, Type::GOOGLE_PAY] );
+		$payments = $this->get_only_payment_methods_for_type( array( Type::APPLE_PAY, Type::GOOGLE_PAY ) );
 		$payments = array_values(
-			array_filter($payments, function ($payment) {
-				return $payment->isEnabled();
-			})
+			array_filter(
+				$payments,
+				function ( $payment ) {
+
+					return $payment->isEnabled();
+				}
+			)
 		);
 
-		$this->icon = $this->generate_icon($payments);
+		$this->icon = $this->generate_icon( $payments );
 
-		return count($payments) > 0;
+		return count( $payments ) > 0;
 	}
 
 	public function get_paynow_icon_url(): string {
 		return $this->icon;
 	}
 
-	private function generate_icon($payments): string {
-		if (count($payments) === 1) {
+	private function generate_icon( $payments ): string {
+		if ( count( $payments ) === 1 ) {
 			return $payments[0]->getImage();
 		}
 

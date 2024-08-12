@@ -34,9 +34,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	public const PAYNOW_PAYMENT_GATEWAY
 		= array(
-			self::BLIK_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik',
-			self::PBL_PAYMENT  => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl',
-			self::CARD_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'card',
+			self::BLIK_PAYMENT            => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik',
+			self::PBL_PAYMENT             => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl',
+			self::CARD_PAYMENT            => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'card',
 			self::DIGITAL_WALLETS_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'digital_wallets',
 		);
 
@@ -157,7 +157,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$payment_method     = $this->get_payment_method_from_posted_data();
 		$payment_method_id  = null;
 		$authorization_code = null;
-		if ( in_array($payment_method, [self::PAYNOW_PAYMENT_GATEWAY[ self::PBL_PAYMENT ], self::PAYNOW_PAYMENT_GATEWAY[ self::DIGITAL_WALLETS_PAYMENT ]]) ) {
+		if ( in_array( $payment_method, array( self::PAYNOW_PAYMENT_GATEWAY[ self::PBL_PAYMENT ], self::PAYNOW_PAYMENT_GATEWAY[ self::DIGITAL_WALLETS_PAYMENT ] ), true ) ) {
 			$payment_method_id = $this->get_payment_method_id_from_posted_data();
 		} elseif ( self::PAYNOW_PAYMENT_GATEWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
 			$authorization_code = preg_replace( '/\s+/', '', $this->get_authorization_code_from_posted_data() );
@@ -765,7 +765,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 					$payment_methods,
 					function ( $payment_method ) use ( $types ) {
 
-						return in_array($payment_method->getType(), $types);
+						return in_array( $payment_method->getType(), $types, true );
 					}
 				)
 			);
