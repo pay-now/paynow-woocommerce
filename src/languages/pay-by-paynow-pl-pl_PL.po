@@ -11,6 +11,10 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: Plugins - Pay by paynow.pl - Stable (latest release)\n"
 
+#: Blocks/Payment/class-paynow-paypo-payment.php:44
+msgid "Buy now, pay later"
+msgstr "Kup teraz, zapłać później"
+
 #: includes/abstract/class-wc-gateway-pay-by-paynow-pl.php:228
 msgid "A data validation error occurred. Check the correctness of the entered data"
 msgstr "Wystąpił błąd walidacji danych. Sprawdź poprawność wpisanych danych"
@@ -243,6 +247,14 @@ msgstr "paynow.pl - płatności przelewem internetowym"
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php:11
 msgid "Online transfer payment"
 msgstr "Płatność szybkim przelewem"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paypo-payment.php:12
+msgid "paynow.pl - PayPo payments"
+msgstr "paynow.pl - płatności PayPo"
+
+#: includes/gateways/class-wc-gateway-pay-by-paynow-pl-paypo-payment.php:10
+msgid "PayPo - buy now, pay later"
+msgstr "PayPo - kup teraz, zapłać później"
 
 #: includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php:14
 msgid "Accept Digital wallets payments with paynow.pl"

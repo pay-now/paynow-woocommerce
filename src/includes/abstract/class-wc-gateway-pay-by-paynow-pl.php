@@ -30,11 +30,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	public const CARD_PAYMENT = 2;
 
+	public const DIGITAL_WALLETS_PAYMENT = 3;
+
 	public const PAYNOW_PAYMENT_GATEWAY
 		= array(
-			self::BLIK_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik',
-			self::PBL_PAYMENT  => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl',
-			self::CARD_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'card',
+			self::BLIK_PAYMENT            => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'blik',
+			self::PBL_PAYMENT             => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'pbl',
+			self::CARD_PAYMENT            => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'card',
+			self::DIGITAL_WALLETS_PAYMENT => WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'digital_wallets',
 		);
 
 	/**
@@ -154,7 +157,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		$payment_method     = $this->get_payment_method_from_posted_data();
 		$payment_method_id  = null;
 		$authorization_code = null;
-		if ( self::PAYNOW_PAYMENT_GATEWAY[ self::PBL_PAYMENT ] === $payment_method ) {
+		if ( in_array( $payment_method, array( self::PAYNOW_PAYMENT_GATEWAY[ self::PBL_PAYMENT ], self::PAYNOW_PAYMENT_GATEWAY[ self::DIGITAL_WALLETS_PAYMENT ] ), true ) ) {
 			$payment_method_id = $this->get_payment_method_id_from_posted_data();
 		} elseif ( self::PAYNOW_PAYMENT_GATEWAY[ self::BLIK_PAYMENT ] === $payment_method ) {
 			$authorization_code = preg_replace( '/\s+/', '', $this->get_authorization_code_from_posted_data() );
@@ -381,14 +384,14 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * @param string $type Payment method Type
+	 * @param array $types Payment method Type
 	 *
 	 * @return bool
 	 */
-	protected function is_payment_method_available( string $type ): bool {
+	protected function is_payment_method_available( array $types ): bool {
 
 		if ( ! is_admin() && parent::is_available() ) {
-			$payment_method = $this->get_only_payment_methods_for_type( $type );
+			$payment_method = $this->get_only_payment_methods_for_type( $types );
 			return ! empty( $payment_method ) && reset( $payment_method )->isEnabled() && $this->show_payment_methods;
 		}
 
@@ -752,7 +755,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		add_filter( 'woocommerce_payment_gateways', 'wc_pay_by_paynow_pl_payment_gateways' );
 	}
 
-	protected function get_only_payment_methods_for_type( $type ): array {
+	protected function get_only_payment_methods_for_type( $types ): array {
 
 		$payment_methods = $this->gateway->payment_methods();
 
@@ -760,9 +763,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			return array_values(
 				array_filter(
 					$payment_methods,
-					function ( $payment_method ) use ( $type ) {
+					function ( $payment_method ) use ( $types ) {
 
-						return $type === $payment_method->getType();
+						return in_array( $payment_method->getType(), $types, true );
 					}
 				)
 			);

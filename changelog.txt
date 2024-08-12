@@ -1,4 +1,8 @@
 == Changelog ==
+= 2.5.6 (2024-08-12) =
+
+- Purchasing process improvements and fixes
+
 = 2.5.5 (2024-06-27) =
 
 - Fix BLIK code validation

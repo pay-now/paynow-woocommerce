@@ -20,7 +20,7 @@ const Content = props => {
     const { onPaymentProcessing } = eventRegistration;
     useEffect( () => {
         const unsubscribe = onPaymentProcessing( async () => {
-            const paymentMethodIdInput = document.querySelector('input[name="paymentMethodId"]:checked');
+            const paymentMethodIdInput = document.querySelector('#paynow_block_pbl input[name="paymentMethodId"]:checked');
             const paymentMethodId = paymentMethodIdInput ? paymentMethodIdInput.value : false;
 
             if ( paymentMethodId ) {
@@ -47,7 +47,7 @@ const Content = props => {
         emitResponse.responseTypes.SUCCESS,
         onPaymentProcessing,
     ] );
-    return <div dangerouslySetInnerHTML={{__html: fields}}></div>;
+    return <div id="paynow_block_pbl" dangerouslySetInnerHTML={{__html: fields}}></div>;
 };
 
 const Label = props => {

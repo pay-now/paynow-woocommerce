@@ -1,20 +1,21 @@
 const { decodeEntities } = wp.htmlEntities;
 const { getSetting } = wc.wcSettings;
 const { registerPaymentMethod } = wc.wcBlocksRegistry;
+const { useEffect } = wp.element;
 
 // Data
-const settings = getSetting('pay_by_paynow_pl_google_pay_data', {});
-const title = decodeEntities(settings.title || 'Google Pay');
-const description = decodeEntities(settings.description || '');
+const settings = getSetting('pay_by_paynow_pl_paypo_data', {});
+const title = decodeEntities(settings.title || 'Card');
 const iconUrl = settings.iconurl;
 const available = decodeEntities(settings.available || false);
+const fields = decodeEntities(settings.fields || '');
 
 const canMakePayment = () => {
     return available;
 };
 
 const Content = props => {
-    return <div>{description}</div>;
+    return <div dangerouslySetInnerHTML={{__html: fields}}></div>;
 };
 
 const Label = props => {
@@ -24,10 +25,10 @@ const Label = props => {
 };
 
 /**
- * Paynow Google Pay method config.
+ * Paynow PayPo method config.
  */
-const PaynowGooglePayOptions = {
-    name: 'pay_by_paynow_pl_google_pay',
+const PaynowPayPoOptions = {
+    name: 'pay_by_paynow_pl_paypo',
     label: <Label />,
     content: <Content />,
     edit: <Content />,
@@ -35,4 +36,4 @@ const PaynowGooglePayOptions = {
     ariaLabel: title
 };
 
-registerPaymentMethod(PaynowGooglePayOptions);
+registerPaymentMethod(PaynowPayPoOptions);
