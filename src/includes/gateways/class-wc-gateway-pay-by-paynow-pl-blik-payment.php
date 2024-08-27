@@ -18,7 +18,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_
 	}
 
 	public function payment_fields() {
-		$blik_payment_methods = $this->get_only_payment_methods_for_type( Type::BLIK );
+		$blik_payment_methods = $this->get_only_payment_methods_for_type( array( Type::BLIK ) );
 		if ( $blik_payment_methods && $this->isWhiteLabelEnabled( $blik_payment_methods ) ) {
 			$method_block    = 'blik';
 			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
@@ -36,7 +36,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_
 	 */
 	public function validate_fields(): bool {
 		$payment_authorization_code = preg_replace( '/\s+/', '', $this->get_authorization_code_from_posted_data() );
-		$blik_payment_methods       = $this->get_only_payment_methods_for_type( Type::BLIK );
+		$blik_payment_methods       = $this->get_only_payment_methods_for_type( array( Type::BLIK ) );
 		if ( $blik_payment_methods && $this->isWhiteLabelEnabled( $blik_payment_methods ) &&
 			( empty( $payment_authorization_code ) || strlen( $payment_authorization_code ) !== 6 ) ) {
 			wc_add_notice( __( 'Please enter correct BLIK code', 'pay-by-paynow-pl' ), 'error' );
@@ -62,6 +62,6 @@ class WC_Gateway_Pay_By_Paynow_PL_Blik_Payment extends WC_Gateway_Pay_By_Paynow_
 	 * @return bool
 	 */
 	public function is_available(): bool {
-		return $this->is_payment_method_available( Type::BLIK );
+		return $this->is_payment_method_available( array( Type::BLIK ) );
 	}
 }
