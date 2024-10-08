@@ -1,4 +1,9 @@
 == Changelog ==
+= 2.5.7 (2024-10-08) =
+
+- Purchasing process improvements and fixes
+- Add support for PHP 8+
+
 = 2.5.6 (2024-08-12) =
 
 - Purchasing process improvements and fixes
