@@ -15,13 +15,18 @@ class WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment extends WC_Gateway_Pay_By_Payn
 		parent::__construct();
 		$this->title = $this->generate_title();
 
-		add_filter('woocommerce_gateway_title', function ($title, $payment_id) {
-			if ($payment_id === WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'paywall') {
-				return $this->generate_title();
-			}
+		add_filter(
+			'woocommerce_gateway_title',
+			function ( $title, $payment_id ) {
+				if ( WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'paywall' === $payment_id ) {
+					return $this->generate_title();
+				}
 
-			return $title;
-		}, 10, 2);
+				return $title;
+			},
+			10,
+			2
+		);
 	}
 
 	public function is_available(): bool {
@@ -29,7 +34,13 @@ class WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment extends WC_Gateway_Pay_By_Payn
 		$paynow_payment_gateways = wc_pay_by_paynow()->payment_gateways();
 
 		foreach ( WC()->payment_gateways()->payment_gateways() as $payment_gateway ) {
-			if ( in_array( get_class( $payment_gateway ), $paynow_payment_gateways, true ) && 'yes' === $payment_gateway->enabled ) {
+			$is_payment_in_array = in_array(
+				get_class( $payment_gateway ),
+				$paynow_payment_gateways,
+				true
+			);
+
+			if ( $is_payment_in_array && 'yes' === $payment_gateway->enabled ) {
 				$is_paynow_enabled = true;
 				break;
 			}
