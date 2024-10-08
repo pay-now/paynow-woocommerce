@@ -44,7 +44,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 
 		$this->icon = $this->generate_icon( $payments );
 
-		return count( $payments ) > 0;
+		return parent::is_available() && count( $payments ) > 0 && $this->show_payment_methods;
 	}
 
 	public function get_paynow_icon_url(): string {
