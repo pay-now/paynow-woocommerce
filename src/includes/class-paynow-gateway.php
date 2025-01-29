@@ -20,7 +20,8 @@ use Paynow\Service\ShopConfiguration;
  */
 class Paynow_Gateway {
 
-	protected $settings;
+    private const MAX_ORDER_ITEM_NAME_LENGTH = 120;
+    protected $settings;
 
 	protected $client;
 
@@ -148,7 +149,7 @@ class Paynow_Gateway {
 			foreach ( $order->get_items() as $item ) {
 				$product       = $item->get_product();
 				$order_items[] = array(
-					'name'     => $product->get_title(),
+					'name'     => self::truncateOrderItemName($product->get_title()),
 					'category' => WC_Pay_By_Paynow_PL_Helper::get_product_categories( $product->get_id() ),
 					'quantity' => $item->get_quantity(),
 					'price'    => WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? wc_price( wc_get_price_including_tax( $product ) ) : $product->get_price_including_tax() ),
@@ -469,4 +470,14 @@ class Paynow_Gateway {
 
 		return str_replace( '_', '-', get_user_locale() );
 	}
+
+    public static function truncateOrderItemName(string $name): string {
+        $name = trim($name);
+
+        if(strlen($name) <= self::MAX_ORDER_ITEM_NAME_LENGTH) {
+            return $name;
+        }
+
+        return substr($name, 0, self::MAX_ORDER_ITEM_NAME_LENGTH - 3) . '...';
+    }
 }
