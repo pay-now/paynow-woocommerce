@@ -321,6 +321,8 @@ class Paynow_Gateway {
 			return;
 		}
 
+		delete_option('paynow_plugin_status_to_send');
+
 		try {
 			switch ($status) {
 				case 'activated':
@@ -339,7 +341,6 @@ class Paynow_Gateway {
 
 			$shop_configuration = new ShopConfiguration( $this->client );
 			$shop_configuration->status( $status );
-			delete_option('paynow_plugin_status_to_send');
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
