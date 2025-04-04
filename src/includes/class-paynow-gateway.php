@@ -48,6 +48,8 @@ class Paynow_Gateway {
 				);
 			}
 		}
+
+		$this->send_shop_plugin_status_request();
 	}
 
 	/**
@@ -299,6 +301,44 @@ class Paynow_Gateway {
 		try {
 			$shop_configuration = new ShopConfiguration( $this->client );
 			$shop_configuration->changeUrls( $return_url, WC_Pay_By_Paynow_PL_Helper::get_notification_url() );
+		} catch ( PaynowException $exception ) {
+			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
+		}
+	}
+
+	/**
+	 * Sends shop plugin status
+	 */
+	public function send_shop_plugin_status_request() {
+
+		if ( ! $this->client ) {
+			return;
+		}
+
+		$status = get_option('paynow_plugin_status_to_send');
+
+		if ( empty( $status ) ) {
+			return;
+		}
+
+		try {
+			switch ($status) {
+				case 'activated':
+					$status = ShopConfiguration::STATUS_ENABLED;
+					break;
+				case 'deactivated':
+					$status = ShopConfiguration::STATUS_DISABLED;
+					break;
+				case 'uninstalled':
+					$status = ShopConfiguration::STATUS_UNINSTALLED;
+					break;
+				case 'upgraded':
+					$status = ShopConfiguration::STATUS_UPDATED;
+					break;
+			}
+
+			$shop_configuration = new ShopConfiguration( $this->client );
+			$shop_configuration->status( $status );
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
