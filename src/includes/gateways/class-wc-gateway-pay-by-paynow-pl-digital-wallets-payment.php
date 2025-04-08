@@ -19,7 +19,8 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 		echo  esc_html( __( 'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ) );
 		try {
 			$method_block    = 'digital-wallets';
-			$methods         = $this->get_only_payment_methods_for_type( array( Type::APPLE_PAY, Type::GOOGLE_PAY ) );
+
+			$methods = $this->get_available_methods();
 			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
 				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
 			);
@@ -31,7 +32,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 	}
 
 	public function is_available(): bool {
-		$payments = $this->get_only_payment_methods_for_type( array( Type::APPLE_PAY, Type::GOOGLE_PAY ) );
+        $payments = $this->get_available_methods();
 		$payments = array_values(
 			array_filter(
 				$payments,
@@ -56,6 +57,32 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 			return $payments[0]->getImage();
 		}
 
-		return WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/digital-wallets.svg';
+        $types = array_map(function($dw) {
+            return strtolower(substr($dw->getType(), 0, 1));
+        }, $payments);
+
+        sort($types);
+        $types = implode('', $types);
+
+		return WC_PAY_BY_PAYNOW_PL_PLUGIN_ASSETS_PATH . 'images/digital-wallets-' . $types . '.svg';
 	}
+
+    private function get_available_methods(): array {
+        $methods = array(
+            Type::CLICK_TO_PAY => null,
+            Type::GOOGLE_PAY => null,
+            Type::APPLE_PAY => null,
+        );
+
+        if (!WC_Gateway_Pay_By_Paynow_PL_Click_To_Pay_Payment::is_available_for_digital_wallets()) {
+            unset($methods[Type::CLICK_TO_PAY]);
+        }
+
+        $availableMethods = $this->get_only_payment_methods_for_type( array_keys($methods) );
+        foreach($availableMethods as $method) {
+            $methods[$method->getType()] = $method;
+        }
+
+        return array_values(array_filter($methods));
+    }
 }

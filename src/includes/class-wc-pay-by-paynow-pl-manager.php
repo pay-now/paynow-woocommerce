@@ -86,6 +86,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-blik-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-card-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-digital-wallets-payment.php';
+		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-click-to-pay-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-paypo-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-pbl-payment.php';
 		include_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-gateway-pay-by-paynow-pl-paywall-payment.php';
@@ -95,6 +96,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 			'WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment',
 			'WC_Gateway_Pay_By_Paynow_PL_Card_Payment',
 			'WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment',
+			'WC_Gateway_Pay_By_Paynow_PL_Click_To_Pay_Payment',
 			'WC_Gateway_Pay_By_Paynow_PL_Paypo_Payment',
 		);
 
