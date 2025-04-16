@@ -1,4 +1,8 @@
 == Changelog ==
+= 2.5.8 (2025-XX-XX) =
+
+- TODO
+
 = 2.5.7 (2024-10-08) =
 
 - Purchasing process improvements and fixes
