@@ -22,7 +22,13 @@ const Content = props => {
             const blikInput = document.querySelector('#paynow_blik_code');
             const blikCode = blikInput ? blikInput.value : false;
 
-            if ( blikCode ) {
+            if ( !blikInput ) {
+                return {
+                    type: emitResponse.responseTypes.SUCCESS,
+                };
+            }
+
+            if ( blikInput && blikCode ) {
                 return {
                     type: emitResponse.responseTypes.SUCCESS,
                     meta: {
