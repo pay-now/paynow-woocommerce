@@ -315,32 +315,17 @@ class Paynow_Gateway {
 			return;
 		}
 
-		$status = get_option('paynow_plugin_status_to_send');
+		$statuses = get_option('WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME');
 
-		if ( empty( $status ) ) {
+		if ( empty( $statuses ) ) {
 			return;
 		}
 
-		delete_option('paynow_plugin_status_to_send');
+		delete_option('WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME');
 
 		try {
-			switch ($status) {
-				case 'activated':
-					$status = ShopConfiguration::STATUS_ENABLED;
-					break;
-				case 'deactivated':
-					$status = ShopConfiguration::STATUS_DISABLED;
-					break;
-				case 'uninstalled':
-					$status = ShopConfiguration::STATUS_UNINSTALLED;
-					break;
-				case 'upgraded':
-					$status = ShopConfiguration::STATUS_UPDATED;
-					break;
-			}
-
 			$shop_configuration = new ShopConfiguration( $this->client );
-			$shop_configuration->status( $status );
+			$shop_configuration->status( $statuses );
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
