@@ -316,19 +316,22 @@ class Paynow_Gateway {
 			return;
 		}
 
-		$statuses = get_option('WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME');
+		$statuses = get_option(WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME);
 
 		if ( empty( $statuses ) ) {
 			return;
 		}
 
-		delete_option('WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME');
+		delete_option(WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME);
 
 		try {
 			$shop_configuration = new ShopConfiguration( $this->client );
 			$shop_configuration->status( $statuses );
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
+			foreach ( $exception->getErrors() as $error ) {
+				WC_Pay_By_Paynow_PL_Logger::error( $error->getMessage() );
+			}
 		}
 	}
 

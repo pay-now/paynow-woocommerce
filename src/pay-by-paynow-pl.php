@@ -51,7 +51,7 @@ function add_paynow_plugin_status_change_to_options(string $status)	{
 
 		$statuses[] = [
 			'status' => $status,
-			'timestamp' => date(DATE_ATOM),
+			'timestamp' => date('Y-m-d\TH:i:s.v\Z'),
 		];
 
 		update_option(WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME, $statuses);
