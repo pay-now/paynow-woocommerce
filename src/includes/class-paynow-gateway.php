@@ -501,7 +501,7 @@ class Paynow_Gateway {
 		return str_replace( '_', '-', get_user_locale() );
 	}
 
-	public static function truncate_order_item_name(string $name ): string {
+	public static function truncate_order_item_name( string $name ): string {
 		$name = trim( $name );
 
 		if ( strlen( $name ) <= self::MAX_ORDER_ITEM_NAME_LENGTH ) {

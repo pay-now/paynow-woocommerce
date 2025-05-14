@@ -77,7 +77,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 			Type::APPLE_PAY    => null,
 		);
 
-		if ( ! WC_Gateway_Pay_By_Paynow_PL_Click_To_Pay_Payment::is_available_for_digital_wallets()  ) {
+		if ( ! WC_Gateway_Pay_By_Paynow_PL_Click_To_Pay_Payment::is_available_for_digital_wallets() ) {
 			unset( $methods[ Type::CLICK_TO_PAY ] );
 		}
 
