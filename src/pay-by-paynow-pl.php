@@ -45,25 +45,25 @@ require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/pay-by-paynow-pl-f
 require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'includes/class-wc-pay-by-paynow-pl-manager.php';
 require_once WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . 'vendor/autoload.php';
 
-function add_paynow_plugin_status_change_to_options(string $status)	{
+function add_paynow_plugin_status_change_to_options( string $status ) {
 	try {
-		$statuses = get_option(WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME, []);
+		$statuses = get_option( WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME, array() );
 
-		$statuses[] = [
-			'status' => $status,
-			'timestamp' => date('Y-m-d\TH:i:s.v\Z'),
-		];
+		$statuses[] = array(
+			'status'    => $status,
+			'timestamp' => gmdate( 'Y-m-d\TH:i:s.v\Z' ),
+		);
 
-		update_option(WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME, $statuses);
-	} catch (Throwable $e) {
+		update_option( WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME, $statuses );
+	} catch ( Throwable $e ) {
 		//
 	}
 }
 
 function wc_pay_by_paynow_pl_activation_hook_action() {
 	try {
-		add_paynow_plugin_status_change_to_options('ENABLED');
-	} catch (Throwable $e) {
+		add_paynow_plugin_status_change_to_options( 'ENABLED' );
+	} catch ( Throwable $e ) {
 		//
 	}
 }
@@ -71,8 +71,8 @@ register_activation_hook( __FILE__, 'wc_pay_by_paynow_pl_activation_hook_action'
 
 function wc_pay_by_paynow_pl_deactivation_hook_action() {
 	try {
-		add_paynow_plugin_status_change_to_options('DISABLED');
-	} catch (Throwable $e) {
+		add_paynow_plugin_status_change_to_options( 'DISABLED' );
+	} catch ( Throwable $e ) {
 		//
 	}
 }
@@ -80,8 +80,8 @@ register_deactivation_hook( __FILE__, 'wc_pay_by_paynow_pl_deactivation_hook_act
 
 function wc_pay_by_paynow_pl_uninstall_hook_action() {
 	try {
-		add_paynow_plugin_status_change_to_options('UNINSTALLED');
-	} catch (Throwable $e) {
+		add_paynow_plugin_status_change_to_options( 'UNINSTALLED' );
+	} catch ( Throwable $e ) {
 		//
 	}
 }
@@ -91,14 +91,14 @@ function wc_pay_by_paynow_pl_upgrade_hook_action( $upgrader_object, $options ) {
 	try {
 		$current_plugin_path_name = plugin_basename( __FILE__ );
 
-		if ( $options['action'] == 'update' && $options['type'] == 'plugin' ) {
-			foreach( $options['plugins'] as $each_plugin ) {
-				if ( $each_plugin == $current_plugin_path_name ) {
-					add_paynow_plugin_status_change_to_options('UPDATED');
+		if ( 'update' === $options['action'] && 'plugin' === $options['type'] ) {
+			foreach ( $options['plugins'] as $each_plugin ) {
+				if ( $each_plugin === $current_plugin_path_name ) {
+					add_paynow_plugin_status_change_to_options( 'UPDATED' );
 				}
 			}
 		}
-	} catch (Throwable $e) {
+	} catch ( Throwable $e ) {
 		//
 	}
 

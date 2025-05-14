@@ -20,8 +20,8 @@ use Paynow\Service\ShopConfiguration;
  */
 class Paynow_Gateway {
 
-    private const MAX_ORDER_ITEM_NAME_LENGTH = 120;
-    protected $settings;
+	private const MAX_ORDER_ITEM_NAME_LENGTH = 120;
+	protected $settings;
 
 	protected $client;
 
@@ -151,7 +151,7 @@ class Paynow_Gateway {
 			foreach ( $order->get_items() as $item ) {
 				$product       = $item->get_product();
 				$order_items[] = array(
-					'name'     => self::truncateOrderItemName($product->get_title()),
+					'name'     => self::truncate_order_item_name( $product->get_title() ),
 					'category' => WC_Pay_By_Paynow_PL_Helper::get_product_categories( $product->get_id() ),
 					'quantity' => $item->get_quantity(),
 					'price'    => WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? wc_price( wc_get_price_including_tax( $product ) ) : $product->get_price_including_tax() ),
@@ -316,13 +316,13 @@ class Paynow_Gateway {
 			return;
 		}
 
-		$statuses = get_option(WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME);
+		$statuses = get_option( WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME );
 
 		if ( empty( $statuses ) ) {
 			return;
 		}
 
-		delete_option(WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME);
+		delete_option( WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME );
 
 		try {
 			$shop_configuration = new ShopConfiguration( $this->client );
@@ -501,13 +501,13 @@ class Paynow_Gateway {
 		return str_replace( '_', '-', get_user_locale() );
 	}
 
-    public static function truncateOrderItemName(string $name): string {
-        $name = trim($name);
+	public static function truncate_order_item_name(string $name ): string {
+		$name = trim( $name );
 
-        if(strlen($name) <= self::MAX_ORDER_ITEM_NAME_LENGTH) {
-            return $name;
-        }
+		if ( strlen( $name ) <= self::MAX_ORDER_ITEM_NAME_LENGTH ) {
+			return $name;
+		}
 
-        return substr($name, 0, self::MAX_ORDER_ITEM_NAME_LENGTH - 3) . '...';
-    }
+		return substr( $name, 0, self::MAX_ORDER_ITEM_NAME_LENGTH - 3 ) . '...';
+	}
 }

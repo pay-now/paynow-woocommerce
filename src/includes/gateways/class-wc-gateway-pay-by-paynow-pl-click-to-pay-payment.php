@@ -16,18 +16,17 @@ class WC_Gateway_Pay_By_Paynow_PL_Click_To_Pay_Payment extends WC_Gateway_Pay_By
 		parent::__construct();
 	}
 
-    public function is_available(): bool
-    {
-        return false;
-    }
+	public function is_available(): bool {
+		return false;
+	}
 
-    public static function is_available_for_digital_wallets(): bool {
-        $options = get_option('woocommerce_' . WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'click_to_pay_settings');
-        if ( is_array( $options ) && array_key_exists( 'enabled', $options ) ) {
-            return 'yes' === $options['enabled'];
-        } else {
-            return false;
-        }
-    }
+	public static function is_available_for_digital_wallets(): bool {
+		$options = get_option( 'woocommerce_' . WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'click_to_pay_settings' );
+		if ( is_array( $options ) && array_key_exists( 'enabled', $options ) ) {
+			return 'yes' === $options['enabled'];
+		} else {
+			return false;
+		}
+	}
 
 }
