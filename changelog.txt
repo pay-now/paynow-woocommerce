@@ -1,7 +1,9 @@
 == Changelog ==
-= 2.5.8 (2025-XX-XX) =
 
-- TODO
+= 2.5.8 (2025-05-14) =
+
+- Purchasing process improvements and fixes
+- Added C2P payment method
 
 = 2.5.7 (2024-10-08) =
 

@@ -17,7 +17,7 @@ Wtyczka Paynow dodaje szybkie płatności i płatności BLIK do sklepu WooCommer
 
 ## Wymgania
 
-- PHP od wersji 7.1
+- PHP od wersji 7.2
 - WooCommerce w wersji 2.2 lub wyższej
 
 ## Instalacja

@@ -23,11 +23,11 @@ defined( 'ABSPATH' ) || exit();
  */
 function wc_pay_by_paynow_pl_php_version_notice() {
 	/* translators: %s: PHP version */
-	$message = sprintf( __( 'Your PHP version is %s but Pay by paynow.pl requires version 7.1+.', 'pay-by-paynow-pl' ), PHP_VERSION );
+	$message = sprintf( __( 'Your PHP version is %s but Pay by paynow.pl requires version 7.2+.', 'pay-by-paynow-pl' ), PHP_VERSION );
 	echo '<div class="notice notice-error"><p style="font-size: 16px">' . esc_html( $message ) . '</p></div>';
 }
 
-if ( version_compare( PHP_VERSION, '7.1', '<' ) ) {
+if ( version_compare( PHP_VERSION, '7.2', '<' ) ) {
 	add_action( 'admin_init', 'wc_pay_by_paynow_pl_php_version_notice' );
 
 	return;

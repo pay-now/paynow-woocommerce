@@ -131,8 +131,8 @@ msgstr "Płatność została porzucona - %s."
 
 #. translators: %s: PHP version
 #: pay-by-paynow-pl.php:26
-msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
-msgstr "Wymagana jest wersja PHP w wersji 7.1+, twoja wersja to %s."
+msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.2+."
+msgstr "Wymagana jest wersja PHP w wersji 7.2+, twoja wersja to %s."
 
 #: includes/settings/pay-by-paynow-pl-settings.php:91
 msgid "If you have any questions or issues, please contact our support at <a href=\"mailto:support@paynow.pl\">support@paynow.pl</a>"
