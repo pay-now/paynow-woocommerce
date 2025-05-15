@@ -131,7 +131,7 @@ msgstr ""
 
 #. translators: %s: PHP version
 #: pay-by-paynow-pl.php:26
-msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.1+."
+msgid "Your PHP version is %s but Pay by paynow.pl requires version 7.2+."
 msgstr ""
 
 #: includes/settings/pay-by-paynow-pl-settings.php:91

@@ -39,8 +39,8 @@
 }
 
 .payment_method_pay_by_paynow_pl_digital_wallets > label > img {
-	max-height: 2rem;
-	max-width: 5rem;
+	max-height: 2rem !important;
+	max-width: 10rem;
 	vertical-align: middle;
 }
 
