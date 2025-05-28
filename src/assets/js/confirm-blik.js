@@ -13,7 +13,7 @@
 				dataType: 'json',
 				type: 'get',
 				success: function (message) {
-					if (message.payment_status !== "PENDING") {
+					if (message.payment_status !== "PENDING" && message.payment_status !== "NEW") {
 						clearInterval( pollPaymentStatus );
 						window.location.replace( message.redirect_url );
 					}
