@@ -3,7 +3,7 @@ language: php
 matrix:
   fast_finish: true
   include:
-    - php: '7.2'
+    - php: '7.3.33'
       env: PHP_CODE_SNIFF=1
     - php: '7.4'
     - php: '8.0'

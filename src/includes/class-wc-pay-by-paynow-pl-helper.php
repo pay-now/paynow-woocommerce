@@ -105,6 +105,36 @@ class WC_Pay_By_Paynow_PL_Helper {
 	}
 
 	/**
+	 * @param $order_id
+	 * @param $order
+	 * @return void
+	 * @throws PaynowException
+	 */
+	public static function validate_order_payment_lock( $order_id, $order ) {
+
+		$key = '_paynow_transaction_lock_counter';
+
+		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+			$counter = intval( get_post_meta( $order_id, $key, true ) );
+		} else {
+			$counter = intval( $order->get_meta( $key ) );
+		}
+
+		if ( $counter >= 6 ) {
+			throw new PaynowException( 'Cannot create another payment for this order.' );
+		}
+
+		$counter++;
+
+		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
+			update_post_meta( $order_id, $key, $counter );
+		} else {
+			$order->update_meta_data( $key, $counter );
+			$order->save();
+		}
+	}
+
+	/**
 	 * Returns list of product categories
 	 *
 	 * @param $product_id
