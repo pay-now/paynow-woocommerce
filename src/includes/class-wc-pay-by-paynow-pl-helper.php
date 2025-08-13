@@ -115,12 +115,12 @@ class WC_Pay_By_Paynow_PL_Helper {
 		$key = '_paynow_transaction_lock_counter';
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
-			$counter = intval( get_post_meta( $order_id, $key, true) );
+			$counter = intval( get_post_meta( $order_id, $key, true ) );
 		} else {
 			$counter = intval( $order->get_meta( $key ) );
 		}
 
-		if ( $counter >= 6) {
+		if ( $counter >= 6 ) {
 			throw new PaynowException( 'Cannot create another payment for this order.' );
 		}
 
