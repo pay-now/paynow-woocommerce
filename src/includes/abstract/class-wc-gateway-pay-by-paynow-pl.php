@@ -177,8 +177,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		);
 		if ( isset( $payment_data['errors'] ) ) {
 			$response['result'] = 'failure';
-			$error_type = null;
-			$message    = null;
+			$error_type         = null;
+			$message            = null;
 			if ( isset( $payment_data['errors'] [0] ) && $payment_data['errors'][0] instanceof \Paynow\Exception\Error ) {
 				$error_type = $payment_data['errors'][0]->getType();
 				$message    = $payment_data['errors'][0]->getMessage();
@@ -203,8 +203,8 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 				default:
 					wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
 			}
-			if ( did_action('woocommerce_store_api_checkout_order_processed') ) {
-				throw new \Exception($response['error']);
+			if ( did_action( 'woocommerce_store_api_checkout_order_processed' ) ) {
+				throw new \Exception( $response['error'] );
 			}
 			return $response;
 		}
