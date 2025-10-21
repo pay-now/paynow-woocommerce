@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 2.5.10 (2025-10-21) =
+
+- Purchasing process improvements and fixes
+
 = 2.5.9 (2025-08-13) =
 
 - Security improvements – better protection for transactions against fraud.

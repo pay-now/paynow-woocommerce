@@ -48,7 +48,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	public function __construct() {
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 10 );
-		add_action( 'woocommerce_init', array( $this, 'woocommerce_dependencies' ) );
+		add_action( 'woocommerce_init', array( $this, 'woocommerce_dependencies' ), 9 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 		add_action( 'rest_api_init', 'wc_pay_by_paynow_pl_gateway_rest_init' );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wc_pay_by_paynow_pl_gateway_front_resources' ) );

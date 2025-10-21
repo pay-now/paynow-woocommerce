@@ -142,7 +142,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 		include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'payment_processor_info.php';
 	}
 
-	public function process_payment( $order_id ): array {
+	public function process_payment( $order_id ) {
 
 		$order    = wc_get_order( $order_id );
 		$response = array();
@@ -176,8 +176,9 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			! empty( $payment_method_fingerprint ) ? $payment_method_fingerprint : null
 		);
 		if ( isset( $payment_data['errors'] ) ) {
-			$error_type = null;
-			$message    = null;
+			$response['result'] = 'failure';
+			$error_type         = null;
+			$message            = null;
 			if ( isset( $payment_data['errors'] [0] ) && $payment_data['errors'][0] instanceof \Paynow\Exception\Error ) {
 				$error_type = $payment_data['errors'][0]->getType();
 				$message    = $payment_data['errors'][0]->getMessage();
@@ -185,18 +186,25 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			switch ( $error_type ) {
 				case 'AUTHORIZATION_CODE_INVALID':
 					wc_add_notice( __( 'Wrong BLIK code', 'pay-by-paynow-pl' ), 'error' );
+					$response['error'] = __( 'Wrong BLIK code', 'pay-by-paynow-pl' );
 					break;
 				case 'AUTHORIZATION_CODE_EXPIRED':
 					wc_add_notice( __( 'BLIK code has expired', 'pay-by-paynow-pl' ), 'error' );
+					$response['error'] = __( 'BLIK code has expired', 'pay-by-paynow-pl' );
 					break;
 				case 'AUTHORIZATION_CODE_USED':
 					wc_add_notice( __( 'BLIK code already used', 'pay-by-paynow-pl' ), 'error' );
+					$response['error'] = __( 'BLIK code already used', 'pay-by-paynow-pl' );
 					break;
 				case 'VALIDATION_ERROR':
 					wc_add_notice( $this->get_validation_errors_message( $message ), 'error' );
+					$response['error'] = $this->get_validation_errors_message( $message );
 					break;
 				default:
 					wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
+			}
+			if ( did_action( 'woocommerce_store_api_checkout_order_processed' ) ) {
+				throw new \Exception( $response['error'] );
 			}
 			return $response;
 		}
