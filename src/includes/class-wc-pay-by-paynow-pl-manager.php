@@ -100,13 +100,17 @@ class WC_Pay_By_Paynow_Pl_Manager {
 			'WC_Gateway_Pay_By_Paynow_PL_Paypo_Payment',
 		);
 
-		if ( ! is_admin() || is_admin() && isset( $_GET['page'] ) && 'wc-settings' !== $_GET['page'] ) {
-			$payment_gateways = array_merge(
-				$payment_gateways,
-				array(
-					'WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment',
-				)
-			);
+		if ( ! is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			$is_wc_settings = is_admin() && isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'];
+
+			if ( ! $is_wc_settings ) {
+				$payment_gateways = array_merge(
+					$payment_gateways,
+					array(
+						'WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment',
+					)
+				);
+			}
 		}
 
 		$this->payment_gateways = apply_filters(
@@ -139,6 +143,7 @@ class WC_Pay_By_Paynow_Pl_Manager {
 
 		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE, true );
 		}
 	}
 
