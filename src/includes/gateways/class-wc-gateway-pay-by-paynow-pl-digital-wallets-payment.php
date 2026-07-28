@@ -72,14 +72,9 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 
 	private function get_available_methods(): array {
 		$methods = array(
-			Type::CLICK_TO_PAY => null,
-			Type::GOOGLE_PAY   => null,
-			Type::APPLE_PAY    => null,
+			Type::GOOGLE_PAY => null,
+			Type::APPLE_PAY  => null,
 		);
-
-		if ( ! WC_Gateway_Pay_By_Paynow_PL_Click_To_Pay_Payment::is_available_for_digital_wallets() ) {
-			unset( $methods[ Type::CLICK_TO_PAY ] );
-		}
 
 		$available_methods = $this->get_only_payment_methods_for_type( array_keys( $methods ) );
 		foreach ( $available_methods as $method ) {

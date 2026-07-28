@@ -13,13 +13,15 @@ class WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment extends WC_Gateway_Pay_By_Payn
 		$this->icon              = 'https://static.paynow.pl/brand/paynow_logo_black.png';
 		$this->payment_method_id = null;
 		parent::__construct();
-		$this->title = $this->generate_title();
+		$this->title = __( 'BLIK, online transfer and card payment', 'pay-by-paynow-pl' );
 
 		add_filter(
 			'woocommerce_gateway_title',
 			function ( $title, $payment_id ) {
 				if ( WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX . 'paywall' === $payment_id ) {
-					return $this->generate_title();
+					if ( ! is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+						return $this->generate_title();
+					}
 				}
 
 				return $title;
@@ -50,13 +52,16 @@ class WC_Gateway_Pay_By_Paynow_PL_Paywall_Payment extends WC_Gateway_Pay_By_Payn
 	}
 
 	private function generate_title(): string {
-		$payment_methods = $this->gateway->payment_methods();
-		foreach ( $payment_methods ?? array() as $payment_method ) {
-			/** @var $payment_method PaymentMethod */
-			if ( Type::CARD === $payment_method->getType() && Status::ENABLED === $payment_method->getStatus() ) {
-				return __( 'BLIK, online transfer and card payment', 'pay-by-paynow-pl' );
+		if ( ! is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			$payment_methods = $this->gateway->payment_methods();
+
+			foreach ( $payment_methods ?? array() as $payment_method ) {
+				if ( Type::CARD === $payment_method->getType() && Status::ENABLED === $payment_method->getStatus() ) {
+					return __( 'BLIK, online transfer and card payment', 'pay-by-paynow-pl' );
+				}
 			}
 		}
-		return __( 'BLIK, online transfer payment', 'pay-by-paynow-pl' );
+
+		return __( 'BLIK, online transfer and card payment', 'pay-by-paynow-pl' );
 	}
 }

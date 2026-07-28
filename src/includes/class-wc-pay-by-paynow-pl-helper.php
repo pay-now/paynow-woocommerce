@@ -191,4 +191,12 @@ class WC_Pay_By_Paynow_PL_Helper {
 
 		return strpos( $payment_method, WC_PAY_BY_PAYNOW_PL_PLUGIN_PREFIX ) !== false;
 	}
+
+	public static function fix_return_url_for_elementor_pro_if_enabled( $return_url ) {
+		if ( is_plugin_active( 'elementor-pro/elementor-pro.php' ) && strpos( $return_url, 'http' ) === false ) {
+			$return_url = rtrim( wc_get_checkout_url(), '/' ) . $return_url;
+		}
+
+		return $return_url;
+	}
 }

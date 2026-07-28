@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 2.5.11 (2026-07-28) =
+
+- Card payment and C2P improvements
+
 = 2.5.10 (2025-10-21) =
 
 - Purchasing process improvements and fixes

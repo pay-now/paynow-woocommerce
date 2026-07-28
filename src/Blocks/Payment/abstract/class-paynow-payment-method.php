@@ -20,6 +20,10 @@ class Paynow_Payment_Method extends AbstractPaymentMethodType {
 	 * @return void
 	 */
 	public function initialize() {
+		if ( ! function_exists( 'WC' ) || ! WC()->payment_gateways() ) {
+			return;
+		}
+
 		$payment_methods = WC()->payment_gateways()->payment_gateways();
 
 		foreach ( $payment_methods as $key => $gateway ) {
@@ -36,7 +40,12 @@ class Paynow_Payment_Method extends AbstractPaymentMethodType {
 	 * @return boolean
 	 */
 	public function is_active() {
-		return 'yes' === ( $this->payment_method ? $this->payment_method->enabled : 'no' );
+		if ( ! $this->payment_method ) {
+			$settings = get_option( 'woocommerce_' . $this->name . '_settings', array() );
+			return isset( $settings['enabled'] ) && 'yes' === $settings['enabled'];
+		}
+
+		return 'yes' === $this->payment_method->enabled;
 	}
 
 	/**
@@ -59,7 +68,8 @@ class Paynow_Payment_Method extends AbstractPaymentMethodType {
 	 */
 	protected function is_available() {
 		if ( empty( $this->payment_method ) ) {
-			return false;
+			$settings = get_option( 'woocommerce_' . $this->name . '_settings', array() );
+			return isset( $settings['enabled'] ) && 'yes' === $settings['enabled'];
 		}
 
 		return $this->payment_method->is_available();

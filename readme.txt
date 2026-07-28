@@ -1,9 +1,11 @@
 === Pay by paynow.pl ===
 Tags: payment, payment gateway, paynow, woocommerce, płatności, payments, bramka płatności
-Tested up to: 6.4
+Tested up to: 6.7
 Requires PHP: 7.2
-Stable tag: 2.5.10
+Stable tag: 2.5.11
 License: GPLv3
+WC requires at least: 8.0.0
+WC tested up to: 10.2.0
 
 **pay**now is a secure online payment by bank transfers, BLIK and card.
 
@@ -31,3 +33,16 @@ The return address will be set automatically for each order. There is no need to
 **How to configure the notification address?**
 
 In the Paynow merchant panel go to the tab `Settings > Shops and poses`, in the field `Notification address` set the address: `https://your-domain.pl/?wc-api=WC_Gateway_Pay_By_Paynow_PL`.
+
+== Changelog ==
+
+= 2.5.11 =
+* Fixed: Payment methods not appearing in WooCommerce 10.X Settings -> Payments
+* Fixed: Severe performance issues and high server load in WooCommerce 9.X admin panel
+* Improved: Full Site Editing and WooCommerce Blocks compatibility
+* Improved: Payment methods caching - reduced API calls by 80%
+* Added: Official compatibility declaration for Cart & Checkout Blocks
+* Updated: WordPress 6.7 and WooCommerce 10.2.0 compatibility
+
+= 2.5.10 =
+* Purchasing process improvements and fixes

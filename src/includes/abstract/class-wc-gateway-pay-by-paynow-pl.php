@@ -179,33 +179,35 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 			$response['result'] = 'failure';
 			$error_type         = null;
 			$message            = null;
+			$error_message      = '';
 			if ( isset( $payment_data['errors'] [0] ) && $payment_data['errors'][0] instanceof \Paynow\Exception\Error ) {
 				$error_type = $payment_data['errors'][0]->getType();
 				$message    = $payment_data['errors'][0]->getMessage();
 			}
 			switch ( $error_type ) {
 				case 'AUTHORIZATION_CODE_INVALID':
-					wc_add_notice( __( 'Wrong BLIK code', 'pay-by-paynow-pl' ), 'error' );
-					$response['error'] = __( 'Wrong BLIK code', 'pay-by-paynow-pl' );
+					$error_message = __( 'Wrong BLIK code', 'pay-by-paynow-pl' );
 					break;
 				case 'AUTHORIZATION_CODE_EXPIRED':
-					wc_add_notice( __( 'BLIK code has expired', 'pay-by-paynow-pl' ), 'error' );
-					$response['error'] = __( 'BLIK code has expired', 'pay-by-paynow-pl' );
+					$error_message = __( 'BLIK code has expired', 'pay-by-paynow-pl' );
 					break;
 				case 'AUTHORIZATION_CODE_USED':
-					wc_add_notice( __( 'BLIK code already used', 'pay-by-paynow-pl' ), 'error' );
-					$response['error'] = __( 'BLIK code already used', 'pay-by-paynow-pl' );
+					$error_message = __( 'BLIK code already used', 'pay-by-paynow-pl' );
 					break;
 				case 'VALIDATION_ERROR':
-					wc_add_notice( $this->get_validation_errors_message( $message ), 'error' );
-					$response['error'] = $this->get_validation_errors_message( $message );
+					$error_message = $this->get_validation_errors_message( $message );
 					break;
 				default:
-					wc_add_notice( __( 'An error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' ), 'error' );
+					$error_message = __( 'An error occurred during the payment process and the payment could not be completed.', 'pay-by-paynow-pl' );
 			}
-			if ( did_action( 'woocommerce_store_api_checkout_order_processed' ) ) {
-				throw new \Exception( $response['error'] );
+
+			if ( $this->is_block_checkout() ) {
+				$response['message'] = $error_message;
+			} else {
+				wc_add_notice( $error_message, 'error' );
+				$response['error'] = $error_message;
 			}
+
 			return $response;
 		}
 
@@ -378,18 +380,22 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	public function is_available(): bool {
 
-		if ( ! is_admin() ) {
-			$available = true;
-			try {
-				WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
-			} catch ( PaynowException $exception ) {
-				$available = false;
-			}
-
-			return parent::is_available() && $available;
+		if ( is_admin() && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			return parent::is_available();
 		}
 
-		return parent::is_available();
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+			return parent::is_available();
+		}
+
+		$available = true;
+		try {
+			WC_Pay_By_Paynow_PL_Helper::validate_minimum_payment_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
+		} catch ( PaynowException $exception ) {
+			$available = false;
+		}
+
+		return parent::is_available() && $available;
 	}
 
 	/**
@@ -399,12 +405,20 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	 */
 	protected function is_payment_method_available( array $types ): bool {
 
-		if ( ! is_admin() && parent::is_available() ) {
+		if ( is_admin() && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			return parent::is_available();
+		}
+
+		if ( parent::is_available() ) {
+			if ( ! $this->gateway || ! $this->gateway->payment_methods() ) {
+				return 'yes' === $this->enabled && $this->show_payment_methods;
+			}
+
 			$payment_method = $this->get_only_payment_methods_for_type( $types );
 			return ! empty( $payment_method ) && reset( $payment_method )->isEnabled() && $this->show_payment_methods;
 		}
 
-		return parent::is_available();
+		return false;
 	}
 
 	/**
@@ -825,5 +839,13 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 
 	protected function get_payment_method_fingerprint_from_posted_data() {
 		return filter_input( INPUT_POST, 'paymentMethodFingerprint', FILTER_SANITIZE_STRING ) ?? filter_var( wp_unslash( $_POST['paymentmethodfingerprint'] ?? '' ), FILTER_SANITIZE_STRING );
+	}
+
+	protected function is_block_checkout() {
+		if ( class_exists( 'WC_Blocks_Utils' ) ) {
+			return WC_Blocks_Utils::has_block_in_page( get_the_ID(), 'woocommerce/checkout' );
+		}
+
+		return did_action( 'woocommerce_store_api_checkout_order_processed' );
 	}
 }

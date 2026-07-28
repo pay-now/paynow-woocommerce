@@ -18,20 +18,25 @@ class WC_Gateway_Pay_By_Paynow_PL_Card_Payment extends WC_Gateway_Pay_By_Paynow_
 	}
 
 	public function payment_fields() {
-		$card_payment_methods = $this->get_only_payment_methods_for_type( array( Type::CARD ) );
-		$card_payment_method  = $card_payment_methods[0] ?? null;
-		if ( $card_payment_method ) {
+		$payment_method = $this->get_active_payment_method();
+		if ( $payment_method ) {
 			$method_block                   = 'card';
 			$idempotency_key                = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
 				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
 			);
 			$notices                        = $this->gateway->gdpr_notices( $idempotency_key );
-			$instruments                    = $card_payment_method->getSavedInstruments();
+			$instruments                    = $payment_method->getSavedInstruments();
 			$remove_saved_instrument_action = WC_Gateway_Pay_By_Paynow_PL_Remove_Instrument_Handler::get_rest_api_remove_instrument_url();
 			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'card_payment.php';
 		} else {
 			parent::payment_fields();
 		}
+	}
+
+	public function process_payment( $order_id ) {
+		$this->get_active_payment_method();
+
+		return parent::process_payment( $order_id );
 	}
 
 	/**
@@ -40,6 +45,45 @@ class WC_Gateway_Pay_By_Paynow_PL_Card_Payment extends WC_Gateway_Pay_By_Paynow_
 	 * @return bool
 	 */
 	public function is_available(): bool {
-		return $this->is_payment_method_available( array( Type::CARD ) );
+		if ( ! is_admin() && parent::is_available() ) {
+			$payment_method = $this->get_active_payment_method();
+
+			return $payment_method && $payment_method->isEnabled() && $this->show_payment_methods;
+		}
+
+		return parent::is_available();
+	}
+
+	public function get_paynow_icon_url(): string {
+		$this->get_active_payment_method();
+
+		return $this->icon;
+	}
+
+	private function get_active_payment_method() {
+		if ( WC_Gateway_Pay_By_Paynow_PL_Click_To_Pay_Payment::is_enabled() ) {
+			$click_to_pay_methods = $this->get_only_payment_methods_for_type( array( Type::CLICK_TO_PAY ) );
+			$click_to_pay_method  = $click_to_pay_methods[0] ?? null;
+			if ( $click_to_pay_method && $click_to_pay_method->isEnabled() ) {
+				$this->sync_payment_method_state( $click_to_pay_method );
+
+				return $click_to_pay_method;
+			}
+		}
+
+		$card_payment_methods = $this->get_only_payment_methods_for_type( array( Type::CARD ) );
+		$card_payment_method  = $card_payment_methods[0] ?? null;
+		if ( $card_payment_method ) {
+			$this->sync_payment_method_state( $card_payment_method );
+		}
+
+		return $card_payment_method;
+	}
+
+	private function sync_payment_method_state( $payment_method ): void {
+		$this->payment_method_id = $payment_method->getId();
+		$this->icon              = Type::CLICK_TO_PAY === $payment_method->getType()
+			? WC_Gateway_Pay_By_Paynow_PL_Click_To_Pay_Payment::get_icon_url()
+			: $payment_method->getImage();
 	}
 }

@@ -43,7 +43,7 @@ class Paynow_Card_Payment extends Paynow_Payment_Method {
 		return array(
 			'title'       => __( 'Card payment', 'pay-by-paynow-pl' ),
 			'description' => __( 'Secure and fast payments provided by paynow.pl', 'pay-by-paynow-pl' ),
-			'iconurl'     => 'https://static.paynow.pl/payment-method-icons/2002.png',
+			'iconurl'     => $this->payment_method ? $this->payment_method->get_paynow_icon_url() : 'https://static.paynow.pl/payment-method-icons/2002.png',
 			'available'   => $this->is_available(),
 			'fields'      => $this->get_payment_fields(),
 		);

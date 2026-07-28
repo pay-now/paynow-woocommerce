@@ -72,6 +72,7 @@ class Paynow_Gateway {
 		}
 
 		$return_url = rtrim( $return_url, '?' );
+		$return_url = WC_Pay_By_Paynow_PL_Helper::fix_return_url_for_elementor_pro_if_enabled( $return_url );
 
 		$currency     = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->get_order_currency() : $order->get_currency();
 		$order_id     = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
@@ -332,6 +333,8 @@ class Paynow_Gateway {
 			foreach ( $exception->getErrors() as $error ) {
 				WC_Pay_By_Paynow_PL_Logger::error( $error->getMessage() );
 			}
+		} catch ( Throwable $e ) {
+			WC_Pay_By_Paynow_PL_Logger::error( $e->getMessage() );
 		}
 	}
 
@@ -350,9 +353,13 @@ class Paynow_Gateway {
 	 */
 	public function payment_methods(): ?array {
 
+		if ( is_admin() && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			return null;
+		}
+
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
 
-		if ( ! $this->client || did_action( 'wp_loaded' ) === 0 ) {
+		if ( ! $this->client ) {
 			return null;
 		}
 
@@ -365,7 +372,7 @@ class Paynow_Gateway {
 			$payment_methods   = get_transient( $cache_key );
 			if ( false === $payment_methods ) {
 				WC_Pay_By_Paynow_PL_Logger::info(
-					'Retrieving payment methods {currency={}, amount={}, force={}}',
+					'Retrieving payment methods {currency={}, amount={}}',
 					array(
 						$currency,
 						$amount,
@@ -382,10 +389,11 @@ class Paynow_Gateway {
 					$payment_methods = 'null';
 				}
 
-				set_transient( $cache_key, $payment_methods, 3600 );
+				set_transient( $cache_key, $payment_methods, 86400 );
 			}
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
+			set_transient( $cache_key, 'null', 300 );
 		}
 
 		// replace string 'null' into real null
@@ -404,8 +412,8 @@ class Paynow_Gateway {
 	 */
 	public function remove_saved_instrument( $token ): bool {
 		try {
-			$amount    = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
 			$currency  = get_woocommerce_currency();
+			$amount    = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
 			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
 			delete_transient( $cache_key );
 
