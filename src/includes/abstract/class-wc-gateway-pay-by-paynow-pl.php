@@ -842,7 +842,7 @@ abstract class WC_Gateway_Pay_By_Paynow_PL extends WC_Payment_Gateway {
 	}
 
 	protected function is_block_checkout() {
-		if ( class_exists('WC_Blocks_Utils') ) {
+		if ( class_exists( 'WC_Blocks_Utils' ) ) {
 			return WC_Blocks_Utils::has_block_in_page( get_the_ID(), 'woocommerce/checkout' );
 		}
 

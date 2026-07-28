@@ -365,7 +365,7 @@ class Paynow_Gateway {
 
 		$payment_methods = array();
 		try {
-			$currency = get_woocommerce_currency();
+			$currency  = get_woocommerce_currency();
 			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
 
 			$apple_pay_enabled = sanitize_text_field( wp_unslash( $_COOKIE['applePayEnabled'] ?? '0' ) ) === '1';

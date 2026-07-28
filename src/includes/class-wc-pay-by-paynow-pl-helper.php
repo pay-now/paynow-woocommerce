@@ -193,7 +193,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 	}
 
 	public static function fix_return_url_for_elementor_pro_if_enabled( $return_url ) {
-		if (is_plugin_active( 'elementor-pro/elementor-pro.php' ) && strpos( $return_url, 'http' ) === false ) {
+		if ( is_plugin_active( 'elementor-pro/elementor-pro.php' ) && strpos( $return_url, 'http' ) === false ) {
 			$return_url = rtrim( wc_get_checkout_url(), '/' ) . $return_url;
 		}
 
