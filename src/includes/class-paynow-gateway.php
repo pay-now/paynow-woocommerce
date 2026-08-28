@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || exit();
 
 use Paynow\Client;
+use Paynow\Configuration;
 use Paynow\Environment;
 use Paynow\Exception\ConfigurationException;
 use Paynow\Exception\PaynowException;
@@ -19,6 +20,7 @@ use Paynow\Service\ShopConfiguration;
  */
 class Paynow_Gateway {
 
+	private const MAX_ORDER_ITEM_NAME_LENGTH = 120;
 	protected $settings;
 
 	protected $client;
@@ -47,6 +49,8 @@ class Paynow_Gateway {
 				);
 			}
 		}
+
+		$this->send_shop_plugin_status_request();
 	}
 
 	/**
@@ -56,19 +60,23 @@ class Paynow_Gateway {
 	 * @param $return_url
 	 * @param $payment_method_id
 	 * @param $authorization_code
+	 * @param $payment_method_token
+	 * @param $payment_method_fingerprint
 	 * @return array|array[]|void
 	 * @throws ConfigurationException
 	 */
-	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null ) {
+	public function payment_request( WC_Order $order, $return_url, $payment_method_id = null, $authorization_code = null, $payment_method_token = null, $payment_method_fingerprint = null ) {
 
 		if ( ! $this->client ) {
 			return;
 		}
 
 		$return_url = rtrim( $return_url, '?' );
+		$return_url = WC_Pay_By_Paynow_PL_Helper::fix_return_url_for_elementor_pro_if_enabled( $return_url );
 
 		$currency     = WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? $order->get_order_currency() : $order->get_currency();
 		$order_id     = WC_Pay_By_Paynow_PL_Helper::get_order_id( $order );
+		$customer_id  = get_current_user_id() > 0 ? get_current_user_id() : null;
 		$billing_data = $order->get_address();
 		$payment_data = array(
 			'amount'      => WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ),
@@ -84,6 +92,40 @@ class Paynow_Gateway {
 			'continueUrl' => $return_url,
 		);
 
+		try {
+			$payment_data['buyer']['address'] = array(
+				'billing' => array(
+					'street'          => $order->get_billing_address_1(),
+					'houseNumber'     => $order->get_billing_address_2(),
+					'apartmentNumber' => '',
+					'zipcode'         => $order->get_billing_postcode(),
+					'city'            => $order->get_billing_city(),
+					'county'          => $order->get_billing_state(),
+					'country'         => $order->get_billing_country(),
+				),
+			);
+
+			if ( $order->has_shipping_address() ) {
+				$payment_data['buyer']['address']['shipping'] = array(
+					'street'          => $order->get_shipping_address_1(),
+					'houseNumber'     => $order->get_shipping_address_2(),
+					'apartmentNumber' => '',
+					'zipcode'         => $order->get_shipping_postcode(),
+					'city'            => $order->get_shipping_city(),
+					'county'          => $order->get_shipping_state(),
+					'country'         => $order->get_shipping_country(),
+				);
+			} else {
+				$payment_data['buyer']['address']['shipping'] = $payment_data['buyer']['address']['billing'];
+			}
+		} catch ( Throwable $e ) {
+			WC_Pay_By_Paynow_PL_Logger::error( 'Cannot add addresses to payment data', array( 'msg' => $e->getMessage() ) );
+		}
+
+		if ( ! empty( $customer_id ) ) {
+			$payment_data['buyer']['externalId'] = WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id( $customer_id, $this->signature_key );
+		}
+
 		$logger_context = array(
 			WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_EXTERNAL_ID_FIELD_NAME => $order_id,
 		);
@@ -91,9 +133,18 @@ class Paynow_Gateway {
 		if ( ! empty( $payment_method_id ) ) {
 			$payment_data['paymentMethodId'] = $payment_method_id;
 		}
+
 		$is_blik = ! empty( $authorization_code );
 		if ( $is_blik ) {
 			$payment_data['authorizationCode'] = $authorization_code;
+		}
+
+		if ( ! empty( $payment_method_token ) ) {
+			$payment_data['paymentMethodToken'] = $payment_method_token;
+		}
+
+		if ( ! empty( $payment_method_fingerprint ) ) {
+			$payment_data['buyer']['deviceFingerprint'] = $payment_method_fingerprint;
 		}
 
 		if ( 'yes' === $this->settings['send_order_items'] ) {
@@ -101,19 +152,21 @@ class Paynow_Gateway {
 			foreach ( $order->get_items() as $item ) {
 				$product       = $item->get_product();
 				$order_items[] = array(
-					'name'     => $product->get_title(),
+					'name'     => self::truncate_order_item_name( $product->get_title() ),
 					'category' => WC_Pay_By_Paynow_PL_Helper::get_product_categories( $product->get_id() ),
 					'quantity' => $item->get_quantity(),
 					'price'    => WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ? wc_price( wc_get_price_including_tax( $product ) ) : $product->get_price_including_tax() ),
 				);
 			}
 
-			$order_items = array_filter(
-				$order_items,
-				function ( $item ) {
+			$order_items = array_values(
+				array_filter(
+					$order_items,
+					function ( $item ) {
 
-					return ! empty( $item['category'] );
-				}
+						return ! empty( $item['category'] );
+					}
+				)
 			);
 
 			if ( ! empty( $order_items ) ) {
@@ -125,7 +178,7 @@ class Paynow_Gateway {
 			$payment_data['validityTime'] = $this->settings['payment_validity_time'];
 		}
 
-		$idempotency_key = substr( uniqid( $order_id, true ), 0, 45 );
+		$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key( $order_id );
 		$payment         = new Payment( $this->client );
 
 		try {
@@ -149,10 +202,22 @@ class Paynow_Gateway {
 				WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $redirect_url,
 			);
 
+			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ) );
+			delete_transient( $cache_key );
+
 			WC_Pay_By_Paynow_PL_Logger::debug( 'Retrieved authorization response', array_merge( $logger_context, $payment_data ) );
 
 			return $payment_data;
 		} catch ( PaynowException $exception ) {
+			$errors = array();
+
+			foreach ( $exception->getErrors() as $e ) {
+				$errors[] = array(
+					'message' => $e->getMessage(),
+					'type'    => $e->getType(),
+				);
+			}
+
 			WC_Pay_By_Paynow_PL_Logger::error(
 				'Authorization failed',
 				array_merge(
@@ -161,7 +226,7 @@ class Paynow_Gateway {
 						'service' => 'Payment',
 						'action'  => 'authorize',
 						'message' => $exception->getMessage(),
-						'errors'  => $exception->getErrors(),
+						'errors'  => $errors,
 					)
 				)
 			);
@@ -244,6 +309,36 @@ class Paynow_Gateway {
 	}
 
 	/**
+	 * Sends shop plugin status
+	 */
+	public function send_shop_plugin_status_request() {
+
+		if ( ! $this->client ) {
+			return;
+		}
+
+		$statuses = get_option( WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME );
+
+		if ( empty( $statuses ) ) {
+			return;
+		}
+
+		delete_option( WC_PAY_BY_PAYNOW_PL_PLUGIN_STATUSES_OPTIONS_NAME );
+
+		try {
+			$shop_configuration = new ShopConfiguration( $this->client );
+			$shop_configuration->status( $statuses );
+		} catch ( PaynowException $exception ) {
+			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
+			foreach ( $exception->getErrors() as $error ) {
+				WC_Pay_By_Paynow_PL_Logger::error( $error->getMessage() );
+			}
+		} catch ( Throwable $e ) {
+			WC_Pay_By_Paynow_PL_Logger::error( $e->getMessage() );
+		}
+	}
+
+	/**
 	 * @return string
 	 */
 	public function get_signature_key(): string {
@@ -258,18 +353,24 @@ class Paynow_Gateway {
 	 */
 	public function payment_methods(): ?array {
 
+		if ( is_admin() && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			return null;
+		}
+
 		$amount = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
-		if ( ! $this->client || ! $amount ) {
+
+		if ( ! $this->client ) {
 			return null;
 		}
 
 		$payment_methods = array();
 		try {
 			$currency  = get_woocommerce_currency();
-			$cache_key = 'paynow_payment_methods_' . substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount;
-			if ( ! is_null( WC()->session ) && ! empty( WC()->session->get( $cache_key ) ) ) {
-				$payment_methods = WC()->session->get( $cache_key );
-			} else {
+			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
+
+			$apple_pay_enabled = sanitize_text_field( wp_unslash( $_COOKIE['applePayEnabled'] ?? '0' ) ) === '1';
+			$payment_methods   = get_transient( $cache_key );
+			if ( false === $payment_methods ) {
 				WC_Pay_By_Paynow_PL_Logger::info(
 					'Retrieving payment methods {currency={}, amount={}}',
 					array(
@@ -277,16 +378,66 @@ class Paynow_Gateway {
 						$amount,
 					)
 				);
-				$payment_methods = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount )->getAll();
-				if ( ! is_null( WC()->session ) ) {
-					WC()->session->set( $cache_key, $payment_methods );
+				$idempotency_key   = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+					WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
+				);
+				$current_user_id   = get_current_user_id();
+				$buyer_external_id = $current_user_id > 0 ? WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id( $current_user_id, $this->signature_key ) : null;
+				$payment_methods   = ( new Payment( $this->client ) )->getPaymentMethods( $currency, $amount, $apple_pay_enabled, $idempotency_key, $buyer_external_id )->getAll();
+				// replace null value to string for caching
+				if ( null === $payment_methods ) {
+					$payment_methods = 'null';
 				}
+
+				set_transient( $cache_key, $payment_methods, 86400 );
 			}
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
+			set_transient( $cache_key, 'null', 300 );
 		}
 
+		// replace string 'null' into real null
+		// and false in case when get_transient returns false and then an exception will be thrown
+		if ( 'null' === $payment_methods || false === $payment_methods ) {
+			$payment_methods = null;
+		}
 		return $payment_methods;
+	}
+
+	/**
+	 * @param $token
+	 * @return bool
+	 * @throws ConfigurationException
+	 * @throws PaynowException
+	 */
+	public function remove_saved_instrument( $token ): bool {
+		try {
+			$currency  = get_woocommerce_currency();
+			$amount    = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
+			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
+			delete_transient( $cache_key );
+
+			$idempotency_key   = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
+			);
+			$buyer_external_id = WC_Pay_By_Paynow_PL_Keys_Generator::generate_buyer_external_id( get_current_user_id(), $this->signature_key );
+
+			( new Payment( $this->client ) )->removeSavedInstrument( $buyer_external_id, $token, $idempotency_key );
+
+			return true;
+		} catch ( PaynowException $exception ) {
+			WC_Pay_By_Paynow_PL_Logger::error(
+				'Remove saved instrument failed',
+				array(
+					'service' => 'Payment',
+					'action'  => 'removeSavedInstrument',
+					'message' => $exception->getMessage(),
+					'trace'   => $exception->getTraceAsString(),
+				)
+			);
+
+			return false;
+		}
 	}
 
 	/**
@@ -304,7 +455,8 @@ class Paynow_Gateway {
 		try {
 			$payment = new Payment( $this->client );
 
-			$response = $payment->status( $payment_id );
+			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key( $order_id );
+			$response        = $payment->status( $payment_id, $idempotency_key );
 			return $response->getStatus() ?? null;
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error(
@@ -322,9 +474,10 @@ class Paynow_Gateway {
 	/**
 	 * Return GDPR notices
 	 *
+	 * @param string $idempotency_key
 	 * @return array|null
 	 */
-	public function gdpr_notices(): ?array {
+	public function gdpr_notices( string $idempotency_key ): ?array {
 
 		$notices = array();
 		$locale  = $this->get_locale();
@@ -334,7 +487,7 @@ class Paynow_Gateway {
 				$notices = WC()->session->get( $cache_key );
 			} else {
 				WC_Pay_By_Paynow_PL_Logger::info( 'Retrieving GDPR notices' );
-				$notices = ( new Paynow\Service\DataProcessing( $this->client ) )->getNotices( $locale )->getAll();
+				$notices = ( new Paynow\Service\DataProcessing( $this->client ) )->getNotices( $locale, $idempotency_key )->getAll();
 				if ( ! is_null( WC()->session ) ) {
 					WC()->session->set( $cache_key, $notices );
 				}
@@ -354,5 +507,15 @@ class Paynow_Gateway {
 	private function get_locale(): string {
 
 		return str_replace( '_', '-', get_user_locale() );
+	}
+
+	public static function truncate_order_item_name( string $name ): string {
+		$name = trim( $name );
+
+		if ( strlen( $name ) <= self::MAX_ORDER_ITEM_NAME_LENGTH ) {
+			return $name;
+		}
+
+		return substr( $name, 0, self::MAX_ORDER_ITEM_NAME_LENGTH - 3 ) . '...';
 	}
 }

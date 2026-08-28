@@ -12,3 +12,9 @@ build
 node_modules/
 test-results/
 playwright-report/
+composer.lock
+docker-compose.yml
+Dockerfile
+develop
+
+!src/Blocks/Payment/build/

@@ -20,17 +20,20 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 	public function payment_fields() {
 		echo  esc_html( __( 'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ) );
 		try {
-			$method_block = 'pbls';
-			$methods      = $this->get_only_payment_methods_for_type( Type::PBL );
-			$notices      = $this->gateway->gdpr_notices();
-			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'pbl_payment.phtml';
+			$method_block    = 'pbls';
+			$methods         = $this->get_only_payment_methods_for_type( array( Type::PBL ) );
+			$idempotency_key = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
+				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
+			);
+			$notices         = $this->gateway->gdpr_notices( $idempotency_key );
+			include WC_PAY_BY_PAYNOW_PL_PLUGIN_FILE_PATH . WC_PAY_BY_PAYNOW_PL_PLUGIN_TEMPLATES_PATH . 'pbl_payment.php';
 		} catch ( PaynowException $exception ) {
 			WC_Pay_By_Paynow_PL_Logger::error( $exception->getMessage() );
 		}
 	}
 
 	public function validate_fields(): bool {
-		$payment_method_id = filter_input( INPUT_POST, 'paymentMethodId' );
+		$payment_method_id = $this->get_payment_method_id_from_posted_data();
 		if ( empty( $payment_method_id ) ) {
 			wc_add_notice( __( 'Please choose bank from the list below to make the payment', 'pay-by-paynow-pl' ), 'error' );
 
@@ -47,7 +50,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 	 */
 	public function is_available(): bool {
 		if ( ! is_admin() ) {
-			$payment_methods          = $this->get_only_payment_methods_for_type( Type::PBL );
+			$payment_methods          = $this->get_only_payment_methods_for_type( array( Type::PBL ) );
 			$filtered_payment_methods = array_filter(
 				$payment_methods,
 				function ( $payment_method ) {
@@ -55,7 +58,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 				}
 			);
 
-			return parent::is_available() && ! empty( $filtered_payment_methods );
+			return parent::is_available() && ! empty( $filtered_payment_methods ) && $this->show_payment_methods;
 		}
 
 		return parent::is_available();
