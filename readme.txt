@@ -2,7 +2,7 @@
 Tags: payment, payment gateway, paynow, woocommerce, płatności, payments, bramka płatności
 Tested up to: 6.7
 Requires PHP: 7.2
-Stable tag: 2.5.11
+Stable tag: 2.5.12
 License: GPLv3
 WC requires at least: 8.0.0
 WC tested up to: 10.2.0

@@ -100,7 +100,11 @@ class WC_Pay_By_Paynow_Pl_Manager {
 			'WC_Gateway_Pay_By_Paynow_PL_Paypo_Payment',
 		);
 
-		if ( ! is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+		if ( ! is_admin() ||
+			( defined( 'REST_REQUEST' ) && REST_REQUEST ) ||
+			$this->check_if_is_admin_post_edit_page() ||
+			is_ajax()
+		) {
 			$is_wc_settings = is_admin() && isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'];
 
 			if ( ! $is_wc_settings ) {
@@ -182,6 +186,29 @@ class WC_Pay_By_Paynow_Pl_Manager {
 	public function payment_gateways(): array {
 
 		return $this->payment_gateways;
+	}
+
+	/**
+	 * Determines is user is on edit post page on admin side
+	 *
+	 * @return bool
+	 */
+	private function check_if_is_admin_post_edit_page(): bool {
+
+		if ( ! is_admin() || ! isset( $_GET['action'] ) || 'edit' !== $_GET['action'] ) {
+			return false;
+		}
+
+		$request_uri = isset( $_SERVER['REQUEST_URI'] )
+			? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) )
+			: '';
+
+		if ( false !== strpos( $request_uri, 'wp-admin/post.php' ) ) {
+			return true;
+		}
+
+		// HPOS order edit screen (wp-admin/admin.php?page=wc-orders&action=edit&id=...).
+		return isset( $_GET['page'] ) && 'wc-orders' === $_GET['page'];
 	}
 }
 

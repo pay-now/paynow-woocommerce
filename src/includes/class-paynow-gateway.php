@@ -136,7 +136,9 @@ class Paynow_Gateway {
 
 		$is_blik = ! empty( $authorization_code );
 		if ( $is_blik ) {
-			$payment_data['authorizationCode'] = $authorization_code;
+			$payment_data['authorizationCode']  = $authorization_code;
+			$payment_data['buyer']['ipAddress'] = $order->get_customer_ip_address();
+			$payment_data['buyer']['userAgent'] = $order->get_customer_user_agent();
 		}
 
 		if ( ! empty( $payment_method_token ) ) {

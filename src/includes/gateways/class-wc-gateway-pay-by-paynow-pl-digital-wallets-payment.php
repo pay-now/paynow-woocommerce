@@ -16,7 +16,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 	}
 
 	public function payment_fields() {
-		echo  esc_html( __( 'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ) );
+		echo esc_html( __( 'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ) );
 		try {
 			$method_block = 'digital-wallets';
 
@@ -58,7 +58,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Digital_Wallets_Payment extends WC_Gateway_Pay
 		}
 
 		$types = array_map(
-			function( $dw ) {
+			function ( $dw ) {
 				return strtolower( substr( $dw->getType(), 0, 1 ) );
 			},
 			$payments
