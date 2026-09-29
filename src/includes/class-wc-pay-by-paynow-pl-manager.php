@@ -199,7 +199,11 @@ class WC_Pay_By_Paynow_Pl_Manager {
 			return false;
 		}
 
-		if ( strpos( $_SERVER['REQUEST_URI'], 'wp-admin/post.php' ) !== false ) {
+		$request_uri = isset( $_SERVER['REQUEST_URI'] )
+			? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) )
+			: '';
+
+		if ( false !== strpos( $request_uri, 'wp-admin/post.php' ) ) {
 			return true;
 		}
 

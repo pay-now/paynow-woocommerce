@@ -18,7 +18,7 @@ class WC_Gateway_Pay_By_Paynow_PL_Pbl_Payment extends WC_Gateway_Pay_By_Paynow_P
 	}
 
 	public function payment_fields() {
-		echo  esc_html( __( 'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ) );
+		echo esc_html( __( 'You will be redirected to payment provider page.', 'pay-by-paynow-pl' ) );
 		try {
 			$method_block    = 'pbls';
 			$methods         = $this->get_only_payment_methods_for_type( array( Type::PBL ) );

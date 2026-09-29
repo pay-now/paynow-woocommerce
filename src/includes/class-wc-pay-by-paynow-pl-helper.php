@@ -124,7 +124,7 @@ class WC_Pay_By_Paynow_PL_Helper {
 			throw new PaynowException( 'Cannot create another payment for this order.' );
 		}
 
-		$counter++;
+		++$counter;
 
 		if ( WC_Pay_By_Paynow_PL_Helper::is_old_wc_version() ) {
 			update_post_meta( $order_id, $key, $counter );

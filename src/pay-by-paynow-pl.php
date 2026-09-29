@@ -104,6 +104,5 @@ function wc_pay_by_paynow_pl_upgrade_hook_action( $upgrader_object, $options ) {
 	} catch ( Throwable $e ) {
 		//
 	}
-
 }
 add_action( 'upgrader_process_complete', 'wc_pay_by_paynow_pl_upgrade_hook_action', 10, 2 );

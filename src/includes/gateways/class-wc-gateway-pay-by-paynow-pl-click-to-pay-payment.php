@@ -32,5 +32,4 @@ class WC_Gateway_Pay_By_Paynow_PL_Click_To_Pay_Payment extends WC_Gateway_Pay_By
 			return false;
 		}
 	}
-
 }

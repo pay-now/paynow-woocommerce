@@ -14,6 +14,9 @@
     <!-- Exclude minified Javascript files. -->
     <exclude-pattern>*.min.js</exclude-pattern>
 
+    <!-- Exclude generated block build assets. -->
+    <exclude-pattern>*/Blocks/Payment/build/*</exclude-pattern>
+
     <exclude-pattern>*.js</exclude-pattern>
 
     <!-- Strip the filepaths down to the relevant bit. -->
@@ -28,6 +31,9 @@
 
     <rule ref="WordPress-Core"/>
     <rule ref="WordPress.Security.ValidatedSanitizedInput"/>
-    <rule ref="WordPress.Security.EscapeOutput"/>
+    <rule ref="WordPress.Security.EscapeOutput">
+        <!-- WPCS 3.x extended this sniff to exception messages, which are not output. -->
+        <exclude name="WordPress.Security.EscapeOutput.ExceptionNotEscaped"/>
+    </rule>
 
 </ruleset>
