@@ -53,7 +53,7 @@ function addApplePayEnabledToCookie() {
 		applePayEnabled = window.ApplePaySession.canMakePayments();
 	}
 
-	document.cookie = 'applePayEnabled=' + (applePayEnabled ? '1' : '0');
+	document.cookie = 'applePayEnabled=' + (applePayEnabled ? '1' : '0') + '; path=/';
 }
 
 function addFingerprintToCardPayment() {

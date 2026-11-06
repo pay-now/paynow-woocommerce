@@ -204,8 +204,7 @@ class Paynow_Gateway {
 				WC_Pay_By_Paynow_PL_Helper::NOTIFICATION_REDIRECT_URL_FIELD_NAME => $redirect_url,
 			);
 
-			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ) );
-			delete_transient( $cache_key );
+			delete_transient( $this->get_payment_methods_cache_key( $currency, WC_Pay_By_Paynow_PL_Helper::get_amount( $order->get_total() ) ) );
 
 			WC_Pay_By_Paynow_PL_Logger::debug( 'Retrieved authorization response', array_merge( $logger_context, $payment_data ) );
 
@@ -349,6 +348,22 @@ class Paynow_Gateway {
 	}
 
 	/**
+	 * @param string $currency
+	 * @param int    $amount
+	 * @return string
+	 */
+	private function get_payment_methods_cache_key( string $currency, $amount ): string {
+		return 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount . '_' . (int) $this->is_apple_pay_enabled() . '_' . get_current_user_id() );
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function is_apple_pay_enabled(): bool {
+		return sanitize_text_field( wp_unslash( $_COOKIE['applePayEnabled'] ?? '0' ) ) === '1';
+	}
+
+	/**
 	 * Return available payment methods
 	 *
 	 * @return PaymentMethod[]|null
@@ -368,9 +383,9 @@ class Paynow_Gateway {
 		$payment_methods = array();
 		try {
 			$currency  = get_woocommerce_currency();
-			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
+			$cache_key = $this->get_payment_methods_cache_key( $currency, $amount );
 
-			$apple_pay_enabled = sanitize_text_field( wp_unslash( $_COOKIE['applePayEnabled'] ?? '0' ) ) === '1';
+			$apple_pay_enabled = $this->is_apple_pay_enabled();
 			$payment_methods   = get_transient( $cache_key );
 			if ( false === $payment_methods ) {
 				WC_Pay_By_Paynow_PL_Logger::info(
@@ -414,10 +429,9 @@ class Paynow_Gateway {
 	 */
 	public function remove_saved_instrument( $token ): bool {
 		try {
-			$currency  = get_woocommerce_currency();
-			$amount    = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
-			$cache_key = 'paynow_payment_methods__' . md5( substr( $this->get_signature_key(), 0, 8 ) . '_' . $currency . '_' . $amount );
-			delete_transient( $cache_key );
+			$currency = get_woocommerce_currency();
+			$amount   = WC_Pay_By_Paynow_PL_Helper::get_amount( WC_Pay_By_Paynow_PL_Helper::get_payment_amount() );
+			delete_transient( $this->get_payment_methods_cache_key( $currency, $amount ) );
 
 			$idempotency_key   = WC_Pay_By_Paynow_PL_Keys_Generator::generate_idempotency_key(
 				WC_Pay_By_Paynow_PL_Keys_Generator::generate_external_id_from_cart()
